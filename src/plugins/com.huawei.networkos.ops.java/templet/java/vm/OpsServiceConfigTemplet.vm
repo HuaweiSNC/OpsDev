@@ -1,0 +1,21 @@
+<deviceset>
+#foreach($item in ${opsdevices})
+  <device>
+    <name>${item.getName()}</name>
+    <deviceName>${item.getDevicename()}</deviceName>
+    <protocal>${item.getProtocal()}</protocal>
+    <server>${item.getServer()}</server>
+    <port>${item.getPort()}</port>
+    <userName>${item.getUserName()}</userName>
+    <passwd>${item.getPasswd()}</passwd>
+    <id>${item.getDeviceId()}</id>
+    <version>${item.getXmlVersion()}</version>
+    <productType>${item.getProductType()}</productType>
+    <trustStore>${item.getTrustStore()}</trustStore>
+    <storePassword>${item.getStorePassword()}</storePassword>
+  </device>
+#end
+</deviceset>
+ 
+
+   

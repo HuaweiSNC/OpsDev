@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="com.huawei.networkos.ops.python.PythonCategory"
+            name="OpsDev"/>
+   </extension>
+ 
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="com.huawei.networkos.opsdev"
+            name="OpsDev"/>
+      <view
+            category="com.huawei.networkos.opsdev"
+            class="com.huawei.networkos.ops.views.DeviceView"
+            icon="icons/device_node.png"
+            id="com.huawei.networkos.ops.views.DeviceView"
+            name="OPS Devices">
+      </view>
+      <view
+            category="com.huawei.networkos.opsdev"
+            class="com.huawei.networkos.ops.views.NetworkMonitorView"
+            icon="icons/network-idle.png"
+            id="com.huawei.networkos.ops.views.NetworkMonitorView"
+            name="OPS NetworkMonitor">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+      </perspectiveExtension>
+   </extension>
+   
+  <extension
+        point="org.eclipse.ui.console.consoleFactories">
+     <consoleFactory
+           class="com.huawei.networkos.opsdev.core.utils.ConsoleFactory"
+           id="com.huawei.networkos.opsdev.core.utils.ConsoleFactory"
+           label="console">
+     </consoleFactory>
+  </extension>
+  
+  <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="com.huawei.networkos.ops.properties.SchemaFilePropertyPage"
+            id="com.huawei.networkos.ops.java.properties.SchemaFilePropertyPage"
+            name="OpsDev - SchemaFile"
+            >
+      </page>
+    </extension>
+ 	<extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="com.huawei.networkos.ops.properties.OpsPathPropertyPage"
+            id="com.huawei.networkos.ops.java.properties.OpsPathPropertyPage"
+            name="OpsDev - Path"
+            >
+      </page>
+   </extension>
+   
+   
+<extension point="org.eclipse.ui.actionSets">
+  <actionSet
+        label="OpsDev Navigate"
+        visible="false"
+        id="com.huawei.networkos.opsdev.navigate.actionSet">
+     <menu
+           label="Ops&amp;dev"
+           id="pyGeneralMenu">
+        <separator name="opsNavigateGroup"/>
+     </menu>
+
+          <action
+           label="&amp;About OpsDev"
+           icon="icons/opentype.gif"
+           class="com.huawei.networkos.ops.views.AboutOpsdevWorkbench"
+           tooltip="OpsDev: About OpsDev"
+           menubarPath="opsGeneralMenu/opsNavigateGroup"
+           toolbarPath="opsNavigateGroup"
+           id="com.huawei.networkos.ops.views.AboutOpsdevWorkbench"
+           definitionId="com.huawei.networkos.opsdev.aboutOpsdevWorkbench"
+           >
+     </action>
+  </actionSet>
+</extension>
+
+<extension point="org.eclipse.ui.commands">
+
+  <category
+            id="com.huawei.networkos.opsdev.Category"
+            name="OpsDev"/>
+            <command
+            name="About OpsDev (Global)"
+            description="About OpsDev (Global)"
+            categoryId="com.huawei.networkos.opsdev.Category"
+            id="com.huawei.networkos.opsdev.aboutOpsdevWorkbench">
+      </command>
+</extension>
+   
+  <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="OpsDev"
+            visible="true"
+            id="opsdev.actionSet">
+         <menu
+               label="Ops&amp;dev"
+               id="opsSampleMenu">
+            <separator
+                  name="pyNavigateGroup">
+            </separator>
+         </menu>
+         <action
+               label="&amp;About OpsDev"
+               icon="icons/opentype.gif"
+               class="com.huawei.networkos.ops.views.AboutOpsdevWorkbench"
+               tooltip="OpsDev: About OpsDev"
+               menubarPath="opsSampleMenu/opsNavigateGroup"
+               toolbarPath="opsNavigateGroup"
+               id="com.huawei.networkos.ops.views.AboutOpsdevWorkbench">
+         </action>
+      </actionSet>
+   </extension>
+
+</plugin>

@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Python
+Bundle-SymbolicName: com.huawei.networkos.ops.python; singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.huawei.networkos.ops.python.Activator
+Bundle-Vendor: HUAWEI
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources;bundle-version="3.7.100",
+ org.python.pydev.core;bundle-version="2.7.5";resolution:=optional,
+ org.python.pydev.shared_ui;bundle-version="2.7.5";resolution:=optional,
+ com.huawei.networkos.ops.core;bundle-version="1.0.0",
+ org.eclipse.ui.browser;bundle-version="3.3.100",
+ com.huawei.networkos.ops;bundle-version="1.0.0",
+ org.eclipse.ui.ide;bundle-version="3.7.0",
+ org.eclipse.debug.core;bundle-version="3.7.0",
+ org.python.pydev.debug;bundle-version="2.7.5";resolution:=optional,
+ org.eclipse.jface.text;bundle-version="3.7.1",
+ org.python.pydev;bundle-version="2.7.5"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Import-Package: 
+ org.eclipse.ui.actions,
+ org.eclipse.ui.texteditor,
+ org.eclipse.ui.wizards.newresource,
+ org.python.pydev.debug.core,
+ org.python.pydev.editor
+Bundle-ClassPath: .,
+ core.jar
+

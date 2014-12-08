@@ -1,0 +1,26 @@
+   
+import javatemplet.HandleInfoService;
+import javatemplet.OpsRestCaller;
+
+public OpsRestCaller ${deviceConfigName}_${handleName}(${attributesAndKeys}){
+	HandleInfoService handleInfoServiceInstance = new HandleInfoService(System.getProperty(String servicecfgxmlpath);
+	OpsRestCaller restCaller = handleInfoServiceInstance.__${deviceConfigName}_${handleName}__(${attributesAndKeys});
+	return restCaller;
+}
+
+public void transferExample(){
+	#foreach($items in ${attributesAndKeysExampleMap.keySet()})
+    ${items} = "${attributesAndKeysExampleMap.get($items)}";      
+	#end
+	print ${deviceConfigName}_${handleName}( ${attributesAndKeys});
+}
+
+    
+
+
+
+
+    
+
+    
+    

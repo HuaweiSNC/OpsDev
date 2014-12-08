@@ -1,0 +1,49 @@
+package main; 
+/**
+*@Created date: ${currentTime}
+*@sample for device manager
+*@author:  opsdev
+**/
+import util.OpsDevice;
+import util.OpsDeviceManager;
+
+#set($key='mainfunction')
+#foreach($item in ${otherAttribute.keySet()})
+#if($item==$key)
+#set($value=${otherAttribute.get($item)})                  
+#end        
+#end 
+
+public class Mainfunction{
+	
+	public static void main(String[] args){
+	
+	        //this is sample of OpsDeviceManager
+	        OpsDevice device = new OpsDevice("123","def","127.0.0.1",8080,"123456","NE5000E","127.0.0.1","root","2.0");
+	        OpsDeviceManager opsDeviceManager =new OpsDeviceManager(device);
+	        
+	        //add a device
+	        opsDeviceManager.addDevice("{\"device\":{\"username\": \"huawei\",\"devicename\": \"10.136.13.124\",\"passwd\": \"huaweiabc\",\"ip\": \"10.136.13.124\",\"productType\": \"NE5000E\",\"version\": \"2.0\",\"id\" : 1}}");
+	        String [] opsManager = opsDeviceManager.getDevices();
+	        System.out.println(opsManager[2]);
+	        
+	        //modify a device
+	        opsDeviceManager.modifyDevice("{\"device\":{\"username\": \"huawei\",\"devicename\": \"10.136.13.137\",\"passwd\": \"huaweiabc\",\"ip\": \"10.136.13.137\",\"productType\": \"NE5000E\",\"version\": \"2.0\",\"id\" : 1}}");
+	        String [] opsManager1 = opsDeviceManager.getDevices();
+	        System.out.println(opsManager1[2]);
+	        
+	        
+	        //get all devices
+	        String [] opsManager2 = opsDeviceManager.getDevices();
+	        System.out.println(opsManager2[2]);
+	        
+	        //get a device by name
+	        String [] opsManager3 = opsDeviceManager.getDevice(1);
+	        System.out.println(opsManager3[2]);
+	       
+	        //delete a device
+	        opsDeviceManager.delDevice(5);
+	        String [] opsManager4 = opsDeviceManager.getDevices();
+	        System.out.println(opsManager4[2]); 
+	    }
+}

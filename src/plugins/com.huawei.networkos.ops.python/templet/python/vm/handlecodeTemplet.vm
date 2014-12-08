@@ -1,0 +1,14 @@
+
+    def __${deviceConfigName}_${handleName}__(self,${attributesAndKeys}):
+        url = "${fullUrl}"
+#foreach($items in ${keys})
+        url.replace("${items}=%s","${items}="+${items})
+#end        
+        content = []
+#foreach($items in ${attributes})
+        content.append({"${items}",${items}})        
+#end        
+        restcaller = RestCaller(OPS_SERVICE_CONFIG.get("${deviceConfigName}"))
+        return ${pythonMethod}
+
+

@@ -1,0 +1,31 @@
+package main;
+/**
+*@Created date: ${currentTime}
+*@sample for device manager
+*@author:  opsdev
+**/
+
+import service.HandleInfoService;
+public class Mainfunction {
+#set($key='mainfunction')
+#foreach($item in ${otherAttribute.keySet()})
+#if($item==$key)
+#set($value=${otherAttribute.get($item)})                  
+#end        
+#end
+
+public Object device_defaultHandle()
+    {
+        HandleInfoService  handleInfoServiceInstance = HandleInfoService.getHandleInfoServiceInstance();
+        return handleInfoServiceInstance.__ifmdefaultHandle__();
+    }
+public void  ${value}(){
+   System.out.println("Hello World !");
+   System.out.println(device_defaultHandle());
+}   
+
+public static void main(String[] args) {
+		Mainfunction mf = new Mainfunction();
+		mf.${value}();
+	}
+ }

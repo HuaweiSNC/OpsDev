@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+    
+    <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="com.huawei.networkos.ops.python.PythonCategory"
+            name="OpsDev"/>
+      <wizard
+            canFinishEarly="false"
+            category="com.huawei.networkos.ops.python.PythonCategory"
+            class="com.huawei.networkos.ops.python.ui.wizards.project.PythonProjectWizard"
+            descriptionImage="icons/python_logo.png"
+            finalPerspective="org.python.pydev.ui.PythonPerspective"
+            hasPages="true"
+            icon="icons/python_16x16.png"
+            id="org.python.pydev.ui.wizards.project.PythonProjectWizard"
+            name="OpsDev Python Project"
+            preferredPerspectives="org.python.pydev.ui.PythonPerspective"
+            project="true">
+           <description>
+            Create a OpsDev project with Python support 
+           </description>
+      </wizard>
+      <wizard
+            canFinishEarly="false"
+            category="com.huawei.networkos.ops.python.PythonCategory"
+            class="org.python.pydev.ui.wizards.files.PythonSourceFolderWizard"
+            descriptionImage="icons/python_logo.png"
+            finalPerspective="org.python.pydev.ui.PythonPerspective"
+            hasPages="true"
+            icon="icons/packagefolder_obj.gif"
+            id="org.python.pydev.ui.wizards.files.PythonSourceFolderWizard"
+            name="Source Folder"
+            preferredPerspectives="org.python.pydev.ui.PythonPerspective"
+            project="false"/>
+      <wizard
+            canFinishEarly="false"
+            category="com.huawei.networkos.ops.python.PythonCategory"
+            class="org.python.pydev.ui.wizards.files.PythonPackageWizard"
+            descriptionImage="icons/python_logo.png"
+            finalPerspective="org.python.pydev.ui.PythonPerspective"
+            hasPages="true"
+            icon="icons/package_obj.gif"
+            id="org.python.pydev.ui.wizards.files.PythonPackageWizard"
+            name="OpsDev Package"
+            preferredPerspectives="org.python.pydev.ui.PythonPerspective"
+            project="false"/>
+      <wizard
+            canFinishEarly="false"
+            category="com.huawei.networkos.ops.python.PythonCategory"
+            class="org.python.pydev.ui.wizards.files.PythonModuleWizard"
+            descriptionImage="icons/python_logo.png"
+            finalPerspective="org.python.pydev.ui.PythonPerspective"
+            hasPages="true"
+            icon="icons/python_file.gif"
+            id="org.python.pydev.ui.wizards.files.PythonModuleWizard"
+            name="Python Model"
+            preferredPerspectives="org.python.pydev.ui.PythonPerspective"
+            project="false"/>
+       <wizard
+            canFinishEarly="false"
+            category="com.huawei.networkos.ops.python.PythonCategory"
+            class="com.huawei.networkos.ops.wizards.SampleNewWizard"
+            finalPerspective="org.python.pydev.ui.PythonPerspective"
+            hasPages="true"
+            icon="/icons/python_file.gif"
+            id="com.huawei.networkos.ops.wizards.SampleNewWizard"
+            name="Restful Api"
+            preferredPerspectives="org.python.pydev.ui.PythonPerspective"
+            project="false"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.python.pydev.ui.perspective.PythonPerspectiveFactory"
+            icon="icons/python_16x16.png"
+            id="org.python.pydev.ui.PythonPerspective"
+            name="OpsDev"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.python.pydev.ui.PythonPerspective">
+         <showInPart id="org.eclipse.ui.views.ResourceNavigator"/>
+         <showInPart id="org.python.pydev.navigator.view"/>
+         <showInPart id="org.eclipse.ui.views.ContentOutline"/>
+      </perspectiveExtension>
+   </extension>
+   
+   <extension
+         id="org.python.pydev.refactoring.popupContribution"
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="org.python.pydev.popupContribution"
+            targetID="#PyEditContext">
+         <action
+               class="com.huawei.networkos.ops.python.editor.actions.AddPostBodyAction"
+               definitionId="org.python.pydev.editor.actions.addpostbody"
+               id="com.huawei.networkos.ops.python.editor.actions.addpostbody"
+               label="Add post Body"
+               menubarPath="copy"
+               />
+      </viewerContribution>
+    </extension>
+   
+    <extension point="org.eclipse.ui.views">
+    	<view
+	        allowMultiple="false"
+	        category="com.huawei.networkos.opsdev"
+	        class="org.python.pydev.navigator.ui.PydevPackageExplorer"
+	        id="org.python.pydev.navigator.view"
+	        icon="icons/pydev_package_explorer.gif"
+	        name="OpsDev Package Explorer"/>
+    </extension>
+
+	<extension point="org.eclipse.ui.editorActions" 
+   		      name="OpsdevEditorContribution"
+   		      id="org.python.pydev.editorContribution">
+   		 <editorContribution
+            targetID="org.python.pydev.editor.PythonEditor"
+            id="org.python.pydev.editor.editorContribution">
+	 		<action
+               definitionId="org.python.pydev.editor.actions.addpostbody"
+               label="Add Post Body"
+               class="com.huawei.networkos.ops.python.editor.actions.AddPostBodyAction"
+               menubarPath="edit/copy"
+               id="org.python.pydev.editor.actions.addpostbody">
+         	</action>
+         </editorContribution>
+     </extension>
+     
+     <extension point="org.eclipse.ui.commands">
+    	<command
+            name="Add Post Body"
+            description="Add Post Body To The File"
+            categoryId="org.python.pydev.ui.category.source"
+            id="org.python.pydev.editor.actions.addpostbody">
+            </command>
+        
+     </extension>
+
+   	 <extension point="org.eclipse.ui.preferencePages">
+	      <page
+	            name="OpsDev"
+	            class="org.python.pydev.plugin.preferences.PydevRootPrefs"
+	            id="org.python.pydev.prefs">
+	      </page>
+   	 </extension>
+
+     <extension point="org.eclipse.ui.navigator.navigatorContent">
+	   <commonWizard menuGroupId="org.python.pydev.ui.wizards" type="new" wizardId="com.huawei.networkos.ops.wizards.SampleNewWizard">
+	     <enablement>
+	        <or>
+               <instanceof value="org.python.pydev.navigator.elements.PythonFolder"/>
+               <instanceof value="org.python.pydev.navigator.elements.PythonSourceFolder"/>
+	           <adapt type="org.eclipse.core.resources.IProject">
+	              <test
+	                    property="org.eclipse.core.resources.projectNature"
+	                    value="org.python.pydev.pythonNature"/>
+	           </adapt>
+	        </or>
+	     </enablement>
+	  </commonWizard>
+    </extension>
+
+    
+    
+    
+</plugin>

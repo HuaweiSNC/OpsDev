@@ -1,0 +1,39 @@
+'''
+@Created date: ${currentTime}
+@sample for device manager
+@author:  opsdev
+'''
+
+from HandleInfoService import HandleInfoService
+
+
+#set($key='mainfunction')
+#foreach($item in ${otherAttribute.keySet()})
+#if($item==$key)
+#set($value=${otherAttribute.get($item)})                  
+#end        
+#end  
+
+#=======================================================================================================================
+# device_defaultHandle
+# code by opsdevices ==> generate service call
+#=======================================================================================================================  
+def device_defaultHandle( ):
+    handleInfoServiceInstance = HandleInfoService()
+    ret  = handleInfoServiceInstance.__default_defaultHandle__()
+    return ret
+
+#=======================================================================================================================
+# ${value}
+#=======================================================================================================================  
+def ${value}():
+    print 'Hello World !' 
+    print device_defaultHandle()
+
+#=======================================================================================================================
+# main
+#=======================================================================================================================
+if __name__=='__main__':    
+    ${value}()     
+
+

@@ -1,0 +1,12 @@
+from HandleInfoService import HandleInfoService
+
+def ${deviceConfigName}_${handleName}( ${attributesAndKeys}):
+    handleInfoServiceInstance = HandleInfoService()
+    ret  = handleInfoServiceInstance.__${deviceConfigName}_${handleName}__(${attributesAndKeys})
+    return ret
+    
+def transferExample():
+#foreach($items in ${attributesAndKeysExampleMap.keySet()})
+    ${items} = "${attributesAndKeysExampleMap.get($items)}"        
+#end      
+    print ${deviceConfigName}_${handleName}( ${attributesAndKeys})    

@@ -1,0 +1,221 @@
+package com.huawei.network.opsdev.core;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.wink.client.ClientConfig;
+import org.apache.wink.client.ClientResponse;
+import org.apache.wink.client.Resource;
+import org.apache.wink.client.OpsRestClient;
+import org.apache.wink.client.handlers.OpsAuthSecurityHandler;
+
+/**
+ * HUAWEI restful api 
+ * 
+ * @author OPSDEV
+ * 
+ */
+public class OpsRestCaller {
+
+	private OpsDevice device = null;
+	public static final String ACTION_GET = "GET";
+	public static final String ACTION_POST = "POST";
+	public static final String ACTION_PUT = "PUT";
+	public static final String ACTION_DELETE = "DELETE";
+
+	public OpsRestCaller(OpsDevice ops) {
+		this.device = ops;
+	}
+	
+	static {
+		javax.net.ssl.HttpsURLConnection
+				.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+
+					public boolean verify(String hostname,
+							javax.net.ssl.SSLSession sslSession) {
+
+						if (hostname.equalsIgnoreCase(sslSession.getPeerHost())) {
+							return true;
+						}
+
+						return true;
+					}
+
+				});
+	}
+
+	/**
+	 * get,post,put,delete 
+	 * @param url
+	 * 
+	 */
+	public RetRpc get(String url) {
+		return restcall(url, null, ACTION_GET);
+	}
+
+	public RetRpc post(String url, String data) {
+		return restcall(url, data, ACTION_POST);
+	}
+
+	public RetRpc put(String url, String data) {
+		return restcall(url, data, ACTION_PUT);
+	}
+
+	public RetRpc delete(String url) {
+		return restcall(url, null, ACTION_DELETE);
+	}
+ 
+
+	public RetRpc restcall(String path, String data, String action) {
+        if (null == this.device) {
+            return null;
+        }
+        /**
+         * get url
+         * 
+         */
+        String urlpath = "/devices/" + this.device.getId() + path;
+        String tmpserverip = this.device.getServer();
+        int tmpserverport = this.device.getPort();
+        String protocal = this.device.getProtocal();
+        String userName = this.device.getUserName();
+        String password = this.device.getPasswd();
+        String trustStore = this.device.getTrustStore();
+        String storePassword = this.device.getStorePassword();
+        if (null != trustStore && trustStore.length() > 0
+                && null != storePassword && storePassword.length() > 0) {
+            System.setProperty("javax.net.ssl.trustStore", trustStore);
+            System.setProperty("javax.net.ssl.trustStorePassword",
+                    storePassword);
+        }
+
+        return connect(tmpserverip, tmpserverport, urlpath, action, data,
+                protocal, userName, password);
+    }
+	
+	/**
+	 * link http
+	 * 
+	 * @param server
+	 * @param port
+	 * @param url
+	 * @param method
+	 * @param data
+	 * @return
+	 */
+
+	public RetRpc connect(String server, int port, String url, String method,
+			String data, String protocal, String userName, String password) {
+
+		RetRpc ret = new RetRpc();
+		String address;
+		address = protocal + "://" + server + ":" + port + url;
+
+		ClientConfig config = new ClientConfig();
+		config.connectTimeout(600000);
+		if (null != userName && userName.length() > 0 && null != password
+				&& password.length() > 0) {
+			OpsAuthSecurityHandler opsAuthHandler = new OpsAuthSecurityHandler();
+			opsAuthHandler.setUserName(userName);
+			opsAuthHandler.setPassword(password);
+			config.handlers(opsAuthHandler);
+		}
+	 
+		// create the rest client instance
+		OpsRestClient client = new OpsRestClient(config);
+		// create the resource instance to interact with
+		Resource resource = client.resource(address);
+		 
+		// issue the request
+		ClientResponse response = null;
+
+		try {
+			if (ACTION_POST.equals(method)) {
+				response = resource.post(data);
+			} else if (ACTION_PUT.equals(method)) {
+				response = resource.put(data);
+
+			} else if (ACTION_DELETE.equals(method)) {
+				response = resource.delete();
+
+			} else {
+				response = resource.get();
+			}
+		} catch (Exception ex) {
+			
+			ex.printStackTrace();
+			ret.setStatusCode(500);
+			ret.setMsg(ex.getMessage());
+			ret.setStatus("connected failed .");
+			
+			return ret;
+		}  
+		
+		int code = response.getStatusCode();
+		String msg = response.getMessage();
+		ret.setStatusCode(code);
+		ret.setMsg(msg);
+
+		// deserialize response
+		ret.setContent(response.getEntity(String.class));
+
+		return ret;
+	}
+
+
+    public RetRpc connect(String server, int port, String url, String method,
+            String data, String protocal, String authheader ) {
+
+        RetRpc ret = new RetRpc();
+        String address;
+        address = protocal + "://" + server + ":" + port + url;
+
+        ClientConfig config = new ClientConfig();
+        config.connectTimeout(600000);
+        
+     
+        // create the rest client instance
+        OpsRestClient client = new OpsRestClient(config);
+        // create the resource instance to interact with
+        Resource resource = client.resource(address);
+        if (StringUtils.isNotEmpty(authheader)){
+            
+            resource.header("Authorization",  authheader);
+        }
+         
+        // issue the request
+        ClientResponse response = null;
+
+        try {
+            if (ACTION_POST.equals(method)) {
+                response = resource.post(data);
+            } else if (ACTION_PUT.equals(method)) {
+                response = resource.put(data);
+
+            } else if (ACTION_DELETE.equals(method)) {
+                response = resource.delete();
+
+            } else {
+                response = resource.get();
+            }
+        } catch (Exception ex) {
+            
+            ex.printStackTrace();
+            ret.setStatusCode(500);
+            ret.setMsg(ex.getMessage());
+            ret.setStatus("connected failed .");
+            
+            
+            return ret;
+        }  
+        
+     
+        int code = response.getStatusCode();
+        String msg = response.getMessage();
+        ret.setStatusCode(code);
+        ret.setMsg(msg);
+
+        // deserialize response
+        ret.setContent(response.getEntity(String.class));
+
+        return ret;
+    }
+}

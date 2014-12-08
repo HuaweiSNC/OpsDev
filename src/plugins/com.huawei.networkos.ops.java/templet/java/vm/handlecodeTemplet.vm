@@ -1,0 +1,10 @@
+
+	public Object __${deviceConfigName}_${handleName}__(${attributesAndKeys}){
+		String url = "${fullUrl}";
+#foreach($items in ${keys})
+	    url.replace("${items}=%s","${items}="+${items});
+#end
+		defaultconfig = OpsServiceConfigXmlutil.getDevicesmap().get("default");
+		OpsRestCaller restCaller = new OpsRestCaller(defaultconfig);
+		return restCaller.get(url)
+	}

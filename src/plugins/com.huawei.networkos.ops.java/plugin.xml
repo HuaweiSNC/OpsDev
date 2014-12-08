@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+	<extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            canFinishEarly="false"
+            category="com.huawei.networkos.ops.python.PythonCategory"
+            class="com.huawei.networkos.ops.java.wizards.NewJavaProjectWizard"
+            hasPages="true"
+            icon="/icons/sample.gif"
+            id="com.huawei.networkos.ops.java.wizard.NewProjectWizard"
+            name="OpsDev Java Project"
+            project="true">
+           <description>
+            Create a OpsDev project with JAVA support 
+           </description>
+      </wizard>
+    </extension>
+  
+    <extension
+         point="org.eclipse.ui.keywords">
+     <keyword
+            id="com.huawei.networkos.ops.restful.wizards.java"
+            label="java"/>
+    </extension>
+   
+    <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            name="OPSDev"
+            parentCategory="org.eclipse.jdt.ui.java"
+            id="com.huawei.networkos.ops.java">
+      </category>
+      <wizard
+            name="Restful Api"
+            icon="$nl$/icons/python_file.gif"
+            category="org.eclipse.jdt.ui.java/com.huawei.networkos.ops.java"
+            id="com.huawei.networkos.ops.wizards.JavaRestfulCreationWizard">
+         <class
+               class="com.huawei.networkos.ops.wizards.NewRestfulApiWizard">
+            <parameter
+                  name="javatype"
+                  value="true">
+            </parameter>
+         </class>
+            
+ 
+         <description>
+            One Wizard of java for create restful api 
+         </description>
+         <keywordReference id="com.huawei.networkos.ops.restful.wizards.java"/>
+      </wizard>
+      <!--wizard
+            name="%TestSuiteWizard.name"
+            icon="$nl$/icons/full/etool16/new_testsuite.gif"
+            category="org.eclipse.jdt.ui.java/org.eclipse.jdt.junit"
+            class="org.eclipse.jdt.internal.junit.wizards.NewTestSuiteCreationWizard"
+            id="org.eclipse.jdt.junit.wizards.NewTestSuiteCreationWizard">
+         <description>
+            %SuiteWizard.description
+         </description>
+         <keywordReference id="org.eclipse.jdt.junit.wizards.java"/>
+      </wizard-->
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="OPSDev"
+            visible="false"
+            id="com.huawei.networkos.ops.JavaActionSet">
+       
+      </actionSet>
+   </extension>
+   
+    <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+  
+         <newWizardShortcut
+               id="com.huawei.networkos.ops.wizards.JavaRestfulCreationWizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <actionSet
+               id="com.huawei.networkos.ops.JavaActionSet">
+         </actionSet>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaBrowsingPerspective">
+         <actionSet
+               id="com.huawei.networkos.ops.JavaActionSet">
+         </actionSet>
+         <newWizardShortcut
+               id="com.huawei.networkos.ops.wizards.JavaRestfulCreationWizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+ 
+         <newWizardShortcut
+               id="com.huawei.networkos.ops.wizards.JavaRestfulCreationWizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <actionSet
+               id="com.huawei.networkos.ops.JavaActionSet">
+         </actionSet>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaBrowsingPerspective">
+         <actionSet
+               id="com.huawei.networkos.ops.JavaActionSet">
+         </actionSet>
+         <newWizardShortcut
+               id="com.huawei.networkos.ops.wizards.JavaRestfulCreationWizard">
+         </newWizardShortcut>
+      </perspectiveExtension>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.actionSetPartAssociations">
+      <actionSetPartAssociation
+            targetID="com.huawei.networkos.ops.JavaActionSet">
+         <part
+               id="org.eclipse.jdt.ui.PackageExplorer">
+         </part>
+         <part
+               id="org.eclipse.jdt.ui.TypeHierarchy">
+         </part>
+         <part
+               id="org.eclipse.jdt.ui.CompilationUnitEditor">
+         </part>
+         <part
+               id="org.eclipse.jdt.ui.ClassFileEditor">
+         </part>
+         <part
+               id="org.eclipse.jdt.ui.ProjectsView">
+         </part>
+         <part
+               id="org.eclipse.jdt.ui.PackagesView">
+         </part>
+         <part
+               id="org.eclipse.jdt.ui.TypesView">
+         </part>
+         <part
+               id="org.eclipse.jdt.ui.MembersView">
+         </part>
+         <part
+               id="org.eclipse.search.SearchResultView">
+         </part>
+      </actionSetPartAssociation>
+   </extension>
+   
+   
+   
+   
+   
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="com.huawei.networkos.ops.java.popupContribution"
+            targetID="#CompilationUnitEditorContext">
+          <action
+               class="com.huawei.networkos.ops.java.editor.actions.AddPostBodyAction"
+               definitionId="org.python.pydev.editor.actions.addpostbody"
+               id="com.huawei.networkos.ops.java.actions.addpostbody"
+               label="Add Post Body"
+               menubarPath="copy"
+               />
+        </viewerContribution>
+   </extension>
+   
+   
+   
+ 
+   
+
+</plugin>

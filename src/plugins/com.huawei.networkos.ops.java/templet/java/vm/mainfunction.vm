@@ -1,0 +1,26 @@
+package main;
+ /**
+ *Created date: ${currentTime}
+ *@author:  opsdev
+ */
+#set($key='mainfunction')
+#foreach($item in ${otherAttribute.keySet()})
+#if($item==$key)
+#set($value=${otherAttribute.get($item)})                  
+#end        
+#end  
+
+public class Mainfunction{
+
+  public static void main(String[] args) 
+  {
+  Defaultfunction def =new Defaultfunction();
+  def.${value}();
+  }
+}
+       class Defaultfunction{
+	public void  ${value}() 
+	{
+	   System.out.println("Hello World !");
+	}
+}

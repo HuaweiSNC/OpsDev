@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectTemplets default = "defaultTemplet">
+
+	<!-- java工程模板 -->
+	<projecttemplet name="defaultTemplet" type="java">
+	
+		<description>java project templet</description>
+		<folder value="util" ispackage="true" />
+		<folder value="service" ispackage="true" />
+		<folder value="lib" ispackage="false" />
+		<folder value="file" ispackage="false" />
+		
+		<!-- 指定原始工程资源及当前资源的路径 -->
+		<resource path="/OPS2.0/ops/resource" urlplugin="com.huawei.networkos.ops.java" />
+		<resource path="/API/ops/resource" urlplugin="org.python.pydev"></resource>
+		
+		<velocity name="mainfunction" path="templet/java/vm/mainfunction.vm" outurl="src/main/Mainfunction.java"/>
+			
+	  <!-- 拷贝需要的初始化文件到工程指定目录 -->
+		<file name="HandleInfoService.java" path="templet/java/HandleInfoService.ja" outurl="src/service" />
+		<file name="OpsRestCaller.java" path="templet/java/OpsRestCaller.ja" outurl="src/util" />
+		<file name="OpsServiceManager.java" path="templet/java/OpsServiceManager.ja" outurl="src/util" />
+		<file name="OpsDeviceManager.java" path="templet/java/OpsDeviceManager.ja" outurl="src/util" />
+		<file name="RestApiManager.java" path="templet/java/RestApiManager.ja" outurl="src/util" />
+		<file name="OpsServiceConfig.xml" path="templet/java/OpsServiceConfig.xml" outurl="src/util" />
+ 
+		<file name="OpsServiceCfgXmlutil.java" path="templet/java/OpsServiceCfgXmlutil.ja" outurl="src/util" />
+		<file name="OpsDevice.java" path="templet/java/OpsDevice.ja" outurl="src/util" />
+		<file name="BodyType.java" path="templet/java/BodyType.ja" outurl="src/util" />
+		<file name="RestUtil.java" path="templet/java/RestUtil.ja" outurl="src/util" />
+		<file name="RetRpc.java" path="templet/java/RetRpc.ja" outurl="src/util" />
+		<file name="OpsXMLHelper.java" path="templet/java/OpsXMLHelper.ja" outurl="src/util" />
+		<file name="SelfConfiguringPlugin.java" path="templet/java/SelfConfiguringPlugin.ja" outurl="src/util" />
+		<file name=".opsdevice" path = "templet/java/.opsdevice" outurl="" />
+		<file name="Alarm.java" path="templet/java/Alarm.ja" outurl="src/trap" />
+		<file name="IHuaweiTrapListener.java" path="templet/java/IHuaweiTrapListener.ja" outurl="src/trap" />
+		<file name="ReadConfig.java" path="templet/java/ReadConfig.ja" outurl="src/trap" />
+		<file name="SocketClient.java" path="templet/java/SocketClient.ja" outurl="src/trap" />
+		<file name="TrapListenerImp.java" path="templet/java/TrapListenerImp.ja" outurl="src/trap" />
+		
+		<file name="activation-1.1.jar" path = "templet/java/jar/activation-1.1.jar" outurl="lib" />
+		<file name="commons-beanutils-1.8.2.jar" path = "templet/java/jar/commons-beanutils-1.8.2.jar" outurl="lib" />
+		<file name="commons-collections-3.1.jar" path = "templet/java/jar/commons-collections-3.1.jar" outurl="lib" />
+		<file name="commons-codec-1.4.jar" path = "templet/java/jar/commons-codec-1.4.jar" outurl="lib" />
+		<file name="commons-lang-2.3.jar" path = "templet/java/jar/commons-lang-2.3.jar" outurl="lib" />
+		<file name="commons-logging-1.0.4.jar" path = "templet/java/jar/commons-logging-1.0.4.jar" outurl="lib" />
+		<file name="ezmorph-1.0.6.jar" path = "templet/java/jar/ezmorph-1.0.6.jar" outurl="lib" />
+		<file name="geronimo-jaxrs_1.1_spec-1.0.jar" path = "templet/java/jar/geronimo-jaxrs_1.1_spec-1.0.jar" outurl="lib" />
+		<file name="jackson-all-1.9.11.jar" path = "templet/java/jar/jackson-all-1.9.11.jar" outurl="lib" />
+		<file name="jaxb-api-2.2.jar" path = "templet/java/jar/jaxb-api-2.2.jar" outurl="lib" />
+		<file name="jaxb-impl-2.2.1.1.jar" path = "templet/java/jar/jaxb-impl-2.2.1.1.jar" outurl="lib" />
+		<file name="json-lib-2.4-jdk15.jar" path = "templet/java/jar/json-lib-2.4-jdk15.jar" outurl="lib" />
+		<file name="log4j-1.2.16.jar" path = "templet/java/jar/log4j-1.2.16.jar" outurl="lib" />
+		<file name="slf4j-api-1.6.1.jar" path = "templet/java/jar/slf4j-api-1.6.1.jar" outurl="lib" />
+		<file name="slf4j-simple-1.6.1.jar" path = "templet/java/jar/slf4j-simple-1.6.1.jar" outurl="lib" />
+		<file name="stax-api-1.0-2.jar" path = "templet/java/jar/stax-api-1.0-2.jar" outurl="lib" />
+		<file name="wink-1.4.jar" path = "templet/java/jar/wink-1.4.jar" outurl="lib" />
+		<file name="wink-jackson-provider-1.4.jar" path = "templet/java/jar/wink-jackson-provider-1.4.jar" outurl="lib" />
+		<file name="wink-opsdev-client.jar" path = "templet/java/jar/wink-opsdev-client.jar" outurl="lib" />
+		
+		<file name="dom4j-1.6.1.jar" path = "templet/java/jar/dom4j-1.6.1.jar" outurl="lib" />
+		<file name="commons-beanutils-1.8.3.jar" path = "templet/java/jar/commons-beanutils-1.8.3.jar" outurl="lib" />
+		<file name="commons-httpclient-3.1.jar" path = "templet/java/jar/commons-httpclient-3.1.jar" outurl="lib" />
+		<file name="commons-io-1.4.jar" path = "templet/java/jar/commons-io-1.4.jar" outurl="lib" />
+		<file name="java_websocket.jar" path = "templet/java/jar/java_websocket.jar" outurl="lib" />
+		<file name="json-20080701.jar" path = "templet/java/jar/json-20080701.jar" outurl="lib" />
+		<file name="jxl.jar" path = "templet/java/jar/jxl.jar" outurl="lib" />
+		<file name="poi-3.7-20101029.jar" path = "templet/java/jar/poi-3.7-20101029.jar" outurl="lib" />
+		<file name="velocity-1.7-dep.jar" path = "templet/java/jar/velocity-1.7-dep.jar" outurl="lib" />
+		<file name="xom-1.2.10.jar" path = "templet/java/jar/xom-1.2.10.jar" outurl="lib" />
+		<file name="oid-trap2.xls" path = "templet/java/oid-trap2.xls" outurl="file" />
+			 
+		<!-- ops指定的point接口点 -->
+	 	<!-- 如何调用数据源的代码 -->
+	 	<opspoint name="handeldefcode" path="templet/java/vm/handelDefCodeTemplet.vm" outurl="src/service/HandleInfoService.java"/> 
+		<!-- 向数据源中相关的文件HandleInfoService.java中附加当前数据源调用 -->
+		<opspoint name="handlecode" path="templet/java/vm/handlecodeTemplet.vm" outurl="src/service/HandleInfoService.java"/> 
+		<!-- 启用、停止网络监视器后，需要重新生成调用模板 -->
+		<opspoint name="opsrestcall" path="templet/java/vm/OpsRestCallerTemplet.vm" outurl="src/util/OpsRestCaller.java" /> 
+	    <!-- 生成api文件的模板 -->
+	    <opspoint name="apiResource" path="templet/java/vm/apiResourceTemplet.vm"/> 
+	    <!-- 生成opsServcieConfig文件的模板 -->
+	    <opspoint name="opsDevices" path="templet/java/vm/OpsServiceConfigTemplet.vm" outurl="src/util/OpsServiceConfig.xml"  /> 
+	    
+	    
+	</projecttemplet>
+	
+	<!-- java例程之空模板 -->
+
+	
+	<!-- java例程之 sample for ifm/interface模板 -->
+	<templet name="sample for ifm/interface " type="java">
+		<description>default ops project templet</description>
+		<velocity name="apiResourceTemplet" path="templet/java/vm/apiResourceTemplet.vm"
+			outurl="src/util" exampleapi="/ifm/interfaces/interface" exampleapifile="ifm.xsd" />
+	</templet>
+	
+	<templet name="sample for devices manager " type="java">
+		<description>sample for device default instance,the device_defaultHandle function code by opsdevices to generate service call </description>
+		<velocity name="mainfunction" path="templet/java/vm/mainfunction_device.vm" outurl="src/main/Mainfunction.java"/>
+	</templet>
+	
+	<templet name="sample for manager ops devices  " type="java">
+		<description>sample for ops device manager,it has following functions:get all devices,add a device,modify a device and get one device by id </description>
+		<velocity name="mainfunction" path="templet/java/vm/mainfunction_devicemanager.vm" outurl="src/main/Mainfunction.java"/>
+	</templet>
+	
+	<templet name="do not chose any templet" type="java">
+		<description>did not do any thing,it has only defaultfunction</description>
+	</templet>
+</projectTemplets>

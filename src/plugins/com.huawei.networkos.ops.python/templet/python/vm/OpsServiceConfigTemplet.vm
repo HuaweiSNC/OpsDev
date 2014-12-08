@@ -1,0 +1,21 @@
+"""
+config of ops service, Control by OPS devices
+@author:  opsdev
+"""
+
+OPS_SERVICE_CONFIG ={
+#foreach($item in ${opsdevices})
+        "${item.getName()}" : {
+		    "server":"${item.getServer()}",
+		    "port":"${item.getPort()}",
+		    "protocal":"${item.getProtocal()}",
+		    "username":"${item.getUserName()}",
+		    "devicename":"${item.getDevicename()}",
+		    "passwd":"${item.getPasswd()}",
+		    "id":"${item.getDeviceId()}",
+		    "version":"${item.getXmlVersion()}",
+		    "productType":"${item.getProductType()}"
+		}#if(${opsdevices.size()} > 1 and ${opsdevices.size()} > $velocityCount) ,#end
+
+#end
+      }

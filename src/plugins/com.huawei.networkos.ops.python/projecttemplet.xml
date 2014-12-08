@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectTemplets default = "defaultTemplet">
+
+    <!-- 空的工程模板 -->
+	<projecttemplet name="Don't chose any templet" type="python">
+		<description>Don't chose any templet</description>
+		<velocity name="mainfunction.vm" path="templet/python/vm/mainfunction.vm"
+			outurl="src\main.py" />
+		<resource path="/OPS2.0/ops/resource" urlplugin="com.huawei.networkos.ops.core" />
+	</projecttemplet>
+	
+	<!-- python工程模板 -->
+	<projecttemplet name="defaultTemplet" type="python">
+	
+		<description>default project templet</description>
+		<folder value="util" ispackage="true" />
+		<folder value="service" ispackage="true" />
+		
+		<!-- 指定原始工程资源及当前资源的路径 -->
+		<resource path="/OPS2.0/ops/resource" urlplugin="com.huawei.networkos.ops.core" />
+		<resource path="/API/ops/resource" urlplugin="org.python.pydev"></resource>
+		
+		<velocity name="mainfunction" path="templet/python/vm/mainfunction.vm" outurl="src/main.py"/>
+			
+	    <!-- 拷贝需要的初始化文件到工程指定目录 -->
+		<file name="HandleInfoService.py" path="templet/python/HandleInfoService.py"
+			outurl="service" />
+			
+		<file name="OpsRestCaller.py" path="templet/python/OpsRestCaller.py"
+			outurl="util" />
+		<file name="OpsServiceConfig.py" path="templet/python/OpsServiceConfig.py"
+			outurl="util" />
+		<file name="OpsServiceManager.py" path="templet/python/OpsServiceManager.py"
+			outurl="util" />
+		<file name="OpsDeviceManager.py" path="templet/python/OpsDeviceManager.py"
+			outurl="util" />
+		<file name=".opsdevice" path = "templet/python/.opsdevice" outurl="" />
+			 
+		<!-- ops指定的point接口点 -->
+	 	<!-- 如何调用数据源的代码 -->
+	 	<opspoint name="handeldefcode" path="templet/python/vm/handelDefCodeTemplet.vm" outurl="service/HandleInfoService.py"  /> 
+		<!-- 向数据源中相关的文件HandleInfoService.py中附加当前数据源调用 -->
+		<opspoint name="handlecode" path="templet/python/vm/handlecodeTemplet.vm" outurl="service/HandleInfoService.py"/> 
+		<!-- 启用、停止网络监视器后，需要重新生成调用模板 -->
+		<opspoint name="opsrestcall" path="templet/python/vm/OpsRestCallerTemplet.vm" outurl="util/OpsRestCaller.py" /> 
+	    <!-- 生成api文件的模板 -->
+	    <opspoint name="apiResource" path="templet/python/vm/apiResourceTemplet.vm"/> 
+	    <!-- 生成opsServcieConfig文件的模板 -->
+	    <opspoint name="opsDevices" path="templet/python/vm/OpsServiceConfigTemplet.vm" outurl="util/OpsServiceConfig.py"  /> 
+	    
+	</projecttemplet>
+	
+	<!-- python例程之空模板 -->
+
+	
+	<!-- python例程之 sample for ifm/interface模板 -->
+	<templet name="sample for ifm/interface " type="python">
+		<description>default ops project templet</description>
+		<velocity name="apiResourceTemplet" path="templet/python/vm/apiResourceTemplet.vm"
+			outurl="util" exampleapi="/ifm/interfaces/interface" exampleapifile="ifm.xsd" />
+	</templet>
+	
+	<templet name="sample for devices manager " type="python">
+		<description>sample for device default instance,the device_defaultHandle function code by opsdevices to generate service call </description>
+		<velocity name="mainfunction" path="templet/python/vm/mainfunction_device.vm" outurl="src/main.py"/>
+	</templet>
+	
+	<templet name="sample for manager ops devices  " type="python">
+		<description>sample for ops device manager,it has following functions:get all devices,add a device,modify a device and get one device by id </description>
+		<velocity name="mainfunction" path="templet/python/vm/mainfunction_devicemanager.vm" outurl="src/main.py"/>
+	</templet>
+	
+	<templet name="do not chose any templet" type="python">
+		<description>did not do any thing,it has only defaultfunction</description>
+	</templet>
+</projectTemplets>

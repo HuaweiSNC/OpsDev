@@ -1,0 +1,393 @@
+# -*- coding: utf-8 -*-  
+"""
+
+Schame file name:${filename}
+Url:${url}
+Created date: ${currentTime}
+
+@author:  opsdev
+"""
+import json
+import re
+from OpsServiceManager import OpsServiceManagerInstance 
+
+class ${className}(object):
+    #=======================================================================================================================
+    # Initialize the object
+    #=======================================================================================================================
+    def __init__(self,restCaller):
+        self.rest = restCaller
+        self.readAccess = True
+        self.url_body = "${url}"
+        self.full_url_body = "${fullurl}"
+        self.content=[]
+        self.index = 0
+        self.decodejson={}
+        self.errorstr = ''
+        self.criterions = {
+#foreach($item in ${keysmap.keySet()})     
+        "${item}":${keysmap.get($item)},       
+#end   
+#foreach($item in ${itemList.keySet()})
+#if($velocityCount==$listLen)        
+        "${item}":${itemList.get($item)}
+#else       
+        "${item}":${itemList.get($item)},
+#end        
+#end    
+        }
+#foreach($item in ${itemList.keySet()})
+        self.${item}=""
+#end        
+#foreach($item in ${keysmap.keySet()})
+        self.${item}=""
+#end    
+        
+#foreach($item in ${itemList.keySet()})
+    #=======================================================================================================================
+    # AttributeName Load From Schema
+    #=======================================================================================================================
+    def set${methodname.get(${item})}(self, ${item}):
+        if(self.validata("${item}",${item})):
+            self.${item} = ${item}
+            if(not(self.checkAccessWrite( "${item}"))):
+                self.readAccess = False
+            print "set ${item} success"    
+            return
+        print "${item} do not macth rolls,please check it again"
+        
+#end
+
+#foreach($item in ${keysmap.keySet()})
+    #=======================================================================================================================
+    # Key Load From Schema
+    #=======================================================================================================================
+    def set${keymethod.get(${item})}(self, ${item}):
+        self.${item} = ${item}
+        
+#end
+#foreach($item in ${keysmap.keySet()})
+    #=======================================================================================================================
+    # get key value
+    #=======================================================================================================================
+    def get${keymethod.get(${item})}(self):
+        return self.${item}
+        
+#end
+    
+    def getUrlBody(self):
+        keyNode = []
+#foreach($item in ${keysmap.keySet()})
+        keyNode.append(self.${item})
+#end    
+        return self.full_url_body % tuple(keyNode)
+
+    #=======================================================================================================================
+    # Parse the getAll RestFull to get the attribute
+    #=======================================================================================================================
+    def parseRestful(self,restfulJson):
+        self.index = 0
+        if(restfulJson==None):
+            raise  BaseException("restfulJson error","in ${className}.py") 
+        if(restfulJson[0] == 200):
+            self.decodejson = json.loads(restfulJson[2])
+        else:
+            raise  BaseException(restfulJson[2],"in ${className}.py") 
+            
+        
+    #=======================================================================================================================        
+    # Move the index of the Attributes
+    #=======================================================================================================================
+    def next(self):
+        self.clearAll()
+        if(self.index<len(self.decodejson$restApiManager.getJsonIndexUrl("${url}"))):
+            attributeArray  =  self.decodejson$restApiManager.getJsonUrl("${url}", "self.index")
+            self.setAttributes(attributeArray)
+            self.index = self.index+1
+            
+    #=======================================================================================================================        
+    # Get if the index is the max Value
+    #=======================================================================================================================
+    def hasNext(self):
+        return self.index<len(self.decodejson$restApiManager.getJsonUrl("${url}", "self.index"))
+        
+    #=======================================================================================================================
+    #Set Attributes 
+    #=======================================================================================================================
+    def setAttributes(self,attributeArray):
+        for attribute in attributeArray:
+#foreach($item in ${itemList.keySet()})
+            if(attribute.has_key("${item}")):
+                self.${item}=attribute["${item}"]
+#end			
+    
+
+
+#foreach($item in ${itemList.keySet()})
+    #=======================================================================================================================
+    # AttributeName Load From Schema
+    #=======================================================================================================================
+    def get${methodname.get(${item})}(self):
+        return self.${item}
+        
+#end
+    #=======================================================================================================================
+    # After Operating ,Reset the Date
+    #=======================================================================================================================
+    def clearAll(self):
+#foreach($item in ${itemList.keySet()})
+        self.${item}=""
+#end            
+        self.setBody([])
+        self.readAccess=True
+        
+    #=======================================================================================================================    
+    # Set by User
+    #=======================================================================================================================
+    def setBody(self,content):   
+        contentTmp = []   
+#foreach($item in ${keysmap.keySet()})
+#if($velocityCount==1)    
+        for key in content:
+#end
+            if(key.has_key("${item}")):
+                self.set${keymethod.get(${item})}(key.get("${item}"))
+                contentTmp.append(key)
+                
+#end        
+        for key in contentTmp:
+            content.remove(key)
+        self.content = content
+        
+    #=======================================================================================================================    
+    # Modify attributes into server. You need to chose  attributeNames load from Schema
+    # Attributes : set by user.Must comply with the rules and it"s dateType must be dictionary
+    #=======================================================================================================================
+    def modify(self, attributes):
+#foreach($item in ${keysmap.keySet()})
+        if(attributes.has_key("${item}")):
+            self.set${keymethod.get(${item})}(attributes.get("${item}"))
+            attributes.remove("${item}")
+#end  
+        url_path = self.getUrlBody()+"?"
+        url_arg_value = ""
+        try:
+            for key in attributes.keys():
+                if(not self.validata( key ,attributes[key])):
+                    raise  BaseException("AttributeName is not exist or value is not meetting the requirements,please check it and do it again","in ${className}.py")
+                    return
+                url_arg_value = attributes[key].replace("/", "%2F")
+                url_path+= "%s=%s&"%(key, url_arg_value)
+        except Exception:
+            raise  BaseException("Attributes must be dict","in ${className}.py")
+            return
+        url_path = url_path[0:-1]+"/json";
+#foreach($item in ${itemList.keySet()})
+        if(self.checkAccessWrite("${item}") and self.${item} != ""):
+            self.content.append({"${item}" : self.${item}})
+#end               
+        ret = self.rest.put(url_path, self.content)
+        if(ret[0]==200):
+            return True
+        if(ret[0]!=200):
+            self.errorstr = ret
+            return False
+        
+    #=======================================================================================================================    
+    # Create attributes into server. You need to chose  attributeNames load from Schema
+    # Attributes : set by user.Must comply with the rules and it"s dateType must be dictionary
+    #=======================================================================================================================
+    def create(self, attributes):
+#foreach($item in ${keysmap.keySet()})
+        if(attributes.has_key("${item}")):
+            self.set${keymethod.get(${item})}(attributes.get("${item}"))
+            attributes.pop("${item}")
+#end 
+        url_path = self.getUrlBody()+"?"
+        url_arg_value = ""
+        try:
+            for key in attributes.keys():
+                if(not self.validata( key ,attributes[key])):
+                    raise  BaseException("AttributeName is not exist or value is not meetting the requirements,please check it and do it again","in ${className}.py")
+                    return
+                url_arg_value = attributes[key].replace("/", "%2F")
+                url_path+= "%s=%s&"%(key, url_arg_value)
+        except Exception:
+            raise  BaseException("Attributes must be dict","in ${className}.py")
+            return
+        url_path = url_path[0:-1]+"/json";
+#foreach($item in ${itemList.keySet()})
+        if(self.checkAccessWrite("${item}") and self.${item} != ""):
+            self.content.append({"${item}" : self.${item}})
+#end               
+        ret = self.rest.post(url_path, self.content)
+        if(ret[0]==200):
+            return True
+        if(ret[0]!=200):
+            self.errorstr = ret
+            return False
+         
+    #=======================================================================================================================   
+    # Get attributes from server. You need to chose  attributeNames load from Schema
+    # Attributes : set by user.Must comply with the rules and it"s dateType must be dictionary
+    #=======================================================================================================================
+    def get(self, attributes):
+#foreach($item in ${keysmap.keySet()})
+        if(attributes.has_key("${item}")):
+            self.set${keymethod.get(${item})}(attributes.get("${item}"))
+            attributes.remove("${item}")
+#end 
+        url_path = self.getUrlBody()+"?"
+        url_arg_value = ""
+        try:
+            for key in attributes.keys():
+                if(not self.validata(key ,attributes[key])):
+                    raise  BaseException("AttributeName is not exist or value is not meetting the requirements,please check it and do it again","in ${className}.py")
+                    return
+                url_arg_value = attributes[key].replace("/", "%2F")
+                url_path+= "%s=%s&"%(key, url_arg_value)
+        except Exception:
+            raise  BaseException("Attributes must be dict","in ${className}.py")
+            return
+        url_path = url_path[0:-1]+"/json";
+        ret = self.rest.get(url_path)
+        return ret
+    
+    def delete(self, attributes):
+#foreach($item in ${keysmap.keySet()})
+        if(attributes.has_key("${item}")):
+            self.set${keymethod.get(${item})}(attributes.get("${item}"))
+            attributes.remove("${item}")
+#end    
+        url_path = self.getUrlBody()+"?"
+        url_arg_value = ""
+        try:
+            for key in attributes.keys():
+                if(not self.validata(key ,attributes[key])):
+                    raise  BaseException("AttributeName is not exist or value is not meetting the requirements,please check it and do it again","in ${className}.py")
+                    return
+                url_arg_value = attributes[key].replace("/", "%2F")
+                url_path+= "%s=%s&"%(key, url_arg_value)
+        except Exception:
+            raise  BaseException("Attributes must be dict","in ${className}.py")
+            return
+        url_path = url_path[0:-1]+"/json";
+        ret = self.rest.delete(url_path)
+        if(ret[0]==200):
+            return True
+        if(ret[0]!=200):
+            self.errorstr = ret
+            return False
+        
+    #=======================================================================================================================
+    # Get all attribute from service 
+    #=======================================================================================================================      
+    def getall(self):
+        if(self.getAllAccessWrite()):
+            url_path =  self.url_body+"/json"
+            ret = self.rest.get(url_path)
+            return ret
+        else:
+            raise  BaseException("You do not have permmition","in ${className}.py")
+            return None
+            
+    #=======================================================================================================================        
+    # ValiData the attributeValue  
+    #=======================================================================================================================   
+    def validata(self , name ,value):
+        if(not(self.criterions.has_key(name))):
+            return False
+        criterion = self.criterions[name]
+        if(criterion.has_key("Expected values")):
+            s = criterion["Expected values"].rsplit(";")
+            if(not(value in s)):
+                return False
+        if(criterion.has_key("data-type")):
+            s = criterion["data-type"]
+            return self.checkType(criterion, value)   
+        if(criterion.has_key("max")):
+            s = criterion["max"]
+            if(len(value)>int(s)):
+                return False  
+        if(criterion.has_key("min")):
+            s = criterion["min"]
+            if(len(value)<int(s)):
+                return False  
+        if(criterion.has_key("max-val")):
+            s = criterion["max-val"]
+            if(len(value)>int(s)):
+                return False 
+        if(criterion.has_key("min-val")):
+            s = criterion["min-val"]
+            if(len(value)<int(s)):
+                return False
+        return True 
+        
+    #=======================================================================================================================
+    # Check the attributeValue type  
+    #=======================================================================================================================   
+    def checkType(self , criterion ,value ):
+        ipv4Pattern = r"\b(25[0-4]|2[0-4[0-9]|[01]?[0-9][0-9]?)\.(25[0-4]|2[0-4[0-9]|[01]?[0-9][0-9]?)\.(25[0-4]|2[0-4[0-9]|[01]?[0-9][0-9]?)\.(25[0-4]|2[0-4[0-9]|[01]?[0-9][0-9]?)\b"
+        ipv6Pattern = r"^\s*((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}(:|((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4}){0,1}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){0,2}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){0,3}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:)(:[0-9A-Fa-f]{1,4}){0,4}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(:(:[0-9A-Fa-f]{1,4}){0,5}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))(%.+)?\s*$"
+        s = criterion["data-type"]
+        if(s=="BOOL" and not(value=="true" or value =="false")):
+            return False
+        if(s=="IPV4" and not re.match(ipv4Pattern,value)):
+            return False
+        if(s=="UINT32" ):
+            try:
+                int(value)
+            except Exception:
+                return False  
+        if(s=="USHORT"):
+            try:
+                x = int(value)
+                if(x>65535 or x<0):
+                    return False
+            except Exception:
+                return False          
+        if(s=="IPV4IPV6" and not(re.match(ipv4Pattern,value) or re.match(ipv6Pattern,value))):
+            return False
+        if(s=="IPV6" and not(re.match(ipv6Pattern,value))):
+            return False
+        return True
+            
+    def checkAccessWrite(self ,name):
+        if(not(self.criterions.has_key(name))):
+            return False
+        criterion = self.criterions[name]
+        if(criterion.has_key("access") and (criterion["access"]=="writeOnly" or criterion["access"]=="readCreate" or criterion["access"]=="readWrite")):
+            return True
+        return False     
+           
+    def checkAccessRead(self ,name):
+        if(not(self.criterions.has_key(name))):
+            return False
+        criterion = self.criterions[name]
+        if(criterion.has_key("access") and (criterion["access"]=="readOnly" or criterion["access"]=="readCreate" or criterion["access"]=="readWrite")):
+            return True
+        return False          
+    
+    def getAllAccessWrite(self):
+#foreach($item in ${itemList.keySet()})
+        self.checkAccessRead("${item}")
+#end            
+        return self.readAccess
+
+#=======================================================================================================================
+# Main
+#=======================================================================================================================
+if __name__=="__main__":
+    defaultRestCaller = OpsServiceManagerInstance.getDefaultOpsRestCall()
+    restfulapi = ${className}(defaultRestCaller)
+    urlarg = {
+#foreach($item in ${itemList.keySet()})
+#if($velocityCount==${itemList.size()})    
+        "$item":"${exapelMap.get($item)}"
+#else    
+        "$item":"${exapelMap.get($item)}",
+#end    
+#end    
+    }
+    print restfulapi.getall()
+    

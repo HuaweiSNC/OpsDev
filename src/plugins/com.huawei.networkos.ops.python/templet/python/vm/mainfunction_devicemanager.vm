@@ -1,0 +1,70 @@
+'''
+Created date: 2013-11-13 
+sample of OpsServiceConfig
+@author:  opsdev
+'''
+
+from OpsServiceConfig import OPS_SERVICE_CONFIG
+from OpsDeviceManager import OpsDeviceManager
+
+
+#set($key='mainfunction')
+#foreach($item in ${otherAttribute.keySet()})
+#if($item==$key)
+#set($value=${otherAttribute.get($item)})                  
+#end        
+#end  
+
+#=======================================================================================================================
+# ${value}
+#=======================================================================================================================  
+def ${value}():
+    print 'this is sample of OpsDeviceManager' 
+    opsService = OpsDeviceManager(OPS_SERVICE_CONFIG.get("default"))
+    print 'get all devices' 
+    print opsService.getDevices()
+    adddevice = {
+        "device":
+           {
+               "username": "huawei",
+               "devicename": "10.136.13.137",
+               "passwd": "Huawei",
+               "ip": "10.136.13.137",
+               "version": "2.0",
+               "productType": "NE5000E",
+               "id": 3
+           }
+       }
+    print 'add a device'
+    print opsService.addDevice(adddevice)
+    print opsService.getDevices()
+        
+    modifydevice = {
+           "device":
+           {
+               "username": "huawei",
+               "devicename": "10.136.13.137",
+               "passwd": "HuaweiABC",
+               "ip": "10.136.13.137",
+               "productType": "NE5000E",
+               "version": "2.0",
+               "id" : 3
+           
+           }
+    }
+    print 'modify a device'
+    print opsService.modifyDevice(modifydevice)
+    print opsService.getDevices()
+    
+    print 'get one device by id'    
+    print opsService.getDevice(1)
+    
+
+#=======================================================================================================================
+# main
+#=======================================================================================================================
+if __name__=='__main__':    
+    ${value}()     
+
+
+
