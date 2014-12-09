@@ -45,11 +45,25 @@ public class ProjectConfigXmlManager {
     private List<String> userSchemaFiles = new ArrayList<String>();
     ProjectConfigXmlManager projectconfigXmlManager;
     
+    public static final String OPSDEV_PLUGIN_PATH_VAR = "$(OPSDEV_PLUGIN_PATH)";
+    public static final String ECLIPSE_PATH_VAR = "$(ECLIPSE_PATH)";
+    public static final String PATH_PROPERTY = "pydev_pathproperty";
+    public static final String OPS_PROJECT_NODE = "pydev_project";
+    public static final String OPS_SCHEMA_PATH = "pydev_schema_path";
+    public static final String OPS_PROJECTTYPE = "pydev_projecttype";
+    public static final String OPS_PROJECTMONITOR_STATUS = "pydev_projectmonitor";
+    public static final String OPS_PROJECTTEMPLET_PATH = "projecttemplet";
+    public static final String OPS_APIFILES_PATH = "apifiles";
+    public static final String OPS_APIDOC_PATH = "opsapipath";
+    public static final String OPS_CONTROLLER_PATH = "opspath";
+    public static final String ELEMENT_PROPERTY_NAME = "name";
+    public static final String ELEMENT_PATH_NAME = "path";
+    public static final String ATTRIB_STATE_NAME = "state";
+    public static final String ATTRIB_TYPE_NAME = "type";
     
     public String getPlugID() {
         return plugID;
     }
-
 
     public void setPlugID(String pluginID) {
         this.plugID = pluginID;
@@ -148,9 +162,9 @@ public class ProjectConfigXmlManager {
     public void setProjectType(String projectType) {
         this.projectType = projectType;
         /*Element rootElement = document.getRootElement();
-        List<Element> elements = rootElement.elements("pydev_projecttype");
+        List<Element> elements = rootElement.elements(OPS_PROJECTTYPE);
         for(Element element : elements){
-            Attribute attr = element.attribute("type");
+            Attribute attr = element.attribute(ATTRIB_TYPE_NAME);
             attr.setValue(projectType);
         }*/
         close();
@@ -162,9 +176,9 @@ public class ProjectConfigXmlManager {
         
         this.projectMonitorState = projectMonitorState;
        /* Element rootElement = document.getRootElement();
-        List<Element> elements = rootElement.elements("pydev_projectmonitor");
+        List<Element> elements = rootElement.elements(OPS_PROJECTMONITOR_STATUS);
         for(Element element : elements){
-            Attribute attr = element.attribute("state");
+            Attribute attr = element.attribute(ATTRIB_STATE_NAME);
             attr.setValue(projectMonitorState);
         }*/
         close();
@@ -211,15 +225,17 @@ public class ProjectConfigXmlManager {
             return path;
         }
         
-        File projectPath = new File(path); 
-        String pathTmp = projectPath.getAbsolutePath();
+        
+        String pathTmp = path;
         String eclipsepath = PathTools.getEclipsePath();
         String plugPath = PathTools.getPlugOpsViewPath();
         File plugPathFile = new File(plugPath); 
         File eclipsepathFile = new File(eclipsepath); 
-        pathTmp = pathTmp.replace("$(OPSDEV_PLUGIN_PATH)", plugPathFile.getAbsolutePath());
-        pathTmp = pathTmp.replace("$(ECLIPSE_PATH)", eclipsepathFile.getAbsolutePath());
-        return pathTmp;
+        pathTmp = pathTmp.replace(OPSDEV_PLUGIN_PATH_VAR, plugPathFile.getAbsolutePath());
+        pathTmp = pathTmp.replace(ECLIPSE_PATH_VAR, eclipsepathFile.getAbsolutePath());
+        
+        File projectPath = new File(pathTmp); 
+        return projectPath.getAbsolutePath();
     }
     
     private String replaceVar(String path)
@@ -232,69 +248,65 @@ public class ProjectConfigXmlManager {
         File plugPathFile = new File(plugPath); 
         File eclipsepathFile = new File(eclipsepath); 
         
-        pathTmp = pathTmp.replace(plugPathFile.getAbsolutePath(), "$(OPSDEV_PLUGIN_PATH)");
-        pathTmp = pathTmp.replace(eclipsepathFile.getAbsolutePath(), "$(ECLIPSE_PATH)");
+        pathTmp = pathTmp.replace(plugPathFile.getAbsolutePath(), OPSDEV_PLUGIN_PATH_VAR);
+        pathTmp = pathTmp.replace(eclipsepathFile.getAbsolutePath(), ECLIPSE_PATH_VAR);
         return pathTmp;
     }
     
     public boolean configOPSPath(IProgressMonitor monitor, IProject iProject){
        
         document = DocumentFactory.getInstance().createDocument();
-        Element rootElement = document.addElement("pydev_project");
+        Element rootElement = document.addElement(OPS_PROJECT_NODE);
         
         // 记录当前OPS2.0所在的目录
-        Element childElement = rootElement.addElement("pydev_pathproperty");
-        childElement.addAttribute("name", "opspath");
-        Element threeElement = childElement.addElement("path");
+        Element childElement = rootElement.addElement(PATH_PROPERTY);
+        childElement.addAttribute(ELEMENT_PROPERTY_NAME, OPS_CONTROLLER_PATH);
+        Element threeElement = childElement.addElement(ELEMENT_PATH_NAME);
         threeElement.setText(replaceVar(opspath));
         
         //存储创建工程的pluginID
         String pluginID = OpsManagerProjectTool.getProjectCreatePlugId(iProject);
         if (null != pluginID && pluginID.length() > 0) {
-            childElement = rootElement.addElement("pydev_pathproperty");
-            childElement.addAttribute("name", "plugid");
-            threeElement = childElement.addElement("path");
+            childElement = rootElement.addElement(PATH_PROPERTY);
+            childElement.addAttribute(ELEMENT_PROPERTY_NAME, "plugid");
+            threeElement = childElement.addElement(ELEMENT_PATH_NAME);
             threeElement.setText(pluginID);
         }
         //存储创建工程的模板路径
         String projectTempletXmlPath = OpsManagerProjectTool.getProjectTempletXmlPath(iProject);
         if (null != projectTempletXmlPath && projectTempletXmlPath.length() > 0) {
-            childElement = rootElement.addElement("pydev_pathproperty");
-            childElement.addAttribute("name", "projecttemplet");
-            threeElement = childElement.addElement("path");
+            childElement = rootElement.addElement(PATH_PROPERTY);
+            childElement.addAttribute(ELEMENT_PROPERTY_NAME, OPS_PROJECTTEMPLET_PATH);
+            threeElement = childElement.addElement(ELEMENT_PATH_NAME);
             threeElement.setText(replaceVar(projectTempletXmlPath));
         }
-        // 记录当前schema文件路径,根据路径框中的路径指向输入的schema文件
-/*        childElement = rootElement.addElement("pydev_pathproperty");
-        childElement.addAttribute("name", "schemafiles");
-        threeElement = childElement.addElement("path");
-        threeElement.setText(this.schemaPath);*/
+ 
 
         // 记录当前api文档是存放路径
         //new opsapipath
-        childElement = rootElement.addElement("pydev_pathproperty");
-        childElement.addAttribute("name", "opsapipath");
-        threeElement = childElement.addElement("path");
+        childElement = rootElement.addElement(PATH_PROPERTY);
+        childElement.addAttribute(ELEMENT_PROPERTY_NAME, OPS_APIDOC_PATH);
+        threeElement = childElement.addElement(ELEMENT_PATH_NAME);
         threeElement.setText(replaceVar(this.opsapiDocpath));
         
         //new apifiles
         // 记录当前工程引用的schema文件路径
-        childElement = rootElement.addElement("pydev_pathproperty");
-        childElement.addAttribute("name", "apifiles");
-        threeElement = childElement.addElement("path");
+        childElement = rootElement.addElement(PATH_PROPERTY);
+        childElement.addAttribute(ELEMENT_PROPERTY_NAME, OPS_APIFILES_PATH);
+        threeElement = childElement.addElement(ELEMENT_PATH_NAME);
         threeElement.setText(replaceVar(this.schemaRootPath));
         
         // 自定义的schema路径
-        childElement = rootElement.addElement("pysdev_schema_path");
+        childElement = rootElement.addElement(OPS_SCHEMA_PATH);
         for(String str: userSchemaFiles){
-            threeElement = childElement.addElement("path");
+            threeElement = childElement.addElement(ELEMENT_PATH_NAME);
             threeElement.setText(str);
         } 
         
         // 记录当前工程是什么类型 
-        rootElement.addElement("pydev_projecttype").addAttribute("type", this.projectType);
+        rootElement.addElement(OPS_PROJECTTYPE).addAttribute(ATTRIB_TYPE_NAME, this.projectType);
         // 记录当前工程是什么类型 
-        rootElement.addElement("pydev_projectmonitor").addAttribute("state", this.projectMonitorState);
+        rootElement.addElement(OPS_PROJECTMONITOR_STATUS).addAttribute(ATTRIB_STATE_NAME, this.projectMonitorState);
        
         close();
         try {
@@ -322,12 +334,12 @@ public class ProjectConfigXmlManager {
         
         String value = "";
         Element rootElement = document.getRootElement();
-        List<Element> elements = rootElement.elements("pydev_pathproperty");
+        List<Element> elements = rootElement.elements(PATH_PROPERTY);
         for(Element element : elements){
             //getAPIFilePath()
-            String attribName = element.attributeValue("name");
-            if("apifiles".equals(attribName)){
-                List<Element> elements3 = element.elements("path");
+            String attribName = element.attributeValue(ELEMENT_PROPERTY_NAME);
+            if(OPS_APIFILES_PATH.equals(attribName)){
+                List<Element> elements3 = element.elements(ELEMENT_PATH_NAME);
                 if(elements3!=null&&elements3.size()!=0){
                     value= elements3.get(0).getText();
                     this.schemaRootPath = unreplaceVar(value);
@@ -336,8 +348,8 @@ public class ProjectConfigXmlManager {
             }
      
             // getOpsapiPath()
-            if("opsapipath".equals(attribName)){
-                List<Element> elements3 = element.elements("path");
+            if(OPS_APIDOC_PATH.equals(attribName)){
+                List<Element> elements3 = element.elements(ELEMENT_PATH_NAME);
                 if(elements3!=null&&elements3.size()!=0){
                     value = elements3.get(0).getText();
                     this.opsapiDocpath = unreplaceVar(value);
@@ -346,8 +358,8 @@ public class ProjectConfigXmlManager {
             }
             
             // getOpsPath()
-            if("opspath".equals(element.attributeValue("name"))){
-                List<Element> elements2 = element.elements("path");
+            if(OPS_CONTROLLER_PATH.equals(element.attributeValue(ELEMENT_PROPERTY_NAME))){
+                List<Element> elements2 = element.elements(ELEMENT_PATH_NAME);
                 if(elements2!=null&&elements2.size()!=0){
                     value = elements2.get(0).getText();
                     this.opspath = unreplaceVar(value);
@@ -356,8 +368,8 @@ public class ProjectConfigXmlManager {
             }
             
             //getProjectPluginID
-            if("plugid".equals(element.attributeValue("name"))){
-                List<Element> elements2 = element.elements("path");
+            if("plugid".equals(element.attributeValue(ELEMENT_PROPERTY_NAME))){
+                List<Element> elements2 = element.elements(ELEMENT_PATH_NAME);
                 if(elements2!=null&&elements2.size()!=0){
                     this.plugID = elements2.get(0).getText();
                     continue;
@@ -365,8 +377,8 @@ public class ProjectConfigXmlManager {
             }
             
             //getProjectTempletXML
-            if("projecttemplet".equals(element.attributeValue("name"))){
-                List<Element> elements2 = element.elements("path");
+            if(OPS_PROJECTTEMPLET_PATH.equals(element.attributeValue(ELEMENT_PROPERTY_NAME))){
+                List<Element> elements2 = element.elements(ELEMENT_PATH_NAME);
                 if(elements2!=null&&elements2.size()!=0){
                     value = elements2.get(0).getText();
                     this.projectTemplet = unreplaceVar(value); 
@@ -376,9 +388,9 @@ public class ProjectConfigXmlManager {
         }
         
         // getUserSchemaFiles()
-        Element elementSchema = rootElement.element("pydev_schema_path");
+        Element elementSchema = rootElement.element(OPS_SCHEMA_PATH);
         if( null != elementSchema){
-            elements = elementSchema.elements("path");
+            elements = elementSchema.elements(ELEMENT_PATH_NAME);
             for(Element element2 : elements){
                 String eleString = element2.getText();
                 if (StringUtils.isNotEmpty(eleString))
@@ -391,22 +403,19 @@ public class ProjectConfigXmlManager {
          
         // getProjectMonitorState()
         projectMonitorState = "off";
-        elements = rootElement.elements("pydev_projectmonitor");
+        elements = rootElement.elements(OPS_PROJECTMONITOR_STATUS);
         for(Element element : elements){
-            projectMonitorState = element.attributeValue("state");
+            projectMonitorState = element.attributeValue(ATTRIB_STATE_NAME);
             break;
         }
         
         // getProjectType()
-        elements = rootElement.elements("pydev_projecttype");
+        elements = rootElement.elements(OPS_PROJECTTYPE);
         for(Element element : elements){
-            projectType = element.attributeValue("type");
+            projectType = element.attributeValue(ATTRIB_TYPE_NAME);
             break;
         }
-        
-        
-        
-        
+         
     }
     
     public void close()

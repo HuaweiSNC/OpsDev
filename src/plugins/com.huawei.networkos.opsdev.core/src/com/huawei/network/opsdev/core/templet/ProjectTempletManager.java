@@ -127,8 +127,8 @@ public class ProjectTempletManager {
     public void addUserFile(String schemaFile) {
         if(!schemaFiles.contains(schemaFile)){
             schemaFiles.add(schemaFile);
+            userRestfulApiManager.processXsd(schemaFile, true);
         }
-        userRestfulApiManager.processXsd(schemaFile, true);
     }
     
     /**
