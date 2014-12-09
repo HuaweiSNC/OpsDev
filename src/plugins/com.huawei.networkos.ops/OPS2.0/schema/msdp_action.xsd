@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="msdp_type.xsd"/>
+	<xs:element name="msdp" type="msdp_action_msdp_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>msdp</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="msdp_action_msdp_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rstMsdpCacheVrf" type="msdp_action_rstMsdpCacheVrf_type"/>
+			<xs:element name="rstMsdpPeerVrf" type="msdp_action_rstMsdpPeerVrf_type"/>
+			<xs:element name="rstMsdpStatVrf" type="msdp_action_rstMsdpStatVrf_type"/>
+			<xs:element name="rstMsdpControlMsg" type="msdp_action_rstMsdpControlMsg_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="msdp_action_rstMsdpCacheVrf_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrfName">
+				<xs:annotation>
+					<xs:documentation>公网或VPN实例</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="grpAddr" type="ipv4Address" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>组地址</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="msdp_action_rstMsdpPeerVrf_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrfName">
+				<xs:annotation>
+					<xs:documentation>公网或VPN实例</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="peerAddr" type="ipv4Address" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>Peer地址</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="msdp_action_rstMsdpStatVrf_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrfName">
+				<xs:annotation>
+					<xs:documentation>公网或VPN实例</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="peerAddr" type="ipv4Address" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>Peer地址</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="msdp_action_rstMsdpControlMsg_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrfName">
+				<xs:annotation>
+					<xs:documentation>公网或VPN实例</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="peerAddr" type="ipv4Address" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>Peer地址</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

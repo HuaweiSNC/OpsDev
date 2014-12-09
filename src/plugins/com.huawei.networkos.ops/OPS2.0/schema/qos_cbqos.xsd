@@ -1,0 +1,2347 @@
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="qos_type.xsd"/>
+	<xs:include schemaLocation="qos_cbqos_type.xsd"/>
+	<xs:import/>
+	<xs:complexType name="qos_cbqos_type">
+		<xs:annotation>
+			<xs:documentation>服务质量类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="qosVpnGroups" type="qos_cbqosvpngroups_type"/>
+			<xs:element name="qosClassifiers" type="qos_cbqosclassifiers_type"/>
+			<xs:element name="qosBehaviors" type="qos_cbqosbehaviors_type"/>
+			<xs:element name="qosPolicys" type="qos_cbqospolicys_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosRuleAcls_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配ACL规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRuleAcl" type="qos_cbqosRuleAcl_type" minOccurs="0" maxOccurs="2048"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosRuleAcl_type">
+		<xs:annotation>
+			<xs:documentation>匹配ACL规则</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="aclFamily" type="qosIPFamily">
+				<xs:annotation>
+					<xs:documentation>ACL Family</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclName">
+				<xs:annotation>
+					<xs:documentation>ACL number: 2000-5999; ACL Name: 32 chars string with first char a-z or A-z.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosaclnames_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>ACL名称列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosNameAclName" type="qos_cbqosaclname_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosaclname_type">
+		<xs:annotation>
+			<xs:documentation>ACL名称</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="aclName" type="qosSpeedType">
+				<xs:annotation>
+					<xs:documentation>Name-ACL name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclFamily" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>ACL Family(IPv4/IPv6)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqospolicys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>流量策略列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosPolicy" type="qos_cbqospolicy_type" minOccurs="0" maxOccurs="256"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqospolicy_type">
+		<xs:annotation>
+			<xs:documentation>流量策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="policyName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>流量策略名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>流量策略的描述信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="step" default="5">
+				<xs:annotation>
+					<xs:documentation>策略点优先级的步长</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="shareMode" type="qosSwitchFlag" default="enable">
+				<xs:annotation>
+					<xs:documentation>共享模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statFlag" type="qosSwitchFlag" default="disable">
+				<xs:annotation>
+					<xs:documentation>统计使能标志</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qosPolicyNodes" type="qos_cbqospolicynodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="qos_cbqospolicy_policyName_type">
+		<xs:annotation>
+			<xs:documentation>流量策略名称列表</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="qos_cbqospolicynodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>策略点列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosPolicyNode" type="qos_cbqospolicynode_type" minOccurs="0" maxOccurs="256"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqospolicynode_type">
+		<xs:annotation>
+			<xs:documentation>策略点</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="classifierName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>流行为名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="behaviorName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>流行为名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="precedence" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>策略点优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosclassifiers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>流分类列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosClassifier" type="qos_cbqosclassifier_type" minOccurs="0" maxOccurs="256"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosclassifier_type">
+		<xs:annotation>
+			<xs:documentation>流分类</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="classifierName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>流分类名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>流分类的描述信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="operator" type="qosClassOperator" default="or">
+				<xs:annotation>
+					<xs:documentation>操作(or或and)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qosRuleAnys" type="qos_cbqosruleanys_type"/>
+			<xs:element name="qosRuleMacs" type="qos_cbqosrulemacs_type"/>
+			<xs:element name="qosRuleProto6s" type="qos_cbqosruleprotos_type"/>
+			<xs:element name="qosRuleIPv6Addrs" type="qos_cbqosruleipaddr6s_type"/>
+			<xs:element name="qosRuleTcpFlags" type="qos_cbqosruletcpflags_type"/>
+			<xs:element name="qosRuleAcls" type="qos_cbqosRuleAcls_type"/>
+			<xs:element name="qosRulePrioritys" type="qos_cbqosruleprioritys_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrule8021ps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配802.1p优先级规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRulePriority" type="qos_cbqosrule8021p_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrule8021p_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配802.1p优先级规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="80" maxOccurs="80">
+			<xs:element name="type" type="qosPriorityType">
+				<xs:annotation>
+					<xs:documentation>8021p/ipv4-dscp/ipv6-dscp/ip-precedence/mpls-exp</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value">
+				<xs:annotation>
+					<xs:documentation>优先级值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruledscps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配DSCP规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosruledscp" type="qos_cbqosruledscp_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruledscp_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配DSCP规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="value">
+				<xs:annotation>
+					<xs:documentation>优先级值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruleipprecs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配IP优先级规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosruleipprec" type="qos_cbqosruleipprec_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruleipprec_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配IP优先级规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="value">
+				<xs:annotation>
+					<xs:documentation>优先级值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrulemplss_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配MPLS-EXP规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosrulempls" type="qos_cbqosrulempls_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrulempls_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配MPLS-EXP规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="value">
+				<xs:annotation>
+					<xs:documentation>优先级值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="qos_cbqosclassifier_classifierName_type">
+		<xs:annotation>
+			<xs:documentation>流分类名称</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="qos_cbqosbehaviors_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>流行为列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosBehavior" type="qos_cbqosbehavior_type" minOccurs="0" maxOccurs="256"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosbehavior_type">
+		<xs:annotation>
+			<xs:documentation>流行为</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="behaviorName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>流行为名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>流行为的描述信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="qosActFilters" type="qos_cbqosactfilters_type"/>
+			<xs:element name="qosActPortMirrors" type="qos_cbqosactportmirrs_type"/>
+			<xs:element name="qosActCars" type="qos_cbqosactcars_type"/>
+			<xs:element name="qosActRemarks" type="qos_cbqosactremarks_type"/>
+			<xs:element name="qosActSrvClss" type="qos_cbqosactsrvclss_type"/>
+			<xs:element name="qosActUrpfs" type="qos_cbqosacturpfs_type"/>
+			<xs:element name="qosActLoads" type="qos_cbqosactloads_type"/>
+			<xs:element name="qosActNsSamplers" type="qos_cbqosactnssamples_type"/>
+			<xs:element name="qosActRdrNhps" type="qos_cbqosactrdrnhps_type"/>
+			<xs:element name="qosActRdrMhps" type="qos_cbqosactrdrmhps_type"/>
+			<xs:element name="qosActRdrNhp6s" type="qos_cbqosactrdrnhp6s_type"/>
+			<xs:element name="qosActRdrMhp6s" type="qos_cbqosactrdrmhp6s_type"/>
+			<xs:element name="qosActRdrVpns" type="qos_cbqosactrdrvpns_type"/>
+			<xs:element name="qosActRdrLsps" type="qos_cbqosactrdrlsps_type"/>
+			<xs:element name="qosActRdrIfs" type="qos_cbqosactrdrIfs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosRulePriority_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配优先级</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="48" maxOccurs="48">
+			<xs:element name="type" type="qosPriorityType">
+				<xs:annotation>
+					<xs:documentation>8021p/ipv4-dscp/ipv6-dscp/ip-precedence/mpls-exp</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value">
+				<xs:annotation>
+					<xs:documentation>优先级值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="qos_cbqosbehavior_behaviorName_type">
+		<xs:annotation>
+			<xs:documentation>流行为名称</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="qos_cbqosvpngroups_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VPN实例组列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosVpnGroup" type="qos_cbqosvpngroup_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosvpngroup_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VPN实例组</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vpnGroupName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>VPN-Group的名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qosVpnInstances" type="qos_cbqosvpninsts_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="qos_cbqosvpngroup_vpnGroupName_type">
+		<xs:annotation>
+			<xs:documentation>VPN实例组名称</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="qos_cbqosruleanys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配所有报文列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRuleAny" type="qos_cbqosruleany_type" minOccurs="0" maxOccurs="2"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruleany_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配所有报文</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="protoFamily" type="qosIPFamily">
+				<xs:annotation>
+					<xs:documentation>协议族</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruleprioritys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配优先级规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRulePriority" type="qos_cbqosrulepriority_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrulepriority_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配优先级规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="priorityType" type="qosPriorityType">
+				<xs:annotation>
+					<xs:documentation>优先级类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priorityValue">
+				<xs:annotation>
+					<xs:documentation>优先级值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrulemacs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配MAC地址列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRuleMac" type="qos_cbqosrulemac_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrulemac_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配MAC地址</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="macType" type="qosMacType">
+				<xs:annotation>
+					<xs:documentation>MAC地址的类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="macAddr" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>MAC地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruleprotos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配协议号规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRuleProto6" type="qos_cbqosruleproto_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruleproto_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配协议号规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="protoFamily" type="qosIPv6Family">
+				<xs:annotation>
+					<xs:documentation>协议族类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protocol" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>协议号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruleipaddr6s_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配IPv6地址规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRuleIPv6Addr" type="qos_cbqosruleipaddr6_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruleipaddr6_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配IPv6地址规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addressType" type="qosAddressType">
+				<xs:annotation>
+					<xs:documentation>IPv6地址的类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress6" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>IPv6地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefixLen" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>IPv6地址掩码长度</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruletcpflags_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配TCP标志规则列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRuleTcpFlag" type="qos_cbqosruletcpflag_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosruletcpflag_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配TCP标志规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tcpFlag">
+				<xs:annotation>
+					<xs:documentation>TCP标志</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactremarks_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重标记动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActRemark" type="qos_cbqosactremark_type" minOccurs="0" maxOccurs="5"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactremark_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重标记动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionRemark" default="remark8021p">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remarkValue">
+				<xs:annotation>
+					<xs:documentation>重标记值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactfilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>过滤动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActFilter" type="qos_cbqosactfilter_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactfilter_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>过滤动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionFilter" default="filter">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filter" type="qosFilterFlag" default="permit">
+				<xs:annotation>
+					<xs:documentation>过滤类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactportmirrs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>流镜像动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActPortMirror" type="qos_cbqosactportmirr_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactportmirr_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>流镜像动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionPortMirror" default="portMirror">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="enable" type="qosPortMirror" default="enable">
+				<xs:annotation>
+					<xs:documentation>流镜像使能标志</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactcars_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>CAR动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActCar" type="qos_cbqosactcar_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactcar_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>CAR动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionCar" default="car">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cir">
+				<xs:annotation>
+					<xs:documentation>承诺信息速率</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="100"/>
+						<xs:maxInclusive value="100000000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pir">
+				<xs:annotation>
+					<xs:documentation>峰值信息速率</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="100"/>
+						<xs:maxInclusive value="100000000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cbs">
+				<xs:annotation>
+					<xs:documentation>承诺突发尺寸</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="100"/>
+						<xs:maxInclusive value="33554432"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pbs">
+				<xs:annotation>
+					<xs:documentation>峰值突发尺寸</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="33554432"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="greenAction" type="qosCarRedActionType">
+				<xs:annotation>
+					<xs:documentation>绿包动作</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="greenServiceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:documentation>绿包服务等级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="greenColor" type="qosColor">
+				<xs:annotation>
+					<xs:documentation>绿包的标记颜色</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yellowAction" type="qosCarRedActionType">
+				<xs:annotation>
+					<xs:documentation>黄包动作</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yellowServiceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:documentation>黄包服务等级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yellowColor" type="qosColor">
+				<xs:annotation>
+					<xs:documentation>黄包的标记颜色</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="redAction" type="qosCarRedActionType">
+				<xs:annotation>
+					<xs:documentation>红包动作</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="redServiceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:documentation>红包服务等级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="redColor" type="qosColor">
+				<xs:annotation>
+					<xs:documentation>红包的标记颜色</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactnssamples_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>NetStream采样动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActNsSampler" type="qos_cbqosactnssample_type" minOccurs="0" maxOccurs="2"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactnssample_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>NetStream采样动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="flowType" type="qosNsFlowType" default="ipv4">
+				<xs:annotation>
+					<xs:documentation>流类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sampleType" type="qosSampleType" default="fixPackets">
+				<xs:annotation>
+					<xs:documentation>采样类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sampleValue" default="100">
+				<xs:annotation>
+					<xs:documentation>采样参数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosacturpfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>URPF动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActUrpf" type="qos_cbqosacturpf_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosacturpf_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>URPF动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionUrpf" default="urpf">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="checkType" type="qosUrpfCheckType">
+				<xs:annotation>
+					<xs:documentation>检查类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="allowDefault" type="qosSwitchFlag" default="disable">
+				<xs:annotation>
+					<xs:documentation>是否允许缺省路由通过</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactloads_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>负载分担动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActLoad" type="qos_cbqosactload_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactload_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>负载分担动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionLoadBalance" default="loadBalance">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="balanceType" type="qosLoadBalanceType">
+				<xs:annotation>
+					<xs:documentation>负载分担方式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactsrvclss_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>服务等级动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActSrvCls" type="qos_cbqosactsrvcls_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactsrvcls_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>服务等级动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionServiceClass" default="serviceClass">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:documentation>服务等级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="color" type="qosColor">
+				<xs:annotation>
+					<xs:documentation>颜色</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrnhps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到单跳动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActRdrNhp" type="qos_cbqosactrdrnhp_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrnhp_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到单跳动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rdrType" type="qosRdrType">
+				<xs:annotation>
+					<xs:documentation>重定向类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nextHop" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrmhps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到多跳动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActRdrMhp" type="qos_cbqosactrdrmhp_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrmhp_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到多跳动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rdrType" type="qosRdrType" default="direct">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loadBalance" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>负载分担</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qosRdrNhps" type="qos_cbqosrdrnhps_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrnhp6s_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到IPv6下一跳动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActRdrNhp6" type="qos_cbqosactrdrnhp6_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrnhp6_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到IPv6下一跳动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rdrType" type="qosRdrType">
+				<xs:annotation>
+					<xs:documentation>重定向类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nextHop" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrlsps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到公网LSP动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActRdrLsp" type="qos_cbqosactrdrlsp_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrlsp_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到公网LSP动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionRedirectLsp" default="redirectLsp">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="configType" type="qosLspRdrType" default="destAddr">
+				<xs:annotation>
+					<xs:documentation>重定向LSP类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>目的地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nextHop" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secondary" type="qosEnableFlag" default="enable">
+				<xs:annotation>
+					<xs:documentation>备份链路标志</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrvpns_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到VPN实例组动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActRdrVpn" type="qos_cbqosactrdrvpn_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrvpn_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到VPN实例组动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionRedirectVpnGroup" default="redirectVpnGroup">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vpnGroupName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>VPN-Group的名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrIfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>重定向到tunnel实例组动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActRdrIf" type="qos_cbqosactrdrIf_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrIf_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>匹配优先级规则</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="actionType" type="qosActionRedirectIf" default="redirectIf">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosPolicyStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>流量策略统计列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosPolicyStat" type="qos_cbqosPolicyStat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosPolicyStat_type">
+		<xs:annotation>
+			<xs:documentation>流量策略统计</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="slotIdPath">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="qosSlotPath">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="applyTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>应用策略的时间。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statEnableTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>统计使能的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statClearTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>清除统计计数的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statClearFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>统计清除标志</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPktRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>匹配报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchByteRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>匹配字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="missPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>不匹配的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="missBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>不匹配的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPassPkts" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配通过的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPassBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配通过的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchDropPkts" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配丢弃的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchDropBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配丢弃的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="missPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>未命中策略的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="missBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>未命中策略的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPassPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>命中策略并通过的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPassBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>命中策略并通过的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchDropPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>命中策略并丢弃的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchDropBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>命中策略并丢弃的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urpfPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>URPF丢弃的报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urpfBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>URPF丢弃的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urpfPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>URPF丢弃的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urpfBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>URPF丢弃的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR处理的报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR处理的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR处理的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR处理的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>过滤的报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>过滤的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>过滤的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>过滤的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qosClassifierStats" type="qos_cbqosClassifierStats_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosClassifierStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>流分类统计列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosClassifierStat" type="qos_cbqosClassifierStat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosClassifierStat_type">
+		<xs:annotation>
+			<xs:documentation>流分类统计列</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="classifierName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>流分类名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPktRt" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配的报文速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchByteRt" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配的字节速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPassPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配通过的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPassBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配通过的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchDropPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配丢弃的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchDropBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>匹配丢弃的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPassPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>匹配流分类并通过的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchPassBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>匹配流分类并通过的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchDropPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>匹配流分类并丢弃的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchDropBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>匹配流分类并丢弃的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>过滤的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>过滤的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>过滤的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>过滤的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urpfDropPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>URPF丢弃的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urpfDropBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>URPF丢弃的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urpfDropPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>URPF丢弃的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="urpfDropBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>URPF丢弃的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>执行CAR处理的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>执行CAR处理的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carPassPkts" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR通过的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carPassBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR通过的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carDropPkts" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR丢弃的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carDropBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR丢弃的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carPassPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR通过的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carPassBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR通过的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carDropPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR丢弃的报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carDropBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>CAR丢弃的字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carGPkts" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR绿包报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carGBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR绿包字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carYPkts" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR黄包报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carYBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR黄包字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carRPkts" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR红包报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carRBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR红包字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carGPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR绿包报文速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carGBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR绿包字节速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carYPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR黄包报文速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carYBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR黄包字节速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carRPktsRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR红包报文速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="carRBytesRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>CAR红包字节速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrdrnhp_type">
+		<xs:annotation>
+			<xs:documentation>重定向到IPv4多跳动作的下一跳</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nextHop" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>IPv4下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrdrnhps_type">
+		<xs:annotation>
+			<xs:documentation>重定向到IPv4多跳动作的下一跳列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRdrNhp" type="qos_cbqosrdrnhp_type" minOccurs="2" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrdrnhp6s_type">
+		<xs:annotation>
+			<xs:documentation>重定向到IPv6多跳动作的下一跳列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosRdrNhp6" type="qos_cbqosrdrnhp6_type" minOccurs="2" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosrdrnhp6_type">
+		<xs:annotation>
+			<xs:documentation>重定向到IPv6多跳动作的下一跳</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nextHop" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>IPv6下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrmhp6s_type">
+		<xs:annotation>
+			<xs:documentation>重定向到IPv6多跳动作列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosActRdrMhp6" type="qos_cbqosactrdrmhp6_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosactrdrmhp6_type">
+		<xs:annotation>
+			<xs:documentation>重定向到IPv6多跳动作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rdrType" type="qosRdrType" default="direct">
+				<xs:annotation>
+					<xs:documentation>动作类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loadBalance" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>负载分担</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qosRdrNhp6s" type="qos_cbqosrdrnhp6s_type"/>
+		</xs:choice>
+		<xs:attribute name="operation"/>
+		<xs:attribute name="difference"/>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosvpninsts_type">
+		<xs:annotation>
+			<xs:documentation>VpnGroup组成实例列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosVpnInstance" type="qos_cbqosvpninst_type" minOccurs="0" maxOccurs="8"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_cbqosvpninst_type">
+		<xs:annotation>
+			<xs:documentation>VpnGroup组成实例</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrfName" type="vrfName">
+				<xs:annotation>
+					<xs:documentation>VPN实例名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="operation"/>
+		<xs:attribute name="difference"/>
+	</xs:complexType>
+</xs:schema>

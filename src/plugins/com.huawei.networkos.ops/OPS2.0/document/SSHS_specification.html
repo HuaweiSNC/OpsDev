@@ -1,0 +1,433 @@
+<body align="center"><br><p><p><font size="6" color="red"> URI :  /sshs/sshServer </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> portNumber </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 22 </td><td> NA </td><td> 22 </td><td> 65535 </td></tr><tr><td> sshacl4Name </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> sshacl4Num </td><td> NA </td><td> readWrite </td><td> NA </td><td> true </td><td> unsignedInt </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 2000 </td><td> 3999 </td></tr><tr><td> sshacl6Name </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> sshacl6Num </td><td> NA </td><td> readWrite </td><td> NA </td><td> true </td><td> unsignedInt </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 2000 </td><td> 3999 </td></tr><tr><td> authenticationTimeout </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 60 </td><td> NA </td><td> 1 </td><td> 120 </td></tr><tr><td> rekeyInterval </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 0 </td><td> NA </td><td> 0 </td><td> 24 </td></tr><tr><td> sshVersion </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> keepAliveEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> compatibleSsh1x </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> stelnetEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sftpEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sftpMaxUser </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 5 </td><td> NA </td><td> 0 </td><td> 15 </td></tr><tr><td> sftpTimeoutMin </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedShort </td><td> NA </td><td> NA </td><td> 10 </td><td> NA </td><td> 0 </td><td> 35791 </td></tr><tr><td> sftpTimeoutSec </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedByte </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 59 </td></tr><tr><td> snetconfEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sshAuthDefPass </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> authRetries </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedByte </td><td> NA </td><td> NA </td><td> 3 </td><td> NA </td><td> 1 </td><td> 5 </td></tr><tr><td> sftpOnlineUser </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> snetconfPortEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> srcInterfName </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> desEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> portNumber </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 22 </td><td> NA </td><td> 22 </td><td> 65535 </td></tr><tr><td> sshacl4Name </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> sshacl4Num </td><td> NA </td><td> readWrite </td><td> NA </td><td> true </td><td> unsignedInt </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 2000 </td><td> 3999 </td></tr><tr><td> sshacl6Name </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> sshacl6Num </td><td> NA </td><td> readWrite </td><td> NA </td><td> true </td><td> unsignedInt </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 2000 </td><td> 3999 </td></tr><tr><td> authenticationTimeout </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 60 </td><td> NA </td><td> 1 </td><td> 120 </td></tr><tr><td> rekeyInterval </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 0 </td><td> NA </td><td> 0 </td><td> 24 </td></tr><tr><td> sshVersion </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> keepAliveEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> compatibleSsh1x </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> stelnetEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sftpEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sftpMaxUser </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 5 </td><td> NA </td><td> 0 </td><td> 15 </td></tr><tr><td> sftpTimeoutMin </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedShort </td><td> NA </td><td> NA </td><td> 10 </td><td> NA </td><td> 0 </td><td> 35791 </td></tr><tr><td> sftpTimeoutSec </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedByte </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 59 </td></tr><tr><td> snetconfEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sshAuthDefPass </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> authRetries </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedByte </td><td> NA </td><td> NA </td><td> 3 </td><td> NA </td><td> 1 </td><td> 5 </td></tr><tr><td> sftpOnlineUser </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> snetconfPortEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> srcInterfName </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> desEnable </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /sshs/sshSessionStatuss/sshSessionStatus </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> serviceIndex </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 12 </td><td> NA </td><td> NA </td></tr><tr><td> SshSessNum </td><td> true </td><td> readOnly </td><td> NA </td><td> fals </td><td> int </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> NA </td></tr><tr><td> sshVersion </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 8 </td><td> NA </td><td> NA </td></tr><tr><td> connState </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> userName </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 253 </td><td> NA </td><td> NA </td></tr><tr><td> ctosCipher </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> stocCipher </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> ctosHMAC </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> stocHMAC </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> keyExchange </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 64 </td><td> NA </td><td> NA </td></tr><tr><td> serviceType </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> sessionRetry </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sessionAuthType </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> connectionPort </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> int </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 22 </td><td> 65535 </td></tr><tr><td> sessionKeyType </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> serviceIndex </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 12 </td><td> NA </td><td> NA </td></tr><tr><td> SshSessNum </td><td> true </td><td> readOnly </td><td> NA </td><td> fals </td><td> int </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> NA </td></tr><tr><td> sshVersion </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 8 </td><td> NA </td><td> NA </td></tr><tr><td> connState </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> userName </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 253 </td><td> NA </td><td> NA </td></tr><tr><td> ctosCipher </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> stocCipher </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> ctosHMAC </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> stocHMAC </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> keyExchange </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 64 </td><td> NA </td><td> NA </td></tr><tr><td> serviceType </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> sessionRetry </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sessionAuthType </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> connectionPort </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> int </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 22 </td><td> 65535 </td></tr><tr><td> sessionKeyType </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> SshSessNum </td><td> true </td><td> readOnly </td><td> NA </td><td> fals </td><td> int </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> SshSessNum </td><td> true </td><td> readOnly </td><td> NA </td><td> fals </td><td> int </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /sshs/sshNcaVtyCfg </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> timeoutMin </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedShort </td><td> NA </td><td> NA </td><td> 10 </td><td> NA </td><td> 0 </td><td> 35791 </td></tr><tr><td> timeoutSec </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedByte </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 59 </td></tr><tr><td> maxSessions </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 5 </td><td> NA </td><td> 0 </td><td> 5 </td><td> </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> timeoutMin </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedShort </td><td> NA </td><td> NA </td><td> 10 </td><td> NA </td><td> 0 </td><td> 35791 </td></tr><tr><td> timeoutSec </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> unsignedByte </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 59 </td></tr><tr><td> maxSessions </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> int </td><td> NA </td><td> NA </td><td> 5 </td><td> NA </td><td> 0 </td><td> 5 </td><td> </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /sshs/sshUserCfgs/sshUserCfg </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> userName </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 253 </td><td> NA </td><td> NA </td></tr><tr><td> rsaAuthType </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sftpDir </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 255 </td><td> NA </td><td> NA </td></tr><tr><td> rsaKeyName </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 30 </td><td> NA </td><td> NA </td></tr><tr><td> sshServiceType </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> pubKeyType </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> userName </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 253 </td><td> NA </td><td> NA </td></tr><tr><td> rsaAuthType </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sftpDir </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 255 </td><td> NA </td><td> NA </td></tr><tr><td> rsaKeyName </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> string </td><td> NA </td><td> NA </td><td> NA </td><td> 30 </td><td> NA </td><td> NA </td></tr><tr><td> sshServiceType </td><td> NA </td><td> readCreate </td><td> NA </td><td> true </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> pubKeyType </td><td> NA </td><td> readOnly </td><td> NA </td><td> NA </td><td> ENUM </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> userName </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 253 </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> userName </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 253 </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br></body>

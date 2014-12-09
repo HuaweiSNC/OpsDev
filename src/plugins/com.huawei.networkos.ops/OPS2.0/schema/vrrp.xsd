@@ -1,0 +1,1205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.7
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="vrrp_type.xsd"/>
+	<xs:element name="vrrp" type="vrrp_vrrp_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>vrrp</taskName>
+			</xs:appinfo>
+			<xs:documentation>Virtual router redundancy protocol.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="vrrp_vrrp_type">
+		<xs:annotation>
+			<xs:documentation>VRRP.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrrpGlobalCfg" type="vrrp_vrrpGlobalCfg_type"/>
+			<xs:element name="vrrpGroups" type="vrrp_vrrpGroups_type"/>
+			<xs:element name="interfaces" type="vrrp_interfaces_type"/>
+			<xs:element name="errorPackets" type="vrrp_errorPackets_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_interfaces_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP interface configurations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="interface" type="vrrp_interface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_interface_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP interface configuration.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrrp_vrrpInterfaceCfg_ifName_type">
+							<xs:attribute name="ifIndex" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ttlCheckFlag" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>TTL check flag.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendModeAll" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Send packet in all sub-Vlan of super-Vlan.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendSubVlanId" default="0">
+				<xs:annotation>
+					<xs:documentation>Send packet sub-Vlan of super-Vlan.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="recoverDelay" default="0">
+				<xs:annotation>
+					<xs:documentation>Timeout to recover delay time.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="arpSendSimple" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Send ARP packet simple in QINQ interface.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrrpIfStatistics" type="vrrp_vrrpIfStatistics_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="vrrp_vrrpInterfaceCfg_ifName_type">
+		<xs:annotation>
+			<xs:documentation>VRRP interface configuration ifname.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		        <xs:minLength value="1"/>
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="vrrp_vrrpGlobalCfg_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP global configuration.</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="gratuitousArpFlag" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Gratuitous ARP enable flag.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gratuitousArpTimeOut" default="300">
+				<xs:annotation>
+					<xs:documentation>Gratuitous ARP timeout value.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="30"/>
+						<xs:maxInclusive value="1200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="advTimeLearnFlag" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Advertisement time learn flag, default is true.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pingEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Virtual IP address ping enable flag.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recoverDelay" default="0">
+				<xs:annotation>
+					<xs:documentation>Timeout to recover delay time.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vipRtAdvEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Virtual IP address publish dynamic routing.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpGroups_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP groups.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="vrrpGroup" type="vrrp_vrrpGroup_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpGroup_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP group.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrrpId">
+				<xs:annotation>
+					<xs:documentation>VRRP identification.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrrp_vrrpGroup_ifName_type">
+							<xs:attribute name="ifIndex" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="vrrpType" type="vrrpType" default="normal">
+				<xs:annotation>
+					<xs:documentation>VRRP type.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="adminIgnoreIfDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Admin vrrp ignore interface down.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unflowdown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Enable flowdown function.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="virtualIps" type="vrrp_virtualIps_type"/>
+			<xs:element name="vrrpTrackIntfs" type="vrrp_vrrpTrackIntfs_type"/>
+			<xs:element name="adminVrrpId">
+				<xs:annotation>
+					<xs:documentation>VRRP identification.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="adminIfName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrrp_vrrpGroup_ifName_type">
+							<xs:attribute name="ifIndex" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="lbrgVrrpId">
+				<xs:annotation>
+					<xs:documentation>VRRP identification.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="memberVrrps" type="vrrp_memerVrrps_type"/>
+			<xs:element name="lbrgmemVrrps" type="vrrp_lbrgmemVrrps_type"/>
+			<xs:element name="vrrpTrackBfds" type="vrrp_vrrpTrackBfds_type"/>
+			<xs:element name="vrrpTrackIpRoutings" type="vrrp_vrrpTrackIpRoutings_type"/>
+			<xs:element name="state" type="vrrpOperState">
+				<xs:annotation>
+					<xs:documentation>The current state of the virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priority" default="100">
+				<xs:annotation>
+					<xs:documentation>The configured priority.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="254"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="runPriority">
+				<xs:annotation>
+					<xs:documentation>This object specifies the priority to be used for the virtual router master election process.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="masterPriority">
+				<xs:annotation>
+					<xs:documentation>The priority of master router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="masterIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>The Ip address of master router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>The create time of VRRP.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lchangeTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>The last change time of VRRP.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="advertiseInterval" default="1000">
+				<xs:annotation>
+					<xs:documentation>The configed time interval, in seconds, between sending advertisement messages.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1000"/>
+						<xs:maxInclusive value="255000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="runAdvertiseInterval" default="1000">
+				<xs:annotation>
+					<xs:documentation>The run time interval, in seconds, between sending advertisement messages.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1000"/>
+						<xs:maxInclusive value="255000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="preemptMode" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Controls whether a higher priority virtual router will preempt a lower priority master.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="delayTime" default="0">
+				<xs:annotation>
+					<xs:documentation>Delay time for preemption.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="3600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remainTime" default="0">
+				<xs:annotation>
+					<xs:documentation>Remain time for preemption.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="3600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="authenticationMode" type="vrrpAuthentiMode" default="none">
+				<xs:annotation>
+					<xs:documentation>Authentication type used for VRRP protocol exchanges between virtual routers.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isPlain" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The authentication key is plain.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenticationKey">
+				<xs:annotation>
+					<xs:documentation>The Authentication Key.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="password">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="linkBfdDownNum" default="0">
+				<xs:annotation>
+					<xs:documentation>The link-bfd down-number.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="virtualMac" type="macAddress">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stateChanges" type="vrrp_vrrpStateChanges_type"/>
+			<xs:element name="vrrpStatistics" type="vrrp_vrrpStatistics_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="vrrp_vrrpGroup_ifName_type">
+		<xs:annotation>
+			<xs:documentation>VRRP group ifname.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		        <xs:minLength value="1"/>
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrp_vrrpTrack_ifName_type">
+		<xs:annotation>
+			<xs:documentation>VRRP tracked interface name.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		        <xs:minLength value="1"/>
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrp_vrrpBfd_sessionName_type">
+		<xs:annotation>
+			<xs:documentation>VRRP tracked bfd session name.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="vrrp_virtualIps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP virtual ips</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="virtualIp" type="vrrp_virtualIp_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_virtualIp_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP virtual ip.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="virtualIpAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Virtual IP address.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpTrackIntfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP track interfaces.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="vrrpTrackIntf" type="vrrp_vrrpTrackIntf_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpTrackIntf_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP group.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="trackIfName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrrp_vrrpTrack_ifName_type">
+							<xs:attribute name="ifIndex" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="trackMode" type="vrrpTrackMode" default="reduce">
+				<xs:annotation>
+					<xs:documentation>The current state of the virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priorityChange" default="10">
+				<xs:annotation>
+					<xs:documentation>The configured priority.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_memerVrrps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP track interfaces.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="memberVrrp" type="vrrp_memberVrrp_type" minOccurs="0" maxOccurs="512"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_memberVrrp_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP group.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrrpId">
+				<xs:annotation>
+					<xs:documentation>VRRP identification.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrrp_vrrpGroup_ifName_type">
+							<xs:attribute name="ifIndex" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="state" type="vrrpOperState">
+				<xs:annotation>
+					<xs:documentation>The current state of the virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_lbrgmemVrrps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP track interfaces.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lbrgmemVrrp" type="vrrp_lbrgmemVrrp_type" minOccurs="0" maxOccurs="254"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_lbrgmemVrrp_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP group.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrrpId">
+				<xs:annotation>
+					<xs:documentation>VRRP identification.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="state" type="vrrpOperState">
+				<xs:annotation>
+					<xs:documentation>The current state of the virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpTrackBfds_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP track bfd sessions.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="vrrpTrackBfd" type="vrrp_vrrpTrackBfd_type" minOccurs="0" maxOccurs="17"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpTrackBfd_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP track bfd.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="bfdSessionName">
+				<xs:annotation>
+					<xs:documentation>Bfd session local Discription.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdSessionId">
+				<xs:annotation>
+					<xs:documentation>Bfd session local Discription.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="32768"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdType" type="vrrpBfdType" default="normal">
+				<xs:annotation>
+					<xs:documentation>The bfd session type.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trackMode" type="vrrpTrackMode" default="reduce">
+				<xs:annotation>
+					<xs:documentation>The current state of the virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priorityChange" default="10">
+				<xs:annotation>
+					<xs:documentation>The configured priority.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpStatisticss_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP entry statisticss.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpStatistics_type">
+		<xs:annotation>
+			<xs:documentation>VRRP entry statistics.</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="brcomeMaster" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of times that this virtual router's state has transitioned to master.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendAdvertisement" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP advertisements sent by this virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiveAdvertisement" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP advertisements received by this virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="advertiseIntervalErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP advertisement packets received for which the advertisement interval is different than the one configured for the local virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenticationFailures" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets received that do not pass the authentication check.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipTtlErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets received by the virtual router with IP TTL (Time-To-Live) not equal to 255.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receivePriorityZero" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets received by the virtual router with a priority of '0'.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendPriorityZero" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets sent by the virtual router with a priority of '0'.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="invalidTypePackets" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The number of VRRP packets received by the virtual router with an invalid value in the 'type' field.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addressListErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of packets received for which the address list does not match the locally configured list for the virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="invalidAuthenticationType" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of packets received with an unknown authentication type.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenticationTypeMismatch" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of packets received with 'Auth Type' not equal to the locally configured authentication method.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="packetLengthErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of packets received with a packet length less than the length of the VRRP header.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiveSelfSend" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of received packets which sent by master self.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpIfStatistics_type">
+		<xs:annotation>
+			<xs:documentation>VRRP interface statistics.</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="ipProtocolErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets received with incorrect IP protocol.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destinationIpErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets received with incorrect destination IP.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="checksumErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets received with an invalid VRRP checksum value.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="versionErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets received with an unknown or unsupported version number.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrrpIdErrors" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The total number of VRRP packets received with an invalid VRRP ID for this virtual router.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpStateChange_type">
+		<xs:annotation>
+			<xs:documentation>VRRP state change</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Record index.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceState">
+				<xs:annotation>
+					<xs:documentation>Source state.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="destState">
+				<xs:annotation>
+					<xs:documentation>Dest state.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="changeReason">
+				<xs:annotation>
+					<xs:documentation>VRRP state change reason</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="changeTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>VRRP state change time.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpStateChanges_type">
+		<xs:annotation>
+			<xs:documentation>VRRP state changes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="stateChange" type="vrrp_vrrpStateChange_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_errorPacket_type">
+		<xs:annotation>
+			<xs:documentation>VRRP error packet</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Record index.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+					        <xs:minLength value="1"/>
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="receiveTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Receive time.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reason">
+				<xs:annotation>
+					<xs:documentation>Error reason.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="48"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="buffer">
+				<xs:annotation>
+					<xs:documentation>Error packet buffer.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vrrp_errorPackets_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>VRRP track interfaces.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="errorPacket" type="vrrp_errorPacket_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="vrrp_errorPacket_ifName_type">
+		<xs:annotation>
+			<xs:documentation>VRRP error packet interface name.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		        <xs:minLength value="1"/>
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="vrrp_vrrpTrackIpRoutings_type">
+		<xs:annotation>
+			<xs:documentation>VRRP state changes</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="vrrpTrackIpRouting" type="vrrp_vrrpTrackIpRouting_type" minOccurs="0" maxOccurs="8"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vrrp_vrrpTrackIpRouting_type">
+		<xs:annotation>
+			<xs:documentation>VRRP state changes</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vpnName">
+				<xs:annotation>
+					<xs:documentation>VPN name.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Ip address.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipMask" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Ip mask.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priorityChange" default="10">
+				<xs:annotation>
+					<xs:documentation>The configured priority</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

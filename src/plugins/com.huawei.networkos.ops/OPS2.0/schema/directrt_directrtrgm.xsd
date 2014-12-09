@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="directrt_directrtrgm_type.xsd"/>
+	<xs:complexType name="directrt_directrtrgm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="drtrackvrrps" type="directrt_directrtrgm_drtrackvrrps_type"/>
+			<xs:element name="drtrackpws" type="directrt_directrtrgm_drtrackpws_type"/>
+			<xs:element name="drdegradedelays" type="directrt_directrtrgm_drdegradedelays_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="directrt_directrtrgm_drtrackvrrps_type">
+		<xs:annotation>
+			<xs:documentation>Drtrackvrrp</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="drtrackvrrp" type="directrt_directrtrgm_drtrackvrrp_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="directrt_directrtrgm_drtrackpws_type">
+		<xs:annotation>
+			<xs:documentation>Drtrackpw</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="drtrackpw" type="directrt_directrtrgm_drtrackpw_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="directrt_directrtrgm_drdegradedelays_type">
+		<xs:annotation>
+			<xs:documentation>Drdegradedelay</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="drdegradedelay" type="directrt_directrtrgm_drdegradedelay_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="directrt_directrtrgm_drtrackvrrp_type">
+		<xs:annotation>
+			<xs:documentation>Drtrackvrrp Type</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="directrttrack_ifName_type">
+							<xs:attribute name="ifIndex" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="trackVrrpId">
+				<xs:annotation>
+					<xs:documentation>Tracked Vrrp Id.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="costChange">
+				<xs:annotation>
+					<xs:documentation>Direct route cost Change.</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="directrt_directrtrgm_drtrackpw_type">
+		<xs:annotation>
+			<xs:documentation>Drtrackpw Type</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="directrttrack_ifName_type">
+							<xs:attribute name="ifIndex" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="costChange">
+				<xs:annotation>
+					<xs:documentation>Direct route cost Change.</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="directrt_directrtrgm_drdegradedelay_type">
+		<xs:annotation>
+			<xs:documentation>Drdegradedelay Type</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface name.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="directrttrack_ifName_type">
+							<xs:attribute name="ifIndex" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="costChange">
+				<xs:annotation>
+					<xs:documentation>Direct route cost Change.</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="timeDelay">
+				<xs:annotation>
+					<xs:documentation>Time delay.</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="3600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="directrttrack_ifName_type">
+		<xs:annotation>
+			<xs:documentation>Trackvrrp ifname.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

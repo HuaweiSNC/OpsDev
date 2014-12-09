@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.9 L20090424pm for schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="mpls_te_type.xsd"/>
+	<xs:complexType name="mpls_action_mplsTe_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="switchTraffic" type="mpls_p2pte_action_TunnelTrafficSwitch_type"/>
+			<xs:element name="optimTunnel" type="mpls_p2pte_action_optimTunnel_type"/>
+			<xs:element name="resetRSVP" type="mpls_p2pte_action_resetRsvp_type"/>
+			<xs:element name="manualFlooding" type="mpls_p2pte_action_manualFlooding_type"/>
+			<xs:element name="resetRSVPStatistic" type="mpls_p2pte_action_resetRsvpStatistic_type"/>
+			<xs:element name="resetTunnel" type="mpls_p2pte_action_resetTunnel_type"/>
+			<xs:element name="hsbSwitch" type="mpls_te_action_hsbSwitch_type"/>
+			<xs:element name="upgradeTeBypass" type="mpls_p2pte_action_upgradeTeBypass_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mpls_p2pte_action_resetTunnel_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>reset te tunnel</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tunnelName">
+				<xs:annotation>
+					<xs:documentation>tunnel name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mpls_te_action_hsbSwitch_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>switch between hos-standby lsp and primary lsp</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tunnelName">
+				<xs:annotation>
+					<xs:documentation>tunnel name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="switchMode" type="mplsTeHsbSwitchMode" default="primary2hsb">
+				<xs:annotation>
+					<xs:documentation>hot-standby switch mode</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mpls_p2pte_action_resetRsvpStatistic_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>reset RSVP statistic of global or interface</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="interfaceName">
+				<xs:annotation>
+					<xs:documentation>interface name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifindex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mpls_p2pte_action_optimTunnel_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>reoptim tunnel</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tunnelName">
+				<xs:annotation>
+					<xs:documentation>tunnel name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mpls_p2pte_action_resetRsvp_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>reset RSVP</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="resetAllInstance" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>reset all rsvp instance or specified instance</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mpls_p2pte_action_manualFlooding_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>manual flooding</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="reserved" default="0">
+				<xs:annotation>
+					<xs:documentation>manual flooding reserved</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mpls_p2pte_action_TunnelTrafficSwitch_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>tunnel switch traffic to specified path</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tunnelName">
+				<xs:annotation>
+					<xs:documentation>tunnel name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="switchTo" type="p2pteTunnelPathRole">
+				<xs:annotation>
+					<xs:documentation>path role</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mpls_p2pte_action_upgradeTeBypass_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>upgrade MPLS TE Bypass</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="upgradeAllBypass" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>upgrade all tem rsvp bypass tunnel</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

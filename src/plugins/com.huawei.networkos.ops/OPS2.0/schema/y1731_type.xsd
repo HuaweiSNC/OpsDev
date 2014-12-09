@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="cfmVersion">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="draft7"/>
+			<xs:enumeration value="standard"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mpAddressModel">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="bridge"/>
+			<xs:enumeration value="individual"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mapType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="no-bind"/>
+			<xs:enumeration value="bind-l2vc"/>
+			<xs:enumeration value="bind-vsi"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ccmInterval">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		        <xs:enumeration value="interval3.3ms"/>
+		        <xs:enumeration value="interval10ms"/>
+			<xs:enumeration value="interval100ms"/>
+			<xs:enumeration value="interval1s"/>
+			<xs:enumeration value="interval10s"/>
+			<xs:enumeration value="interval1min"/>
+			<xs:enumeration value="interval10min"/>
+			<xs:enumeration value="interval20ms"/>
+			<xs:enumeration value="interval30ms"/>
+			<xs:enumeration value="interval50ms"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vcType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="l2vcRaw"/>
+			<xs:enumeration value="l2vcTagged"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="maFormat">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="string"/>
+			<xs:enumeration value="icc-based"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mdFormat">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none"/>
+			<xs:enumeration value="dnsLinkName"/>
+			<xs:enumeration value="macAddressAndUint"/>
+			<xs:enumeration value="charString"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="measurementType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="singleloss"/>
+			<xs:enumeration value="dualloss"/>
+			<xs:enumeration value="onewaydelay"/>
+			<xs:enumeration value="twowaydelay"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mepDirection">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="inward"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="continueInterval1">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="interval30000ms"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="continueInterval2">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="interval1000ms"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="onDemondInterval1">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="interval1000ms"/>
+			<xs:enumeration value="interval10000ms"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="measureMode">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="on-demand"/>
+			<xs:enumeration value="proactive"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="status">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="working"/>
+			<xs:enumeration value="finished"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="errorInfo">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="valid"/>
+			<xs:enumeration value="invalid-loss"/>
+			<xs:enumeration value="invalid-delay"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

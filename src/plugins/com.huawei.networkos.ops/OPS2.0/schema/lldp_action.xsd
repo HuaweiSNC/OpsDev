@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="lldp_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="lldp" type="lldp_action_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>lldp</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="lldp_action_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="resetMdnStatistics" type="lldp_resetMdnStatistics_type"/>
+			<xs:element name="resetlldpStatistics" type="lldp_resetlldpStatistics_type"/>
+			<xs:element name="clearLldpNeighbor" type="lldp_clearLldpNeighbor_type"/>
+			<xs:element name="resetAllLldpStatistics" type="xs:boolean"/>
+			<xs:element name="resetAllMdnStatistics" type="xs:boolean"/>
+			<xs:element name="clearAllLldpNeighbor" type="xs:boolean"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_resetMdnStatistics_type">
+		<xs:annotation>
+			<xs:documentation>清除接口Mdn统计计数</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_resetlldpStatistics_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_clearLldpNeighbor_type">
+		<xs:annotation>
+			<xs:documentation>清除接口的LLDP邻居信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	
+</xs:schema>

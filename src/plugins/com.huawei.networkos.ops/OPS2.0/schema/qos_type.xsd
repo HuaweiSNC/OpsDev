@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.24
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="qosServiceClass">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="be">
+				<xs:annotation>
+					<xs:documentation>be:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af1">
+				<xs:annotation>
+					<xs:documentation>af1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af2">
+				<xs:annotation>
+					<xs:documentation>af2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af3">
+				<xs:annotation>
+					<xs:documentation>af3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af4">
+				<xs:annotation>
+					<xs:documentation>af4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ef">
+				<xs:annotation>
+					<xs:documentation>ef:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cs6">
+				<xs:annotation>
+					<xs:documentation>cs6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cs7">
+				<xs:annotation>
+					<xs:documentation>cs7:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosColor">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="green">
+				<xs:annotation>
+					<xs:documentation>green:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="yellow">
+				<xs:annotation>
+					<xs:documentation>yellow:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="red">
+				<xs:annotation>
+					<xs:documentation>red:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosBaType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="8021p">
+				<xs:annotation>
+					<xs:documentation>8021p:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipDscp">
+				<xs:annotation>
+					<xs:documentation>ipDscp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mplsExp">
+				<xs:annotation>
+					<xs:documentation>mplsExp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosSpeedType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="bothSpeed">
+				<xs:annotation>
+					<xs:documentation>bothSpeed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lowSpeed">
+				<xs:annotation>
+					<xs:documentation>lowSpeed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="highSpeed">
+				<xs:annotation>
+					<xs:documentation>highSpeed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosDirectionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="inbound">
+				<xs:annotation>
+					<xs:documentation>inbound:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosPolicyApplyDirection">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="inbound">
+				<xs:annotation>
+					<xs:documentation>inbound:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="outbound">
+				<xs:annotation>
+					<xs:documentation>outbound:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosPolicyApplyLayer">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="link">
+				<xs:annotation>
+					<xs:documentation>link:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mpls">
+				<xs:annotation>
+					<xs:documentation>mpls:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosSwitchFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosIfQppbMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ipPrecedence">
+				<xs:annotation>
+					<xs:documentation>ipPrecedence:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="inbound">
+				<xs:annotation>
+					<xs:documentation>inbound:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="outbound">
+				<xs:annotation>
+					<xs:documentation>outbound:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosIfQppbValue">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="source">
+				<xs:annotation>
+					<xs:documentation>source:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="destination">
+				<xs:annotation>
+					<xs:documentation>destination:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosDsName">
+		<xs:annotation>
+			<xs:documentation>now qosDsName is like string</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosPolicyName">
+		<xs:annotation>
+			<xs:documentation>qosPolicyName begins with a-z or A-Z</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="31"/>
+			<xs:pattern value="(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosQueuePriority">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pq">
+				<xs:annotation>
+					<xs:documentation>pq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="wfq">
+				<xs:annotation>
+					<xs:documentation>wfq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosCarGreenActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pass">
+				<xs:annotation>
+					<xs:documentation>pass:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosCarRedActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pass">
+				<xs:annotation>
+					<xs:documentation>pass:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="discard">
+				<xs:annotation>
+					<xs:documentation>discard:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosSlotPath">
+		<xs:annotation>
+			<xs:documentation>slotPath is like 3, 1/3</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="127"/>
+			<xs:pattern value="^(\d+/)?\d+$"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosPacketType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="broadcast-suppression">
+				<xs:annotation>
+					<xs:documentation>broadcast-suppression:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown-unicast-suppression">
+				<xs:annotation>
+					<xs:documentation>unknown-unicast-suppression:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multicast-suppression">
+				<xs:annotation>
+					<xs:documentation>multicast-suppression:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosTrustType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="8021p-inner">
+				<xs:annotation>
+					<xs:documentation>8021p-inner</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="8021p-outer">
+				<xs:annotation>
+					<xs:documentation>8021p-outer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dscp">
+				<xs:annotation>
+					<xs:documentation>dscp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosPhbOperateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>使能反映射</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>禁止反映射</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DSNAME">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SCHEDULEMODE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pq">
+				<xs:annotation>
+					<xs:documentation>pq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="wrr">
+				<xs:annotation>
+					<xs:documentation>wrr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="drr">
+				<xs:annotation>
+					<xs:documentation>drr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="wfq">
+				<xs:annotation>
+					<xs:documentation>wfq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ENABLEFLAG">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="QUEUEID">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0">
+				<xs:annotation>
+					<xs:documentation>0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3">
+				<xs:annotation>
+					<xs:documentation>3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4">
+				<xs:annotation>
+					<xs:documentation>4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="5">
+				<xs:annotation>
+					<xs:documentation>5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="7">
+				<xs:annotation>
+					<xs:documentation>7:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SERVICECLASS">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="be">
+				<xs:annotation>
+					<xs:documentation>be:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af1">
+				<xs:annotation>
+					<xs:documentation>af1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af2">
+				<xs:annotation>
+					<xs:documentation>af2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af3">
+				<xs:annotation>
+					<xs:documentation>af3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af4">
+				<xs:annotation>
+					<xs:documentation>af4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ef">
+				<xs:annotation>
+					<xs:documentation>ef:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cs6">
+				<xs:annotation>
+					<xs:documentation>cs6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cs7">
+				<xs:annotation>
+					<xs:documentation>cs7:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BURSTMODEGLB">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enhanced">
+				<xs:annotation>
+					<xs:documentation>enhanced:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BURSTMODE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enhanced">
+				<xs:annotation>
+					<xs:documentation>enhanced:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="extreme">
+				<xs:annotation>
+					<xs:documentation>extreme:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PHBTYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="8021p">
+				<xs:annotation>
+					<xs:documentation>8021p:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dscp">
+				<xs:annotation>
+					<xs:documentation>dscp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vlanID">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="4094"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MIRRORDIRECTION">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="both">
+				<xs:annotation>
+					<xs:documentation>both:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="inbound">
+				<xs:annotation>
+					<xs:documentation>inbound:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="outbound">
+				<xs:annotation>
+					<xs:documentation>outbound:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

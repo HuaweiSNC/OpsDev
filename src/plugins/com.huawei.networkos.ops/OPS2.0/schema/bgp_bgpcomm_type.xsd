@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:simpleType name="bgpcommAddrFamilyType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ipv4">
+                <xs:annotation>
+                    <xs:documentation>ipv4:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv6">
+                <xs:annotation>
+                    <xs:documentation>ipv6:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommSubAddrFamType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="unicast">
+                <xs:annotation>
+                    <xs:documentation>unicast:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="multicast">
+                <xs:annotation>
+                    <xs:documentation>multicast:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="both">
+                <xs:annotation>
+                    <xs:documentation>both:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="labelunicast">
+                <xs:annotation>
+                    <xs:documentation>labelunicast:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommPasswordType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="null">
+                <xs:annotation>
+                    <xs:documentation>null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="cipher">
+                <xs:annotation>
+                    <xs:documentation>cipher:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="simple">
+                <xs:annotation>
+                    <xs:documentation>simple:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommPrefixType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ipv4uni">
+                <xs:annotation>
+                    <xs:documentation>ipv4uni:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv4multi">
+                <xs:annotation>
+                    <xs:documentation>ipv4multi:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv4vpn">
+                <xs:annotation>
+                    <xs:documentation>ipv4vpn:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv6uni">
+                <xs:annotation>
+                    <xs:documentation>ipv6uni:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv6vpn">
+                <xs:annotation>
+                    <xs:documentation>ipv6vpn:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv4flow">
+                <xs:annotation>
+                    <xs:documentation>ipv4flow:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommVrfPrefixType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ipv4uni">
+                <xs:annotation>
+                    <xs:documentation>ipv4uni:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv6uni">
+                <xs:annotation>
+                    <xs:documentation>ipv6uni:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommGroupAddrFamily">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="public">
+                <xs:annotation>
+                    <xs:documentation>public:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv4uni">
+                <xs:annotation>
+                    <xs:documentation>ipv4uni:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv6uni">
+                <xs:annotation>
+                    <xs:documentation>ipv6uni:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommImRouteProtocol">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="direct">
+                <xs:annotation>
+                    <xs:documentation>direct:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ospf">
+                <xs:annotation>
+                    <xs:documentation>ospf:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="isis">
+                <xs:annotation>
+                    <xs:documentation>isis:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="static">
+                <xs:annotation>
+                    <xs:documentation>static:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="rip">
+                <xs:annotation>
+                    <xs:documentation>rip:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+	    <xs:enumeration value="ospfv3">
+                <xs:annotation>
+                    <xs:documentation>ospfv3:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ripng">
+                <xs:annotation>
+                    <xs:documentation>ripng:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommFilterProtocol">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="noprotocol">
+                <xs:annotation>
+                    <xs:documentation>noprotocol:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="direct">
+                <xs:annotation>
+                    <xs:documentation>direct:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ospf">
+                <xs:annotation>
+                    <xs:documentation>ospf:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="isis">
+                <xs:annotation>
+                    <xs:documentation>isis:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="static">
+                <xs:annotation>
+                    <xs:documentation>static:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="rip">
+                <xs:annotation>
+                    <xs:documentation>rip:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ospfv3">
+                <xs:annotation>
+                    <xs:documentation>ospfv3:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ripng">
+                <xs:annotation>
+                    <xs:documentation>ripng:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommPeerType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ebgp">
+                <xs:annotation>
+                    <xs:documentation>ebgp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ibgp">
+                <xs:annotation>
+                    <xs:documentation>ibgp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommPeerConnectMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="listenOnly">
+                <xs:annotation>
+                    <xs:documentation>listenOnly:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="connectOnly">
+                <xs:annotation>
+                    <xs:documentation>connectOnly:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="null">
+                <xs:annotation>
+                    <xs:documentation>null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommRefDirection">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="export">
+                <xs:annotation>
+                    <xs:documentation>export:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="import">
+                <xs:annotation>
+                    <xs:documentation>import:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommUPGListType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PendingList">
+                <xs:annotation>
+                    <xs:documentation>PendingList:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SendingList">
+                <xs:annotation>
+                    <xs:documentation>SendingList:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="WaitingList">
+                <xs:annotation>
+                    <xs:documentation>WaitingList:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SyncingList">
+                <xs:annotation>
+                    <xs:documentation>SyncingList:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommUpgState">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="pending">
+                <xs:annotation>
+                    <xs:documentation>pending:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="batchsend">
+                <xs:annotation>
+                    <xs:documentation>batchsend:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="realTimeSend">
+                <xs:annotation>
+                    <xs:documentation>realTimeSend:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="max">
+                <xs:annotation>
+                    <xs:documentation>max:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommUpgEvent">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="startQuery">
+                <xs:annotation>
+                    <xs:documentation>startQuery:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="sendStopQuery">
+                <xs:annotation>
+                    <xs:documentation>sendStopQuery:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="syncStopQuery">
+                <xs:annotation>
+                    <xs:documentation>syncStopQuery:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="sendBufFinished">
+                <xs:annotation>
+                    <xs:documentation>sendBufFinished:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="max">
+                <xs:annotation>
+                    <xs:documentation>max:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommRouteLmtType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="noparameter">
+                <xs:annotation>
+                    <xs:documentation>noparameter:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="alertOnly">
+                <xs:annotation>
+                    <xs:documentation>alertOnly:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="idleForever">
+                <xs:annotation>
+                    <xs:documentation>idleForever:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="idleTimeout">
+                <xs:annotation>
+                    <xs:documentation>idleTimeout:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommRTVarFieldType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="aspath">
+                <xs:annotation>
+                    <xs:documentation>aspath:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="community">
+                <xs:annotation>
+                    <xs:documentation>community:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="extcommunity">
+                <xs:annotation>
+                    <xs:documentation>extcommunity:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="peerlist">
+                <xs:annotation>
+                    <xs:documentation>peerlist:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="clusterid">
+                <xs:annotation>
+                    <xs:documentation>clusterid:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommNextHopCfg">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="null">
+                <xs:annotation>
+                    <xs:documentation>null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="local">
+                <xs:annotation>
+                    <xs:documentation>local:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="invariable">
+                <xs:annotation>
+                    <xs:documentation>invariable:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommRTShowTmpType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="null">
+                <xs:annotation>
+                    <xs:documentation>null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="normalTmp">
+                <xs:annotation>
+                    <xs:documentation>normalTmp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="natureTmp">
+                <xs:annotation>
+                    <xs:documentation>natureTmp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="samePreTmp">
+                <xs:annotation>
+                    <xs:documentation>samePreTmp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommTTLType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="default">
+                <xs:annotation>
+                    <xs:documentation>default:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EBGPMAXHOP">
+                <xs:annotation>
+                    <xs:documentation>EBGPMAXHOP:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="GTSM">
+                <xs:annotation>
+                    <xs:documentation>GTSM:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommApplyLabelType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="perNexthop">
+                <xs:annotation>
+                    <xs:documentation>perNexthop:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="perInstance">
+                <xs:annotation>
+                    <xs:documentation>perInstance:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="perRoute">
+                <xs:annotation>
+                    <xs:documentation>perRoute:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommPEERSTATE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="idle">
+                <xs:annotation>
+                    <xs:documentation>idle:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="connect">
+                <xs:annotation>
+                    <xs:documentation>connect:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="active">
+                <xs:annotation>
+                    <xs:documentation>active:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="opensent">
+                <xs:annotation>
+                    <xs:documentation>opensent:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="openconfirm">
+                <xs:annotation>
+                    <xs:documentation>openconfirm:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="established">
+                <xs:annotation>
+                    <xs:documentation>established:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommPEERADMINSTATUS">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="stop">
+                <xs:annotation>
+                    <xs:documentation>stop:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="start">
+                <xs:annotation>
+                    <xs:documentation>start:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommATOMAGGREGATE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="lessSpecificRrouteNotSelected">
+                <xs:annotation>
+                    <xs:documentation>lessSpecificRrouteNotSelected:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="lessSpecificRouteSelected">
+                <xs:annotation>
+                    <xs:documentation>lessSpecificRouteSelected:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommSelDependType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="default">
+                <xs:annotation>
+                    <xs:documentation>default:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="dependTunnel">
+                <xs:annotation>
+                    <xs:documentation>dependTunnel:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="dependIp">
+                <xs:annotation>
+                    <xs:documentation>dependIp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommBrmDebugType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="component">
+                <xs:annotation>
+                    <xs:documentation>component:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="instance">
+                <xs:annotation>
+                    <xs:documentation>instance:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="peer">
+                <xs:annotation>
+                    <xs:documentation>peer:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="route">
+                <xs:annotation>
+                    <xs:documentation>route:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="nexthop">
+                <xs:annotation>
+                    <xs:documentation>nexthop:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommBGPMIBBOOL">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="false">
+                <xs:annotation>
+                    <xs:documentation>false:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="true">
+                <xs:annotation>
+                    <xs:documentation>true:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommBgpDistType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="center">
+                <xs:annotation>
+                    <xs:documentation>center:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="distributed">
+                <xs:annotation>
+                    <xs:documentation>distributed:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommImportAddrFmType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ipv4uni">
+                <xs:annotation>
+                    <xs:documentation>ipv4uni:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv4vpn">
+                <xs:annotation>
+                    <xs:documentation>ipv4vpn:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv6uni">
+                <xs:annotation>
+                    <xs:documentation>ipv6uni:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommBgpBfdState">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="up">
+                <xs:annotation>
+                    <xs:documentation>up:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="down">
+                <xs:annotation>
+                    <xs:documentation>down:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="unknown">
+                <xs:annotation>
+                    <xs:documentation>unknown:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommRoutQueConType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="null">
+                <xs:annotation>
+                    <xs:documentation>null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="cidr">
+                <xs:annotation>
+                    <xs:documentation>cidr:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="inconAS">
+                <xs:annotation>
+                    <xs:documentation>inconAS:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="asPathFilter">
+                <xs:annotation>
+                    <xs:documentation>asPathFilter:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="communityFilter">
+                <xs:annotation>
+                    <xs:documentation>communityFilter:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="communityNotWhole">
+                <xs:annotation>
+                    <xs:documentation>communityNotWhole:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="communityWhole">
+                <xs:annotation>
+                    <xs:documentation>communityWhole:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="regular">
+                <xs:annotation>
+                    <xs:documentation>regular:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="label">
+                <xs:annotation>
+                    <xs:documentation>label:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="longerPrefix">
+                <xs:annotation>
+                    <xs:documentation>longerPrefix:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommAdvOrRecv">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="null">
+                <xs:annotation>
+                    <xs:documentation>null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="advertised">
+                <xs:annotation>
+                    <xs:documentation>advertised:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="received">
+                <xs:annotation>
+                    <xs:documentation>received:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="receivedActive">
+                <xs:annotation>
+                    <xs:documentation>receivedActive:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommOrigin">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="igp">
+                <xs:annotation>
+                    <xs:documentation>igp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="egp">
+                <xs:annotation>
+                    <xs:documentation>egp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="incomplete">
+                <xs:annotation>
+                    <xs:documentation>incomplete:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommDirectionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="export">
+                <xs:annotation>
+                    <xs:documentation>triggers softly reset at the outgoing interface.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="import">
+                <xs:annotation>
+                    <xs:documentation>triggers softly reset at the incoming interface.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpcommonOrfMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="null">
+                <xs:annotation>
+                    <xs:documentation>null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="receive">
+                <xs:annotation>
+                    <xs:documentation>receive:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="send">
+                <xs:annotation>
+                    <xs:documentation>send:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="both">
+                <xs:annotation>
+                    <xs:documentation>both:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="defaultRtMatchMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="null">
+                <xs:annotation>
+                    <xs:documentation>null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="any">
+                <xs:annotation>
+                    <xs:documentation>any:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="all">
+                <xs:annotation>
+                    <xs:documentation>all:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpBfdState">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="up">
+                <xs:annotation>
+                    <xs:documentation>up:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="down">
+                <xs:annotation>
+                    <xs:documentation>down:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="unknown">
+                <xs:annotation>
+                    <xs:documentation>unknown:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+	<xs:simpleType name="aclNumOrName">
+		<xs:annotation>
+			<xs:documentation>aclNumOrName is begin with a-z or A-Z or 0-9</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="(^2[0-9]{3}$)|(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="acl6NumOrName">
+		<xs:annotation>
+			<xs:documentation>acl6NumOrName is begin with a-z or A-Z or 0-9</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="(^2[0-9]{3}$)|(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

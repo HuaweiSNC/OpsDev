@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.8sp1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="system_type.xsd"/>
+	<xs:element name="system" type="system_action_system_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>system</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="system_action_system_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="switchLanguage" type="system_action_switchLanguage_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="system_action_switchLanguage_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>支持action设置多语种。 NETCONF上使用。</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="languageMode" type="systemLanguageE">
+				<xs:annotation>
+					<xs:documentation>语种模式</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

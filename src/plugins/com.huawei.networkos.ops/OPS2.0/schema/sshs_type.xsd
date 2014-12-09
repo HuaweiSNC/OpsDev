@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="sshsSshsSrvcType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NotSet">
+				<xs:annotation>
+					<xs:documentation>NotSet:Service not set</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="stelnet">
+				<xs:annotation>
+					<xs:documentation>STelnet:stelnet service</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sftp">
+				<xs:annotation>
+					<xs:documentation>SFTP:sftp service</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="snetconf">
+				<xs:annotation>
+					<xs:documentation>SNetConf:snetconf service</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>All:all services</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sftp-snetconf">
+				<xs:annotation>
+					<xs:documentation>SFTP-SNetConf:sftp-snetconf services</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="stelnet-sftp">
+				<xs:annotation>
+					<xs:documentation>STelnet-SFTP:stelnet-sftp services</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="stelnet-snetconf">
+				<xs:annotation>
+					<xs:documentation>STelnet-SNetConf:stelnet-snetconf services</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshsSshsCipherList">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NotSet">
+				<xs:annotation>
+					<xs:documentation>NotSet:Cipher not set</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DES">
+				<xs:annotation>
+					<xs:documentation>DES:DES cipher</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TripleDES">
+				<xs:annotation>
+					<xs:documentation>TripleDES:3DES cipher</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AES128">
+				<xs:annotation>
+					<xs:documentation>AES128:AES cipher</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshsSshsHmacList">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NotSet">
+				<xs:annotation>
+					<xs:documentation>NotSet:Mac not set</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SHA1">
+				<xs:annotation>
+					<xs:documentation>SHA1:SHA1 MAC algo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SHA1_96">
+				<xs:annotation>
+					<xs:documentation>SHA1_96:SHA1-96 MAC algo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MD5">
+				<xs:annotation>
+					<xs:documentation>MD5:MD5 MAC algo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MD5_96">
+				<xs:annotation>
+					<xs:documentation>MD5_96:MD5-96 MAC algo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshsSshsKeyExList">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NotSet">
+				<xs:annotation>
+					<xs:documentation>NotSet:Kex not set</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DH_Group1_SHA1">
+				<xs:annotation>
+					<xs:documentation>DH_Group1_SHA1:Group 1 Kex Algo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DH_GroupEx_SHA1">
+				<xs:annotation>
+					<xs:documentation>DH_GroupEx_SHA1:Group Exchange Kex Algo</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshsSshsConnState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Stop">
+				<xs:annotation>
+					<xs:documentation>Stop:Not connected</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Started">
+				<xs:annotation>
+					<xs:documentation>Started:Connected</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshsSshVersion">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="sshVer2">
+				<xs:annotation>
+					<xs:documentation>sshVer2:SSH Version 2.0</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sshVer1_99">
+				<xs:annotation>
+					<xs:documentation>sshVer1_99:SSH Version 1.99</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshsSshBool">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Enable">
+				<xs:annotation>
+					<xs:documentation>Enable the option</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Disable">
+				<xs:annotation>
+					<xs:documentation>Disable the option</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SSHSUSERAUTH">
+		<xs:annotation>
+			<xs:documentation>SSH Authentication Type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		    <xs:enumeration value="-">
+				<xs:annotation>
+					<xs:documentation>Does not support any authentication</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="password">
+				<xs:annotation>
+					<xs:documentation>Use password authentication</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rsa">
+				<xs:annotation>
+					<xs:documentation>Use rsa authentication</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>password or rsa  any one of two types of authentication</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="password-rsa">
+				<xs:annotation>
+					<xs:documentation>password and rsa both types of authentication</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshsPubKeyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="-">
+				<xs:annotation>
+					<xs:documentation>-:No public key configuration</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RSA">
+				<xs:annotation>
+					<xs:documentation>rsa:RSA public key</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>	
+</xs:schema>

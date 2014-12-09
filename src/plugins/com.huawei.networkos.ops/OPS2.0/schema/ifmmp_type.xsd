@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.17
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ifmmpPhyState">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Up">
+                <xs:annotation>
+                    <xs:documentation>Up:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Down">
+                <xs:annotation>
+                    <xs:documentation>Down:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="AdminShutDown">
+                <xs:annotation>
+                    <xs:documentation>AdminShutDown:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+  <xs:simpleType name="ifmmpProtocalState">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Up">
+                <xs:annotation>
+                    <xs:documentation>Up:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Down">
+                <xs:annotation>
+                    <xs:documentation>Down:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Damp">
+                <xs:annotation>
+                    <xs:documentation>Damp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+  </xs:simpleType>
+	<xs:simpleType name="ifmmpFragment">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fragment128">
+				<xs:annotation>
+					<xs:documentation>Fragment Threshold 128:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fragment256">
+				<xs:annotation>
+					<xs:documentation>Fragment Threshold 256:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fragment512">
+				<xs:annotation>
+					<xs:documentation>Fragment Threshold 512:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="noFragment">
+				<xs:annotation>
+					<xs:documentation>no fragment:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>  
+</xs:schema>

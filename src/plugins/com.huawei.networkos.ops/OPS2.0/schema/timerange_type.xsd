@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.7
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="timeRangeActiveStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NoRefer">
+				<xs:annotation>
+					<xs:documentation>NoRefer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Active">
+				<xs:annotation>
+					<xs:documentation>Active:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inactive">
+				<xs:annotation>
+					<xs:documentation>Inactive:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="timeRangeDayOfWeek">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Sun">
+				<xs:annotation>
+					<xs:documentation>Sun:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Mon">
+				<xs:annotation>
+					<xs:documentation>Mon:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Tue">
+				<xs:annotation>
+					<xs:documentation>Tue:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Wed">
+				<xs:annotation>
+					<xs:documentation>Wed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Thu">
+				<xs:annotation>
+					<xs:documentation>Thu:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Fri">
+				<xs:annotation>
+					<xs:documentation>Fri:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sat">
+				<xs:annotation>
+					<xs:documentation>Sat:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="working-day">
+				<xs:annotation>
+					<xs:documentation>working-day:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="off-day">
+				<xs:annotation>
+					<xs:documentation>off-day:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="daily">
+				<xs:annotation>
+					<xs:documentation>daily:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

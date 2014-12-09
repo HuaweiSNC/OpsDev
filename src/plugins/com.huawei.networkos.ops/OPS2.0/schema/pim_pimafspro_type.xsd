@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.24
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="pimproInterfaceState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:down</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:up</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproPimMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Sparse">
+				<xs:annotation>
+					<xs:documentation>Sparse:Sparse</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Dense">
+				<xs:annotation>
+					<xs:documentation>Dense:Dense</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproBsrBoundary">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None">
+				<xs:annotation>
+					<xs:documentation>None:None</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Both">
+				<xs:annotation>
+					<xs:documentation>Both:Both</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Incoming">
+				<xs:annotation>
+					<xs:documentation>Incoming:Incoming</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproPimRPPre">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NotPrefer">
+				<xs:annotation>
+					<xs:documentation>NotPrefer:NotPrefer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Prefer">
+				<xs:annotation>
+					<xs:documentation>Prefer:Prefer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproMsgType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Assert">
+				<xs:annotation>
+					<xs:documentation>Assert:Assert</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BSR">
+				<xs:annotation>
+					<xs:documentation>BSR:BSR</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CRP">
+				<xs:annotation>
+					<xs:documentation>CRP:CRP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Graft">
+				<xs:annotation>
+					<xs:documentation>Graft:Graft</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Graft_ack">
+				<xs:annotation>
+					<xs:documentation>Graft-ack:Graft-ack</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Hello">
+				<xs:annotation>
+					<xs:documentation>Hello:Hello</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="probe">
+				<xs:annotation>
+					<xs:documentation>probe:probe</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="register">
+				<xs:annotation>
+					<xs:documentation>register:register</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="register_stop">
+				<xs:annotation>
+					<xs:documentation>register-stop:register-stop</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Join_prune">
+				<xs:annotation>
+					<xs:documentation>Join-prune:Join-prune</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="State_refresh">
+				<xs:annotation>
+					<xs:documentation>State-refresh:State-refresh</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproRpfRouteType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="igp">
+				<xs:annotation>
+					<xs:documentation>igp:igp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="migp">
+				<xs:annotation>
+					<xs:documentation>migp:migp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="egp">
+				<xs:annotation>
+					<xs:documentation>egp:egp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mbgp">
+				<xs:annotation>
+					<xs:documentation>mbgp:mbgp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="direct">
+				<xs:annotation>
+					<xs:documentation>direct:direct</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unicast">
+				<xs:annotation>
+					<xs:documentation>unicast:unicast</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multicastStatic">
+				<xs:annotation>
+					<xs:documentation>multicastStatic:multicastStatic</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproSGmode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE">
+				<xs:annotation>
+					<xs:documentation>NONE:NONE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASM">
+				<xs:annotation>
+					<xs:documentation>ASM:ASM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SSM">
+				<xs:annotation>
+					<xs:documentation>SSM:SSM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTHER">
+				<xs:annotation>
+					<xs:documentation>OTHER:OTHER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproSGUpState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOTJOINED">
+				<xs:annotation>
+					<xs:documentation>NOTJOINED:NOTJOINED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="JOINED">
+				<xs:annotation>
+					<xs:documentation>JOINED:JOINED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproSGDsState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOINFO">
+				<xs:annotation>
+					<xs:documentation>NOINFO:NOINFO</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="JOINED">
+				<xs:annotation>
+					<xs:documentation>JOINED:JOINED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PRUNEPENDING">
+				<xs:annotation>
+					<xs:documentation>PRUNEPENDING:PRUNEPENDING</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproSGDsLocalMember">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TRUE">
+				<xs:annotation>
+					<xs:documentation>TRUE:TRUE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FALSE">
+				<xs:annotation>
+					<xs:documentation>FALSE:FALSE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproAssertState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOINFO">
+				<xs:annotation>
+					<xs:documentation>NOINFO:NOINFO</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WINNER">
+				<xs:annotation>
+					<xs:documentation>WINNER:WINNER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LOSER">
+				<xs:annotation>
+					<xs:documentation>LOSER:LOSER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproDrRegState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOINFO">
+				<xs:annotation>
+					<xs:documentation>NOINFO:NOINFO</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="JOIN">
+				<xs:annotation>
+					<xs:documentation>JOIN:JOIN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="JOINPENDING">
+				<xs:annotation>
+					<xs:documentation>JOINPENDING:JOINPENDING</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PRUNE">
+				<xs:annotation>
+					<xs:documentation>PRUNE:PRUNE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproSGRptUpState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOTJOINED">
+				<xs:annotation>
+					<xs:documentation>NOTJOINED:NOTJOINED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PRUNED">
+				<xs:annotation>
+					<xs:documentation>PRUNED:PRUNED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NOTPRUNED">
+				<xs:annotation>
+					<xs:documentation>NOTPRUNED:NOTPRUNED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MAX">
+				<xs:annotation>
+					<xs:documentation>MAX:MAX</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproSGRptDsState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOINFO">
+				<xs:annotation>
+					<xs:documentation>NOINFO:NOINFO</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PRUNED">
+				<xs:annotation>
+					<xs:documentation>PRUNED:PRUNED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PRUNEPENDING">
+				<xs:annotation>
+					<xs:documentation>PRUNEPENDING:PRUNEPENDING</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MAX">
+				<xs:annotation>
+					<xs:documentation>MAX:MAX</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproRPModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FIXED">
+				<xs:annotation>
+					<xs:documentation>FIXED:FIXED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATIC">
+				<xs:annotation>
+					<xs:documentation>STATIC:STATIC</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CONFIGSSM">
+				<xs:annotation>
+					<xs:documentation>CONFIGSSM:CONFIGSSM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BSR">
+				<xs:annotation>
+					<xs:documentation>BSR:BSR</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AUTORP">
+				<xs:annotation>
+					<xs:documentation>AUTORP:AUTORP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EMBEDDED">
+				<xs:annotation>
+					<xs:documentation>EMBEDDED:EMBEDDED</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTHER">
+				<xs:annotation>
+					<xs:documentation>OTHER:OTHER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproSGUpPruneState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="forwarding">
+				<xs:annotation>
+					<xs:documentation>forwarding:forwarding</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ackPending">
+				<xs:annotation>
+					<xs:documentation>ackPending:ackPending</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="pruned">
+				<xs:annotation>
+					<xs:documentation>pruned:pruned</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproSGOrigState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="notOriginator">
+				<xs:annotation>
+					<xs:documentation>notOriginator:notOriginator</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="originator">
+				<xs:annotation>
+					<xs:documentation>originator:originator</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproDrState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NDR">
+				<xs:annotation>
+					<xs:documentation>NDR:NDR</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DR">
+				<xs:annotation>
+					<xs:documentation>DR:DR</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproIncludeReg">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NORMAL">
+				<xs:annotation>
+					<xs:documentation>NORMAL:NORMAL</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REGISTERIIF">
+				<xs:annotation>
+					<xs:documentation>REGISTERIIF:REGISTERIIF</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REGISTEROIF">
+				<xs:annotation>
+					<xs:documentation>REGISTEROIF:REGISTEROIF</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pimproOifProtoclType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STATIC">
+				<xs:annotation>
+					<xs:documentation>STATIC:STATIC</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IGMP">
+				<xs:annotation>
+					<xs:documentation>IGMP:IGMP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MLD">
+				<xs:annotation>
+					<xs:documentation>MLD:MLD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MD">
+				<xs:annotation>
+					<xs:documentation>MD:MD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SSMMAP">
+				<xs:annotation>
+					<xs:documentation>SSMMAP:SSMMAP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SM">
+				<xs:annotation>
+					<xs:documentation>SM:SM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SSM">
+				<xs:annotation>
+					<xs:documentation>SSM:SSM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

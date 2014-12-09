@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.3.6
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="tnl6_type.xsd"/>
+	<xs:element name="tnl6" type="tnl6_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>TNL6</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="tnl6_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="TunnelViews" type="tnl6_TunnelViews_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tnl6_TunnelViews_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TunnelView" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="tnl6_TunnelView_type"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tnl6_TunnelView_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tnlName">
+				<xs:annotation>
+					<xs:documentation>tnlName 作为TNL的唯一标识</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ifName">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tnlIfname" type="ifName">
+				<xs:annotation>
+					<xs:documentation>隧道接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tnlType" type="tnl6Type6">
+				<xs:annotation>
+					<xs:documentation>隧道类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcIpAddr">
+				<xs:annotation>
+					<xs:documentation>隧道源IP</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="srcIfName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>隧道源接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dstIpAddr">
+				<xs:annotation>
+					<xs:documentation>隧道目的IP</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

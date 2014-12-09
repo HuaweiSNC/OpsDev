@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="qos_type.xsd"/>
+	<xs:include schemaLocation="qos_hqos_type.xsd"/>
+	<xs:complexType name="qos_hqos_type">
+		<xs:annotation>
+			<xs:documentation>服务质量类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="hqosFlowQueues" type="qos_hqosflowqueues_type"/>
+			<xs:element name="hqosProfiles" type="qos_hqosprofiles_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosflowqueues_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>流队列模板列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="hqosFlowQueue" type="qos_hqosflowqueue_type" minOccurs="0" maxOccurs="1024"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosflowqueue_type">
+		<xs:annotation>
+			<xs:documentation>流队列模板</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="flowQueueName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>流队列模板名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hqosQueues" type="qos_hqosqueues_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosqueues_type">
+		<xs:annotation>
+			<xs:documentation>用户队列列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="hqosQueue" type="qos_hqosqueue_type" minOccurs="0" maxOccurs="8"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosqueue_type">
+		<xs:annotation>
+			<xs:documentation>流队列</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:documentation>流队列优先级,BE～CS7</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="queueScheduleMode" type="hqosQueueScheduleMode" default="pq">
+				<xs:annotation>
+					<xs:documentation>配置该队列的调度方式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="weight">
+				<xs:annotation>
+					<xs:documentation>WFQ调度方式权队列权重配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="shaping">
+				<xs:annotation>
+					<xs:documentation>流队列shaping值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100000000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="shapingPercentage">
+				<xs:annotation>
+					<xs:documentation>整形速率的百分比</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="wred" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>pir的优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosprofiles_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>hqos-profile模板列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="hqosProfile" type="qos_hqosprofile_type" minOccurs="0" maxOccurs="4096"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosprofile_type">
+		<xs:annotation>
+			<xs:documentation>hqos-profile模板</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="profileName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>hqos-profile模板名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hqosUserQueues" type="qos_hqosuserqueues_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosuserqueues_type">
+		<xs:annotation>
+			<xs:documentation>用户队列列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="hqosUserQueue" type="qos_hqosuserqueue_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosuserqueue_type">
+		<xs:annotation>
+			<xs:documentation>用户队列</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cir">
+				<xs:annotation>
+					<xs:documentation>承诺信息速率, 单位: Kbps</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100000000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cirPriority">
+				<xs:annotation>
+					<xs:documentation>cir的优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cirWeight">
+				<xs:annotation>
+					<xs:documentation>cir的权重</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pir">
+				<xs:annotation>
+					<xs:documentation>峰值信息速率, 单位: Kbps</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="100"/>
+						<xs:maxInclusive value="100000000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pirPriority">
+				<xs:annotation>
+					<xs:documentation>pir的优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="33554432"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pirWeight">
+				<xs:annotation>
+					<xs:documentation>pir的权重</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="flowQueue" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>引用流队列模板</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosportqueues_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>基于接口的流量整形列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="hqosPortQueue" type="qos_hqosportqueue_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosportqueue_type">
+		<xs:annotation>
+			<xs:documentation>基于接口的流量整形</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:documentation>流队列索引</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priority" type="qosQueuePriority" default="pq">
+				<xs:annotation>
+					<xs:documentation>接口出方向8个队列的调度类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="weight">
+				<xs:annotation>
+					<xs:documentation>WFQ调度方式权队列权重配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cir" default="0">
+				<xs:annotation>
+					<xs:documentation>承诺信息速率</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cirPercent" nillable="true">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>cir的百分比</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pir" default="100">
+				<xs:annotation>
+					<xs:documentation>峰值信息速率</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pirPercent" nillable="true">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>pir的百分比</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosportshapings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>基于接口的流量限速列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="hqosPortShaping" type="qos_hqosportshaping_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosportshaping_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>基于接口的流量限速</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cir" default="100">
+				<xs:annotation>
+					<xs:documentation>承诺信息速率</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosProfileStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>HQOS统计列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosProfileStat" type="qos_hqosProfileStat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_hqosProfileStat_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>HQOS统计</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="passPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>通过的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="passBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>通过的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="passPktRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>通过的报文速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="passByteRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>通过的字节速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>丢弃的报文数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropBytes" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>丢弃的字节数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropPktRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>丢弃的报文速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropByteRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>丢弃的字节速率</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

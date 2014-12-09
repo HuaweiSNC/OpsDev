@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.8
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="ospfv3_ospfv3comm_type.xsd"/>
+	<xs:complexType name="ospf_ospfv3comm_action_ospfv3comm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="resetRedistribution" type="ospfv3comm_action_resetRedistribution_type"/>
+			<xs:element name="resetCounter" type="ospfv3comm_action_resetCounter_type"/>
+			<xs:element name="resetProcess" type="ospfv3comm_action_resetProcess_type"/>
+			<xs:element name="resetPeer" type="ospfv3comm_action_resetPeer_type"/>
+			<xs:element name="resetFrr" type="ospfv3comm_action_resetFrr_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_action_resetRedistribution_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_action_resetCounter_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:documentation>OSPF½�</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>¾ӵÒouter ID</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_action_resetProcess_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_action_resetFrr_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_action_resetPeer_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_action_DebugOspf_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+	</xs:complexType>
+</xs:schema>

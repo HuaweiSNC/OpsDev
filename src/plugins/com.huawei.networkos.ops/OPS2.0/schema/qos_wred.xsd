@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="qos_type.xsd"/>
+	<xs:complexType name="qos_wred_type">
+		<xs:annotation>
+			<xs:documentation>服务质量类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="qosWreds" type="qos_wredwreds_type"/>
+			<xs:element name="qosWredQueues" type="qos_wredwredqueues_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_wredwreds_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>WRED列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosWred" minOccurs="0" maxOccurs="8">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="qos_wredwred_type"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_wredwred_type">
+		<xs:annotation>
+			<xs:documentation>WRED</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="wredName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>Wred模板的名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qosWredColors" type="qos_wredwredcolors_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_wredwredcolors_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>WRED颜色列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosWredColor" minOccurs="0" maxOccurs="3">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="qos_wredwredcolor_type"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_wredwredcolor_type">
+		<xs:annotation>
+			<xs:documentation>WRED颜色</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="color" type="qosColor">
+				<xs:annotation>
+					<xs:documentation>颜色</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lowLimitPct" default="100">
+				<xs:annotation>
+					<xs:documentation>队列长度下限百分比</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="highLimitPct" default="100">
+				<xs:annotation>
+					<xs:documentation>队列长度下限百分比</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="discardPct" default="100">
+				<xs:annotation>
+					<xs:documentation>随机丢弃概率百分比</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qos_wredwredqueues_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>WRED应用的业务类型列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="qosWredQueue" type="qos_wredwredqueue_type" minOccurs="0" maxOccurs="8"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qos_wredwredqueue_type">
+		<xs:annotation>
+			<xs:documentation>WRED应用的业务类型</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:documentation>报文服务等级</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="speedType" type="qosSpeedType">
+				<xs:annotation>
+					<xs:documentation>接口速度类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wredName" type="qosPolicyName">
+				<xs:annotation>
+					<xs:documentation>Wred模板的名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

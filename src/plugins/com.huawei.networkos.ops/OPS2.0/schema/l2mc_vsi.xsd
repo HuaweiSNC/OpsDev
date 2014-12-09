@@ -1,0 +1,2213 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="l2mc_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:complexType name="l2mc_l2McVsis_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiCfgs" type="l2mc_l2McVsiCfgs_type"/>
+			<xs:element name="l2McVsiOthers" type="l2mc_l2McVsiOthers_type">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<owner>product</owner>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="l2McVsiFastChannels" type="l2mc_l2McVsiFastChannels_type"/>
+			<xs:element name="l2McVsiSSMs" type="l2mc_l2McVsiSSMs_type"/>
+			<xs:element name="l2McForwardTlbVsiStatiss" type="l2mc_l2McForwardTlbVsiStatiss_type"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiCfgs_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiCfg" type="l2mc_l2McVsiCfg_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiDyns_type">
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiCfg_type">
+		<xs:annotation>
+			<xs:documentation>igmp snooping VSI参数配置和查询</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>vsiName</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation>地址组为IPV4或者IPV6</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiName">
+				<xs:annotation>
+					<xs:documentation>vsi的名字</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ssmAcl">
+				<xs:annotation>
+					<xs:documentation>配置ssm-policy ACL Name or Number</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="version" default="2">
+				<xs:annotation>
+					<xs:documentation>配置的igmp版本号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="3"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ssmapEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>接口SSMapping 使能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fwdMode" type="l2mcFwdMode" default="ip">
+				<xs:annotation>
+					<xs:documentation>转发模式： 1:ip, 2:mac</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="snoopingEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>VLAN或VSI的igmp snooping使能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groupAcl">
+				<xs:annotation>
+					<xs:documentation>igmp snooping组策略  ACL Name or Number</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="groupAclGMPVer" default="0">
+				<xs:annotation>
+					<xs:documentation>igmp snooping 组策略指定的IGMP版本号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="3"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="queryRspInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>查询最大响应时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="25"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="immediatelyLeave" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否配置立刻离开组</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="immLeaveAcl">
+				<xs:annotation>
+					<xs:documentation>配置立刻离开组ACL Name or Number</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="proxyEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>VLAN或VSI的igmp proxy使能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="asmSsmMode" type="l2mcSnpMode" default="asm-ssm">
+				<xs:annotation>
+					<xs:documentation>当前的模式： asm-only、ssm-only、asm-ssm
+                    </xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipPolicyAcl">
+				<xs:annotation>
+					<xs:documentation>用来控制对IGMP Report报文中目的IP和源地址进行过滤</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element name="queryIpPolicyAcl">
+                <xs:annotation>
+                    <xs:documentation>用来控制对IGMP Query报文中IP进行过滤</xs:documentation>
+                        <xs:appinfo>
+                            <access>readCreate</access>
+                        </xs:appinfo>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+			<xs:element name="querierElection" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>配置VLAN或VSI下的查询器选举功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="proxyRouterProtocalPass" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>默认情况下使能igmp Proxy后会终结路由协议报文</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="querierEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>VLAN或VSI内使能查询器的功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="queryInterval" default="60">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="65535"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="requireRouterAlert" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否需要RouterAlert</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendRouterAlert" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>是否发送RouterAlert</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="robustness" default="2">
+				<xs:annotation>
+					<xs:documentation>鲁棒稳定系数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="5"/>
+						<xs:minInclusive value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routerAgingTime" default="180">
+				<xs:annotation>
+					<xs:documentation>路由端口的存活时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="1000"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routerPortLearning" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>使能VLAN的路由器接口动态学习功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="querySuppressTime" default="10">
+				<xs:annotation>
+					<xs:documentation>用来配置IGMP Query报文抑制的时间</xs:documentation>
+					<xs:appinfo>
+                    </xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="300"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastMemQI" default="1">
+				<xs:annotation>
+					<xs:documentation>特定组查询的周期性时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="5"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stGrpSupJoin" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>如果S9300上游三层组播设备为其它厂商设备，并且在此三层设备的接口上配置了静态组播组之后，则不允许用户以动态的方式加入或者退出组播组，此时需要在S9300设备上配置禁止向三层组播设备发送的Report和Leave报文。</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reportSuppress" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>对下游设备发送的report和leave报文进行抑制</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="soureLifeTime" default="210">
+				<xs:annotation>
+					<xs:documentation>路由端口的存活时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="1000"/>
+						<xs:minInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="l2McVsiPwPorts" type="l2mc_l2McVsiPwPorts_type"/>
+			<xs:element name="l2McVsiPwGrpPorts" type="l2mc_l2McVsiPwGrpPorts_type"/>
+			<xs:element name="l2McVsiAcStRtPorts" type="l2mc_l2McVsiAcGrpPorts_type"/>
+			<xs:element name="l2McVsiIfGroupPolicys" type="l2mc_l2McVsiIfGroupPolicys_type"/>
+			<xs:element name="l2McVsiStaticGroups" type="l2mc_l2McVsiStaticGroups_type"/>
+			<xs:element name="l2McVsiDyn" type="l2mc_l2McVsiDyn_type"/>
+			<xs:element name="l2McVsiQuerier" type="l2mc_l2McVsiQuerier_type"/>
+			<xs:element name="l2McVsiRoutePorts" type="l2mc_l2McVsiRoutePorts_type"/>
+			<xs:element name="l2McACPorts" type="l2mc_l2McACPorts_type"/>
+			<xs:element name="l2McVsiPortInfoEntrys" type="l2mc_l2McVsiPortInfoEntrys_type"/>
+			<xs:element name="l2McVsiPwGroups" type="l2mc_l2McVsiPwGroups_type"/>
+			<xs:element name="l2McVsiStatis" type="l2mc_l2McVsiStatis_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiOthers_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiOther" type="l2mc_l2McVsiOther_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiOther_type">
+		<xs:annotation>
+			<xs:documentation>VLAN内的产品的配置信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<category>混合</category>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation>地址组为IPV4或者IPV6</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiName">
+				<xs:annotation>
+					<xs:documentation>vsi的名字</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mcTrunkLbEnable" type="xs:boolean" default="0">
+				<xs:annotation>
+					<xs:documentation>组播trunk负载分担使能，仅在igmp-snooping不使能时使用</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropUnknown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>配置组播未知流的转发方式为丢弃</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwPorts_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiPwPort" type="l2mc_l2McVsiPwPort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwPort_type">
+		<xs:annotation>
+			<xs:documentation>Vsi内igmp snooping PW类型接口配置</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>remotePeerAddr;negotiationVcId</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="negotiationVcId">
+				<xs:annotation>
+					<xs:documentation>配置的虚电路的唯一标识，一般用于两端VSI ID不同但要求互通的情况。</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remotePeerAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>对端Peer的IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwGrpPorts_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiPwGrpPort" type="l2mc_l2McVsiPwGrpPort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwGrpPort_type">
+		<xs:annotation>
+			<xs:documentation>Vsi内igmp snooping PW类型接口配置</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>remotePeerAddr;negotiationVcId</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="negotiationVcId">
+				<xs:annotation>
+					<xs:documentation>配置的虚电路的唯一标识，一般用于两端VSI ID不同但要求互通的情况。</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remotePeerAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>对端Peer的IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="l2McVsiPwStaticGroups" type="l2mc_l2McVsiPwStaticGroups_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwStaticGroups_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiPwStaticGroup" type="l2mc_l2McVsiPwStaticGroup_type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwStaticGroup_type">
+		<xs:annotation>
+			<xs:documentation>VSI视图内PW类型igmp snooping静态组配置</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>groupAddress;sourceAddress;remotePeerAddr;negotiationVcId</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="groupAddress" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>配置的静态组地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceAddress" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>配置的静态源地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwGroups_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiPwGroup" type="l2mc_l2McVsiPwGroup_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwGroup_type">
+		<xs:annotation>
+			<xs:documentation>VSI内PW接口的组信息查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>grpAddr</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="remotePeerAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>对端Peer的IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grpAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>组地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>组创建了多长时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expireTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>组超时的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groupTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>组定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="retranCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>查询时重传次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastMemQuery" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否在进行组记录的最后成员查询</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grpMode" type="rtFilterMode">
+				<xs:annotation>
+					<xs:documentation>组记录的模式， include or exclude</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="compatMode" type="compatMode">
+				<xs:annotation>
+					<xs:documentation>组记录的兼容模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v1HostTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>v1主机定时器：Exist、Not exist</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v2HostTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>v2主机定时器：Exist、Not exist</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcLastMemQuery" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否在进行源记录的最后成员查询</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastMemberQueryTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>最后成员查询定时器：Exist、Not exist</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="l2McVsiPwSources" type="l2mc_l2McVsiPwSources_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwSources_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiPwSource" type="l2mc_l2McVsiPwSource_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPwSource_type">
+		<xs:annotation>
+			<xs:documentation>VSI内PW接口的源信息查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>srcAddr</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="srcAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>源地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>组创建了多长时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expireTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>表项超时时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>源定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="retranCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>查询时重传次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcLastMemQuery" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否在进行源记录的最后成员查询</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiAcGrpPorts_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiAcStRtPort" type="l2mc_l2McVsiAcGrpPort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiAcGrpPort_type">
+		<xs:annotation>
+			<xs:documentation>igmp snoopingVsi的接口属性配置</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>ifName;peId;ceId;vsiName</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="peId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>外层tag的ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ceId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>内层tag的ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiGroups_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiGroup" type="l2mc_l2McVsiGroup_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiGroup_type">
+		<xs:annotation>
+			<xs:documentation>VSI内接口的组信息查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>grpAddr</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>组创建了多长时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grpAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>组地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expireTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>组超时的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groupTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>组定时器：Exist、Not exist</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="retranCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>查询时重传次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastMemQuery" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否在进行组记录的最后成员查询</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grpMode" type="rtFilterMode">
+				<xs:annotation>
+					<xs:documentation>组记录的模式， include or exclude</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="compatMode" type="compatMode">
+				<xs:annotation>
+					<xs:documentation>组记录的兼容模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v1HostTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>v1主机定时器：Exist、Not exist</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v2HostTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>v2主机定时器：Exist、Not exist</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcLastMemQuery" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否在进行源记录的最后成员查询</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastMemberQueryTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>最后成员查询定时器：Exist、Not exist</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="l2McVsiSources" type="l2mc_l2McVsiSources_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiSources_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiSource" type="l2mc_l2McVsiSource_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiSource_type">
+		<xs:annotation>
+			<xs:documentation>VSI内接口的源信息查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>srcAddr</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="srcAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>源地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>组创建了多长时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expireTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>表项超时时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceTimer" type="exitOrNot">
+				<xs:annotation>
+					<xs:documentation>源定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="retranCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>查询时重传次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcLastMemQuery" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>是否在进行源记录的最后成员查询</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiStaticGroups_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiStaticGroup" type="l2mc_l2McVsiStaticGroup_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiStaticGroup_type">
+		<xs:annotation>
+			<xs:documentation>接口视图内igmp snooping VSI 静态组配置</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>groupAddress;sourceAddress</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="peId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>外层tag的ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ceId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>内层tag的ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groupAddress" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>配置的静态组地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceAddress" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>配置的静态源地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiIfGroupPolicys_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiIfGroupPolicy" type="l2mc_l2McVsiIfGroupPolicy_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiIfGroupPolicy_type">
+		<xs:annotation>
+			<xs:documentation>接口配置VSI的igmp snooping group policy</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>ifName</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="groupAcl">
+				<xs:annotation>
+					<xs:documentation>igmp snooping组策略  ACL Name or Number</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="groupAclGMPVer" default="0">
+				<xs:annotation>
+					<xs:documentation>igmp snooping 组策略指定的IGMP版本号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="3"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiFastChannels_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiFastChannel" type="l2mc_l2McVsiFastChannel_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiFastChannel_type">
+		<xs:annotation>
+			<xs:documentation>用来配置组播成员快速加入指定组播组</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>ssmapingGrp;ssmapingMask;SrcAddr</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation>地址组为IPV4或者IPV6</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiName">
+				<xs:annotation>
+					<xs:documentation>vsi的名字</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fastChannelGrpAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>快速加入的组播组地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fastChannelGrpmaskLen" default="32">
+				<xs:annotation>
+					<xs:documentation>快速加入的组地址掩码长度</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="32"/>
+						<xs:minInclusive value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fastChannelSrcAddr" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>快速加入对应的源地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fastChannelSrcMaskLen" default="32">
+				<xs:annotation>
+					<xs:documentation>快速加入的源地址掩码长度</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="32"/>
+						<xs:minInclusive value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiSSMs_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiSSM" type="l2mc_l2McVsiSSM_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiSSM_type">
+		<xs:annotation>
+			<xs:documentation>igmp snooping VSI内SSMapping规则配置规则</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>ssmapingGrp;ssmapingMask;SrcAddr</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation>地址组为IPV4或者IPV6</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiName">
+				<xs:annotation>
+					<xs:documentation>vsi的名字</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ssmappingGrp" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>ssmapping的组地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maskLen">
+				<xs:annotation>
+					<xs:documentation>ssmapping的组地址掩码长度</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="32"/>
+						<xs:minInclusive value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="srcAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>ssmapping对应的源地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiDyn_type">
+		<xs:annotation>
+			<xs:documentation>igmp snooping VSI参数配置和查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>vsiName</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="snoopingEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>VLAN或VSI的igmp snooping使能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="version" default="2">
+				<xs:annotation>
+					<xs:documentation>配置的igmp版本号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="3"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="queryInterval" default="60">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="65535"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="queryRspInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>查询最大响应时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="25"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="robustness" default="2">
+				<xs:annotation>
+					<xs:documentation>鲁棒稳定系数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="5"/>
+						<xs:minInclusive value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastMemQI" default="1">
+				<xs:annotation>
+					<xs:documentation>特定组查询的周期性时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="2"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routerAgingTime" default="180">
+				<xs:annotation>
+					<xs:documentation>路由端口的存活时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="1000"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="groupAclNum">
+				<xs:annotation>
+					<xs:documentation>igmp snooping组策略  ACL Name or Number</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="1000"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="immediatelyLeave" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否配置立刻离开组</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="requireRouterAlert" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否需要RouterAlert</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendRouterAlert" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>是否发送RouterAlert</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="proxyEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>VLAN或VSI的igmp proxy使能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routerPortLearning" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>使能VLAN的路由器接口动态学习功能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="querierEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>VLAN或VSI内使能查询器的功能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ssmapEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>接口SSMapping 使能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="proxyRouterProtocalPass" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>默认情况下使能igmp Proxy后会终结路由协议报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reportSuppress" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>对下游设备发送的report和leave报文进行抑制</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stGrpSupJoin" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>如果S9300上游三层组播设备为其它厂商设备，并且在此三层设备的接口上配置了静态组播组之后，则不允许用户以动态的方式加入或者退出组播组，此时需要在S9300设备上配置禁止向三层组播设备发送的Report和Leave报文。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="immLeaveAclNum">
+				<xs:annotation>
+					<xs:documentation>配置立刻离开组ACL Name or Number</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4000"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ssmAclNum">
+				<xs:annotation>
+					<xs:documentation>配置ssm-policy ACL Name or Number</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4000"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fwdMode" type="l2mcFwdMode" default="ip">
+				<xs:annotation>
+					<xs:documentation>转发模式： 1:ip, 2:mac</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groupAclGMPVer" default="0">
+				<xs:annotation>
+					<xs:documentation>igmp snooping 组策略指定的IGMP版本号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="3"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPolicyAclNum">
+				<xs:annotation>
+					<xs:documentation>用来控制对IGMP Report报文中目的IP和源地址进行过滤</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4000"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="querierElection" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>配置VLAN或VSI下的查询器选举功能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="asmSsmMode" type="l2mcSnpMode">
+				<xs:annotation>
+					<xs:documentation>当前的模式： asm-only、ssm-only、asm-ssm
+                    </xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+            <xs:element name="queryIpPolicyAcl">
+                <xs:annotation>
+                    <xs:documentation>查询器ip过滤策略的ACL Name or Number</xs:documentation>
+                        <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="33"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McACPorts_type">
+		<xs:sequence>
+			<xs:element name="l2McACPort" type="l2mc_l2McACPort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McACPort_type">
+		<xs:annotation>
+			<xs:documentation>igmp snooping ac port;</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>ifName</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>&#x63A5;&#x53E3;&#x540D;&#x79F0;</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="peVid" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>peVid</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="l2McVsiGroups" type="l2mc_l2McVsiGroups_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiStatis_type">
+		<xs:annotation>
+			<xs:documentation>VSI内的统计信息查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<category>混合</category>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sendSGQueryCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的特定源组计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v1ReportCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>igmp V1 Report计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v2ReportCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>igmp V2 Report计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v3ReportCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>igmp V3 Report计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v1QueryCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>igmp V1 Query计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v2QueryCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>igmp V2 Query计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v3QueryCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>igmp V3 Query计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="leaveCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>igmp Leave报文计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helloCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>PIM Hello报文计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sQueryCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>带有S标记的query计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="noSQueryCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>不带S标记的Query计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendGenQueryCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的普遍查询计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendGrpQueryCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的特定组查询计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiQuerier_type">
+		<xs:annotation>
+			<xs:documentation>Vsi内的查询器状态和查询器地址</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<category>混合</category>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="querierState" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>查询器是否使能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="querierAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>查询器地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiRoutePorts_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiRoutePort" type="l2mc_l2McVsiRoutePort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiRoutePort_type">
+		<xs:annotation>
+			<xs:documentation>Vsi内igmp snooping路由接口配置和查询</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>portType;portName;peId;ceId;remotePeerAddr;vcOrSiteId</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>成为router-port的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expireTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>路由器端口的超时时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routePortNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>VLAN内router-port接口的数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flag" type="flagType">
+				<xs:annotation>
+					<xs:documentation>静态配置还是动态学习的路由器端口</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portType">
+				<xs:annotation>
+					<xs:documentation>端口的类型：PW接口、Encapsulation子接口、Termination子接口</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="peId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>内层tag的ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ceId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>外层tag的Id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remotePeerAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>对端peer的ip地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vcOrSiteId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>&lt;font color="#0f0f0f"&gt;The VC ID or SITE ID of a PW interface&lt;/font&gt;</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portName">
+				<xs:annotation>
+					<xs:documentation>端口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPortInfoEntrys_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiPortInfoEntry" type="l2mc_l2McVsiPortInfoEntry_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPortInfoEntry_type">
+		<xs:annotation>
+			<xs:documentation>VSI的SG信息查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>grpAddr;srcAddr</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="grpAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>组地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>源地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcUpTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>源建立的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grpUpTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>组建立的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entryFlag">
+				<xs:annotation>
+					<xs:documentation>表项标记，通过协议报文还是通过数据创建，或者是通过FastChannel创建</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="srcFlag">
+				<xs:annotation>
+					<xs:documentation>源标记</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="l2McVsiPortInfoPorts" type="l2mc_l2McVsiPortInfoPorts_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPortInfoPorts_type">
+		<xs:sequence>
+			<xs:element name="l2McVsiPortInfoPort" type="l2mc_l2McVsiPortInfoPort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McVsiPortInfoPort_type">
+		<xs:annotation>
+			<xs:documentation>VSI的PORT信息查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>portType;portName;peId;ceId;remotePeerAddr;vcOrSiteId</key>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="portUpTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>出接口加入时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portExpireTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>出接口超时的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portFlag">
+				<xs:annotation>
+					<xs:documentation>端口的类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="portType" type="l2mcPortType">
+				<xs:annotation>
+					<xs:documentation>端口的类型：PW接口、Encapsulation子接口、Termination子接口</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="peId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>外层tag的ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ceId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>内层tag的ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remotePeerAddr" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>对端peer的ip地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vcOrSiteId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The VC ID or SITE ID of a PW interface</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portName">
+				<xs:annotation>
+					<xs:documentation>端口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McForwardTlbVsiStatiss_type">
+		<xs:sequence>
+			<xs:element name="l2McForwardTlbVsiStatis" type="l2mc_l2McForwardTlbVsiStatis_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McForwardTlbVsiStatis_type">
+		<xs:annotation>
+			<xs:documentation>VSI内的转发表信息查询</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<category>混合</category>
+				<status>current</status>
+				<version>1.0</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sourceAddress" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>特定源</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="groupAddress" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>特定组</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="slot" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>指定槽</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>对应的vsi</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="forwardingMode" type="l2mcFwdMode">
+				<xs:annotation>
+					<xs:documentation>转发模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sgInfo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>对应sg信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="StatusType">
+				<xs:annotation>
+					<xs:documentation>转发表状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="age" type="AgeType">
+				<xs:annotation>
+					<xs:documentation>转发表老化标志</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>同步索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接口计数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portAdd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>处于添加状态的端口数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portDel" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>处于删除状态的端口数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portUpdate" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>处于更新状态的端口数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

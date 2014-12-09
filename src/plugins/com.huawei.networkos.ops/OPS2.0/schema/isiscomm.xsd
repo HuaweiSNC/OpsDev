@@ -1,0 +1,4066 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.2
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="isiscomm_type.xsd"/>
+	<xs:element name="isiscomm" type="isiscomm_isiscomm_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>isiscomm</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="isiscomm_isiscomm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="isSites" type="isiscomm_isSites_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isSites_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isSite" type="isiscomm_isSite_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isSite_type">
+		<xs:annotation>
+			<xs:documentation>ISIS进程下属性</xs:documentation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceId" default="1">
+				<xs:annotation>
+					<xs:documentation>ISIS进程号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vpnName" type="vrfName" default="_public_">
+				<xs:annotation>
+					<xs:documentation>VPN实例名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isLevel" type="isiscommLevelType" default="level_1_2">
+				<xs:annotation>
+					<xs:documentation>路由器Level</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lspMaxAge" default="1200">
+				<xs:annotation>
+					<xs:documentation>LSP的最大生存时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="2"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lspRefreshInterval" default="900">
+				<xs:annotation>
+					<xs:documentation>LSP刷新周期</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65534"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="shutDownEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>去使能ISIS协议</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="costStyle" type="isiscommCostStyle" default="narrow">
+				<xs:annotation>
+					<xs:documentation>ISIS开销值类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="relaxSpfLimit" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>允许接受开销值大于Narrow限制的路由</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="spfMaxInterval" default="5">
+				<xs:annotation>
+					<xs:documentation>路由计算最大延迟时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="120"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="spfInitInterval" default="50">
+				<xs:annotation>
+					<xs:documentation>初次路由计算的初始间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="60000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="spfIncrInterval" default="200">
+				<xs:annotation>
+					<xs:documentation>两次路由计算之间的递增时间间隔，每变化一次，间隔增加一个incr-interval</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="60000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1lspLengthOrig" default="1497">
+				<xs:annotation>
+					<xs:documentation>Level1本地生成的LSP报文size的最大值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="512"/>
+						<xs:maxInclusive value="16384"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2lspLengthOrig" default="1497">
+				<xs:annotation>
+					<xs:documentation>Level2本地生成的LSP报文size的最大值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="512"/>
+						<xs:maxInclusive value="16384"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lspReceiveLength" default="1497">
+				<xs:annotation>
+					<xs:documentation>接收的LSP报文size的最大值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="512"/>
+						<xs:maxInclusive value="16384"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1LspFragExtEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Level1LSP分片设置标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level2LspFragExtEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Level2LSP分片设置标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level1LspFragExtMode" type="isiscommLspFragMode" default="mode_1">
+				<xs:annotation>
+					<xs:documentation>按指定模式使能Level1LSP分片扩展功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level2LspFragExtMode" type="isiscommLspFragMode" default="mode_1">
+				<xs:annotation>
+					<xs:documentation>按指定模式使能Level2LSP分片扩展功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localSymbolicName">
+				<xs:annotation>
+					<xs:documentation>本地系统动态主机名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stdAutoCostEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能自动计算系统开销值功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stdbandwidth" default="100">
+				<xs:annotation>
+					<xs:documentation>接口开销自动计算功能中所使用的带宽参考值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="2147483648"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stdLevel1Cost" default="10">
+				<xs:annotation>
+					<xs:documentation>全局接口Level1Cost值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="16777215"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stdLevel2Cost" default="10">
+				<xs:annotation>
+					<xs:documentation>全局接口Level2Cost值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="16777215"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="baseTopoType" type="isiscommBaseTopoType" default="invalid">
+				<xs:annotation>
+					<xs:documentation>使能IPv6的类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>description信息内容</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+						<xs:pattern value="([^?]*)"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isLspGenIntelliTimer" type="isiscomm_isLspGenIntelliTimers_type"/>
+			<xs:element name="isFlashFlood" type="isiscomm_isFlashFloods_type"/>
+			<xs:element name="isOverloadSet" type="isiscomm_isOverloadSets_type"/>
+			<xs:element name="isLdpSyncdSet" type="isiscomm_isLdpSyncSets_type"/>
+			<xs:element name="isLocalMtSets" type="isiscomm_isLocalMtSets_type"/>
+			<xs:element name="isNetEntitys" type="isiscomm_isNetEntitys_type"/>
+			<xs:element name="isLspAuthtications" type="isiscomm_isLspAuthtications_type"/>
+			<xs:element name="isNameTables" type="isiscomm_isNameTables_type"/>
+			<xs:element name="isVirtualSystems" type="isiscomm_isVirtualSystems_type"/>
+			<xs:element name="isCircuits" type="isiscomm_isCircuits_type"/>
+			<xs:element name="isSiteMTs" type="isiscomm_isSiteMTs_type"/>
+			<xs:element name="isDispLsdbs" type="isiscomm_isDispLsdbs_type"/>
+			<xs:element name="isDispPeers" type="isiscomm_isDispPeers_type"/>
+			<xs:element name="isDispLspStatisticss" type="isiscomm_isDispLspStatisticss_type"/>
+			<xs:element name="isDispBfdSessions" type="isiscomm_isDispBfdSessions_type"/>
+			<xs:element name="isDispNameTables" type="isiscomm_isDispNameTables_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLspGenIntelliTimers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="level1LspGenMaxInterval" default="2">
+				<xs:annotation>
+					<xs:documentation>产生Level1 LSP的最大间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="120"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2LspGenMaxInterval" default="2">
+				<xs:annotation>
+					<xs:documentation>产生Level2 LSP的最大间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="120"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1LspGenInitInterval" default="0">
+				<xs:annotation>
+					<xs:documentation>Level1产生同一LSP分片的初始间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="60000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2LspGenInitInterval" default="0">
+				<xs:annotation>
+					<xs:documentation>Level2产生同一LSP分片的初始间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="60000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1LspGenIncrInterval" default="0">
+				<xs:annotation>
+					<xs:documentation>Level1两次产生同一LSP分片之间的递增时间间隔，每变化一次，间隔增加一个incr-interval</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="60000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2LspGenIncrInterval" default="0">
+				<xs:annotation>
+					<xs:documentation>Level2两次产生同一LSP分片之间的递增时间间隔，每变化一次，间隔增加一个incr-interval</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="60000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLspGenIntelliTimer_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0"/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isFlashFloods_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="level1FlashFloodEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Level1的flashflood设置标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level2FlashFloodEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Level2的flashflood设置标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level1FlashFloodLspNum" default="5">
+				<xs:annotation>
+					<xs:documentation>每个接口一次扩散Level1LSP的最大数量</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2FlashFloodLspNum" default="5">
+				<xs:annotation>
+					<xs:documentation>每个接口一次扩散Level2LSP的最大数量</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1FlashFloodMaxTime" default="10">
+				<xs:annotation>
+					<xs:documentation>Level1LSP扩散的最大间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="50000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2FlashFloodMaxTime" default="10">
+				<xs:annotation>
+					<xs:documentation>Level2LSP扩散的最大间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="50000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isFlashFlood_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0"/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isOverloadSets_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="stdOverloadType" type="isiscommIsOverLoadType" default="no_set">
+				<xs:annotation>
+					<xs:documentation>用户是否设置过载位标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stdOverloadWaitType" type="isiscommWaitType" default="no_wait">
+				<xs:annotation>
+					<xs:documentation>过载类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stdOverloadNbrSysId">
+				<xs:annotation>
+					<xs:documentation>邻居systemID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="15"/>
+						<xs:pattern value="^((([0-9]|[a-f]|[A-F]){4}\.){2}([0-9]|[a-f]|[A-F]){4})$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stdOverloadTimeout1" default="1200">
+				<xs:annotation>
+					<xs:documentation>定时器1</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="5"/>
+						<xs:maxInclusive value="86400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stdOverloadTimeout2" default="600">
+				<xs:annotation>
+					<xs:documentation>定时器2</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="5"/>
+						<xs:maxInclusive value="86400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stdOverloadInterlevel" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否允许发布从不同层次IS-IS学来的IP地址前缀</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stdOverloadExternal" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否允许发布从其它协议学来的IP地址前缀</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isOverloadSet_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0"/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLdpSyncSets_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ldpSyncEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能全局联动功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ldpSyncTimerEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>ldp联动配置的timer值是否有效</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ldpSyncTimer" default="0">
+				<xs:annotation>
+					<xs:documentation>指定IS-IS在本地设备的IS-IS LSP（Link State PDU）中保持通告最大开销值的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ldpSynInfinite" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>指定在LDP会话重新建立之前，IS-IS在本地设备的LSP（Link State PDU）中永久通告最大开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLdpSyncSet_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0"/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLocalMtSets_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isLocalMtSet" type="isiscomm_isLocalMtSet_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLocalMtSet_type">
+		<xs:annotation>
+			<xs:documentation>Local MT设置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="localMtEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能Local MT功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="policyType" type="isiscommIsPolicyType" default="noType">
+				<xs:annotation>
+					<xs:documentation>策略类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclNumOrName">
+				<xs:annotation>
+					<xs:documentation>aclNumOrName名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+						<xs:pattern value="^\s*(2[0-9]{3}|[a-zA-Z]\S*)\s*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPrefix">
+				<xs:annotation>
+					<xs:documentation>ipPrefix</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isNetEntitys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isNetEntity" type="isiscomm_isNetEntity_type" minOccurs="0" maxOccurs="3"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isNetEntity_type">
+		<xs:annotation>
+			<xs:documentation>IS-IS路由进程的网络实体名称NET</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="netEntity">
+				<xs:annotation>
+					<xs:documentation>net地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="83"/>
+						<xs:pattern value="^\s*((([0-9a-fA-F]\.?){2}){7,19}0\.?0)\s*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isCircuits_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isCircuit" type="isiscomm_isCircuit_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isCircuit_type">
+		<xs:annotation>
+			<xs:documentation>接口信息</xs:documentation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipv4Enable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>接口上使能isis ipv4</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipv6Enable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>接口上使能isis ipv6</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="circuitLevelType" type="isiscommLevelType" default="level_1_2">
+				<xs:annotation>
+					<xs:documentation>接口Level</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="typeP2pEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>设置接口网络类型为 P2P，并可在该接口上模拟 P2P 接口</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="silentEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>抑制该接口接收或发送IS-IS 报文</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level1CsnpInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>Level1CSNP 报文的发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2CsnpInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>Level2CSNP 报文的发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="throttleTimer" default="50">
+				<xs:annotation>
+					<xs:documentation>两组Level1 LSP 报文之间的最小传送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="throttleCount" default="10">
+				<xs:annotation>
+					<xs:documentation>一组Level1 LSPs 包含 LSP 报文的最大数目</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1HelloTimer" default="10">
+				<xs:annotation>
+					<xs:documentation>Level1Hello报文的发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2HelloTimer" default="10">
+				<xs:annotation>
+					<xs:documentation>Leve2Hello报文的发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1HoldMultiplier" default="3">
+				<xs:annotation>
+					<xs:documentation>Level1宣告邻居失效前未收到邻居Hello报文数目</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2HoldMultiplier" default="3">
+				<xs:annotation>
+					<xs:documentation>Level2宣告邻居失效前未收到邻居Hello报文数目</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="disName">
+				<xs:annotation>
+					<xs:documentation>本地局域网的名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1DisPriority" default="64">
+				<xs:annotation>
+					<xs:documentation>Level1DIS选举优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2DisPriority" default="64">
+				<xs:annotation>
+					<xs:documentation>Level2DIS选举优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="p2pPeerIPIgnore" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>当接收到Hello报文时不作IP地址检查</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="p2pNegotiationMode" type="isiscommP2pNegotiation" default="3_way">
+				<xs:annotation>
+					<xs:documentation>邻居协商类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="p2pHelloTimer" default="10">
+				<xs:annotation>
+					<xs:documentation>P2P Hello报文的发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="p2pHoldMulti" default="3">
+				<xs:annotation>
+					<xs:documentation>宣告P2P邻居失效前未收到邻居Hello报文数目</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lspRetransmitInterval" default="5">
+				<xs:annotation>
+					<xs:documentation>点到点链路上Level1 LSP 报文的重传间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="300"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pPPOsicpCheckEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>启动点到点链路的 OSICP 检查</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helloMode" type="isiscommPadType" default="normal">
+				<xs:annotation>
+					<xs:documentation>hello报文的填充类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level1Cost" default="10">
+				<xs:annotation>
+					<xs:documentation>指定进行Level1SPF计算时该接口的链路开销</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777215"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2Cost" default="10">
+				<xs:annotation>
+					<xs:documentation>指定进行Level2SPF计算时该接口的链路开销</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777215"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ldpSyncState" type="isiscommLdpSyncState" default="noConfig">
+				<xs:annotation>
+					<xs:documentation>接口下ldp联动状态</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ldpSyncTimerEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>ldp联动配置的timer值是否有效</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ldpSyncTimer" default="0">
+				<xs:annotation>
+					<xs:documentation>指定IS-IS在本地设备的IS-IS LSP（Link State PDU）中保持通告最大开销值的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ldpSynInfinite" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>指定在LDP会话重新建立之前，IS-IS在本地设备的LSP（Link State PDU）中永久通告最大开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level1FrrBlock" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>用来使能接口参与LFA（Loop Free Alternate）计算，使接口有资格成为备份接口</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level2FrrBlock" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>用来使能接口参与LFA（Loop Free Alternate）计算，使接口有资格成为备份接口</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="meshGroupState" type="isiscommMeshGroupState" default="inactive">
+				<xs:annotation>
+					<xs:documentation>接口Mesh-Group状态，Block接口将被阻塞，不再向其它接口扩散收到的LSP。</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="meshGroupNumber" default="1">
+				<xs:annotation>
+					<xs:documentation>设置mesh-group的组号。整数形式，状态为set时取值范围是1～4294967295。</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="circuitId" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>接口的circuit ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="circuitMTU" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接口MTU值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="circuitL1IsDis" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口level1是否是DIS</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="circuitL2IsDis" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口level2是否是DIS</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v4Status" default="">
+				<xs:annotation>
+					<xs:documentation>接口IPV4状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mtuState" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口mtu状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkState" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口link状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipState" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口ip状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v6Status" default="">
+				<xs:annotation>
+					<xs:documentation>接口IPV6状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mtuV6State" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口V6 mtu状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkV6State" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口V6 link状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipV6State" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口V6 ip状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isHelloAuthtications" type="isiscomm_isHelloAuthtications_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="isiscomm_isCircuit_ifName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="48"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="isiscomm_isSiteMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isSiteMT" type="isiscomm_isSiteMT_type" minOccurs="0" maxOccurs="64"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isSiteMT_type">
+		<xs:annotation>
+			<xs:documentation>进程下MT信息</xs:documentation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addressFamily" type="isiscommIsAfType" default="afIpv4">
+				<xs:annotation>
+					<xs:documentation>地址族类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mtId" default="0">
+				<xs:annotation>
+					<xs:documentation>ISIS多拓扑ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4095"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="topologyName" default="">
+				<xs:annotation>
+					<xs:documentation>RM多拓扑名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="spfPriority" default="64">
+				<xs:annotation>
+					<xs:documentation>拓扑的优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxLoadBalancing" default="64">
+				<xs:annotation>
+					<xs:documentation>等价路由的最大数量</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="autoCostEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能自动计算系统开销值功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bandwidth" default="100">
+				<xs:annotation>
+					<xs:documentation>接口开销自动计算功能中所使用的带宽参考值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="2147483648"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1Cost" default="10">
+				<xs:annotation>
+					<xs:documentation>全局接口Level1Cost值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="16777215"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2Cost" default="10">
+				<xs:annotation>
+					<xs:documentation>全局接口Level2Cost值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="16777215"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="overloadType" type="isiscommIsOverLoadType" default="no_set">
+				<xs:annotation>
+					<xs:documentation>用户是否设置过载位标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="overloadWaitType" type="isiscommWaitType" default="no_wait">
+				<xs:annotation>
+					<xs:documentation>过载类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="overloadNbrSysId">
+				<xs:annotation>
+					<xs:documentation>邻居systemID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="overloadTimeout1" default="1200">
+				<xs:annotation>
+					<xs:documentation>定时器1</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="5"/>
+						<xs:maxInclusive value="86400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="overloadTimeout2" default="600">
+				<xs:annotation>
+					<xs:documentation>定时器2</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="5"/>
+						<xs:maxInclusive value="86400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="overloadInterlevel" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否允许发布从不同层次IS-IS学来的IP地址前缀</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="overloadExternal" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否允许发布从其它协议学来的IP地址前缀</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level1TagValue" default="0">
+				<xs:annotation>
+					<xs:documentation>全局Level-1标签值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2TagValue" default="0">
+				<xs:annotation>
+					<xs:documentation>全局Level-2标签值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="allCircBfdOn" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能所有接口BFD</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frrBindingFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>设置BFD绑定接口链路状态</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdMinRx" default="10">
+				<xs:annotation>
+					<xs:documentation>BFD报文最小接收间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdMinTx" default="10">
+				<xs:annotation>
+					<xs:documentation>BFD报文最小发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdMultNum" default="3">
+				<xs:annotation>
+					<xs:documentation>最多允许丢失BFD报文的数量</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mtIndex" default="0">
+				<xs:annotation>
+					<xs:documentation>ISIS多拓扑Index</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4095"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isNextHopWeights" type="isiscomm_isNextHopWeights_type"/>
+			<xs:element name="isSummaryRoutes" type="isiscomm_isSummaryRoutes_type"/>
+			<xs:element name="isDefaultRoutes" type="isiscomm_isDefaultRoutes_type"/>
+			<xs:element name="isImportRoutes" type="isiscomm_isImportRoutes_type"/>
+			<xs:element name="isFilterImports" type="isiscomm_isFilterImports_type"/>
+			<xs:element name="isFilterExports" type="isiscomm_isFilterExports_type"/>
+			<xs:element name="isLeakRouteLevel2ToLevel1s" type="isiscomm_isLeakRouteLevel2ToLevel1s_type"/>
+			<xs:element name="isLeakRouteLevel1ToLevel2s" type="isiscomm_isLeakRouteLevel1ToLevel2s_type"/>
+			<xs:element name="isRoutePrioritys" type="isiscomm_isRoutePrioritys_type"/>
+			<xs:element name="isPreferences" type="isiscomm_isPreferences_type"/>
+			<xs:element name="isFrrEnables" type="isiscomm_isFrrEnables_type"/>
+			<xs:element name="isCircMts" type="isiscomm_isCircMts_type"/>
+			<xs:element name="isDispRouteStatisticss" type="isiscomm_isDispRouteStatisticss_type"/>
+			<xs:element name="isDispV4Routes" type="isiscomm_isDispV4Routes_type"/>
+			<xs:element name="isDispV6Routes" type="isiscomm_isDispV6Routes_type"/>
+			<xs:element name="isDispV4ImportRoutes" type="isiscomm_isDispV4ImportRoutes_type"/>
+			<xs:element name="isDispV6ImportRoutes" type="isiscomm_isDispV6ImportRoutes_type"/>
+			<xs:element name="isDispMigpRoutes" type="isiscomm_isDispMigpRoutes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDefaultRoutes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDefaultRoute" type="isiscomm_isDefaultRoute_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDefaultRoute_type">
+		<xs:annotation>
+			<xs:documentation>缺省路由设置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="defaultMode" type="isiscommIsdefaultMode" default="always">
+				<xs:annotation>
+					<xs:documentation>缺省路由使能的模式</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由过滤策略名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cost" default="0">
+				<xs:annotation>
+					<xs:documentation>缺省路由cost值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4261412864"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tag" default="0">
+				<xs:annotation>
+					<xs:documentation>缺省路由tag值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="levelType" type="isiscommLevelType" default="level_2">
+				<xs:annotation>
+					<xs:documentation>引入缺省路由的Level</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="avoidLearning" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>避免IS-IS进程学到缺省路由并添加到路由表</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isNextHopWeights_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isNextHopWeight" type="isiscomm_isNextHopWeight_type" minOccurs="0" maxOccurs="131072"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isNextHopWeight_type">
+		<xs:annotation>
+			<xs:documentation>下一跳权重设置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>IPv4下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="weight" default="1">
+				<xs:annotation>
+					<xs:documentation>下一跳权重</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="254"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isSummaryRoutes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isSummaryRoute" type="isiscomm_isSummaryRoute_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isSummaryRoute_type">
+		<xs:annotation>
+			<xs:documentation>聚合路由设置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipPrefix" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>聚合路由前缀</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipMaskLen">
+				<xs:annotation>
+					<xs:documentation>聚合路由掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="levelType" type="isiscommLevelType" default="level_2">
+				<xs:annotation>
+					<xs:documentation>聚合路由Level</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tag" default="0">
+				<xs:annotation>
+					<xs:documentation>聚合路由tag值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="genNull0Route" type="xs:boolean" default="0">
+				<xs:annotation>
+					<xs:documentation>聚合路由产生NULL0黑洞路由</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="avoidFeadBack" type="xs:boolean" default="0">
+				<xs:annotation>
+					<xs:documentation>聚合路由防止反学</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLspAuthtications_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isLspAuthtication" type="isiscomm_isLspAuthtication_type" minOccurs="0" maxOccurs="2"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLspAuthtication_type">
+		<xs:annotation>
+			<xs:documentation>Lsp认证模式</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cmdType" type="isiscommAuthCmdType" default="area">
+				<xs:annotation>
+					<xs:documentation>命令类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="passwordType" type="isiscommAuthType" default="simple">
+				<xs:annotation>
+					<xs:documentation>Level1密码类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="simplePassword" type="password">
+				<xs:annotation>
+					<xs:documentation>simple密码内容</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="md5Password" type="passwordExtend">
+				<xs:annotation>
+					<xs:documentation>md5/sha256密码内容</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceType" type="isiscommIsServiceType" default="osi">
+				<xs:annotation>
+					<xs:documentation>服务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenUsage" type="isiscommAuthUsageType" default="usage_default">
+				<xs:annotation>
+					<xs:documentation>认证用法</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="keyId" default="0">
+				<xs:annotation>
+					<xs:documentation>key-id值</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>					
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isNameTables_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isNameTable" type="isiscomm_isNameTable_type" minOccurs="0" maxOccurs="500"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isNameTable_type">
+		<xs:annotation>
+			<xs:documentation>静态主机名</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="systemId">
+				<xs:annotation>
+					<xs:documentation>远端IS的systemID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="12"/>
+						<xs:maxLength value="31"/>
+						<xs:pattern value="^((([0-9]|[a-f]|[A-F]){4}\.){2}([0-9]|[a-f]|[A-F]){4}(\.([0-9]|[a-f]|[A-F]){2})?)$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="hostName">
+				<xs:annotation>
+					<xs:documentation>远端IS的别名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="64"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isVirtualSystems_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isVirtualSystem" type="isiscomm_isVirtualSystem_type" minOccurs="0" maxOccurs="99"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isVirtualSystem_type">
+		<xs:annotation>
+			<xs:documentation>虚系统ID</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="virtualSystemId">
+				<xs:annotation>
+					<xs:documentation>虚系统systemId</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="12"/>
+						<xs:maxLength value="19"/>
+						<xs:pattern value="^((([0-9]|[a-f]|[A-F]){4}\.){2}([0-9]|[a-f]|[A-F]){4})$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isImportRoutes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isImportRoute" type="isiscomm_isImportRoute_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isImportRoute_type">
+		<xs:annotation>
+			<xs:documentation>ISIS引入路由</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="protocol" type="isiscommIsImportProtT" default="static">
+				<xs:annotation>
+					<xs:documentation>引入路由的协议</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="processId" default="0">
+				<xs:annotation>
+					<xs:documentation>引入路由的协议的进程号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="costType" type="isiscommIsImportCostT" default="external">
+				<xs:annotation>
+					<xs:documentation>引入外部路由的开销类型，为external或internal</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost" default="0">
+				<xs:annotation>
+					<xs:documentation>引入路由的开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4261412864"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tag" default="0">
+				<xs:annotation>
+					<xs:documentation>为引入的路由分配管理标签号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由过滤策略名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="levelType" type="isiscommLevelType" default="level_2">
+				<xs:annotation>
+					<xs:documentation>引入路由的协议的level</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inheritCost" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>继承cost</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="permitIbgp" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>允许引入IBGP路由</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isFilterImports_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isFilterImport" type="isiscomm_isFilterImport_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isFilterImport_type">
+		<xs:annotation>
+			<xs:documentation>IS-IS对接收的路由是否加入IP路由表进行过滤</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="policyType" type="isiscommFilterType">
+				<xs:annotation>
+					<xs:documentation>策略类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclNumOrName">
+				<xs:annotation>
+					<xs:documentation>aclNumOrName名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+						<xs:pattern value="^\s*(2[0-9]{3}|[a-zA-Z]\S*)\s*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPrefix">
+				<xs:annotation>
+					<xs:documentation>ipPrefix</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由过滤策略名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLeakRouteLevel2ToLevel1s_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isLeakRouteLevel2ToLevel1" type="isiscomm_isLeakRouteLevel2ToLevel1_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLeakRouteLevel2ToLevel1_type">
+		<xs:annotation>
+			<xs:documentation>Level2到Level1路由渗透策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tag" default="0">
+				<xs:annotation>
+					<xs:documentation>路由管理标签</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="policyType" type="isiscommIsPolicyType" default="noType">
+				<xs:annotation>
+					<xs:documentation>策略类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由过滤策略名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aclNumOrName">
+				<xs:annotation>
+					<xs:documentation>aclNumOrName名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+						<xs:pattern value="^\s*(2[0-9]{3}|[a-zA-Z]\S*)\s*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPrefix">
+				<xs:annotation>
+					<xs:documentation>ipPrefix</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLeakRouteLevel1ToLevel2s_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isLeakRouteLevel1ToLevel2" type="isiscomm_isLeakRouteLevel1ToLevel2_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isLeakRouteLevel1ToLevel2_type">
+		<xs:annotation>
+			<xs:documentation>Level1到Level2路由渗透策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tag" default="0">
+				<xs:annotation>
+					<xs:documentation>路由管理标签</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="policyType" type="isiscommIsPolicyType" default="noType">
+				<xs:annotation>
+					<xs:documentation>策略类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由过滤策略名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aclNumOrName">
+				<xs:annotation>
+					<xs:documentation>aclNumOrName名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+						<xs:pattern value="^\s*(2[0-9]{3}|[a-zA-Z]\S*)\s*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPrefix">
+				<xs:annotation>
+					<xs:documentation>ipPrefix</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="leakEnableFlag" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>level1到level2的路由渗透标志是否被使能标记</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isPreferences_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isPreference" type="isiscomm_isPreference_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isPreference_type">
+		<xs:annotation>
+			<xs:documentation>协议优先级策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="policyType" type="isiscommPreferenceType" default="noType">
+				<xs:annotation>
+					<xs:documentation>过滤策略类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="preferenceValue" default="15">
+				<xs:annotation>
+					<xs:documentation>协议优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由过滤策略名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isFilterExports_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isFilterExport" type="isiscomm_isFilterExport_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isFilterExport_type">
+		<xs:annotation>
+			<xs:documentation>配置IS-IS对已引入的路由在向外发布时进行过滤</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="protocol" type="isiscommIsImportProtT">
+				<xs:annotation>
+					<xs:documentation>指定哪些已引入的路由信息在发布时要进行过滤</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="processId" default="0">
+				<xs:annotation>
+					<xs:documentation>路由过滤的子进程号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="policyType" type="isiscommFilterType">
+				<xs:annotation>
+					<xs:documentation>策略类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclNumOrName">
+				<xs:annotation>
+					<xs:documentation>aclNumOrName名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+						<xs:pattern value="^\s*(2[0-9]{3}|[a-zA-Z]\S*)\s*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPrefix">
+				<xs:annotation>
+					<xs:documentation>ipPrefix</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由过滤策略名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isCircMts_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isCircMt" type="isiscomm_isCircMt_type" minOccurs="0" maxOccurs="64"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isCircMt_type">
+		<xs:annotation>
+			<xs:documentation>接口多拓扑</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level1Cost" default="10">
+				<xs:annotation>
+					<xs:documentation>指定进行Level1SPF计算时该接口的链路开销</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777215"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2Cost" default="10">
+				<xs:annotation>
+					<xs:documentation>指定进行Level2SPF计算时该接口的链路开销</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777215"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level1Tag" default="0">
+				<xs:annotation>
+					<xs:documentation>配置接口直连路由的 Level1 tag 值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level2Tag" default="0">
+				<xs:annotation>
+					<xs:documentation>配置接口直连路由的 Level2 tag 值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="suppressReach" type="isiscommLevelTypeWithZero" default="no_set">
+				<xs:annotation>
+					<xs:documentation>配置接口抑制直连路由</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>bfd使能类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdStaticEn" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能IS-IS的特定接口下配置BFD特性</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdBlockEn" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>阻塞接口动态创建BFD特性</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdMinRx" default="10">
+				<xs:annotation>
+					<xs:documentation>指定期望从对端接收BFD报文的最小接收间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdMinTx" default="10">
+				<xs:annotation>
+					<xs:documentation>指定向对端发送BFD报文的最小发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdMultiplierNumber" default="3">
+				<xs:annotation>
+					<xs:documentation>指定本地检测倍数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="frrBindingFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>设置BFD绑定接口链路状态</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level1FrrBlock" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>用来使能接口参与LFA（Loop Free Alternate）计算，使接口有资格成为备份接口</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level2FrrBlock" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>用来使能接口参与LFA（Loop Free Alternate）计算，使接口有资格成为备份接口</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isHelloAuthtications_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isHelloAuthtication" type="isiscomm_isHelloAuthtication_type" minOccurs="0" maxOccurs="2"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isHelloAuthtication_type">
+		<xs:annotation>
+			<xs:documentation>Hello报文认证模式</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType" default="level_1">
+				<xs:annotation>
+					<xs:documentation>level类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="passwordType" type="isiscommAuthType" default="simple">
+				<xs:annotation>
+					<xs:documentation>密码类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="simplePassword" type="password">
+				<xs:annotation>
+					<xs:documentation>simple密码内容</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="md5Password" type="passwordExtend">
+				<xs:annotation>
+					<xs:documentation>md5/sha256密码内容</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceType" type="isiscommIsServiceType" default="osi">
+				<xs:annotation>
+					<xs:documentation>服务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendOnly" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否只对发送认证</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="keyId" default="0">
+				<xs:annotation>
+					<xs:documentation>key-id值</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isFrrEnables_type">
+		<xs:annotation>
+			<xs:documentation>frr使能</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isFrrEnable" type="isiscomm_isFrrEnable_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isFrrEnable_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="policyType" type="isiscommFrrPolicyType" default="noType">
+				<xs:annotation>
+					<xs:documentation>过滤策略类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由过滤策略名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lfaLevel1Enable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>level类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lfaLevel2Enable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>level类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispLsdbs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispLsdb" type="isiscomm_isDispLsdb_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispLsdb_type">
+		<xs:annotation>
+			<xs:documentation>显示LSDB信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lspLevelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>本地中间系统的level类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lspId">
+				<xs:annotation>
+					<xs:documentation>LSP ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="seqenceNumber">
+				<xs:annotation>
+					<xs:documentation>本地中间系统LSDB中Lsp序列号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="checkSum">
+				<xs:annotation>
+					<xs:documentation>本地中间系统LSDB中LSP的校验和</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lspLength">
+				<xs:annotation>
+					<xs:documentation>本地中间系统LSDB中LSP的长度</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="2000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="attBit">
+				<xs:annotation>
+					<xs:documentation>Attached标识位</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="partitionBit">
+				<xs:annotation>
+					<xs:documentation>P-Partition标识位</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="overloadBit">
+				<xs:annotation>
+					<xs:documentation>OL-Overload标识位,均为0或者1</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="holdTime">
+				<xs:annotation>
+					<xs:documentation>lsp保持时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isLocalLsp" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>是否是本地产生的LSP</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispPeers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispPeer" type="isiscomm_isDispPeer_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispPeer_type">
+		<xs:annotation>
+			<xs:documentation>显示邻居状态</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceId">
+				<xs:annotation>
+					<xs:documentation>进程号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="hostName">
+				<xs:annotation>
+					<xs:documentation>邻居的主机系统名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>IS-IS邻居类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interfaceName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="circuitId">
+				<xs:annotation>
+					<xs:documentation>接口的circuit ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="260"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="status" type="isiscommAdjStatus">
+				<xs:annotation>
+					<xs:documentation>邻居状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="holdTime" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>邻接保持时长</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priority">
+				<xs:annotation>
+					<xs:documentation>选举DIS时的优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="areaAddress">
+				<xs:annotation>
+					<xs:documentation>区域地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="120"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispV4Routes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispV4Route" type="isiscomm_isDispV4Route_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispV4Route_type">
+		<xs:annotation>
+			<xs:documentation>IPV4路由信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>路由类型（level-1/level-2）</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>ipv4地址前缀</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipv4Mask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>ipv4地址掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPv4内部开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extCost">
+				<xs:annotation>
+					<xs:documentation>IPv4外部开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="exitInterfaceName">
+				<xs:annotation>
+					<xs:documentation>出接口</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextHop">
+				<xs:annotation>
+					<xs:documentation>下一跳</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="flags">
+				<xs:annotation>
+					<xs:documentation>路由类型（D/A/L/S/U）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="priority">
+				<xs:annotation>
+					<xs:documentation>路由优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tag">
+				<xs:annotation>
+					<xs:documentation>路由Tag</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispLspStatisticss_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispLspStatistics" type="isiscomm_isDispLspStatistics_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispLspStatistics_type">
+		<xs:annotation>
+			<xs:documentation>LSP路由信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>level类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="systemId">
+				<xs:annotation>
+					<xs:documentation>系统systemID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="usedFragsNumber" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>已经使用的分片数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispRouteStatisticss_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispRouteStatistics" type="isiscomm_isDispRouteStatistics_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispRouteStatistics_type">
+		<xs:annotation>
+			<xs:documentation>路由统计信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>Level类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v4LearntRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPV4学来的路由数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v6LearntRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPV6学来的路由数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v4CriticalRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of critical PRI IPv4 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v4HighRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of high PRI IPv4 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v4MediumRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of medium PRI IPv4 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v4LowRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of low PRI IPv4 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v6CriticalRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of critical PRI IPv6 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v6HighRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of high PRI IPv6 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v6MediumRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of medium PRI IPv6 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v6LowRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of low PRI IPv6 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v4ForwardRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of IPv4 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="v6ForwardRtNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of IPv6 routes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispV6Routes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispV6Route" type="isiscomm_isDispV6Route_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispV6Route_type">
+		<xs:annotation>
+			<xs:documentation>IPV6路由信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>level类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>ipv6地址前缀</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipv6Mask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>ipv6地址掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="exitInterfaceName">
+				<xs:annotation>
+					<xs:documentation>出接口</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextHop">
+				<xs:annotation>
+					<xs:documentation>下一跳</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="costValue" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPv6目的开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flags">
+				<xs:annotation>
+					<xs:documentation>路由信息标记</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="priority">
+				<xs:annotation>
+					<xs:documentation>路由优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tag">
+				<xs:annotation>
+					<xs:documentation>路由Tag</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispV4ImportRoutes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispV4ImportRoute" type="isiscomm_isDispV4ImportRoute_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispV4ImportRoute_type">
+		<xs:annotation>
+			<xs:documentation>IPV4引入路由</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>levelType类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routeProtocolType">
+				<xs:annotation>
+					<xs:documentation>路由的协议类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>ipv4地址前缀</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipv4Mask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>ipv4地址掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPv4内部开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extCost">
+				<xs:annotation>
+					<xs:documentation>IPv4外部开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tag">
+				<xs:annotation>
+					<xs:documentation>路由管理标签</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispV6ImportRoutes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispV6ImportRoute" type="isiscomm_isDispV6ImportRoute_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispV6ImportRoute_type">
+		<xs:annotation>
+			<xs:documentation>IPV6引入路由</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>level类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routeProtocolType">
+				<xs:annotation>
+					<xs:documentation>路由的协议类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>ipv6地址前缀</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipv6Mask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>ipv6地址掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPv6目的开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tag">
+				<xs:annotation>
+					<xs:documentation>路由管理标签</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispMigpRoutes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispMigpRoute" type="isiscomm_isDispMigpRoute_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispMigpRoute_type">
+		<xs:annotation>
+			<xs:documentation>MIGP路由信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>路由类型（level-1/level-2）</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>ipv4地址前缀</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipv4Mask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>ipv4地址掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPv4内部开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extCost">
+				<xs:annotation>
+					<xs:documentation>IPv4外部开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="exitInterfaceName">
+				<xs:annotation>
+					<xs:documentation>出接口</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextHop">
+				<xs:annotation>
+					<xs:documentation>下一跳</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="flags">
+				<xs:annotation>
+					<xs:documentation>路由类型（A/U）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispBfdSessions_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispBfdSession" type="isiscomm_isDispBfdSession_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispBfdSession_type">
+		<xs:annotation>
+			<xs:documentation>查看BFD特性会话的信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="peerLevelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>邻居的Level级别</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdState" type="isiscommBfdStateType">
+				<xs:annotation>
+					<xs:documentation>bfd状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdMinTx" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>经过协商后BFD报文的最小发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdMinRx" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>经过协商后BFD报文的最小接收间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdMulNumber" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>远端的检测倍数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="peerIpAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居的接口IP地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localIpAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>本端接口IP地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="systemId">
+				<xs:annotation>
+					<xs:documentation>邻居的systemId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="circuitName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispNameTables_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isDispNameTable" type="isiscomm_isDispNameTable_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isDispNameTable_type">
+		<xs:annotation>
+			<xs:documentation>查看本地和远端路由器名称到系统ID的映射关系表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="levelType" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>系统level类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hostType" type="isiscommIsHostType">
+				<xs:annotation>
+					<xs:documentation>系统ID与主机名的映射类型（静态或动态）</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hostName">
+				<xs:annotation>
+					<xs:documentation>主机名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="systemId">
+				<xs:annotation>
+					<xs:documentation>主机的系统ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isRoutePrioritys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="isRoutePriority" type="isiscomm_isRoutePriority_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="isiscomm_isRoutePriority_type">
+		<xs:annotation>
+			<xs:documentation>路由优先级信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="isLevel" type="isiscommLevelType">
+				<xs:annotation>
+					<xs:documentation>路由器Level</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priority" type="isiscommRoutePriorityType">
+				<xs:annotation>
+					<xs:documentation>路由优先级</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="useflag" type="isiscommRoutePriorityFlag">
+				<xs:annotation>
+					<xs:documentation>过滤策略</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tag" default="0">
+				<xs:annotation>
+					<xs:documentation>路由管理标签</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipprefix">
+				<xs:annotation>
+					<xs:documentation>ip地址前缀</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+						<xs:pattern value="^.*\S.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

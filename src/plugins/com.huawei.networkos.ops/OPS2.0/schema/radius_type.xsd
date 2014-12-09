@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="radiusRdsSvrState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Up">
+				<xs:annotation>
+					<xs:documentation>Up</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stale">
+				<xs:annotation>
+					<xs:documentation>Stale</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Probe">
+				<xs:annotation>
+					<xs:documentation>Probe</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="-">
+				<xs:annotation>
+					<xs:documentation>None</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="radiusRdsSvrType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Authentication">
+				<xs:annotation>
+					<xs:documentation>Authentication</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Accounting">
+				<xs:annotation>
+					<xs:documentation>Accounting</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="radiusRdsMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Pri-secondary">
+				<xs:annotation>
+					<xs:documentation>Pri-secondary</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Load-balance">
+				<xs:annotation>
+					<xs:documentation>Load-balance</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="radiusPriSec">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Secondary-server">
+				<xs:annotation>
+					<xs:documentation>Secondary-server</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Primary-server">
+				<xs:annotation>
+					<xs:documentation>Primary-server</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

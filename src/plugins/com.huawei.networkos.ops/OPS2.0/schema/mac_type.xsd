@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.3.8
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+  <xs:annotation>
+    <xs:appinfo>
+      <formatVersion>1.0</formatVersion>
+      <contentVersion>1.0</contentVersion>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:simpleType name="macVlanId">
+    <xs:restriction base="xs:unsignedShort">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="4094"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="macType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="static">
+        <xs:annotation>
+          <xs:documentation>Static MAC</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dynamic">
+        <xs:annotation>
+          <xs:documentation>Dynamic MAC</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="blackHole">
+        <xs:annotation>
+          <xs:documentation>BlackHole MAC</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="suppressType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="broadcast">
+        <xs:annotation>
+          <xs:documentation>BroadCast</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="multicast">
+        <xs:annotation>
+          <xs:documentation>MultiCast</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="unknownUnicast">
+        <xs:annotation>
+          <xs:documentation>Unknown Unicast</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="limitType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="macLimit">
+        <xs:annotation>
+          <xs:documentation>Port Mac Limit</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="macApply">
+        <xs:annotation>
+          <xs:documentation>Port Mac Apply</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="macAgeTimeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="enable">
+        <xs:annotation>
+          <xs:documentation>Enable</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="disable">
+        <xs:annotation>
+          <xs:documentation>Disable</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="macLimitForward">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="forward">
+        <xs:annotation>
+          <xs:documentation>Forward</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="discard">
+        <xs:annotation>
+          <xs:documentation>Discard</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="macEnableStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="enable">
+        <xs:annotation>
+          <xs:documentation>Enable</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="disable">
+        <xs:annotation>
+          <xs:documentation>Disable</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--xs:simpleType name="vsiName">
+		<xs:annotation>
+			<xs:documentation>vsiName is like ***</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType-->
+</xs:schema>

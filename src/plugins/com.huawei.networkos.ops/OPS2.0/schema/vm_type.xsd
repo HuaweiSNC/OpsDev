@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.huawei.com/netconf/vrp" xml:lang="en" xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="directionType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="inbound"/>
+			<xs:enumeration value="outbound"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ruleAction">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="deny"/>
+			<xs:enumeration value="permit"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="userState">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="waiting"/>
+			<xs:enumeration value="success"/>
+			<xs:enumeration value="fail"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="associationType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="preAssociate"/>
+			<xs:enumeration value="associate"/>
+			<xs:enumeration value="deAssociate"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

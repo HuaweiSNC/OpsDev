@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.3.7
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="pp6_type.xsd"/>
+	<xs:element name="pp6" type="pp6_pp6_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>pp6</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="pp6_pp6_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Ipv6GlobalCfg" type="pp6_Ipv6GlobalCfg_type"/>
+			<xs:element name="Ipv6PathMtus" type="pp6_Ipv6PathMtus_type"/>
+			<xs:element name="Ipv6PathMtuNcfs" type="pp6_Ipv6PathMtuNcfs_type"/>
+			<xs:element name="Icmp6Stats" type="pp6_Icmp6Stats_type"/>
+			<xs:element name="Ipv6Stats" type="pp6_Ipv6Stats_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp6_Ipv6PathMtus_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ipv6PathMtu" type="pp6_Ipv6PathMtu_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp6_Ipv6PathMtu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipv6DstAddr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>IPV6目的地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrfName" default="_public_">
+				<xs:annotation>
+					<xs:documentation>vpn-name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="pathMtu" default="1500">
+				<xs:annotation>
+					<xs:documentation>转发路径MTU</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1280"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp6_Ipv6PathMtuNcfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ipv6PathMtuNcf" type="pp6_Ipv6PathMtuNcf_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp6_Ipv6PathMtuNcf_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipv6DstAddr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>IPV6目的地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrfName" default="_public_">
+				<xs:annotation>
+					<xs:documentation>vpn-name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="pathMtu" default="1500">
+				<xs:annotation>
+					<xs:documentation>转发路径MTU</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1280"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="timeout">
+				<xs:annotation>
+					<xs:documentation>pathmtu老化时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967294"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mtuType" type="ndFlag">
+				<xs:annotation>
+					<xs:documentation>pathmtu类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp6_Ipv6GlobalCfg_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="bucketSize" default="10">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="interval" default="100">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="2147483647"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="echoReply" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>发送请求响应使能开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hostUnreach" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portUnreach" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="timeout" default="10">
+				<xs:annotation>
+					<xs:documentation>pathMtu老化时间</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="blacklistFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp6_Icmp6Stats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Icmp6Stat" type="pp6_Icmp6Stat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp6_Icmp6Stat_type">
+		<xs:annotation>
+			<xs:documentation>查询获取ICMPv6统计数据</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="totalSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unreachSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prohibitSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hopExcSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="paraProSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tooBigSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送超大报文ICMPv6报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="echoSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="echoReplySnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rsSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送RS报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="raSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送RA报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nsSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送NS报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="naSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送NA报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="redirectSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rateLimitSnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="formatErrRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收ICMPv6格式错误报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chksumErrRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的校验和错误的ICMPv6报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tooShortRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的过短ICMPv6报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badCodeRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的编码字段值非法的ICMPv6报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badLenRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的长度错误的ICMPv6报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unkwInfoRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的未知信息类型ICMPv6报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unkwErrRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的未知错误类型ICMPv6报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unreachRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prohibitRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hopExcRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="paraProRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的参数错误ICMPv6消息报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tooBigRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的超大报文ICMPv6消息报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="echoRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="echoReplyRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rsRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的RS报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="raRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的RA报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nsRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的NS报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="naRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的NA报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="redirectRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rateLimitRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp6_Ipv6Stats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Ipv6Stat" type="pp6_Ipv6Stat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp6_Ipv6Stat_type">
+		<xs:annotation>
+			<xs:documentation>查询获取IPv6统计数据</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="totalSnd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localSnd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>本地发送报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="forwdSnd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>转发报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rawpktSnd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>raw IP报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="discardSnd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fragmented" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fragmentSnd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fragmentFail" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="multiSnd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>本地主机接收报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HopexceedRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收TTL超时事件总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="headerrRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>报文格式错误的报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tooBigRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routfailRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addrerrRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>地址错误的报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protoerrRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>协议错误的报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="truncatedRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>实际长度小于报文长度而丢弃的报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="opterrRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>选项错误报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fragsRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>选项错误报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reassedRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reasstimeoutRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>选项错误报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="multiRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

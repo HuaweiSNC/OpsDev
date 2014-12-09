@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.17
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="ifmmp_type.xsd"/>
+	<xs:element name="ifmmp" type="ifmmp_cfg_ifmmp_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>ifmmp</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ifmmp_cfg_ifmmp_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="mpIfs" type="ifmmp_cfg_mpIfs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifmmp_cfg_mpIfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="mpIf" type="ifmmp_cfg_mpIf_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ifmmp_cfg_mpIf_type">
+		<xs:annotation>
+			<xs:documentation>MP-group配置信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>MP接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fragmentSize" type="ifmmpFragment" default="noFragment">
+				<xs:annotation>
+					<xs:documentation>MP数据报文分片大小</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="thresholdLeast" default="1">
+				<xs:annotation>
+					<xs:documentation>链路捆绑数下限阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mrru" default="1500">
+				<xs:annotation>
+					<xs:documentation>最大接收重组单元</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="328"/>
+						<xs:maxInclusive value="2048"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ssnhf" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>短序列字报文头协商</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="discriminator" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>使能终端标识符协商</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="damp" type="ifmmp_damp_type"/>
+			<xs:element name="mpMembers" type="ifmmp_cfg_mpMembers_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifmmp_damp_type">
+		<xs:annotation>
+			<xs:documentation>MP捆绑链路抑制信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="flapSet" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>是否设置震荡抑制功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="detectTime" default="30">
+				<xs:annotation>
+					<xs:documentation>检测mp链路状态的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="30"/>
+						<xs:maxInclusive value="3600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="flapCount" default="1">
+				<xs:annotation>
+					<xs:documentation>检测时间内最大震荡次数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dampTime" default="60">
+				<xs:annotation>
+					<xs:documentation>解除抑制需要保持UP的最小时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="60"/>
+						<xs:maxInclusive value="86400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifmmp_cfg_mpMembers_type">
+		<xs:annotation>
+			<xs:documentation>MP成员口列表信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="mpMember" type="ifmmp_cfg_mpMember_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ifmmp_cfg_mpMember_type">
+		<xs:annotation>
+			<xs:documentation>MP成员口信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="memberIfName">
+				<xs:annotation>
+					<xs:documentation>MP成员端口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="phyStatus" type="ifmmpPhyState">
+				<xs:annotation>
+					<xs:documentation>MP成员物理状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protoStatus" type="ifmmpProtocalState">
+				<xs:annotation>
+					<xs:documentation>MP成员协议状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

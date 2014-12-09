@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.3.8
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+  <xs:annotation>
+    <xs:appinfo>
+      <formatVersion>1.0</formatVersion>
+      <contentVersion>1.0</contentVersion>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:simpleType name="vlanId">
+    <xs:restriction base="xs:unsignedShort">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="4094"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="vlanType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="common">
+        <xs:annotation>
+          <xs:documentation>Common VLAN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="super">
+        <xs:annotation>
+          <xs:documentation>Super VLAN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sub">
+        <xs:annotation>
+          <xs:documentation>Sub VLAN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="principal">
+        <xs:annotation>
+          <xs:documentation>Principal VLAN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="group">
+        <xs:annotation>
+          <xs:documentation>Group VLAN</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="seperate">
+        <xs:annotation>
+          <xs:documentation>Seperate VLAN</xs:documentation>
+        </xs:annotation>
+	  </xs:enumeration>
+     <xs:enumeration value="manage">
+        <xs:annotation>
+          <xs:documentation>manage VLAN</xs:documentation>
+        </xs:annotation>
+     </xs:enumeration>
+     <xs:enumeration value="carrier">
+		<xs:annotation>
+		 <xs:documentation>Trill carrier VLAN</xs:documentation>
+		</xs:annotation>
+	 </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="vlanAdmin">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="up">
+        <xs:annotation>
+          <xs:documentation>Up</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="down">
+        <xs:annotation>
+          <xs:documentation>Down</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="vlanEnableStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="enable">
+        <xs:annotation>
+          <xs:documentation>Enable</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="disable">
+        <xs:annotation>
+          <xs:documentation>Disable</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="vlanAccessType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="access">
+        <xs:annotation>
+          <xs:documentation>Acess</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="trunk">
+        <xs:annotation>
+          <xs:documentation>Trunk</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hybrid">
+        <xs:annotation>
+          <xs:documentation>Hybrid</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dot1qtunnel">
+        <xs:annotation>
+          <xs:documentation>Dot1qTunnel</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="vlanMuxVlanRole">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="groupVlan"/>
+      <xs:enumeration value="separateVlan"/>
+    </xs:restriction>
+	</xs:simpleType>
+</xs:schema>

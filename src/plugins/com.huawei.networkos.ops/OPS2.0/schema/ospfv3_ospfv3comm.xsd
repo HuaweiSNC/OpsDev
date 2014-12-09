@@ -1,0 +1,5300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.8
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="ospfv3_ospfv3comm_type.xsd"/>
+	<xs:complexType name="ospf_ospfv3comm_ospfv3comm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ospfSites" type="ospf_ospfv3comm_ospfSites_type"/>
+			<xs:element name="ospfChkRtIds" type="ospf_ospfv3comm_ospfChkRtIds_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfChkRtIds_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ospfChkRtId" type="ospf_ospfv3comm_ospfChkRtId_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfChkRtId_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element name="rtIdConfFlag" type="xs:boolean" default="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfSites_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ospfSite" type="ospf_ospfv3comm_ospfSite_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfSite_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId" default="1">
+				<xs:annotation>
+					<xs:documentation>ospf进程ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routerId">
+				<xs:annotation>
+					<xs:documentation>运行ospf进程的routerID</xs:documentation>
+					<xs:appinfo>
+						<unique>true</unique>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vrfName">
+				<xs:annotation>
+					<xs:appinfo>
+						<unique>true</unique>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>描述字符串</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="80"/>
+						<xs:pattern value="([^?]*)"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bandwidthReference" default="100">
+				<xs:annotation>
+					<xs:documentation>带宽参考值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="2147483648"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaArrivalFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>lsa接收时间间隔。</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaArrivalInterval">
+				<xs:annotation>
+					<xs:documentation>lsa接收时间间隔。</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaArrivalMaxInterval">
+				<xs:annotation>
+					<xs:documentation>接收OSPF LSA的最长间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaArrivalStartInterval">
+				<xs:annotation>
+					<xs:documentation>接收OSPF LSA的初始间隔时间。</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaArrivalHoldInterval">
+				<xs:annotation>
+					<xs:documentation>接收OSPF LSA的基数间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="5000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaOriginateIntervalFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>设置LSA更新的时间间隔为0的标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaOriginateInterval">
+				<xs:annotation>
+					<xs:documentation>指定LSA更新的时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaOriginateMaxInterval">
+				<xs:annotation>
+					<xs:documentation>更新OSPF LSA的最长间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaOriginateStartInterval">
+				<xs:annotation>
+					<xs:documentation>更新OSPF LSA的初始间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaOriginateHoldInterval">
+				<xs:annotation>
+					<xs:documentation>更新OSPF LSA的基数间隔时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="5000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdAllInterfacesFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>标示是否配置bfdall-interfaces</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdMinRxInterval">
+				<xs:annotation>
+					<xs:documentation>指定期望从对端接收BFD报文的最小接收间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdMinTxInterval">
+				<xs:annotation>
+					<xs:documentation>指定向对端发送BFD报文的最小发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdDetectMultiplierInterval">
+				<xs:annotation>
+					<xs:documentation>bfd指定本地检测倍数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="frrBindingFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="retransmissionLimitFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="retransmissionLimit">
+				<xs:annotation>
+					<xs:documentation>重传次数限制</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="2"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stubRouterFlag" type="ospfv3commStubRouterFlag">
+				<xs:annotation>
+					<xs:documentation>是否配置为stubrouter标识位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stubRouterOnStartupInterval">
+				<xs:annotation>
+					<xs:documentation>路由器在发生主备倒换过程中保持为Stub路由器的时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="5"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routeTagFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routeTag">
+				<xs:annotation>
+					<xs:documentation>标识VPN引入路由的tag值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vpnInstanceCapabilitySimpleFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>禁止路由环路检测，直接进行路由计算标识</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="domainIdNullFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="spfDelayInterval">
+				<xs:annotation>
+					<xs:documentation>SPF Delay Interval</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="spfHoldInterval">
+				<xs:annotation>
+					<xs:documentation>SPF Hold Interva</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:group ref="ospf_ospfv3comm_ospfSite_stuGroup"/>
+			<xs:element name="ProcessTopologys" type="ospf_ospfv3comm_ProcessTopologys_type"/>
+			<xs:element name="ospfSilentInterfaces" type="ospf_ospfv3comm_ospfSilentInterfaces_type"/>
+			<xs:element name="areas" type="ospf_ospfv3comm_areas_type"/>
+			<xs:element name="neighbors" type="ospf_ospfv3comm_neighbors_type"/>
+			<xs:element name="domainIDs" type="ospf_ospfv3comm_domainIDs_type"/>
+			<xs:element name="ospfHostNames" type="ospf_ospfv3comm_ospfHostNames_type"/>
+			<xs:element name="ospfFRRs" type="ospf_ospfv3comm_ospfFRRs_type"/>
+			<xs:element name="ospfHelpers" type="ospf_ospfv3comm_ospfHelpers_type"/>
+			<xs:element name="nexthopInformations" type="ospf_ospfv3comm_nexthopInformations_type"/>
+			<xs:element name="lsdbStatistics" type="ospf_ospfv3comm_lsdbStatistics_type"/>
+			<xs:element name="lsdbBriefs" type="ospfv3comm_lsdbBriefs_type"/>
+			<xs:element name="routings" type="ospf_ospfv3comm_routings_type"/>
+			<xs:element name="gracefulRestartInformations" type="ospf_ospfv3comm_gracefulRestartInformations_type"/>
+			<xs:element name="lastDownNbrs" type="ospf_ospfv3comm_lastDownNbrs_type"/>
+			<xs:element name="bfdStatDatas" type="ospf_ospfv3comm_bfdStatDatas_type"/>
+			<xs:element name="errorProcessDatas" type="ospf_ospfv3comm_errorProcessDatas_type"/>
+			<xs:element name="dynamicHostNames" type="ospf_ospfv3comm_dynamicHostNames_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:group name="ospf_ospfv3comm_ospfSite_stuGroup">
+		<xs:choice>
+			<xs:element name="aseLSACount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of AS-External LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aseLSAChkSum">
+				<xs:annotation>
+					<xs:documentation>AS-External LSA's Checksum Sum</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="asUnLSACount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of AS-Scoped Unknown LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="asUnLSAChksum">
+				<xs:annotation>
+					<xs:documentation>AS-Scoped Unknown LSA's Checksum Sum</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fullNbrCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of FULL neighbors</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="exchangeAndLoadingNerghbor" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>处于ExChange/Loading状态的Neighbor的数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaOrgCnt" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of LSA originated</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaRecvdCnt" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of LSA received</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nonRefreshLsCnt" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Non Refresh LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nonFullNbrCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Non Full Nbr Count</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="spfCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>spfCount</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="areaCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>当前进程中的区域数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:simpleType name="ospfv3comm_cfg_ospfSite_vrfName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ospf_ospfv3comm_ProcessTopologys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ProcessTopology" type="ospf_ospfv3comm_ProcessTopology_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ProcessTopology_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑ospf进程配置类</xs:documentation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element name="topoName" default="base">
+				<xs:annotation>
+					<xs:documentation>拓扑名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxLoadBalancing">
+				<xs:annotation>
+					<xs:documentation>等价路由的最大数量</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="defaultCost" default="1">
+				<xs:annotation>
+					<xs:documentation>指定OSPF引入的外部路由的缺省度量值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777214"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="defaultTag" default="1">
+				<xs:annotation>
+					<xs:documentation>引入外部路由生成ASE或NSSA LSA时的标记</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="defaultType" type="ospfv3commExternalRouteType" default="Type2">
+				<xs:annotation>
+					<xs:documentation>引入外部路由的度量权值类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="defaultRouteMTs" type="ospf_ospfv3comm_defaultRouteMTs_type"/>
+			<xs:element name="preferenceMTs" type="ospf_ospfv3comm_preferenceMTs_type"/>
+			<xs:element name="nexthopMTs" type="ospf_ospfv3comm_nexthopMTs_type"/>
+			<xs:element name="filterPolicyMTs" type="ospf_ospfv3comm_filterPolicyMTs_type"/>
+			<xs:element name="importRouteMTs" type="ospf_ospfv3comm_importRouteMTs_type"/>
+			<xs:element name="routePriorityMTs" type="ospf_ospfv3comm_routePriorityMTs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_defaultRouteMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="defaultRouteMT" type="ospf_ospfv3comm_defaultRouteMT_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_defaultRouteMT_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑默认路由配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="defRoutEnableFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Flag to configure or unconfigure default route advertise</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="configCost" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>configCost flag</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost" nillable="true">
+				<xs:annotation>
+					<xs:documentation>缺省路由发布的cost值</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777214"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="configTag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>configTag flag</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tag" nillable="true">
+				<xs:annotation>
+					<xs:documentation>Tag for Default imported routes</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="configType" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>configType flag</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="ospfv3commExternalRouteType" default="Type2">
+				<xs:annotation>
+					<xs:documentation>缺省路由发布的tpye</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flag" type="ospfv3commDefRtConfigFlag">
+				<xs:annotation>
+					<xs:documentation>config always.PermCalcOth,Summary</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="permitCalculateOther" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>PermCalcOthFlg flag</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="delayTimer">
+				<xs:annotation>
+					<xs:documentation>Distribute delay timer</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_asbrSummaryMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="asbrSummaryMT" type="ospf_ospfv3comm_asbrSummaryMT_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_asbrSummaryMT_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑Asbr配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>ip地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mask" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="notAdvertiseFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>不通告聚合路由</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tag" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>通过路由策略控制路由发布</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost">
+				<xs:annotation>
+					<xs:documentation>设置聚合路由的开销</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777214"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="distributeDelayInterval">
+				<xs:annotation>
+					<xs:documentation>延迟发布的时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_preferenceMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="preferenceMT" type="ospf_ospfv3comm_preferenceMT_type" minOccurs="0" maxOccurs="2"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_preferenceMT_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑路由优先级配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routeType" type="ospfv3commOspfRouteType">
+				<xs:annotation>
+					<xs:documentation>路由的类型，是ase还是inter或intra</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="preference">
+				<xs:annotation>
+					<xs:documentation>路由优先级的数值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:documentation>路由优先级的route-policy-name</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_nexthopMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="nexthopMT" type="ospf_ospfv3comm_nexthopMT_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_nexthopMT_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑下一跳配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>ip地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名ifName</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="48"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="weight">
+				<xs:annotation>
+					<xs:documentation>配置下一条的权值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="254"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_filterPolicyMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="filterPolicyMT" type="ospf_ospfv3comm_filterPolicyMT_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_filterPolicyMT_type">
+		<xs:annotation>
+			<xs:documentation>路由过滤策略配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="type" type="ospfv3commFilterPolicy">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclNameOrNum">
+				<xs:annotation>
+					<xs:documentation>aclNameOrNum名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPrefix">
+				<xs:annotation>
+					<xs:documentation>ipprefix名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routePolicy">
+				<xs:annotation>
+					<xs:documentation>routePolicy名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="filterType" type="ospfv3commFilterType">
+				<xs:annotation>
+					<xs:documentation>filterpolicy的方向(importorexport)</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protocol" type="ospfv3commFilterRtProtocol" default="default">
+				<xs:annotation>
+					<xs:documentation>export的路由协议名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protocolProcessId" default="1">
+				<xs:annotation>
+					<xs:documentation>export的路由协议进程号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_importRouteMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="importRouteMT" type="ospf_ospfv3comm_importRouteMT_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_importRouteMT_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑路由引入配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="protocol" type="ospfv3commImptRtProtocol">
+				<xs:annotation>
+					<xs:documentation>引入路由协议名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protocolProcessId" default="1">
+				<xs:annotation>
+					<xs:documentation>引入路由协议进程id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="costConfigFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Enable Cost configuration</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost" default="1">
+				<xs:annotation>
+					<xs:documentation>引入路由的cost</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777214"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tagConfigFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Enable tag configuration</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tag" default="1">
+				<xs:annotation>
+					<xs:documentation>引入路由的tag</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="typeConfigFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Enable type configuration</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="ospfv3commExternalRouteType" default="Type2">
+				<xs:annotation>
+					<xs:documentation>引入路由的type</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routePolicyName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="permitIbgpFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>permitIbgpFlag</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_routePriorityMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="routePriorityMT" type="ospf_ospfv3comm_routePriorityMT_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_routePriorityMT_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑路由优先级</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="priority" type="ospfv3commPrefixPriority">
+				<xs:annotation>
+					<xs:documentation>路由优先级数</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipPrefixName">
+				<xs:annotation>
+					<xs:documentation>路由策略名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfGRs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ospfGRs" type="ospf_ospfv3comm_ospfGR_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfGR_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="helperRoleFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>helper-role位是否配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="plannedOnlyFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>planned-only位是否配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ignoreExternalLsaFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>ignore-external-lsa位是否配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="neverFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>是否配置never位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="ospf_ospfv3comm_ospfGR_stuGroup"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:group name="ospf_ospfv3comm_ospfGR_stuGroup">
+		<xs:choice>
+			<xs:element name="onHelper" type="ospfv3commGRLastExitReason" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Helper退出GR的原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currentGRState" type="ospfv3commGRState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>当前GR的状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:complexType name="ospf_ospfv3comm_ospfSilentInterfaces_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ospfSilentInterface" type="ospf_ospfv3comm_ospfSilentInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfSilentInterface_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_areas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="area" type="ospf_ospfv3comm_area_type" minOccurs="0" maxOccurs="2000"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_area_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="2000">
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>区域ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="areaType" type="ospfv3commAreaType" default="Normal">
+				<xs:annotation>
+					<xs:documentation>区域类型(stub/nssa)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="descriptionArea">
+				<xs:annotation>
+					<xs:documentation>Area Description</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="80"/>
+						<xs:pattern value="([^?]*)"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stubNoSummary" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>禁止ABR向Stub区域内发送Summary LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="defaultCost" default="1">
+				<xs:annotation>
+					<xs:documentation>指定OSPF发送到Stub或NSSA区域的Type-3缺省路由的开销</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="16777214"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:group ref="ospf_ospfv3comm_area_stuGroup"/>
+			<xs:element name="interfaces" type="ospf_ospfv3comm_interfaces_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:group name="ospf_ospfv3comm_area_stuGroup">
+		<xs:choice>
+			<xs:element name="areaStatus" type="ospfv3commAreaStatus" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>area status</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interfaceCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>包含的接口数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="spfScheduleTimes" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>进行SPF计算次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unknownLsaCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of Unknown LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaCksumSum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Lsa Checksum Sum</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="areaBdrCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Area Bdr Router count</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="asBdrCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Area ASBdr Router count</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rtrIdConState" type="ospfv3RtrIdConState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Router ID conflict state</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:complexType name="ospf_ospfv3comm_cfg_networks_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="network" type="ospf_ospfv3comm_cfg_network_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_cfg_network_type">
+		<xs:annotation>
+			<xs:documentation>网络配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipAddress" type="ipv4Address" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>IP地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wildcardMask" type="ipv4Address" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>反掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="81"/>
+						<xs:pattern value="([^?]*)"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_areaMTs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="areaMT" type="ospf_ospfv3comm_areaMT_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_areaMT_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑区域配置</xs:documentation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="topoName" default="base">
+				<xs:annotation>
+					<xs:documentation>拓扑名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="areaMTFilters" type="ospf_ospfv3comm_areaMTFilters_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_areaMTAbrSummarys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="areaMTAbrSummary" type="ospf_ospfv3comm_areaMTAbrSummary_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_areaMTAbrSummary_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑区域边界路由器配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>配置聚合的ip段地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mask" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>配置聚合的ip地址段掩码</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="advertise" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>表示是否不宣告该聚合</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost">
+				<xs:annotation>
+					<xs:documentation>修改聚合路由宣告的cost值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="16777214"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_areaMTFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="areaMTFilter" type="ospf_ospfv3comm_areaMTFilter_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_areaMTFilter_type">
+		<xs:annotation>
+			<xs:documentation>多拓扑路由过滤策略配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="type" type="ospfv3commFilter" default="acl_name_or_num">
+				<xs:annotation>
+					<xs:documentation>标志配置那个内容</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclNameOrNum">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPrefix">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routePolicy">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="filterType" type="ospfv3commFilterType">
+				<xs:annotation>
+					<xs:documentation>类型(export/import)</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_interfaces_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="interface" type="ospf_ospfv3comm_interface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_interface_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="instanceID" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>Instance ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="networkType" type="ospfv3commNetworkType">
+				<xs:annotation>
+					<xs:documentation>网络类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helloInterval">
+				<xs:annotation>
+					<xs:documentation>hello报文的时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="deadInterval">
+				<xs:annotation>
+					<xs:documentation>定义接口down的时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="waitInterval">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pollInterval">
+				<xs:annotation>
+					<xs:documentation>hello报文的时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="transDelayInterval" default="1">
+				<xs:annotation>
+					<xs:documentation>设置接口对LSA的传输延迟时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="800"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="retransmitInterval">
+				<xs:annotation>
+					<xs:documentation>重传报文间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="3600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mtuEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>是否检查mtu</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="silentEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口上抑制和接受路由</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="drPriority">
+				<xs:annotation>
+					<xs:documentation>DR选举优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="configCost">
+				<xs:annotation>
+					<xs:documentation>默认花费</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdblock" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>阻止使能bfd功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>使能BFD功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdDetectMultiplierValue">
+				<xs:annotation>
+					<xs:documentation>指定本地检测倍数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdMinTxInterval">
+				<xs:annotation>
+					<xs:documentation>指定向对端发送BFD报文的最小发送间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdMinRxInterval">
+				<xs:annotation>
+					<xs:documentation>指定期望从对端接收BFD报文的最小接收间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="frrBindingFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frrBlockFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="ospf_ospfv3comm_interface_stuGroup"/>
+			<xs:element name="peers" type="ospf_ospfv3comm_peers_type"/>
+			<xs:element name="ipv6Prefixess" type="ospf_ospfv3comm_ipv6Prefixess_type"/>
+			<xs:element name="nbrStatistics" type="ospf_ospfv3comm_nbrStatistics_type"/>
+			<xs:element name="requestQueues" type="ospf_ospfv3comm_requestQueues_type"/>
+			<xs:element name="retransQueues" type="ospf_ospfv3comm_retransQueues_type"/>
+			<xs:element name="bfdStatistics" type="ospf_ospfv3comm_bfdStatistics_type"/>
+			<xs:element name="errorDatas" type="ospf_ospfv3comm_errorDatas_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:group name="ospf_ospfv3comm_interface_stuGroup">
+		<xs:choice>
+			<xs:element name="interfaceState" type="ospfv3commIntfState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>接口状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkProtocol" type="ospfv3LinkProtocol" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>linkProtocol</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interfaceCost" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>接口开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mtu" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>接口的MTU值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkLocalAddr" type="ipv6Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Link Local Address</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefixLen" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>prefixLen</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="events" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>events</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intfLsaCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>intfLsaCount</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intfLsaChksum">
+				<xs:annotation>
+					<xs:documentation>intfLsaChksum</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="designatedRouter" type="ipv4Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>接口所在网络上的DR</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="drLinkLocalAddr" type="ipv6Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>DR Link Local Address</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="backupDesignatedRouter" type="ipv4Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>接口所在网络上的BDR</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bdrLinkLocalAdd" type="ipv6Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>BDR Link Local Address</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helloDueTimer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>helloDueTimer</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nbrCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>nbrCount</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="adjNbrCount" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>adjNbrCount</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bandwidthHigh" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>bandwidthHigh</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bandwidthLow" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>bandwidthLow</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grState" type="ospfv3commGRState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>GR状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:group>
+	<xs:simpleType name="ospf_ospfv3comm_cfg_interface_ifName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="48"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ospf_ospfv3comm_domainIDs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="domainID" type="ospf_ospfv3comm_domainID_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_domainID_type">
+		<xs:annotation>
+			<xs:documentation>ospf的DomainId配置类</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="domainID" type="ipv4Address" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>ospf协议的DomainId</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<!--<xs:element name="nullFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>标识是否是null</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>-->
+			<xs:element name="secondaryFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>标志是否是次DomainID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="ospfv3commDomainIdType" default="0005">
+				<xs:annotation>
+					<xs:documentation>DomainID的类型，有0005，0105，0205，8005</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value" default="0x0">
+				<xs:annotation>
+					<xs:documentation>指定OSPF域标识符类型的值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="3"/>
+						<xs:maxLength value="6"/>
+						<xs:pattern value="0x([0-9a-fA-F])+"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfHostNames_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ospfHostName" type="ospf_ospfv3comm_ospfHostName_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfHostName_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element name="hostNameEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Enable HostName</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hostName">
+				<xs:annotation>
+					<xs:documentation>Host Name</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfFRRs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="frrEnableFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Enable FRR</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lfaFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>loop-free-alternate</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfFRR_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0"/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_routeAbrAsbrStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="routeAbrAsbrStatistic" type="ospf_ospfv3comm_routeAbrAsbrStatistic_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_routeAbrAsbrStatistic_type">
+		<xs:annotation>
+			<xs:documentation>到达区域边界路由器或自治区域边界路由器的路径描述</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>区域号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>区域号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pathType" type="ospfv3commPathType">
+				<xs:annotation>
+					<xs:documentation>路径类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destinationId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>ABR或ASBR的ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>从路由器到达ABR或ASBR的开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nexthopIpv6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>下一跳路由器或接口</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_asbrSummaryStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="asbrSummaryStatistic" type="ospf_ospfv3comm_asbrSummaryStatistic_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_asbrSummaryStatistic_type">
+		<xs:annotation>
+			<xs:documentation>自治区域边界路由器汇总信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:documentation>OSPF进程号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="destinationIpAddr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>目的IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destinationMask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IP地址掩码</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="net" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>聚合路由的网络地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>聚合路由的网络掩码</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tag" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>聚合路由的标记字段</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>聚合路由的发布状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>聚合路由的开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="delay" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>延迟发布聚合路由的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="count" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被聚合的路由数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destinationIp" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被聚合的路由目的地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="netMask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被聚合的路由的掩码</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protocol" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被聚合的路由所属的协议</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>引入的AS外部路由类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="metric" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被聚合的路由的开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_lsdbBriefs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lsdbBrief" type="ospfv3comm_lsdbBrief_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_lsdbBrief_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="router" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="network" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="summaryNet" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="asbr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ase" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type7" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkLsa" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IntraprefixLsa" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="graceLsa" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="riaslsa" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="riarealsa" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rilinklsa" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unknownLsa" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="total" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_lsdbStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lsdbStatistic" type="ospf_ospfv3comm_lsdbStatistic_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_lsdbStatistic_type">
+		<xs:annotation>
+			<xs:documentation>联接状态数据库描述信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>AreaId</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaAge" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>LSA Age</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaType" type="ospfv3commLsaType">
+				<xs:annotation>
+					<xs:documentation>LSA Type</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkStateId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Link State Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="advertiseRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Advertising Router Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaSequenceNumber">
+				<xs:annotation>
+					<xs:documentation>LSA Sequence number</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="checkSum">
+				<xs:annotation>
+					<xs:documentation>LSA Checksum</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaLength" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Lsa Length</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="optionFlag" type="ospfv3commLSDBOptionFlag">
+				<xs:annotation>
+					<xs:documentation>Lsa Flag</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="options" type="ospfv3commLSDBOption">
+				<xs:annotation>
+					<xs:documentation>LSA Option</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rtrPri" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Router Priority of the interface</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkLocalAddr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Originating Router Link Local Address</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefixNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of prefixes</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="refLsType" type="ospfv3RefLsType">
+				<xs:annotation>
+					<xs:documentation>Referenced LS Type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="refLsId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Reference LS Id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="refAdvRtr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Referenced Originating Router</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hostName">
+				<xs:annotation>
+					<xs:documentation>Host Name</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsabodys" type="ospf_ospfv3comm_lsabodys_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_lsabodys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lsabody" type="ospf_ospfv3comm_lsabody" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_lsabody">
+		<xs:annotation>
+			<xs:documentation>LSA Data</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="linkType" type="ospfv3commLSDBLinkType">
+				<xs:annotation>
+					<xs:documentation>Link Type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interfaceId">
+				<xs:annotation>
+					<xs:documentation>Interface Id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nbrIntfId">
+				<xs:annotation>
+					<xs:documentation>Neighbor Interface Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nbrRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Neighbor Router Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tosMetric" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Tos Metric</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="attachRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Router Id the routers attached to the link</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Router Id of ASBR</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefixLen" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Prefix Length</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefixOptions" type="ospfv3PrefixOption">
+				<xs:annotation>
+					<xs:documentation>Prefix Options</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipv6Prefix" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Interface Ipv6 Prefix</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="extMetricType" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>Metric Type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fwdIpv6Address" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Forwarding Address</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routeTag" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Route Tag</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_migpRoutings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="migpRouting" type="ospf_ospfv3comm_migpRouting_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_migpRouting_type">
+		<xs:annotation>
+			<xs:documentation>OSPF的MIGP路由信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="intfNumber" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接口号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intfType" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接口类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destIPAddr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>目的IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maskLength" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>指定掩码长度</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mask" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>指定子网掩码</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nexthopIPAddr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>下一跳IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>到达目的地址的开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>目的网络的类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="advertiseRouterID" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发布的路由器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="areaID" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>区域号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalNetsNumber" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>网络总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intraAreaRouteNumber" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>区域内部路由总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interAreaRouteNumber" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>区域间路由总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aseRouteNumber" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>ASE区域路由总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nssaRouteNumber" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>NSSA区域路由总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_nexthopInformations_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="nexthopInformation" type="ospf_ospfv3comm_nexthopInformation_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_nexthopInformation_type">
+		<xs:annotation>
+			<xs:documentation>下一跳信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrRtrId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>nbrRtrId</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nexthopIpAddr6" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>nexthopIpAddr6</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="refereceCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>有多少条OSPF路由使用了这个下一跳</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_trafficAdjStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="trafficAdjStat" type="ospfv3comm_trafficAdjStat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospfv3comm_trafficAdjStat_type">
+		<xs:annotation>
+			<xs:documentation>traffic adjustment ÐÅÏ¢</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="48"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifTeTnlDest" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>destination of te tunnel</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifTeTnlType" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>shortcut or fa</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifTeTnlNbrId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>router-id of tunnel end</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifTeMetric" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>te tunnel metric</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifTeMetricType" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>relative or absolute</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_bfdStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bfdStatistic" type="ospf_ospfv3comm_bfdStatistic_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_bfdStatistic_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>指定期望从对端接收BFD报文的最小接收间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="neighbourRouterId" type="ipv4Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>邻居routerid</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdState" type="ospfv3commBFDState" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>bfd状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localIpv6Addr" type="ipv6Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>接口IP地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteIpv6Addr" type="ipv6Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>远端IP地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_peers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="peer" type="ospf_ospfv3comm_peer_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_peer_type">
+		<xs:annotation>
+			<xs:documentation>对端路由器配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nbrRouterId" type="ipv4Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>static neighbor routerid</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrlinkLocalAddr" type="ipv6Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>statc neighbor link local address</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cost">
+				<xs:annotation>
+					<xs:documentation>cost to reach p2mp non broadcast neighbor</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="drEligible" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>drEligibility of nbma neighbor</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="poll" default="120">
+				<xs:annotation>
+					<xs:documentation>poll interval for nbma neighbor</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_nbrStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="nbrStatistic" type="ospf_ospfv3comm_nbrStatistic_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_nbrStatistic_type">
+		<xs:annotation>
+			<xs:documentation>邻居信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nbrRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrPriority" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>邻居路由器的优先值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrState" type="ospfv3commNbrState">
+				<xs:annotation>
+					<xs:documentation>邻居状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrStatus" type="ospfv3NbrIntfStatus">
+				<xs:annotation>
+					<xs:documentation>nbrStatus</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="deadDueTimer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>dead Due Timer</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Outgoing interface</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="instanceId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrIpv6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>邻居接口地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrDR" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居的指定路由器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrBDR" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居的备份指定路由器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrOptions" type="ospfv3NbrOptions">
+				<xs:annotation>
+					<xs:documentation>邻居的接口MTU的值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrUpTime">
+				<xs:annotation>
+					<xs:documentation>邻居up的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsReqListNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsRetransNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="events" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrIfId" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ipv6Prefixess_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ipv6Prefixes" type="ospf_ospfv3comm_ipv6Prefixes_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ipv6Prefixes_type">
+		<xs:annotation>
+			<xs:documentation>请求列表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="instanceID" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>Instance ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipv6Prefix" type="ipv6Address" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Link Local Address</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefixLen" type="xs:unsignedInt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>prefixLen</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_requestQueues_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="requestQueue" type="ospf_ospfv3comm_requestQueue_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_requestQueue_type">
+		<xs:annotation>
+			<xs:documentation>请求列表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>区域id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居路由器Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrIpAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居路由器接口地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>区域id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaType" type="ospfv3commLsaType">
+				<xs:annotation>
+					<xs:documentation>LSA类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkStateId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Link State链路状态ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="advertiseRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>发布路由器</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaSequence">
+				<xs:annotation>
+					<xs:documentation>LSA序列号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaAge" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>老化时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>lsa Count</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_retransQueues_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="retransQueue" type="ospf_ospfv3comm_retransQueue_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_retransQueue_type">
+		<xs:annotation>
+			<xs:documentation>重传列表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居路由器Id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居路由器Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrIpAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居路由器接口地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaType" type="ospfv3commLsaType">
+				<xs:annotation>
+					<xs:documentation>LSA类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkStateId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Link State链路状态ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="advertiseRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>发布路由器</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaSequence">
+				<xs:annotation>
+					<xs:documentation>序列号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsaAge" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>老化时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsaCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>lsa Count</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_routings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="routing" type="ospf_ospfv3comm_routing_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_routing_type">
+		<xs:annotation>
+			<xs:documentation>OSPFv3 routing table</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="destinationIPv6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Destination IPv6 prefix</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipv6MaskLen">
+				<xs:annotation>
+					<xs:documentation>Destination mask length</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Cost to reach destination</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefixPriority" type="ospfv3commPrePriority">
+				<xs:annotation>
+					<xs:documentation>Prefix priority</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pathType">
+				<xs:annotation>
+					<xs:documentation>Destination Pathtype</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nexthopDatas" type="ospf_ospfv3comm_nexthopDatas_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_nexthopDatas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="nexthopData" type="ospf_ospfv3comm_nexthopData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_nexthopData_type">
+		<xs:annotation>
+			<xs:documentation>OSPFv3 nexthop data</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nexthopIPv6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Nexthop address of destination</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flagsDisp">
+				<xs:annotation>
+					<xs:documentation>Nexthop Flag</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Outgoing interface name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bakIfName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Backup outgoing interface name</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bakNextIpv6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Backup nexthop address</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="backupType" type="ospfv3commRoutingBakType">
+				<xs:annotation>
+					<xs:documentation>backuptype</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfLdpSyncStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ospfLdpSyncStatistic" type="ospf_ospfv3comm_ospfLdpSyncStatistic_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfLdpSyncStatistic_type">
+		<xs:annotation>
+			<xs:documentation>接口LDP和OSPF同步状态的信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="holdDownInterval" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>接口不建立OSPF邻居而等待LDP会话建立的定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxCostInterval" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>OSPF在本地设备的LSA中通告最大metric值的定时器。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ldpState" type="ospfv3commLdpState">
+				<xs:annotation>
+					<xs:documentation>LDP会话的状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ospfSyncState" type="ospfv3commOSPFSyncState">
+				<xs:annotation>
+					<xs:documentation>LDP和OSPF的同步状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_neighbors_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="neighbor" type="ospf_ospfv3comm_neighbor_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_neighbor_type">
+		<xs:annotation>
+			<xs:documentation>邻居信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>区域ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrPriority" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>邻居路由器的优先值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrState" type="ospfv3commNbrState">
+				<xs:annotation>
+					<xs:documentation>邻居状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrStatus" type="ospfv3NbrIntfStatus">
+				<xs:annotation>
+					<xs:documentation>nbrStatus</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="deadDueTimer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>dead Due Timer</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Outgoing interface</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="instanceId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hostName">
+				<xs:annotation>
+					<xs:documentation>Host Name</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="neighborDatas" type="ospf_ospfv3comm_neighborDatas_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_neighborDatas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="neighborData" type="ospf_ospfv3comm_neighborData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_neighborData_type">
+		<xs:annotation>
+			<xs:documentation>邻居信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="nbrIpv6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>邻居接口地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrDR" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居的指定路由器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrBDR" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居的备份指定路由器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrOptions" type="ospfv3NbrOptions">
+				<xs:annotation>
+					<xs:documentation>邻居的备份指定路由器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrUpTime">
+				<xs:annotation>
+					<xs:documentation>邻居up的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsReqListNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsRetransNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="events" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrIfId" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_errorDatas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="errorData" type="ospf_ospfv3comm_errorData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_errorData_type">
+		<xs:annotation>
+			<xs:documentation>邻居信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Outgoing interface</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rtrId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Router Id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InstanceId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>instanceId</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badPktCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad packet</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badVerCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad version</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badAreaPktCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad area ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badVirtLinkCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad virtual link</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shortPktCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Packet too small</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txErrCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Transmit error</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badInstIdCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad Instance ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifDownCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Interface down</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="noNbr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Unknown neighbor</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sameIpPktCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPv6: received my own packet</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authKeyFailCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad authentication</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misHelloIntlCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Hello timer mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misDeadIntlCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Dead timer mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misExtRouCapCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Extern option mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sameRtrHPktCt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>RouterID confusion</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlinkNbrMisCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Virtual neighbor unknown</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddNbrLowCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Virtual neighbor unknown</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddOptMsMatchCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Extern option mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddUnknwnLsaCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Unknown LSA type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddMtuMsMatchCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>MTU option mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddRtrIdCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Router id confusion</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ackNbrLowCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Neighbor state low</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ackBadCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad ack</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ackDuplicateCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Duplicate ack</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ackUnknwnLsaCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Unknown LSA type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reqNbrLowCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Neighbor state low</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reqBadCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad request</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reqEmptyCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Empty request</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updNbrLowCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Neighbor state low</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updLsChkSumCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LSA checksum bad </xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updLesRecentCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Received less recent LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updUnknwLsaCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Unknown LSA type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updSelfNewrCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Newer self-generate LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updMinLSArrCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Received LSA within LSA Arrival interval</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grInvalidLsaCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of invalid LSAs</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grInvalidPolCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of policy failed LSAs</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grInvalidPrdCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of wrong period LSAs</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_gracefulRestartInformations_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="gracefulRestartInformation" type="ospf_ospfv3comm_gracefulRestartInformation_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_gracefulRestartInformation_type">
+		<xs:annotation>
+			<xs:documentation>graceful restart information</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="grCapability" type="ospfv3HelperCapabality">
+				<xs:annotation>
+					<xs:documentation>邻居的接口MTU的值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helpRole" type="ospfv3HelperSupport">
+				<xs:annotation>
+					<xs:documentation>邻居的接口MTU的值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxGracePeriod" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of policy failed LSAs</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="onHelper" type="ospfv3OnHelper">
+				<xs:annotation>
+					<xs:documentation>邻居的接口MTU的值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RestartNbrNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of policy failed LSAs</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfHelpers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="HelperRoleFlg" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PlannedOnlyFlg" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>planned-only位是否配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IgnExteLsaFlg" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>ignore-external-lsa位是否配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helperFilterType" type="ospfv3commGRFilterType" default="none">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helperFilterValue">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="169"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Period">
+				<xs:annotation>
+					<xs:documentation>Period</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="1800"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_ospfHelper_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0"/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_bfdStatDatas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bfdStatData" type="ospf_ospfv3comm_bfdStatData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_bfdStatData_type">
+		<xs:annotation>
+			<xs:documentation>graceful restart information</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Outgoing interface</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Area Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NbrRouterID" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Nbr Router Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bfdState" type="ospfv3BfdStatus">
+				<xs:annotation>
+					<xs:documentation>Bfd State</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="InstanceId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Interface instance ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocalIpv6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Local IPV6 Address</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RemoteIpv6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Remote IPV6 Address</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_lastDownNbrs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lastDownNbr" type="ospf_ospfv3comm_lastDownNbr_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_lastDownNbr_type">
+		<xs:annotation>
+			<xs:documentation>最后一个down的邻居信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>区域id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrRouterId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>邻居ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrDownImmediateReason" type="ospfv3commNbrDownImmReason">
+				<xs:annotation>
+					<xs:documentation>邻居Down掉的直接原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrDownPrimaryReason" type="ospfv3commNbrDownPrimReason">
+				<xs:annotation>
+					<xs:documentation>邻居Down掉的根本原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nbrDownTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>邻居Down掉的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="instanceId" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="listIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_errorProcessDatas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="errorProcessData" type="ospf_ospfv3comm_errorProcessData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_errorProcessData_type">
+		<xs:annotation>
+			<xs:documentation>邻居信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rtrId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Router Id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badPktCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad packet</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badVerCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad version</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badAreaPktCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad area ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badVirtLinkCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad virtual link</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shortPktCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Packet too small</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txErrCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Transmit error</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="badInstIdCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad Instance ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifDownCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Interface down</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="noNbr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Unknown neighbor</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sameIpPktCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>IPv6: received my own packet</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authKeyFailCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad authentication</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misHelloIntlCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Hello timer mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misDeadIntlCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Dead timer mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misExtRouCapCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Extern option mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sameRtrHPktCt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>RouterID confusion</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlinkNbrMisCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Virtual neighbor unknown</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddNbrLowCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Virtual neighbor unknown</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddOptMsMatchCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Extern option mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddUnknwnLsaCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Unknown LSA type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddMtuMsMatchCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>MTU option mismatch</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ddRtrIdCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Router id confusion</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ackNbrLowCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Neighbor state low</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ackBadCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad ack</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ackDuplicateCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Duplicate ack</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ackUnknwnLsaCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Unknown LSA type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reqNbrLowCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Neighbor state low</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reqBadCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Bad request</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reqEmptyCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Empty request</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updNbrLowCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Neighbor state low</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updLsChkSumCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LSA checksum bad </xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updLesRecentCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Received less recent LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updUnknwLsaCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Unknown LSA type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updSelfNewrCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Newer self-generate LSA</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="updMinLSArrCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Received LSA within LSA Arrival interval</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grInvalidLsaCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of invalid LSAs</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grInvalidPolCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of policy failed LSAs</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="grInvalidPrdCnt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Number of wrong period LSAs</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_dynamicHostNames_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dynamicHostName" type="ospf_ospfv3comm_dynamicHostName_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ospf_ospfv3comm_dynamicHostName_type">
+		<xs:annotation>
+			<xs:documentation>Dynamic Host NameTable</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="scope">
+				<xs:annotation>
+					<xs:documentation>Scope of the HostName</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="areaId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Area Id of the Host</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="routerId" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Router ID mapping to HostName</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hostName">
+				<xs:annotation>
+					<xs:documentation>Host Name</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

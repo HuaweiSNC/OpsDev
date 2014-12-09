@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.2
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="trillLevelType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="level_1">
+				<xs:annotation>
+					<xs:documentation>level-1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="level_2">
+				<xs:annotation>
+					<xs:documentation>level-2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="trillPortMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="access">
+				<xs:annotation>
+					<xs:documentation>access:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="p2p">
+				<xs:annotation>
+					<xs:documentation>p2p:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="trunk">
+				<xs:annotation>
+					<xs:documentation>trunk:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hybrid">
+				<xs:annotation>
+					<xs:documentation>hybrid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="trillDrbStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Non-DRB">
+				<xs:annotation>
+					<xs:documentation>Non-DRB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DRB">
+				<xs:annotation>
+					<xs:documentation>DRB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Suspended">
+				<xs:annotation>
+					<xs:documentation>Suspended:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="trillAdjStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="report">
+				<xs:annotation>
+					<xs:documentation>report:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="detect">
+				<xs:annotation>
+					<xs:documentation>detect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2way">
+				<xs:annotation>
+					<xs:documentation>2way:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="trillNicknameConfType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="S">
+				<xs:annotation>
+					<xs:documentation>S:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="A">
+				<xs:annotation>
+					<xs:documentation>A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="trillNicknameStaticFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="S">
+				<xs:annotation>
+					<xs:documentation>S:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D">
+				<xs:annotation>
+					<xs:documentation>D:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="trillState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Up">
+				<xs:annotation>
+					<xs:documentation>Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="trillPeerProtocol">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IPv4">
+				<xs:annotation>
+					<xs:documentation>IPv4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IPv6">
+				<xs:annotation>
+					<xs:documentation>IPv6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IPv4,IPv6">
+				<xs:annotation>
+					<xs:documentation>IPv4,IPv6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TRILL">
+				<xs:annotation>
+					<xs:documentation>TRILL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

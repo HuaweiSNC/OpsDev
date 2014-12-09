@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="ftpc_type.xsd"/>
+	<xs:element name="ftpc" type="ftpc_action_ftpc_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>ftpc</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ftpc_action_ftpc_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ftpcTransferFiles" type="ftpc_action_ftpcTransferFile_types"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ftpc_action_ftpcTransferFile_types">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ftpcTransferFile" type="ftpc_action_ftpcTransferFile_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ftpc_action_ftpcTransferFile_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Ftp client command to transfer file</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sourceIpv4Address" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Source ip address configured for IPV4 connections</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverPort">
+				<xs:annotation>
+					<xs:documentation>Server port used for connection</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serverIpv4Address" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Server Ipv4 address</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverIpv6Address" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>Server Ipv6 address</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commandType" type="ftpcTransCmdType">
+				<xs:annotation>
+					<xs:documentation>Specify the operation mode of the file transfer</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userName">
+				<xs:annotation>
+					<xs:documentation>User Name used for user validation</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>false</allowNull>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="85"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="password" type="password">
+				<xs:annotation>
+					<xs:documentation>Password used for user validation</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>false</allowNull>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localFileName">
+				<xs:annotation>
+					<xs:documentation>local machine file name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remoteFileName">
+				<xs:annotation>
+					<xs:documentation>remote machine file name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remoteExtension">
+				<xs:annotation>
+					<xs:documentation>remote Extension for destination file name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="5"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vpnInstanceName">
+				<xs:annotation>
+					<xs:documentation>Vpn instance name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sourceInterfaceName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Source Interface name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

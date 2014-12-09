@@ -1,0 +1,3950 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.13
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.huawei.com/netconf/vrp" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="devmEntityClassType">
+		<xs:annotation>
+			<xs:documentation>物理实体类别</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="other">
+				<xs:annotation>
+					<xs:documentation>能够识别但未定义的类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>不能识别的类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="chassis">
+				<xs:annotation>
+					<xs:documentation>表示该实体是一个机框</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="backplane">
+				<xs:annotation>
+					<xs:documentation>表示该实体是一个背板（保留字段，目前没有使用）</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="container">
+				<xs:annotation>
+					<xs:documentation>表示该实体是一个容器，可以安装子实体</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mpuModule">
+				<xs:annotation>
+					<xs:documentation>主控单元</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lpuModule">
+				<xs:annotation>
+					<xs:documentation>线路处理单元</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sfuModule">
+				<xs:annotation>
+					<xs:documentation>交换网单元</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ecuModule">
+				<xs:annotation>
+					<xs:documentation>ECU板</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="icuModule">
+				<xs:annotation>
+					<xs:documentation>ICU板</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cmuModule">
+				<xs:annotation>
+					<xs:documentation>CMU板</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="clockModule">
+				<xs:annotation>
+					<xs:documentation>时钟板模块</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fan">
+				<xs:annotation>
+					<xs:documentation>风扇</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="powerSupply">
+				<xs:annotation>
+					<xs:documentation>电源</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lcd">
+				<xs:annotation>
+					<xs:documentation>液晶显示屏</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cfModule">
+				<xs:annotation>
+					<xs:documentation>CF卡</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="flexibleCardModule">
+				<xs:annotation>
+					<xs:documentation>灵活插卡，包括PIC卡、OFC光子卡</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="port">
+				<xs:annotation>
+					<xs:documentation>端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sensor">
+				<xs:annotation>
+					<xs:documentation>传感器（包括电压和温度传感器，目前没有使用）</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmContainerType">
+		<xs:annotation>
+			<xs:documentation>实体容器的具体类型</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="boardSlot">
+				<xs:annotation>
+					<xs:documentation>单板插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mpuSlot">
+				<xs:annotation>
+					<xs:documentation>主控板插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lpuSlot">
+				<xs:annotation>
+					<xs:documentation>接口板插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sfuSlot">
+				<xs:annotation>
+					<xs:documentation>交换网板插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="icuSlot">
+				<xs:annotation>
+					<xs:documentation>ICU板插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ecuSlot">
+				<xs:annotation>
+					<xs:documentation>ECU板插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="clkSlot">
+				<xs:annotation>
+					<xs:documentation>时钟板插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cmuSlot">
+				<xs:annotation>
+					<xs:documentation>CMU插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fanSlot">
+				<xs:annotation>
+					<xs:documentation>风扇插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="powerSlot">
+				<xs:annotation>
+					<xs:documentation>电源插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lcdSlot">
+				<xs:annotation>
+					<xs:documentation>液晶显示屏插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="picSlot">
+				<xs:annotation>
+					<xs:documentation>接口卡插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ofcSlot">
+				<xs:annotation>
+					<xs:documentation>OFC光子卡插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cfcardSlot">
+				<xs:annotation>
+					<xs:documentation>CF卡插槽</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="virtualSlot">
+				<xs:annotation>
+					<xs:documentation>虚拟槽位，对应物理上不存在的，应管理需要构造出来的槽位，例如主控板上的时钟板（一种扣板）槽位</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="virtualSubSlot">
+				<xs:annotation>
+					<xs:documentation>虚拟子槽，对应物理上不存在的，应管理需要构造出来的子槽，比如主控板上的虚拟子槽位</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmChassisType">
+		<xs:annotation>
+			<xs:documentation>机框物理类型，取值与HUAWEI-TC-MIB中的对应，新产品机框出现时在这里添加</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090Unknown">
+				<xs:annotation>
+					<xs:documentation>Quidway unknown FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561152对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090Whole">
+				<xs:annotation>
+					<xs:documentation>Quidway NE80E FRAME, NE5000E FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561153对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090NE5000EX">
+				<xs:annotation>
+					<xs:documentation>Quidway NE5000E-X16 FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561165对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090ClusterCentral">
+				<xs:annotation>
+					<xs:documentation>Quidway NE5000E-CCC FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561165对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090NE5000EX-VB">
+				<xs:annotation>
+					<xs:documentation>Quidway NE5000E-X16VB FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561168对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CE685048S4QEI">
+				<xs:annotation>
+					<xs:documentation>CE6850-48S4Q-EI:DE51SRU1A</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CE585048T4S2QEI">
+				<xs:annotation>
+					<xs:documentation>CE5850-48T4S2Q-EI:DE51SRU1B</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CE685048T4QEI">
+				<xs:annotation>
+					<xs:documentation>CE6850-48T4Q-EI:DE51SRU1C</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmChassisSvcType">
+		<xs:annotation>
+			<xs:documentation>机框业务类型，是一种体现机框功能角色的类型</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="other">
+				<xs:annotation>
+					<xs:documentation>其他</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="centralChassis">
+				<xs:annotation>
+					<xs:documentation>中央交换框</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lineChassis">
+				<xs:annotation>
+					<xs:documentation>转发框</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmBoardType">
+		<xs:annotation>
+			<xs:documentation>单板物理类型，取值与HUAWEI-TC-MIB中的对应，新单板出现时在这里添加</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>Unknown board type，与mib中单板类型节点bname8090DEVUNKNOWN（1.3.6.1.4.1.2011.20021210.12.561152）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52MPUA">
+				<xs:annotation>
+					<xs:documentation>bname8090DEVMPUA，与mib中单板类型节点bname8090DEVMPUA（1.3.6.1.4.1.2011.20021210.12.561178）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52MPUB">
+				<xs:annotation>
+					<xs:documentation>the old whole board of MPUB saled before V3R7 version in 8090(whithout SBOM information)，与mib中单板类型节点virent8090DEVCR52MPUB（1.3.6.1.4.1.2011.20021210.12.561161）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55MPUA">
+				<xs:annotation>
+					<xs:documentation>bname8090DEVMPUA，与mib中单板类型节点bname8090DEVMPUA（1.3.6.1.4.1.2011.20021210.12.561178）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55MPUAB">
+				<xs:annotation>
+					<xs:documentation>bname8090DEVMPUAB，与mib中单板类型节点bname8090DEVMPUAB（1.3.6.1.4.1.2011.20021210.12.561178）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56RPUA">
+				<xs:annotation>
+					<xs:documentation>双核CPU,主频1.5G，开局过程中使用，没有找到mib对应节点，待确认下。MPUC Module,abandon，与mib中单板类型节点bname8090DEVMPUC（1.3.6.1.4.1.2011.20021210.12.561188）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUA">
+				<xs:annotation>
+					<xs:documentation>Flexible Card Line Processing Unit,obsolete，与mib中单板类型节点bname8090DEVLPUA（1.3.6.1.4.1.2011.20021210.12.561169）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUB">
+				<xs:annotation>
+					<xs:documentation>Flexible Card Line Processing Unit,obsolete，与mib中单板类型节点bname8090DEVLPUB（1.3.6.1.4.1.2011.20021210.12.561169）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUC">
+				<xs:annotation>
+					<xs:documentation>Flexible Card Line Processing Unit,obsolete，与mib中单板类型节点bname8090DEVLPUC（1.3.6.1.4.1.2011.20021210.12.561170）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUE">
+				<xs:annotation>
+					<xs:documentation>CR52LPUE Module，与mib中单板类型节点bname8090DEVCR52LPUE（1.3.6.1.4.1.2011.20021210.12.561171）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUR">
+				<xs:annotation>
+					<xs:documentation>CR52LPUR Module，与mib中单板类型节点bname8090DEVCR52LPUR（1.3.6.1.4.1.2011.20021210.12.561225）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUF">
+				<xs:annotation>
+					<xs:documentation>CR52LPUF Module，与mib中单板类型节点bname8090DEVCR52LPUF（1.3.6.1.4.1.2011.20021210.12.561171）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUG">
+				<xs:annotation>
+					<xs:documentation>CR52LPUG Module，与mib中单板类型节点bname8090DEVCR52LPUG（1.3.6.1.4.1.2011.20021210.12.561171）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUH">
+				<xs:annotation>
+					<xs:documentation>CR52LPUH Module，与mib中单板类型节点bname8090DEVCR52LPUH（1.3.6.1.4.1.2011.20021210.12.561171）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUI">
+				<xs:annotation>
+					<xs:documentation>CR52LPUI Module，与mib中单板类型节点bname8090DEVCR52LPUI（1.3.6.1.4.1.2011.20021210.12.561183）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUK">
+				<xs:annotation>
+					<xs:documentation>CR52LPUK Module，与mib中单板类型节点bname8090DEVCR52LPUK（1.3.6.1.4.1.2011.20021210.12.561183）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUM">
+				<xs:annotation>
+					<xs:documentation>CR52LPUM Module，与mib中单板类型节点bname8090DEVCR52LPUM（1.3.6.1.4.1.2011.20021210.12.561182）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUN">
+				<xs:annotation>
+					<xs:documentation>CR52LPUN Module，与mib中单板类型节点bname8090DEVCR52LPUN（1.3.6.1.4.1.2011.20021210.12.561183）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SPUC">
+				<xs:annotation>
+					<xs:documentation>Flexible Card Service Processing Unit C，与mib中单板类型节点bnameCR01SPUC（1.3.6.1.4.1.2011.20021210.12.561226）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUF100A">
+				<xs:annotation>
+					<xs:documentation>CR56LPUF100A Module，与mib中单板类型节点bname8090DEVCR52LPUI（1.3.6.1.4.1.2011.20021210.12.561183）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUF100B">
+				<xs:annotation>
+					<xs:documentation>CR56LPUF100B Module，与mib中单板类型节点bname8090DEVCR52LPUI（1.3.6.1.4.1.2011.20021210.12.561183）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUI100A">
+				<xs:annotation>
+					<xs:documentation>CR56LPUI100A Module，与mib中单板类型节点bname8090DEVCR52LPUI（1.3.6.1.4.1.2011.20021210.12.561183）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUI100B">
+				<xs:annotation>
+					<xs:documentation>CR56LPUI100B Module，与mib中单板类型节点bname8090DEVCR52LPUI（1.3.6.1.4.1.2011.20021210.12.561183）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUI100C">
+				<xs:annotation>
+					<xs:documentation>CR56LPUI100C Module，与mib中单板类型节点bname8090DEVCR52LPUI（1.3.6.1.4.1.2011.20021210.12.561183）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUF200A">
+				<xs:annotation>
+					<xs:documentation>CR56LPUF200A Module，与mib中单板类型节点bname8090DEVCR56LPUF200A（1.3.6.1.4.1.2011.20021210.12.561227）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUA">
+				<xs:annotation>
+					<xs:documentation>CR52SFUA Module，与mib中单板类型节点bname8090DEVCR56SFUA（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SRUA">
+				<xs:annotation>
+					<xs:documentation>CR52SRUA Module，与mib中单板类型节点bname8090DEVCR56SRUA（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUD">
+				<xs:annotation>
+					<xs:documentation>CR56SFUD Module，与mib中单板类型节点bname8090DEVCR56SFUD（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUF">
+				<xs:annotation>
+					<xs:documentation>CR52SFUF Module，与mib中单板类型节点bname8090DEVCR52SFUF100B（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUG">
+				<xs:annotation>
+					<xs:documentation>CR56SFUG Module，与mib中单板类型节点bname8090DEVCR56SFUG（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUC">
+				<xs:annotation>
+					<xs:documentation>the old whole board of SFUC saled before V3R7 version in 8090(whithout SBOM information)，与mib中单板类型节点virent8090DEVCR52SFUC（1.3.6.1.4.1.2011.20021210.12.562001）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFEA">
+				<xs:annotation>
+					<xs:documentation>CR52SFEA Module，与mib中单板类型节点bname8090DEVCR52SFEA（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52K-SFEA">
+				<xs:annotation>
+					<xs:documentation>CR52SFEA Module，与mib中单板类型节点virent8090DEVCR52K-SFEA（1.3.6.1.4.1.2011.20021210.15.562006）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55SFUA">
+				<xs:annotation>
+					<xs:documentation>CR55SFUA Module，与mib中单板类型节点bname8090DEVCR55SFUA（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55ECUA">
+				<xs:annotation>
+					<xs:documentation>CR55ECUA Module，与mib中单板类型节点bname8090DEVCR55ECUA（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55C-ECUA">
+				<xs:annotation>
+					<xs:documentation>CR55ECUA Module，与mib中单板类型节点virent8090DEVCR55C-ECUA（1.3.6.1.4.1.2011.20021210.15.562019）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55ICUA">
+				<xs:annotation>
+					<xs:documentation>CR55ICUA Module，与mib中单板类型节点bname8090DEVCR55ICUAB（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56SFUF100B">
+				<xs:annotation>
+					<xs:documentation>CR56SFUF100B Module，与mib中单板类型节点bname8090DEVCR56SFUF（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55SFUI100A">
+				<xs:annotation>
+					<xs:documentation>CR55SFUI100A Module，与mib中单板类型节点bname8090DEVCR55SFUI100A（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55ECU100A">
+				<xs:annotation>
+					<xs:documentation>CR55ECU100A Module，与mib中单板类型节点bname8090DEVCR55ECU100A（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFEB">
+				<xs:annotation>
+					<xs:documentation>CR52SFEB Module，与mib中单板类型节点bname8090DEVCR52SFEBB（1.3.6.1.4.1.2011.20021210.12.561198）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56SFUF100C">
+				<xs:annotation>
+					<xs:documentation>CR56SFUF100C Module，与mib中单板类型节点bname8090DEVCR56SFUF100C（1.3.6.1.4.1.2011.20021210.12.561220）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56SFU200A">
+				<xs:annotation>
+					<xs:documentation>CR56SFU200A Module，与mib中单板类型节点bname8090DEVCR56SFU200A（1.3.6.1.4.1.2011.20021210.12.561221）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00EKGF60">
+				<xs:annotation>
+					<xs:documentation>CR5D00EKGF60:搭配CR52EKGF子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00P4XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00P4XX60:搭配CR52P4XX子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00P8UF60">
+				<xs:annotation>
+					<xs:documentation>CR5D00P8UF60:搭配CR52P8UF子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E4XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E4XX60:搭配CR52E4XX子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00W4XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00W4XX60:搭配CR52W4XX子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DLPUFA060">
+				<xs:annotation>
+					<xs:documentation>CR5DLPUFA060:底板CR56LPUF100B的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00LEXF60">
+				<xs:annotation>
+					<xs:documentation>CR5D00LEXF60:搭配CR56LEXFA子卡的CR56LPUF200的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E2NC60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E2NC60:搭配CR56E1NCC子卡的CR56LPUF200的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DE1NLAX60">
+				<xs:annotation>
+					<xs:documentation>CR5DE1NLAX60:搭配CR56E1NC子卡的CR56LPUF200的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFEBA06B">
+				<xs:annotation>
+					<xs:documentation>CR5DSFEBA06B:CR52SFEB的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D0MPUB460">
+				<xs:annotation>
+					<xs:documentation>CR5D0MPUB460:CR56MPUB4的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUFA06B">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUFA06B:CR56SFUF100B的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUIE060">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUIE060:CR56SFU200A的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUFA06C">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUFA06C:CR56SFUF100C的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D0MPUA450">
+				<xs:annotation>
+					<xs:documentation>CR5D0MPUA450:CR55MPUA4的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DECUFA050">
+				<xs:annotation>
+					<xs:documentation>CR5DECUFA050:CR55ECU100A的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUIA050">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUIA050:CR55SFUI100A的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CLOCK">
+				<xs:annotation>
+					<xs:documentation>system clk board on MPU board,obsolete，与mib中单板类型节点bname8090DEVCLK（1.3.6.1.4.1.2011.20021210.12.561156）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POWER">
+				<xs:annotation>
+					<xs:documentation>DC/DC Power Module，与mib中单板类型节点bname8090DEVPOWER（1.3.6.1.4.1.2011.20021210.12.561157）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FAN">
+				<xs:annotation>
+					<xs:documentation>Fan Module，与mib中单板类型节点bname8090DEVFAN（1.3.6.1.4.1.2011.20021210.12.561158）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LCD">
+				<xs:annotation>
+					<xs:documentation>LCD Module，与mib中单板类型节点bname8090DEVLCD（1.3.6.1.4.1.2011.20021210.12.561159）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DE51SRU1A">
+				<xs:annotation>
+					<xs:documentation>CE6850-48S4Q-EI:DE51SRU1A</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DE51SRU1B">
+				<xs:annotation>
+					<xs:documentation>CE5850-48T4S2Q-EI:DE51SRU1B</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DE51SRU1C">
+				<xs:annotation>
+					<xs:documentation>CE6850-48T4Q-EI:DE51SRU1C</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmSubCardType">
+		<xs:annotation>
+			<xs:documentation>子卡物理类型，取值与HUAWEI-TC-MIB中的对应，新类型子卡出现时在这里添加</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>UNKNOWN，与mib中子卡类型节点subbname8090P2XX（1.3.6.1.4.1.2011.20021210.13.561152）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P2XX">
+				<xs:annotation>
+					<xs:documentation>2*OC-192c/STM-64c POS-XFP Optical Interface LPU C，与mib中子卡类型节点subbname8090P2XX（1.3.6.1.4.1.2011.20021210.13.561169）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P4XX">
+				<xs:annotation>
+					<xs:documentation>POS 4*10G（LPUE），没有在mib中找到对应的节点</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P8UF">
+				<xs:annotation>
+					<xs:documentation>POS 8*2.5G（LPUE），没有在mib中找到对应的节点</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EEGF">
+				<xs:annotation>
+					<xs:documentation>ETH 20*GE（LPUE），没有在mib中找到对应的节点</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E1XX">
+				<xs:annotation>
+					<xs:documentation>4-port Eth Interface Daughter Card，与mib中子卡类型节点subbname8090E1XX（1.3.6.1.4.1.2011.20021210.13.561249）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E4XX">
+				<xs:annotation>
+					<xs:documentation>4-port Eth Interface Daughter Card，与mib中子卡类型节点subbname8090P2XX（1.3.6.1.4.1.2011.20021210.13.561249）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52W4XX">
+				<xs:annotation>
+					<xs:documentation>ETH 4*10G WAN（LPUE），没有在mib中找到对应的节点</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EAGF">
+				<xs:annotation>
+					<xs:documentation>10-port GbE SFP Optical Interface LPU，与mib中子卡类型节点subbname8090EAGF（1.3.6.1.4.1.2011.20021210.13.561155）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P4UF">
+				<xs:annotation>
+					<xs:documentation>4-port 2.5G POS SFP Optical Interface LPU，与mib中子卡类型节点subbname8090P4UF（1.3.6.1.4.1.2011.20021210.13.561156）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E2XX">
+				<xs:annotation>
+					<xs:documentation>2*10GBase LAN-XFP Optical Interface LPU C，与mib中子卡类型节点subbname8090E2XX（1.3.6.1.4.1.2011.20021210.13.561167）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52W2XX">
+				<xs:annotation>
+					<xs:documentation>2*10GBase WAN-XFP Optical Interface LPU C，与mib中子卡类型节点subbname8090E2XX（1.3.6.1.4.1.2011.20021210.13.561168）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P1XX">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090P1XXB（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52W1XX">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56L5XX">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E1NC">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56P2XX">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56L2XX">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E2XX">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56D2XX">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E5XX">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56P1MZ">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56EFGF">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P8CF">
+				<xs:annotation>
+					<xs:documentation>8 port OC-3c/STM-1c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P2UF">
+				<xs:annotation>
+					<xs:documentation>2-port 2.5G POS SFP Optical Interface LPU，与mib中子卡类型节点subbname8090P4UF（1.3.6.1.4.1.2011.20021210.13.561156）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P1UF">
+				<xs:annotation>
+					<xs:documentation>1-port 2.5G POS SFP Optical Interface LPU，与mib中子卡类型节点subbname8090P4UF（1.3.6.1.4.1.2011.20021210.13.561156）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55OFC100B">
+				<xs:annotation>
+					<xs:documentation>CR55OFC100B</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52OFCB">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55OFC100A">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55OFC40">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55OFCA">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55C-OFCA">
+				<xs:annotation>
+					<xs:documentation>Cluster Optical Flexible Card A，与mib中子卡类型节点subbname8090OFCA（1.3.6.1.4.1.2011.20021210.13.561246）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52OFCV">
+				<xs:annotation>
+					<xs:documentation>Cluster Virtual Optical Card，与mib中子卡类型节点subbname8090DEVCR52OFCV（1.3.6.1.4.1.2011.20021210.13.561335）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CFCARD">
+				<xs:annotation>
+					<xs:documentation>CFCARD in MPUA or CFCARD2 in SRUA/MPUB，与mib中单板类型节点CFCARD（1.3.6.1.4.1.2011.20021210.13.561151）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR53P1MZ">
+				<xs:annotation>
+					<xs:documentation>1 port OC-192c/STM-64c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090W1XX（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P4HF">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090P4HF（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EMGE">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52EMGE（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EFGE">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52EFGE（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E5GF">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52E5GF（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P4CF">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52P4CF（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52D1MV">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52D1MV（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EKGFY">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52EKGFY（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR57EFGF">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR57EFGF（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E1NCC">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR56E1NCC（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P1XZ">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52P1XZ（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E1XZ">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52E1XZ（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52W1XZ">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR52W1XZ（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SPU">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090SPU（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TSUA">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090TSUA（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E1MC">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR56E1MC（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LAXFA">
+				<xs:annotation>
+					<xs:documentation>4 port OC-9c/STM-9c POS-XFP Flexible Card，与mib中子卡类型节点subbname8090CR56LAXFA（1.3.6.1.4.1.2011.20021210.13.561245）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00L5XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00L5XX60:CR56L5XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E5XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E5XX60:CR56E5XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00L2XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00L2XX60:CR56L2XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E2XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E2XX60:CR56E2XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00EFGF60">
+				<xs:annotation>
+					<xs:documentation>CR5D00EFGF60:CR56EFGF子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00P1MZ60">
+				<xs:annotation>
+					<xs:documentation>CR5D00P1MZ60:CR56P1MZ子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00P2XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00P2XX60:CR56P2XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5M00E1MC60">
+				<xs:annotation>
+					<xs:documentation>CR5M00E1MC60:CR56E1MC子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E1NC60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E1NC60:以CR56LPUF100B为底板的CR56E1NC子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00LAXX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00LAXX60:以CR56LPUF100B为底板的CR56LAXX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D0OFCA060">
+				<xs:annotation>
+					<xs:documentation>CR5D0OFCA060:CR55OFC100B的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmLpuServiceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lpu">
+				<xs:annotation>
+					<xs:documentation>line process unit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rnr">
+				<xs:annotation>
+					<xs:documentation>rainier</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tsu">
+				<xs:annotation>
+					<xs:documentation>tsu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ns">
+				<xs:annotation>
+					<xs:documentation>netstream</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="gre">
+				<xs:annotation>
+					<xs:documentation>通用路由封装</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmInnerlinkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="other">
+				<xs:annotation>
+					<xs:documentation>其他类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="controlChannel">
+				<xs:annotation>
+					<xs:documentation>控制链路，用于传输框间控制消息</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="monitorChannel">
+				<xs:annotation>
+					<xs:documentation>监视链路，用于传输框间监视消息，只存在于中央交换框之间。</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="forwardChannel">
+				<xs:annotation>
+					<xs:documentation>转发链路，用于业务报文转发。</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmLsRole">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown:未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mmb">
+				<xs:annotation>
+					<xs:documentation>mmb:主用主控板</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="plmb">
+				<xs:annotation>
+					<xs:documentation>plmb:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="acmb">
+				<xs:annotation>
+					<xs:documentation>acmb:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mb">
+				<xs:annotation>
+					<xs:documentation>mb:主控板</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lc">
+				<xs:annotation>
+					<xs:documentation>lc:接口板</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmEthPortTransMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lan">
+				<xs:annotation>
+					<xs:documentation>lan</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="wan">
+				<xs:annotation>
+					<xs:documentation>wan</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmEntityAdminState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="active">
+				<xs:annotation>
+					<xs:documentation>激活太，允许提供服务</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="inactive">
+				<xs:annotation>
+					<xs:documentation>去激活太，停止提供服务</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="notSupported">
+				<xs:annotation>
+					<xs:documentation>该实体不支持管理状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmEntityOperState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:正常</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fault">
+				<xs:annotation>
+					<xs:documentation>fault:故障</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown:未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="offline">
+				<xs:annotation>
+					<xs:documentation>offline:离线</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="opticalNotEquipped">
+				<xs:annotation>
+					<xs:documentation>opticalNotEquipped:光模块不在位（该状态目前仅涉及VSR端口）</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="notSupported">
+				<xs:annotation>
+					<xs:documentation>notSupported:不支持</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmEntityPresentState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="online">
+				<xs:annotation>
+					<xs:documentation>online:在位</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="offline">
+				<xs:annotation>
+					<xs:documentation>offline:不在位</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown:未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmEntityStandbyState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="notSupported">
+				<xs:annotation>
+					<xs:documentation>不支持</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="master">
+				<xs:annotation>
+					<xs:documentation>主用</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="slave">
+				<xs:annotation>
+					<xs:documentation>备用</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="systemMaster">
+				<xs:annotation>
+					<xs:documentation>sysmmb:系统主用主控板（多框CCC的场合）</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="systemSlave">
+				<xs:annotation>
+					<xs:documentation>sysmb:系统主控板（多框CCC的场合）</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmPwrState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="dc">
+				<xs:annotation>
+					<xs:documentation>dc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ac">
+				<xs:annotation>
+					<xs:documentation>ac:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmRunState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="abnormal">
+				<xs:annotation>
+					<xs:documentation>abnormal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmLockState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="locked">
+				<xs:annotation>
+					<xs:documentation>locked:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unlocked">
+				<xs:annotation>
+					<xs:documentation>unlocked:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmWorkMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="auto">
+				<xs:annotation>
+					<xs:documentation>auto:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="manual">
+				<xs:annotation>
+					<xs:documentation>manual:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmPowerWorkMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DC">
+				<xs:annotation>
+					<xs:documentation>auto:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AC">
+				<xs:annotation>
+					<xs:documentation>manual:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmSsmlevel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="prc">
+				<xs:annotation>
+					<xs:documentation>prc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tnc">
+				<xs:annotation>
+					<xs:documentation>tnc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lnc">
+				<xs:annotation>
+					<xs:documentation>lnc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sets">
+				<xs:annotation>
+					<xs:documentation>sets:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dnu">
+				<xs:annotation>
+					<xs:documentation>dnu:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmControlFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="on">
+				<xs:annotation>
+					<xs:documentation>on:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="off">
+				<xs:annotation>
+					<xs:documentation>off:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCableState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="plug">
+				<xs:annotation>
+					<xs:documentation>plug:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unplug">
+				<xs:annotation>
+					<xs:documentation>unplug:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmChoice">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="force">
+				<xs:annotation>
+					<xs:documentation>force:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="auto">
+				<xs:annotation>
+					<xs:documentation>auto:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmAlarmState">
+		<xs:annotation>
+			<xs:documentation>告警状态，取值集成于HUAWEI-INNER-LINK-MIB</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="notSupported">
+				<xs:annotation>
+					<xs:documentation>不支持告警态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="underRepair">
+				<xs:annotation>
+					<xs:documentation>When the value of under repair is set,the resource is currentlybeing repaired.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="critical">
+				<xs:annotation>
+					<xs:documentation>When the value of critical is set, one or more criticalalarms are active against the resource.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="major">
+				<xs:annotation>
+					<xs:documentation>When the value of major is set, one or more major alarms are active againstthe resource.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="minor">
+				<xs:annotation>
+					<xs:documentation>When the value of minor is set, one or moreminor alarms are active against the resource.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="warning">
+				<xs:annotation>
+					<xs:documentation>When thevalue of warning is set, one or more warning alarms areactive against the resource.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="alarmOutstanding">
+				<xs:annotation>
+					<xs:documentation>When the value of alarm outstanding is set, one or morealarms is active against the resource. The fault may or maynot be disabling.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="indeterminate">
+				<xs:annotation>
+					<xs:documentation>When the value ofindeterminate is set, one or more  alarms of indeterminateseverity are active against the resource.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmPortType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Eth">
+				<xs:annotation>
+					<xs:documentation>Eth，与mib中子卡类型节点ethernetCsmacd（1.3.6.1.4.1.2011.20021210.14.6）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Pos">
+				<xs:annotation>
+					<xs:documentation>Pos，与mib中子卡类型节点pos（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Cpos">
+				<xs:annotation>
+					<xs:documentation>Pos，与mib中子卡类型节点pos（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E1">
+				<xs:annotation>
+					<xs:documentation>Pos，与mib中子卡类型节点pos（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GE">
+				<xs:annotation>
+					<xs:documentation>GE，GE端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10GE">
+				<xs:annotation>
+					<xs:documentation>10GE，10GE端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GF">
+				<xs:annotation>
+					<xs:documentation>GF，GF端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10GF">
+				<xs:annotation>
+					<xs:documentation>10GF，10GF端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="40GF">
+				<xs:annotation>
+					<xs:documentation>40GF，40GF端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10GFCOM">
+				<xs:annotation>
+					<xs:documentation>10GFCOM，10GF可合并端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="40GFSPLIT">
+				<xs:annotation>
+					<xs:documentation>40GFSPLIT，40GF可拆分端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Otn">
+				<xs:annotation>
+					<xs:documentation>Pos，与mib中子卡类型节点pos（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmPortHardType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EthLANPort">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EthWANPort">
+				<xs:annotation>
+					<xs:documentation>Pos，与mib中子卡类型节点pos（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EthGEPort">
+				<xs:annotation>
+					<xs:documentation>GE，与mib中子卡类型节点ge（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Eth10GEPort">
+				<xs:annotation>
+					<xs:documentation>10GE，与mib中子卡类型节点10ge（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EthGFPort">
+				<xs:annotation>
+					<xs:documentation>Pos，与mib中子卡类型节点pos（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Eth10GFPort">
+				<xs:annotation>
+					<xs:documentation>10GF，与mib中子卡类型节点10gf（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Eth40GFPort">
+				<xs:annotation>
+					<xs:documentation>40GF，与mib中子卡类型节点10gf（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Eth10GFCOMPort">
+				<xs:annotation>
+					<xs:documentation>10GFCOM，与mib中子卡类型节点10gf（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Eth40GFSPLITPort">
+				<xs:annotation>
+					<xs:documentation>40GFSPLIT，与mib中子卡类型节点10gf（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EthFEPort">
+				<xs:annotation>
+					<xs:documentation>GE，与mib中子卡类型节点ge（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EthMGEPort">
+				<xs:annotation>
+					<xs:documentation>Pos，与mib中子卡类型节点pos（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PosPort">
+				<xs:annotation>
+					<xs:documentation>GE，与mib中子卡类型节点ge（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OtnPort">
+				<xs:annotation>
+					<xs:documentation>OTN，与mib中子卡类型节点ge（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CposPort">
+				<xs:annotation>
+					<xs:documentation>CPOS，与mib中子卡类型节点ge（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E1Port">
+				<xs:annotation>
+					<xs:documentation>E1，与mib中子卡类型节点ge（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EthClusterPort">
+				<xs:annotation>
+					<xs:documentation>级联网口，与mib中子卡类型节点ge（1.3.6.1.4.1.2011.20021210.14....）对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCardHardType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>Unknown card hardware type</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_10G_WAN">
+				<xs:annotation>
+					<xs:documentation>ETH_10G_WAN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_10G_LAN">
+				<xs:annotation>
+					<xs:documentation>ETH_10G_LAN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_10XGE_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_10XGE_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EAGF_CARD">
+				<xs:annotation>
+					<xs:documentation>EAGF_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P4UF_CARD">
+				<xs:annotation>
+					<xs:documentation>P4UF_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_4X2.5G_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_4X2.5G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_1X10G_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_1X10G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_2x10GX_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_2x10GX_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_4X622M_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_4X622M_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_2X10G_LAN_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_2X10G_LAN_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_2X10G_WAN_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_2X10G_WAN_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_48XGE_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_48XGE_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_8X155M_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_8X155M_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_24XGE_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_24XGE_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_1X2.5G_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_1X2.5G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_2X2.5G_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_2X2.5G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_2X10G_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_2X10G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_4X155M_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_4X155M_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_5XGE_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_5XGE_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P1MZ_CARD">
+				<xs:annotation>
+					<xs:documentation>P1MZ_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D1MV_CARD">
+				<xs:annotation>
+					<xs:documentation>D1MV_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_LAN_WAN_4X10G_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_LAN_WAN_4X10G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_1X10G_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_1X10G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LAN_WAN_2x10GX_CARD">
+				<xs:annotation>
+					<xs:documentation>LAN_WAN_2x10GX_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_2x10GX_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_2x10GX_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTN_2x10GX_CARD">
+				<xs:annotation>
+					<xs:documentation>OTN_2x10GX_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LAN_WAN_5x10GX_CARD">
+				<xs:annotation>
+					<xs:documentation>LAN_WAN_5x10GX_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_5x10GX_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_5x10GX_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_40GZ_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_40GZ_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_100GC_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_100GC_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_24xGF_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_24xGF_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OFCA_CARD">
+				<xs:annotation>
+					<xs:documentation>OFCA_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OFC40_CARD">
+				<xs:annotation>
+					<xs:documentation>OFC40_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OFC100B_CARD">
+				<xs:annotation>
+					<xs:documentation>OFC100B_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OFC100A_CARD">
+				<xs:annotation>
+					<xs:documentation>OFC100A_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OFCB_CARD">
+				<xs:annotation>
+					<xs:documentation>OFCB_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_10G_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_10G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POS_40G_CARD">
+				<xs:annotation>
+					<xs:documentation>POS_40G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WDM_40G_CARD">
+				<xs:annotation>
+					<xs:documentation>WDM_40G_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_40XGE_SFP_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_40XGE_SFP_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ETH_40GC_CARD">
+				<xs:annotation>
+					<xs:documentation>ETH_40GC_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SPU">
+				<xs:annotation>
+					<xs:documentation>SPU</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TSUA">
+				<xs:annotation>
+					<xs:documentation>TSUA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LAN_WAN_10x10GX_CARD">
+				<xs:annotation>
+					<xs:documentation>LAN_WAN_10x10GX_CARD</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmEthPortMediumType">
+		<xs:annotation>
+			<xs:documentation>以太端口的媒质类型，目前主要用于表明以太口的光电属性</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="notSupported">
+				<xs:annotation>
+					<xs:documentation>不支持该属性</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="copper">
+				<xs:annotation>
+					<xs:documentation>铜口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fiber">
+				<xs:annotation>
+					<xs:documentation>光口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmGFEthPortMediumType">
+		<xs:annotation>
+			<xs:documentation>以太端口的媒质类型，目前主要用于表明以太口的光电属性</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fiber100">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fiber1000">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmDuplex">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="half">
+				<xs:annotation>
+					<xs:documentation>half:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="full">
+				<xs:annotation>
+					<xs:documentation>full:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="auto">
+				<xs:annotation>
+					<xs:documentation>auto:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmTransMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multiMode">
+				<xs:annotation>
+					<xs:documentation>多模</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="singleMode">
+				<xs:annotation>
+					<xs:documentation>单模</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="copperMode">
+				<xs:annotation>
+					<xs:documentation>电缆模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmHardType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>Unknown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="chassis">
+				<xs:annotation>
+					<xs:documentation>Chassis:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="boardSlot">
+				<xs:annotation>
+					<xs:documentation>BoardSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mpuSlot">
+				<xs:annotation>
+					<xs:documentation>MpuSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lpuSlot">
+				<xs:annotation>
+					<xs:documentation>LpuSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sfuSlot">
+				<xs:annotation>
+					<xs:documentation>SfuSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="icuSlot">
+				<xs:annotation>
+					<xs:documentation>IcuSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ecuSlot">
+				<xs:annotation>
+					<xs:documentation>EcuSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="clkSlot">
+				<xs:annotation>
+					<xs:documentation>ClkSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fanSlot">
+				<xs:annotation>
+					<xs:documentation>FanSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="powerSlot">
+				<xs:annotation>
+					<xs:documentation>PowerSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="picSlot">
+				<xs:annotation>
+					<xs:documentation>PicSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ofcSlot">
+				<xs:annotation>
+					<xs:documentation>OfcSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lcdSlot">
+				<xs:annotation>
+					<xs:documentation>lcdSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cfcardSlot">
+				<xs:annotation>
+					<xs:documentation>cfcardSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cmuSlot">
+				<xs:annotation>
+					<xs:documentation>cmuSlot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090Unknown">
+				<xs:annotation>
+					<xs:documentation>Quidway unknown FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561152对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090Whole">
+				<xs:annotation>
+					<xs:documentation>Quidway NE80E FRAME, NE5000E FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561153对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090NE5000EX">
+				<xs:annotation>
+					<xs:documentation>Quidway NE5000E-X16 FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561165对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090ClusterCentral">
+				<xs:annotation>
+					<xs:documentation>Quidway NE5000E-CCC FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561165对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fname8090NE5000EX-VB">
+				<xs:annotation>
+					<xs:documentation>Quidway NE5000E-X16VB FRAME，与mib中1.3.6.1.4.1.2011.20021210.11.561168对应</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CE585048T4S2QEI">
+				<xs:annotation>
+					<xs:documentation>CE585048T4S2QEI:DE51SRU1B</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CE685048S4QEI">
+				<xs:annotation>
+					<xs:documentation>CE685048S4QEI:DE51SRU1A</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CE685048T4QEI">
+				<xs:annotation>
+					<xs:documentation>CE685048T4QEI:DE51SRU1C</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52MPUA">
+				<xs:annotation>
+					<xs:documentation>CR52MPUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52MPUB">
+				<xs:annotation>
+					<xs:documentation>CR52MPUB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55MPUA">
+				<xs:annotation>
+					<xs:documentation>CR55MPUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55MPUAB">
+				<xs:annotation>
+					<xs:documentation>CR55MPUAB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56RPUA">
+				<xs:annotation>
+					<xs:documentation>CR56RPUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUA">
+				<xs:annotation>
+					<xs:documentation>LPUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUB">
+				<xs:annotation>
+					<xs:documentation>LPUB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUC">
+				<xs:annotation>
+					<xs:documentation>LPUC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUE">
+				<xs:annotation>
+					<xs:documentation>LPUE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUR">
+				<xs:annotation>
+					<xs:documentation>LPUR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUF">
+				<xs:annotation>
+					<xs:documentation>LPUF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUG">
+				<xs:annotation>
+					<xs:documentation>LPUG:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUH">
+				<xs:annotation>
+					<xs:documentation>LPUH:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUI">
+				<xs:annotation>
+					<xs:documentation>LPUI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUK">
+				<xs:annotation>
+					<xs:documentation>LPUK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUM">
+				<xs:annotation>
+					<xs:documentation>LPUM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52LPUN">
+				<xs:annotation>
+					<xs:documentation>LPUN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SPUC">
+				<xs:annotation>
+					<xs:documentation>SPUC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUF100A">
+				<xs:annotation>
+					<xs:documentation>CR56LPUF100A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUF100B">
+				<xs:annotation>
+					<xs:documentation>CR56LPUF100B:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUI100A">
+				<xs:annotation>
+					<xs:documentation>CR56LPUI100A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUI100B">
+				<xs:annotation>
+					<xs:documentation>CR56LPUI100B:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUI100C">
+				<xs:annotation>
+					<xs:documentation>CR56LPUI100C:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LPUF200A">
+				<xs:annotation>
+					<xs:documentation>CR56LPUF200A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RNRLPUB">
+				<xs:annotation>
+					<xs:documentation>RNRLPUB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RNRLPUD">
+				<xs:annotation>
+					<xs:documentation>RNRLPUD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RNRLPUF">
+				<xs:annotation>
+					<xs:documentation>RNRLPUF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RNRNS">
+				<xs:annotation>
+					<xs:documentation>RNRNS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RNRGRE">
+				<xs:annotation>
+					<xs:documentation>RNRGRE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUA">
+				<xs:annotation>
+					<xs:documentation>SFUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SRUA">
+				<xs:annotation>
+					<xs:documentation>SRUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUD">
+				<xs:annotation>
+					<xs:documentation>SFUD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUF">
+				<xs:annotation>
+					<xs:documentation>SFUF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUG">
+				<xs:annotation>
+					<xs:documentation>SFUG:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFUC">
+				<xs:annotation>
+					<xs:documentation>SFUC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFEA">
+				<xs:annotation>
+					<xs:documentation>SFEA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52K-SFEA">
+				<xs:annotation>
+					<xs:documentation>CR52K-SFEA:CR52SFEA的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55SFUA">
+				<xs:annotation>
+					<xs:documentation>CSFUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55ECUA">
+				<xs:annotation>
+					<xs:documentation>ECUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55C-ECUA">
+				<xs:annotation>
+					<xs:documentation>CR55C-ECUA:CR55ECUA的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55ICUA">
+				<xs:annotation>
+					<xs:documentation>CR55ICUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56SFUF100B">
+				<xs:annotation>
+					<xs:documentation>CR56SFUF100B:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55SFUI100A">
+				<xs:annotation>
+					<xs:documentation>CR55SFUI100A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56SFUF100C">
+				<xs:annotation>
+					<xs:documentation>CR56SFUF100C:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56SFU200A">
+				<xs:annotation>
+					<xs:documentation>CR56SFU200A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55ECU100A">
+				<xs:annotation>
+					<xs:documentation>CR55ECU100A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFEB">
+				<xs:annotation>
+					<xs:documentation>CR52SFEB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DE51SRU1A">
+				<xs:annotation>
+					<xs:documentation>CE6850-48S4Q-EI:DE51SRU1A</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DE51SRU1B">
+				<xs:annotation>
+					<xs:documentation>CE5850-48T4S2Q-EI:DE51SRU1B</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DE51SRU1C">
+				<xs:annotation>
+					<xs:documentation>CE6850-48T4Q-EI:DE51SRU1C</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUFA06C">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUFA06C:CR56SFUF100C的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUIK060">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUIK060:CR56SFU400A的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55ECU100A">
+				<xs:annotation>
+					<xs:documentation>CR55ECU100A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52SFEB">
+				<xs:annotation>
+					<xs:documentation>CR52SFEB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BOOTROM">
+				<xs:annotation>
+					<xs:documentation>BOOTROM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FLASH">
+				<xs:annotation>
+					<xs:documentation>FLASH:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EPLD1">
+				<xs:annotation>
+					<xs:documentation>EPLD1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EPLD2">
+				<xs:annotation>
+					<xs:documentation>EPLD2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E1XX">
+				<xs:annotation>
+					<xs:documentation>E1XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52W1XX">
+				<xs:annotation>
+					<xs:documentation>W1XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EAGF">
+				<xs:annotation>
+					<xs:documentation>EAGF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P4UF">
+				<xs:annotation>
+					<xs:documentation>P4UF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P1XX">
+				<xs:annotation>
+					<xs:documentation>P1XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P4HF">
+				<xs:annotation>
+					<xs:documentation>P4HF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E2XX">
+				<xs:annotation>
+					<xs:documentation>E2XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52W2XX">
+				<xs:annotation>
+					<xs:documentation>W2XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P2XX">
+				<xs:annotation>
+					<xs:documentation>P2XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EMGE">
+				<xs:annotation>
+					<xs:documentation>EMGE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P8CF">
+				<xs:annotation>
+					<xs:documentation>P8CF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EFGE">
+				<xs:annotation>
+					<xs:documentation>EFGE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P1UF">
+				<xs:annotation>
+					<xs:documentation>P1UF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P2UF">
+				<xs:annotation>
+					<xs:documentation>P2UF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E5GF">
+				<xs:annotation>
+					<xs:documentation>E5GF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P4CF">
+				<xs:annotation>
+					<xs:documentation>P4CF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR53P1MZ">
+				<xs:annotation>
+					<xs:documentation>P1MZ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52D1MV">
+				<xs:annotation>
+					<xs:documentation>D1MV:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E4XX">
+				<xs:annotation>
+					<xs:documentation>E4XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56P2XX">
+				<xs:annotation>
+					<xs:documentation>P2XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56L2XX">
+				<xs:annotation>
+					<xs:documentation>L2XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E2XX">
+				<xs:annotation>
+					<xs:documentation>E2XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56D2XX">
+				<xs:annotation>
+					<xs:documentation>D2XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56L5XX">
+				<xs:annotation>
+					<xs:documentation>L5XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E5XX">
+				<xs:annotation>
+					<xs:documentation>E5XX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56P1MZ">
+				<xs:annotation>
+					<xs:documentation>P1MZ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E1NC">
+				<xs:annotation>
+					<xs:documentation>E1NC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56EFGF">
+				<xs:annotation>
+					<xs:documentation>EFGF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR53P1MZ">
+				<xs:annotation>
+					<xs:documentation>P1MZ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52EKGFY">
+				<xs:annotation>
+					<xs:documentation>EKGFY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR57EFGF">
+				<xs:annotation>
+					<xs:documentation>EFGF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E1NCC">
+				<xs:annotation>
+					<xs:documentation>E1NCC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52P1XZ">
+				<xs:annotation>
+					<xs:documentation>P1XZ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52E1XZ">
+				<xs:annotation>
+					<xs:documentation>E1XZ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52W1XZ">
+				<xs:annotation>
+					<xs:documentation>W1XZ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SPU">
+				<xs:annotation>
+					<xs:documentation>SPU:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TSUA">
+				<xs:annotation>
+					<xs:documentation>TSUA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56E1MC">
+				<xs:annotation>
+					<xs:documentation>E1MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR56LAXFA">
+				<xs:annotation>
+					<xs:documentation>LAXFA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55OFCA">
+				<xs:annotation>
+					<xs:documentation>CR55OFCA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55C-OFCA">
+				<xs:annotation>
+					<xs:documentation>CR55C-OFCA:CR55OFCA的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52OFCB">
+				<xs:annotation>
+					<xs:documentation>CR52OFCB:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55OFC40">
+				<xs:annotation>
+					<xs:documentation>CR55OFC40:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55OFC100A">
+				<xs:annotation>
+					<xs:documentation>CR55OFC100A:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR55OFC100B">
+				<xs:annotation>
+					<xs:documentation>CR55OFC100B:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR52OFCV">
+				<xs:annotation>
+					<xs:documentation>CR52OFCV:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Eth">
+				<xs:annotation>
+					<xs:documentation>EthPort:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Pos">
+				<xs:annotation>
+					<xs:documentation>PosPort:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GE">
+				<xs:annotation>
+					<xs:documentation>GE，GE端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10GE">
+				<xs:annotation>
+					<xs:documentation>10GE，10GE端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GF">
+				<xs:annotation>
+					<xs:documentation>GF，GF端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10GF">
+				<xs:annotation>
+					<xs:documentation>10GF，10GF端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="40GF">
+				<xs:annotation>
+					<xs:documentation>40GF，40GF端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10GFCOM">
+				<xs:annotation>
+					<xs:documentation>10GFCOM，10GF可合并端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="40GFSPLIT">
+				<xs:annotation>
+					<xs:documentation>40GFSPLIT，40GF可拆分端口</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VSR">
+				<xs:annotation>
+					<xs:documentation>VSR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LFE">
+				<xs:annotation>
+					<xs:documentation>LFE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="POWER">
+				<xs:annotation>
+					<xs:documentation>POWER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CLOCK">
+				<xs:annotation>
+					<xs:documentation>CLOCK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FAN">
+				<xs:annotation>
+					<xs:documentation>FAN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LCD">
+				<xs:annotation>
+					<xs:documentation>LCD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CFCARD">
+				<xs:annotation>
+					<xs:documentation>CFCARD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CMU">
+				<xs:annotation>
+					<xs:documentation>CMU:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00EKGF60">
+				<xs:annotation>
+					<xs:documentation>CR5D00EKGF60:搭配CR52EKGF子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00P4XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00P4XX60:搭配CR52P4XX子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00P8UF60">
+				<xs:annotation>
+					<xs:documentation>CR5D00P8UF60:搭配CR52P8UF子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E4XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E4XX60:搭配CR52E4XX子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00W4XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00W4XX60:搭配CR52W4XX子卡的CR52LPUR的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DLPUFA060">
+				<xs:annotation>
+					<xs:documentation>CR5DLPUFA060:底板CR56LPUF100B的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00LEXF60">
+				<xs:annotation>
+					<xs:documentation>CR5D00LEXF60:搭配CR56LEXFA子卡的CR56LPUF200的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E2NC60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E2NC60:搭配CR56E1NCC子卡的CR56LPUF200的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DE1NLAX60">
+				<xs:annotation>
+					<xs:documentation>CR5DE1NLAX60:搭配CR56E1NC子卡的CR56LPUF200的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFEBA06B">
+				<xs:annotation>
+					<xs:documentation>CR5DSFEBA06B:CR52SFEB的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D0MPUB460">
+				<xs:annotation>
+					<xs:documentation>CR5D0MPUB460:CR56MPUB4的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUFA06B">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUFA06B:CR56SFUF100B的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUIE060">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUIE060:CR56SFU200A的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUFA06C">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUFA06C:CR56SFUF100C的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D0MPUA450">
+				<xs:annotation>
+					<xs:documentation>CR5D0MPUA450:CR55MPUA4的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DECUFA050">
+				<xs:annotation>
+					<xs:documentation>CR5DECUFA050:CR55ECU100A的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5DSFUIA050">
+				<xs:annotation>
+					<xs:documentation>CR5DSFUIA050:CR55SFUI100A的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00L5XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00L5XX60:CR56L5XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E5XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E5XX60:CR56E5XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00L2XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00L2XX60:CR56L2XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E2XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E2XX60:CR56E2XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00EFGF60">
+				<xs:annotation>
+					<xs:documentation>CR5D00EFGF60:CR56EFGF子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00P1MZ60">
+				<xs:annotation>
+					<xs:documentation>CR5D00P1MZ60:CR56P1MZ子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00P2XX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00P2XX60:CR56P2XX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5M00E1MC60">
+				<xs:annotation>
+					<xs:documentation>CR5M00E1MC60:CR56E1MC子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00E1NC60">
+				<xs:annotation>
+					<xs:documentation>CR5D00E1NC60:以CR56LPUF100B为底板的CR56E1NC子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D00LAXX60">
+				<xs:annotation>
+					<xs:documentation>CR5D00LAXX60:以CR56LPUF100B为底板的CR56LAXX子卡的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CR5D0OFCA060">
+				<xs:annotation>
+					<xs:documentation>CR5D0OFCA060:CR55OFC100B的对外SBOM编码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="other">
+				<xs:annotation>
+					<xs:documentation>Other:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmLoopBackState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="noLoopback">
+				<xs:annotation>
+					<xs:documentation>无环回</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="localLoopback">
+				<xs:annotation>
+					<xs:documentation>本地环回</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remoteLoopback">
+				<xs:annotation>
+					<xs:documentation>远端环回</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmFlowCtlType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="allEnabled">
+				<xs:annotation>
+					<xs:documentation>全使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="receiveEnabled">
+				<xs:annotation>
+					<xs:documentation>接收使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sendEnabled">
+				<xs:annotation>
+					<xs:documentation>发送使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="allDisabled">
+				<xs:annotation>
+					<xs:documentation>都不使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmcposclockmodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="master">
+				<xs:annotation>
+					<xs:documentation>主时钟模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="slave">
+				<xs:annotation>
+					<xs:documentation>从时钟模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmcposMapModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="a-mode">
+				<xs:annotation>
+					<xs:documentation>通道映射（阿尔卡特模式）</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="h-mode">
+				<xs:annotation>
+					<xs:documentation>通道映射（华为模式）</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="l-mode">
+				<xs:annotation>
+					<xs:documentation>通道映射（朗讯模式）</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmcposLoopbackType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="local">
+				<xs:annotation>
+					<xs:documentation>对内自环</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remote">
+				<xs:annotation>
+					<xs:documentation>CPOS对外远端环回</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmcposFrameFormatType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="sdh">
+				<xs:annotation>
+					<xs:documentation>SDH帧类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sonet">
+				<xs:annotation>
+					<xs:documentation>SONET帧类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmcposMultiplexType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="au-3">
+				<xs:annotation>
+					<xs:documentation>au-3</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="au-4">
+				<xs:annotation>
+					<xs:documentation>au-4</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCposE1ClockModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="master">
+				<xs:annotation>
+					<xs:documentation>主时钟模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="slave">
+				<xs:annotation>
+					<xs:documentation>从时钟模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCposE1LoopbackType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="local">
+				<xs:annotation>
+					<xs:documentation>对内环回</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remote">
+				<xs:annotation>
+					<xs:documentation>CPOS下E1对外远端环回</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCposE1FrameFormatType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="crc4">
+				<xs:annotation>
+					<xs:documentation>CRC4帧格式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="no-crc4">
+				<xs:annotation>
+					<xs:documentation>no-crc4帧格式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmE1T1WorkModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="framed">
+				<xs:annotation>
+					<xs:documentation>成帧格式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unframed">
+				<xs:annotation>
+					<xs:documentation>非成帧格式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmTimeslotListType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="single">
+				<xs:annotation>
+					<xs:documentation>单个时隙</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="range">
+				<xs:annotation>
+					<xs:documentation>时隙范围</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmNegotiationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enabled">
+				<xs:annotation>
+					<xs:documentation>使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disabled">
+				<xs:annotation>
+					<xs:documentation>去使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmFrameFormatType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SDH">
+				<xs:annotation>
+					<xs:documentation>SDH</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SONET">
+				<xs:annotation>
+					<xs:documentation>SONET</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmScrambleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enabled">
+				<xs:annotation>
+					<xs:documentation>使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disabled">
+				<xs:annotation>
+					<xs:documentation>去使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmSdhClockType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="master">
+				<xs:annotation>
+					<xs:documentation>主时钟</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="slave">
+				<xs:annotation>
+					<xs:documentation>从时钟</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmSdhFlagModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1byte">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="16byte">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="64byte">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="peer">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmWANSdhFlagModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1byte">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="16byte">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="64byte">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmSdhCRCType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="16">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="32">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmE1CRCType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CRC4">
+				<xs:annotation>
+					<xs:documentation>CRC4</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="no CRC4">
+				<xs:annotation>
+					<xs:documentation>no CRC4</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmE1ClockType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="master">
+				<xs:annotation>
+					<xs:documentation>主时钟</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="slave">
+				<xs:annotation>
+					<xs:documentation>从时钟</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmE1CodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="hdb3">
+				<xs:annotation>
+					<xs:documentation>3阶高密度双极性码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ami">
+				<xs:annotation>
+					<xs:documentation>交替传号反转码</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmE1LoopbackType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="local">
+				<xs:annotation>
+					<xs:documentation>对内环回</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remote">
+				<xs:annotation>
+					<xs:documentation>E1对外远端环回</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmOtnFecModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="standard">
+				<xs:annotation>
+					<xs:documentation>standard模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="enhanced">
+				<xs:annotation>
+					<xs:documentation>enhanced模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="undo">
+				<xs:annotation>
+					<xs:documentation>undo模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmPortLanWanModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lanMode">
+				<xs:annotation>
+					<xs:documentation>LAN模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="wanMode">
+				<xs:annotation>
+					<xs:documentation>WAN模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmClockLockStateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="locked">
+				<xs:annotation>
+					<xs:documentation>锁定</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unlocked">
+				<xs:annotation>
+					<xs:documentation>非锁定</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmClockSwitchModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="auto-choice">
+				<xs:annotation>
+					<xs:documentation>auto-choice</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmClockSabitType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sa4">
+				<xs:annotation>
+					<xs:documentation>sa4</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sa5">
+				<xs:annotation>
+					<xs:documentation>sa5</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sa6">
+				<xs:annotation>
+					<xs:documentation>sa6</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sa7">
+				<xs:annotation>
+					<xs:documentation>sa7</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sa8">
+				<xs:annotation>
+					<xs:documentation>sa8</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmClockForceSsmType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="on">
+				<xs:annotation>
+					<xs:documentation>打开</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="off">
+				<xs:annotation>
+					<xs:documentation>关闭</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmClkBitsType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="2mbps">
+				<xs:annotation>
+					<xs:documentation>2mbps</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2mhz">
+				<xs:annotation>
+					<xs:documentation>2mhz</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmClkBitsMap">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="bits0">
+				<xs:annotation>
+					<xs:documentation>bits0</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bits1">
+				<xs:annotation>
+					<xs:documentation>bits1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bits2">
+				<xs:annotation>
+					<xs:documentation>bits2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>bits2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmEthSpeedType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="10M">
+				<xs:annotation>
+					<xs:documentation>10M</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="100M">
+				<xs:annotation>
+					<xs:documentation>100M</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="1000M">
+				<xs:annotation>
+					<xs:documentation>1000M</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="auto">
+				<xs:annotation>
+					<xs:documentation>自动</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmPicEthSpeedType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="10M">
+				<xs:annotation>
+					<xs:documentation>10M</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="100M">
+				<xs:annotation>
+					<xs:documentation>100M</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="auto">
+				<xs:annotation>
+					<xs:documentation>自动</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmGfMediaType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="copper">
+				<xs:annotation>
+					<xs:documentation>copper</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fiber100">
+				<xs:annotation>
+					<xs:documentation>fiber-100</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fiber1000">
+				<xs:annotation>
+					<xs:documentation>fiber-1000</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="auto">
+				<xs:annotation>
+					<xs:documentation>自动</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCardInitStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="success">
+				<xs:annotation>
+					<xs:documentation>初始化成功</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fail">
+				<xs:annotation>
+					<xs:documentation>初始化失败</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCardLogicStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="success">
+				<xs:annotation>
+					<xs:documentation>逻辑加载成功</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fail">
+				<xs:annotation>
+					<xs:documentation>逻辑加载失败</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmClockSrcStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown:未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:正常</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="abnormal">
+				<xs:annotation>
+					<xs:documentation>abnormal:非正常</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmPortPromodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="on">
+				<xs:annotation>
+					<xs:documentation>on:使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="off">
+				<xs:annotation>
+					<xs:documentation>off:去使能</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmTempVoltStateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown:未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:正常</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="minor">
+				<xs:annotation>
+					<xs:documentation>minor:次要告警</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="major">
+				<xs:annotation>
+					<xs:documentation>major:重要告警</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fatal">
+				<xs:annotation>
+					<xs:documentation>fatal:致命告警</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmInnerLinkOperStateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:正常</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="partialFault">
+				<xs:annotation>
+					<xs:documentation>partialFault:部分失效</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fault">
+				<xs:annotation>
+					<xs:documentation>fault:失效</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmInnerLinkAlarmType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:正常</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="partialFault">
+				<xs:annotation>
+					<xs:documentation>partialFault:部分故障</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fault">
+				<xs:annotation>
+					<xs:documentation>fault:故障</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmServerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ftp">
+				<xs:annotation>
+					<xs:documentation>FTP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tftp">
+				<xs:annotation>
+					<xs:documentation>TFTP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sftp">
+				<xs:annotation>
+					<xs:documentation>SFTP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmTransType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="put">
+				<xs:annotation>
+					<xs:documentation>PUT</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="get">
+				<xs:annotation>
+					<xs:documentation>GET</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmPreferKexType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="dhExchangeGroup">
+				<xs:annotation>
+					<xs:documentation>KEX_DH_EXCHANGE_GROUP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dhGroup1">
+				<xs:annotation>
+					<xs:documentation>KEX_DH_GROUP1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCipherType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="3des">
+				<xs:annotation>
+					<xs:documentation>CIPHER_3DES</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ase128">
+				<xs:annotation>
+					<xs:documentation>CIPHER_AES128</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="des">
+				<xs:annotation>
+					<xs:documentation>CIPHER_DES</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmStocHmacType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="md5">
+				<xs:annotation>
+					<xs:documentation>HMAC_MD5</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="md5_96">
+				<xs:annotation>
+					<xs:documentation>HMAC_MD5_96</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sha1">
+				<xs:annotation>
+					<xs:documentation>HMAC_SHA1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sha1_96">
+				<xs:annotation>
+					<xs:documentation>HMAC_SHA1_96</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devm_transAlarmType_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LOS">
+				<xs:annotation>
+					<xs:documentation>LOS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LAIS">
+				<xs:annotation>
+					<xs:documentation>LAIS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LOF">
+				<xs:annotation>
+					<xs:documentation>LOF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OOF">
+				<xs:annotation>
+					<xs:documentation>OOF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AUAIS">
+				<xs:annotation>
+					<xs:documentation>AUAIS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="B3TCA">
+				<xs:annotation>
+					<xs:documentation>B3TCA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="B1TCA">
+				<xs:annotation>
+					<xs:documentation>B1TCA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="B2TCA">
+				<xs:annotation>
+					<xs:documentation>B2TCA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LOM">
+				<xs:annotation>
+					<xs:documentation>LOM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LOP">
+				<xs:annotation>
+					<xs:documentation>LOP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LRDI">
+				<xs:annotation>
+					<xs:documentation>LRDI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LREI">
+				<xs:annotation>
+					<xs:documentation>LREI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PAIS">
+				<xs:annotation>
+					<xs:documentation>PAIS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PRDI">
+				<xs:annotation>
+					<xs:documentation>PRDI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PREI">
+				<xs:annotation>
+					<xs:documentation>PREI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PPLM">
+				<xs:annotation>
+					<xs:documentation>PPLM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RDOOL">
+				<xs:annotation>
+					<xs:documentation>RDOOL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RROOL">
+				<xs:annotation>
+					<xs:documentation>RROOL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SDBERE">
+				<xs:annotation>
+					<xs:documentation>SDBERE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SFBERE">
+				<xs:annotation>
+					<xs:documentation>SFBERE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TROOL">
+				<xs:annotation>
+					<xs:documentation>TROOL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PUNEQ">
+				<xs:annotation>
+					<xs:documentation>PUNEQ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LCD">
+				<xs:annotation>
+					<xs:documentation>LCD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WLNK">
+				<xs:annotation>
+					<xs:documentation>WLNK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ODU_AIS">
+				<xs:annotation>
+					<xs:documentation>ODU_AIS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ODU_LCK">
+				<xs:annotation>
+					<xs:documentation>ODU_LCK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ODU_OCI">
+				<xs:annotation>
+					<xs:documentation>ODU_OCI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTU_AIS">
+				<xs:annotation>
+					<xs:documentation>OTU_AIS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTU_LOM">
+				<xs:annotation>
+					<xs:documentation>OTU_LOM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTU_SD_BER">
+				<xs:annotation>
+					<xs:documentation>OTU_SD_BER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTU_SF_BER">
+				<xs:annotation>
+					<xs:documentation>OTU_SF_BER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PM_BDI">
+				<xs:annotation>
+					<xs:documentation>PM_BDI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PM_TIM">
+				<xs:annotation>
+					<xs:documentation>PM_TIM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="R_LOF">
+				<xs:annotation>
+					<xs:documentation>R_LOF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="R_LOS">
+				<xs:annotation>
+					<xs:documentation>R_LOS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="R_OOF">
+				<xs:annotation>
+					<xs:documentation>R_OOF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SM_BDI">
+				<xs:annotation>
+					<xs:documentation>SM_BDI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SM_IAE">
+				<xs:annotation>
+					<xs:documentation>SM_IAE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SM_TIM">
+				<xs:annotation>
+					<xs:documentation>SM_TIM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmTrapType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="base-trap">
+				<xs:annotation>
+					<xs:documentation>base-trap</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dc-trap">
+				<xs:annotation>
+					<xs:documentation>dc-trap</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="entity-trap">
+				<xs:annotation>
+					<xs:documentation>entity-trap</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmOpticalType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sc">
+				<xs:annotation>
+					<xs:documentation>sc</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="gbic">
+				<xs:annotation>
+					<xs:documentation>gbic</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="esfp">
+				<xs:annotation>
+					<xs:documentation>esfp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="copper">
+				<xs:annotation>
+					<xs:documentation>copper</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="xfp">
+				<xs:annotation>
+					<xs:documentation>xfp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="xenpak">
+				<xs:annotation>
+					<xs:documentation>xenpak</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="transponder">
+				<xs:annotation>
+					<xs:documentation>transponder</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cfp">
+				<xs:annotation>
+					<xs:documentation>cfp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmOpticalFiberType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>unknown</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sc">
+				<xs:annotation>
+					<xs:documentation>sc</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="style_1_copper_connector">
+				<xs:annotation>
+					<xs:documentation>style_1_copper_connector</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="style_2_copper_connector">
+				<xs:annotation>
+					<xs:documentation>style_2_copper_connector</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bnc_tnc">
+				<xs:annotation>
+					<xs:documentation>bnc_tnc</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="coaxial_headers">
+				<xs:annotation>
+					<xs:documentation>coaxial_headers</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fiberJack">
+				<xs:annotation>
+					<xs:documentation>fiberJack</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lc">
+				<xs:annotation>
+					<xs:documentation>lc</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mt-rj">
+				<xs:annotation>
+					<xs:documentation>mt-rj</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mu">
+				<xs:annotation>
+					<xs:documentation>mu</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sg">
+				<xs:annotation>
+					<xs:documentation>sg</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="optical_pigtail">
+				<xs:annotation>
+					<xs:documentation>optical_pigtail</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hssdcII">
+				<xs:annotation>
+					<xs:documentation>hssdcII</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="copper_pigtail">
+				<xs:annotation>
+					<xs:documentation>copper_pigtail</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmSysWorkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>CX600工作于未知模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="redundant">
+				<xs:annotation>
+					<xs:documentation>CX600工作于1:1工作模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="non-redundant">
+				<xs:annotation>
+					<xs:documentation>CX600工作于1+1工作模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCmuAlmMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="open">
+				<xs:annotation>
+					<xs:documentation>打开触发告警:0</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="close">
+				<xs:annotation>
+					<xs:documentation>关闭触发告警:1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="undo">
+				<xs:annotation>
+					<xs:documentation>不触发告警:2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmCmuSwitchFog">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fog">
+				<xs:annotation>
+					<xs:documentation>烟感:当cmuSwitchID为0时才能指定烟感</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmAnalogType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="current">
+				<xs:annotation>
+					<xs:documentation>传感器为电流型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="voltage">
+				<xs:annotation>
+					<xs:documentation>传感器为电压型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmAnalogObjectType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="temperature">
+				<xs:annotation>
+					<xs:documentation>监控温度</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="humidity">
+				<xs:annotation>
+					<xs:documentation>监控湿度</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="devmProductType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>未知</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="single">
+				<xs:annotation>
+					<xs:documentation>单框</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ccc-0">
+				<xs:annotation>
+					<xs:documentation>BTB</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ccc-1">
+				<xs:annotation>
+					<xs:documentation>1T4</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ccc-2">
+				<xs:annotation>
+					<xs:documentation>2T8</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

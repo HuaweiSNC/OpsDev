@@ -1,0 +1,1891 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="mstp_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="mstp" type="mstp_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>mstp</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="mstp_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="global" type="mstp_global_type"/>
+			<xs:element name="processs" type="mstp_processs_type"/>
+			<xs:element name="ports" type="mstp_ports_type"/>
+			<xs:element name="errorPktInfos" type="mstp_errorPktInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_global_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="bpduFilterDef" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="edgePortDef" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_processs_type">
+		<xs:sequence>
+			<xs:element name="process" type="mstp_process_type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_process_type">
+		<xs:annotation>
+			<xs:documentation>进程</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId" default="0">
+				<xs:annotation>
+					<xs:documentation>MSTP进程ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="256"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="enable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>进程使能开关</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bpduProtection" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>BPDU保护功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="forwardDelay" default="1500">
+				<xs:annotation>
+					<xs:documentation>配置Forward Delay时间，单位厘秒，步长为100</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="3000"/>
+						<xs:minInclusive value="400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="helloTime" default="200">
+				<xs:annotation>
+					<xs:documentation>配置Hello Time时间，单位厘秒，步长为100</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="1000"/>
+						<xs:minInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxAge" default="2000">
+				<xs:annotation>
+					<xs:documentation>配置Max Age时间，单位厘秒，步长为100</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="4000"/>
+						<xs:minInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxHops" default="20">
+				<xs:annotation>
+					<xs:documentation>配置MST域内生成树的最大跳数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="40"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mode" type="stpMode" default="Mstp">
+				<xs:annotation>
+					<xs:documentation>配置MSTP进程的工作模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pathCostStandard" type="stpPathCostStanard" default="Dot1T">
+				<xs:annotation>
+					<xs:documentation>配置路径开销缺省值的计算方法</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcNotify" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能当前MSTP进程的TC通告功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcProtection" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能MSTP进程对TC类型BPDU报文的保护功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcProtectionThreshold" default="1">
+				<xs:annotation>
+					<xs:documentation>配置MSTP进程在收到TC类型BPDU报文后，单位时间内，处理TC类型BPDU报文并立即刷新转发表项的阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="255"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="timerFactor" default="3">
+				<xs:annotation>
+					<xs:documentation>设定HelloTime的倍数（TimerFactor）</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:maxInclusive value="10"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="linkShareProtect" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>用来启动MSTP进程的共享链路保护功能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionName">
+				<xs:annotation>
+					<xs:documentation>配置MST域名，缺省为系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+						<xs:pattern value="^[^\s\?]*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="revisionLevel" default="0">
+				<xs:annotation>
+					<xs:documentation>配置MSTP修订级别</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="65535"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="syncFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>域配置同步标记</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionInfo" type="mstp_regionInfo_type"/>
+			<xs:element name="processInfo" type="mstp_processInfo_type"/>
+			<xs:element name="processInstances" type="mstp_processInstances_type"/>
+			<xs:element name="processInstanceInfos" type="mstp_processInstanceInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_ports_type">
+		<xs:sequence>
+			<xs:element name="port" type="mstp_port_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_port_type">
+		<xs:annotation>
+			<xs:documentation>端口数据</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="enable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>端口协议使能开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bpduFilter" type="stpBpduFilter" default="Undo">
+				<xs:annotation>
+					<xs:documentation>BPDU过滤功能开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="compliance" type="stpCompliance" default="Auto">
+				<xs:annotation>
+					<xs:documentation>MSTP报文协议格式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="configDigestSnoop" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>配置摘要侦听</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="edgePort" type="stpEdgePort" default="Default">
+				<xs:annotation>
+					<xs:documentation>边缘端口</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loopProtection" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>环路保护</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="noAgreementCheck" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>增强快速迁移机制</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pointToPoint" type="stpPointToPoint" default="Auto">
+				<xs:annotation>
+					<xs:documentation>指定端口的链路类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rootProtection" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>根保护</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transmitLimit" default="147">
+				<xs:annotation>
+					<xs:documentation>Hello Time时间内发送BPDU的最大数目</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="255"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="processInstancePorts" type="mstp_processInstancePorts_type"/>
+			<xs:element name="processPorts" type="mstp_processPorts_type"/>
+			<xs:element name="portProcesss" type="mstp_portProcesss_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_errorPktInfos_type">
+		<xs:sequence>
+			<xs:element name="errorPktInfo" type="mstp_errorPktInfo_type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_errorPktInfo_type">
+		<xs:annotation>
+			<xs:documentation>错误报文统计信息</xs:documentation>
+			<xs:appinfo>
+				<access>readWrite</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="errorPktTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>最近错误报文的接收时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorPktCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收错误报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorPktContent">
+				<xs:annotation>
+					<xs:documentation>错误报文内容</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4500"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_processInstances_type">
+		<xs:sequence>
+			<xs:element name="processInstance" type="mstp_processInstance_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_processInstance_type">
+		<xs:annotation>
+			<xs:documentation>进程实例配置，不依赖与实例是否创建，priorty和root互斥，需要通过linkage实现</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceId" default="0">
+				<xs:annotation>
+					<xs:documentation>实例ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="48"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="priority" default="32768">
+				<xs:annotation>
+					<xs:documentation>实例优先级，步长为4096</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="61440"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="root" type="stpRoot" default="Normal">
+				<xs:annotation>
+					<xs:documentation>指定实例的根类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_processInstanceInfos_type">
+		<xs:sequence>
+			<xs:element name="processInstanceInfo" type="mstp_processInstanceInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_processInstanceInfo_type">
+		<xs:annotation>
+			<xs:documentation>进程下可见的实例信息，stp去使能时无数据</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="48"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cistInfos" type="mstp_cistInfos_type"/>
+			<xs:element name="mstiInfos" type="mstp_mstiInfos_type"/>
+			<xs:element name="mstiPortInfos" type="mstp_mstiPortInfos_type"/>
+			<xs:element name="cistPortInfos" type="mstp_cistPortInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_cistPortInfos_type">
+		<xs:sequence>
+			<xs:element name="cistPortInfo" type="mstp_cistPortInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_cistPortInfo_type">
+		<xs:annotation>
+			<xs:documentation>CIST端口信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tcOrTcnSend" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcOrTcnReceive" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txTcn" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txConf" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的config报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txRst" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的RSTP报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txMst" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的MSTP报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxTcn" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxConf" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的config报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxRst" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的RSTP报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxMst" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的MSTP报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portCostStd" type="stpPathCostStanard">
+				<xs:annotation>
+					<xs:documentation>端口采用的路径开销计算方法</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>端口路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgBridgePrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>指定桥优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgBridgeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>指定桥系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgPortPrio" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>指定端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgPortId" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>指定端口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portEdge" type="stpEdgePort">
+				<xs:annotation>
+					<xs:documentation>端口的边缘端口属性</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portPriority" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pointToPoint" type="stpPointToPoint">
+				<xs:annotation>
+					<xs:documentation>端口的工作模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transmitLimit" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>端口的BPDU报文发送速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protectionType" type="stpProtectionType">
+				<xs:annotation>
+					<xs:documentation>端口保护类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portStpMode" type="stpPortMode">
+				<xs:annotation>
+					<xs:documentation>端口的运行模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portProtoType" type="stpCompliance">
+				<xs:annotation>
+					<xs:documentation>端口收发报文的格式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helloTime" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>根交换机发送BPDU的周期，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxAge" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>BPDU最大生存时间，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="forwardDelay" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>端口状态迁移的延时，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="portRole" type="stpRole">
+				<xs:annotation>
+					<xs:documentation>端口角色</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portState" type="stpPortState">
+				<xs:annotation>
+					<xs:documentation>端口STP状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remHop" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>报文剩余跳数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_mstiPortInfos_type">
+		<xs:sequence>
+			<xs:element name="mstiPortInfo" type="mstp_mstiPortInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_mstiPortInfo_type">
+		<xs:annotation>
+			<xs:documentation>MSTI端口信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="portState" type="stpPortState">
+				<xs:annotation>
+					<xs:documentation>端口STP状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portRole" type="stpRole">
+				<xs:annotation>
+					<xs:documentation>端口角色</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portPriority" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portCostStd" type="stpPathCostStanard">
+				<xs:annotation>
+					<xs:documentation>端口采用的路径开销计算方法</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="portCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>端口路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgBridgePrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>端口指定桥优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgBridgeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>端口指定桥系统MAC</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgPortPrio" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>指定端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgPortId" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>指定端口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remHop" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>报文剩余跳数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcOrTcnReceive" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcOrTcnSend" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_processPorts_type">
+		<xs:sequence>
+			<xs:element name="processPort" type="mstp_processPort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_processPort_type">
+		<xs:annotation>
+			<xs:documentation>进程端口数据，配置数据，配置该端口绑定进程</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:documentation>进程ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="256"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="linkShareFlag" type="stpLinkShareFlag" default="NoLinkShare">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_processInstancePorts_type">
+		<xs:sequence>
+			<xs:element name="processInstancePort" type="mstp_processInstancePort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_processInstancePort_type">
+		<xs:annotation>
+			<xs:documentation>进程实例端口配置数据</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId" default="0">
+				<xs:annotation>
+					<xs:documentation>进程ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="256"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="instanceId" default="0">
+				<xs:annotation>
+					<xs:documentation>实例ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="48"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cost" type="xs:unsignedInt" default="0" nillable="true">
+				<xs:annotation>
+					<xs:documentation>端口路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priority" default="128">
+				<xs:annotation>
+					<xs:documentation>端口的优先级，步长为16，缺省值是128</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="240"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_portProcesss_type">
+		<xs:sequence>
+			<xs:element name="portProcess" type="mstp_portProcess_type" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_portProcess_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="256"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="portInstances" type="mstp_portInstances_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_portInstances_type">
+		<xs:sequence>
+			<xs:element name="portInstance" type="mstp_portInstance_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_portInstance_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="48"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="portCistPortInfos" type="mstp_portCistPortInfos_type"/>
+			<xs:element name="portMstiPortInfos" type="mstp_portMstiPortInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_processInfo_type">
+		<xs:annotation>
+			<xs:documentation>进程信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="version" type="stpMode">
+				<xs:annotation>
+					<xs:documentation>协议版本</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cistBridgePrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>桥在CIST中的优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="macAddress" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>系统MAC</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxAge" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>BPDU最大生存时间，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="forwardDelay" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>端口状态迁移的延时，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helloTime" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>根交换机发送BPDU的周期，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxHops" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>MST域中的最大跳数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mstp_regionInfo_type">
+		<xs:annotation>
+			<xs:documentation>域配置信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="formatSelector" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>MSTP协议规定的选择因子</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionDigest">
+				<xs:annotation>
+					<xs:documentation>MST域配置摘要</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="35"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="regionName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="33"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="revisionLevel">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="65535"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mstp_cistInfos_type">
+		<xs:sequence>
+			<xs:element name="cistInfo" type="mstp_cistInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_cistInfo_type">
+		<xs:annotation>
+			<xs:documentation>CIST信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="bridgePrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>桥在CIST中的优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bridgeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helloTime" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>根交换机发送BPDU的周期，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxAge" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>BPDU最大生存时间，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="forwardDelay" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>端口状态迁移的延时，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxHops" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>MST域中的最大跳数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rootPrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>CIST总根桥优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rootMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>CIST总根桥系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="erpc" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>外部路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regRootPrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>CIST域根桥优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regRootMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>CIST域根桥系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="irpc" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>内部路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rootPortPrio" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>CIST根端口的端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rootPortId" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>CIST根端口的端口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bpduProtection" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>BPDU保护功能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcReceive" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcCountPerHello" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前Hello Time内收到的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="timeLastTc">
+				<xs:annotation>
+					<xs:documentation>从上次拓扑变化到现在经过的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="24"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mstp_mstiInfos_type">
+		<xs:sequence>
+			<xs:element name="mstiInfo" type="mstp_mstiInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_mstiInfo_type">
+		<xs:annotation>
+			<xs:documentation>MSTI信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="masterBridgeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>MST域MASTER桥系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="costToMaster" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>MST域到MASTER桥的路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionRootPrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>MST域根桥优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionRootMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>MST域根桥系统MAC</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="irpc" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>内部路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rootPortPrio" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>MST根端口的端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rootPortId" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>MST根端口的端口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="masterBridgePri" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>MST域MASTER桥优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bridgePrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>桥在MSTI中的优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bridgeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcCountPerHello" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前Hello Time内收到的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcOrTcnReceive" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mstp_portCistPortInfos_type">
+		<xs:sequence>
+			<xs:element name="portCistPortInfo" type="mstp_portCistPortInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_portCistPortInfo_type">
+		<xs:annotation>
+			<xs:documentation>端口下CIST端口信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<category>混合</category>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="desgBridgeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>指定桥系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgPortPrio" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>指定端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgPortId" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>指定端口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portEdge" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>端口的边缘端口属性</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portPriority" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pointToPoint" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>端口的工作模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transmitLimit" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>端口的BPDU报文发送速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protectionType" type="stpProtectionType">
+				<xs:annotation>
+					<xs:documentation>端口保护类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portStpMode" type="stpPortMode">
+				<xs:annotation>
+					<xs:documentation>端口的运行模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portProtoType" type="stpCompliance">
+				<xs:annotation>
+					<xs:documentation>端口收发报文的格式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="helloTime" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>根交换机发送BPDU的周期，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxAge" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>BPDU最大生存时间，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="forwardDelay" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>端口状态迁移的延时，单位S</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portRole" type="stpRole">
+				<xs:annotation>
+					<xs:documentation>端口角色</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portState" type="stpPortState">
+				<xs:annotation>
+					<xs:documentation>端口STP状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remHop" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>报文剩余跳数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcOrTcnSend" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcOrTcnReceive" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txTcn" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txConf" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的config报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txRst" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的RSTP报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txMst" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的MSTP报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxTcn" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxConf" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的config报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxRst" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的RSTP报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxMst" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的MSTP报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portCostStd" type="stpPathCostStanard">
+				<xs:annotation>
+					<xs:documentation>端口采用的路径开销计算方法</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>端口路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgBridgePrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>指定桥优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mstp_portMstiPortInfos_type">
+		<xs:sequence>
+			<xs:element name="portMstiPortInfo" type="mstp_portMstiPortInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="mstp_portMstiPortInfo_type">
+		<xs:annotation>
+			<xs:documentation>端口下MSTI端口信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="portState" type="stpPortState">
+				<xs:annotation>
+					<xs:documentation>端口STP状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portRole" type="stpRole">
+				<xs:annotation>
+					<xs:documentation>端口角色</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portPriority" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portCostStd" type="stpPathCostStanard">
+				<xs:annotation>
+					<xs:documentation>端口采用的路径开销计算方法</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>端口路径开销</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgBridgePrio" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>端口指定桥优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgBridgeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>端口指定桥系统MAC</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgPortPrio" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>指定端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="desgPortId" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation>指定端口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remHop" type="xs:unsignedByte">
+				<xs:annotation>
+					<xs:documentation>报文剩余跳数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcOrTcnReceive" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tcOrTcnSend" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的TC或者TCN报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:simpleType name="instanceInfo">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+</xs:schema>

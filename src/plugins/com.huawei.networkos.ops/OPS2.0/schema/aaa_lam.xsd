@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="aaa_lam_type.xsd"/>
+	<xs:include schemaLocation="aaa_type.xsd"/>
+	<xs:complexType name="aaa_lam_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="loginFailedLimit" type="aaa_loginFailedLimit_type"/>
+			<xs:element name="users" type="aaa_lam_users_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="aaa_lam_users_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="user" type="aaa_lam_user_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_lam_user_type">
+		<xs:annotation>
+			<xs:documentation>本地用户</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="userName">
+				<xs:annotation>
+					<xs:documentation>用户名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="253"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userGroupName">
+				<xs:annotation>
+					<xs:documentation>用户组名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_lam_user_userGroupName_type">
+							<xs:attribute name="userGroupID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="userState" type="userStateType" default="active">
+				<xs:annotation>
+					<xs:documentation>用户状态</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="leftLockTime">
+				<xs:annotation>
+					<xs:documentation>localuser的剩余解锁时间</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="passwordType" type="aaaPwdModeType" default="irreversible-cipher">
+				<xs:annotation>
+					<xs:documentation>密码类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="password" type="aaa_lam_user_password_type">
+				<xs:annotation>
+					<xs:documentation>用户密码密文</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userLevel">
+				<xs:annotation>
+					<xs:documentation>用户级别</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ftpDir">
+				<xs:annotation>
+					<xs:documentation>ftp用户目录</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceTerminal" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Terminal登录服务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceTelnet" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Telnet登录服务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceFtp" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Ftp登录服务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="servicePpp" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Ppp登录服务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceSsh" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Ssh登录服务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxAccessNum">
+				<xs:annotation>
+					<xs:documentation>该localuser最大在线数</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:long">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="262144"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aliveNum">
+				<xs:annotation>
+					<xs:documentation>localuser的当前在线数</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="262144"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_lam_user_userGroupName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aaa_lam_user_password_type">
+		<xs:restriction base="passwordExtend">
+			<xs:minLength value="6"/>
+			<xs:maxLength value="128"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_loginFailedLimit_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="failedTimes" default="5">
+				<xs:annotation>
+					<xs:documentation>失败次数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="period" default="5">
+				<xs:annotation>
+					<xs:documentation>计算周期</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="120"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="reactiveTime">
+				<xs:annotation>
+					<xs:documentation>自动激活时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

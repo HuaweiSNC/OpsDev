@@ -1,0 +1,1160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="staticrt_staticmrt_type.xsd"/>
+	<xs:include schemaLocation="staticrt_staticrtbase_type.xsd"/>
+	<xs:complexType name="staticrt_staticrtbase_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="srStaticSite" type="staticrt_staticrtbase_srStaticSite_type"/>
+			<xs:element name="srIPv4StaticSite" type="staticrt_staticrtbase_srStaticSite_ipv4_type"/>
+			<xs:element name="srIPv6StaticSite" type="staticrt_staticrtbase_srStaticSite_ipv6_type"/>
+			<xs:element name="srRoutes" type="staticrt_staticrtbase_srRoutes_type"/>
+			<xs:element name="srRouteInfoTables" type="staticrt_staticrtbase_srRouteInfoTables_type"/>
+			<xs:element name="srUniAfs" type="staticrt_staticrtbase_srUniAfs_type"/>
+			<xs:element name="srBfdParas" type="staticrt_staticrtbase_srBfdParas_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srStaticSite_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>静态路由全局参数</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="maxRouteNum" default="50000">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Max route num of one topology.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="50000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srStaticSite_ipv4_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>IPv4静态路由参数</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="relayswitch" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Switch of relay depth.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="preference" default="60">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Global default preference.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="minTxInterval" default="50">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<unit>millisecond</unit>
+					</xs:appinfo>
+					<xs:documentation>Min transmit interval.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="minRxInterval" default="50">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<unit>millisecond</unit>
+					</xs:appinfo>
+					<xs:documentation>Min receive interval.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="multiplier" default="3">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Multiplier value.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srStaticSite_ipv6_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>IPv6静态路由参数</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipv6Preference" default="60">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Global ipv6 default preference.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="minTxInterval6" default="50">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<unit>millisecond</unit>
+					</xs:appinfo>
+					<xs:documentation>Min transmit interval.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="minRxInterval6" default="50">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<unit>millisecond</unit>
+					</xs:appinfo>
+					<xs:documentation>Min receive interval.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="multiplier6" default="3">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Multiplier value.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srRoutes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="srRoute" type="staticrt_staticrtbase_srRoute_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srRouteInfoTables_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="srRouteInfoTable" type="staticrt_staticrtbase_srRouteInfoTable_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srRoute_type">
+		<xs:annotation>
+			<xs:documentation>静态路由</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrfName" default="_public_">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Vpn instance name of prefix.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfId"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="afType" type="rmbaseAfType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Address family.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="topologyName" default="base">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Topology name of prefix.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="prefix" type="ipAddress">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>IPv4 prefix.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maskLength">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Mask length of prefix.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName" default="Invalid0">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Interface name.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="destVrfName" default="_public_">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Vrf name of nexthop.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfId"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="nexthop" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>IPv4 nexthop.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Description.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="35"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="preference">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies route preference.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tag">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies route tag.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Flag of enable bfd.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sessionName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Session name of bfd.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trackNqaAdminName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Administrator name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trackNqaTestName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Test name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isInheritCost" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Inherit cost of route.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srRouteInfoTable_type">
+		<xs:annotation>
+			<xs:documentation>静态路由</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrfName" default="_public_">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Vpn instance name of prefix.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfId"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="afType" type="rmbaseAfType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Address family.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="topologyName" default="base">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Topology name of prefix.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="prefix" type="ipAddress">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>IPv4 prefix.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maskLength">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Mask length of prefix.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName" default="Invalid0">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Interface name.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="destVrfName" default="_public_">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Vrf name of nexthop.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfId"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="nexthop" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>IPv4 nexthop.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="preference">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies route preference.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tag">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies route tag.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="BfdType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Type of enabled bfd.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sessionName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Session name of bfd.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="InterfaceState">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Interface name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="BfdDetect">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Bfd detect state.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="36"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="State">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Route state.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="IndirectID" type="xs:hexBinary">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Indirect ID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LocalAddress" type="ipAddress">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Local address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RemoteIp" type="ipAddress">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Remote address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelayNextHop" type="ipAddress">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Relay nexthop.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="RelayInterface">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Interface name.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="TunnelID">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Tunnel Id.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="21"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trackNqaAdminName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Administrator name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trackNqaTestName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Test name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nqaDetect">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>NQA detect state.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isInheritCost" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Inherit cost of route.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srUniAfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="srUniAf" type="staticrt_staticrtbase_srUniAf_type" minOccurs="2" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srUniAf_type">
+		<xs:annotation>
+			<xs:documentation>Ip地址族</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vrfName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Vpn instance name.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfId"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="afType" type="rmbaseAfType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Address family.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frrEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Flag of enable frr.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srBfdParas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="srBfdPara" type="staticrt_staticrtbase_srBfdPara_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="staticrt_staticrtbase_srBfdPara_type">
+		<xs:annotation>
+			<xs:documentation>静态路由BFD参数</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="afType" type="rmbaseAfType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Address family.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName" default="Invalid0">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Interface name.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="destVrfName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Destination vpn instance name for Gateway.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfId"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="nexthop" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>NextHop address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localAddress" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+					</xs:appinfo>
+					<xs:documentation>Local address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="minTxInterval">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<unit>millisecond</unit>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Min transmit interval.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="minRxInterval">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<unit>millisecond</unit>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Min receive interval.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="multiplier">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<status>当前有效</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Multiplier value.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

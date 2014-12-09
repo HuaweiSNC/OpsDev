@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.6
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>	
+	<xs:simpleType name="tnl6Type6">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="6over4">
+				<xs:annotation>
+					<xs:documentation>6over4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6to4">
+				<xs:annotation>
+					<xs:documentation>6to4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

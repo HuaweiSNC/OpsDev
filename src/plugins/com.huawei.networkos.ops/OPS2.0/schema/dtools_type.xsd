@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.16
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="DToolsLspRplymode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="No Reply">
+				<xs:annotation>
+					<xs:documentation>no reply: Do not reply</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UDP">
+				<xs:annotation>
+					<xs:documentation>udp:Relpy via IPv4/Ipv6 UDP packet</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DToolsLspType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LDP">
+				<xs:annotation>
+					<xs:documentation>ldp: LDP ipv4 prefix类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RSVP-TE">
+				<xs:annotation>
+					<xs:documentation>te: RSVP IPv4 Lsp类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DToolsPacketStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Success">
+				<xs:annotation>
+					<xs:documentation>success:成功</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Timeout">
+				<xs:annotation>
+					<xs:documentation>timeout:超时</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DToolsEnableType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DToolsAddressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IPV4">
+				<xs:annotation>
+					<xs:documentation>ipv4:ipv4地址类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IPV6">
+				<xs:annotation>
+					<xs:documentation>ipv6:ipv6地址类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DToolsIPv4AddrType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IPV4">
+				<xs:annotation>
+					<xs:documentation>ipv4:ipv4地址类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DToolsFragmentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Fragment">
+				<xs:annotation>
+					<xs:documentation>fragment:报文可以分片</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="No Fragment">
+				<xs:annotation>
+					<xs:documentation>nofragment:报文不分片</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DToolsTestStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Finished">
+				<xs:annotation>
+					<xs:documentation>完成</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unfinished">
+				<xs:annotation>
+					<xs:documentation>未完成</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+    </xs:simpleType>
+    </xs:schema>

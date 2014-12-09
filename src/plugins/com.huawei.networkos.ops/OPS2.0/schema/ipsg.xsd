@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="ipsg_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="ipsg" type="ipsg_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>eum</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ipsg_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipsgInterfaces" type="ipsg_ipsgInterfaces_type"/>
+			<xs:element name="ipsgVlans" type="ipsg_ipsgVlans_type"/>
+			<xs:element name="userBindTbls" type="ipsg_userBindTbls_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ipsg_ipsgInterfaces_type">
+		<xs:sequence>
+			<xs:element name="ipsgInterface" type="ipsg_ipsgInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ipsg_ipsgInterface_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>ifName</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ipsgEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipsgCheckItem" type="ifIpsgCheckItemType" default="IP | MAC | VLAN">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipsgAlarmEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipsgAlarmThreshold" default="100">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ipsg_ipsgVlans_type">
+		<xs:sequence>
+			<xs:element name="ipsgVlan" type="ipsg_ipsgVlan_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ipsg_ipsgVlan_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>vlanId</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vlanId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipsgEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipsgCheckItem" type="vlanIpsgCheckItemType" default="Interface | IP | MAC">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ipsg_userBindTbls_type">
+		<xs:sequence>
+			<xs:element name="userBindTbl" type="ipsg_userBindTbl_type" minOccurs="0" maxOccurs="1024"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ipsg_userBindTbl_type">
+		<xs:annotation>
+			<xs:documentation>
+      </xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>
+        </key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipAddress" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="macAddress" type="macAddress" default="ffff-ffff-ffff">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outerVlan" default="0">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="innerVlan" default="0">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName" default="Invalid">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

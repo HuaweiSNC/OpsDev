@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="l2vpn_type.xsd"/>
+	<xs:include schemaLocation="l2vpn_vllpipe.xsd"/>
+	<xs:include schemaLocation="l2vpn_vll_l2protocol.xsd"/>
+	<xs:complexType name="l2vpn_l2vpncomm_type">
+		<xs:annotation>
+			<xs:documentation>L2VPN common attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="l2vpnGlobal" type="l2vpn_l2vpnGlobal_type"/>
+			<xs:element name="pwTemplates" type="l2vpn_pwTemplates_type"/>
+			<xs:element name="serviceInterfaces" type="l2vpn_serviceInterfaces_type"/>
+			<xs:element name="notMatchRemoteLdpInfos" type="l2vpn_notMatchRemoteLdpInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_l2vpnGlobal_type">
+		<xs:annotation>
+			<xs:documentation>L2VPN golbal attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="l2vpnEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>L2vpn enable flag.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ldpDefaultMode" type="l2vpnLdpSignalMode" default="pwe3">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+					<xs:documentation>Set the behavior of the dynamic VC signaling to non-Notification mode, that is, the Martini mode.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vplsIgnoreAcState" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Prevent the status of a VSI from being affected by the status of the Attachment Circuit (AC).By default, a service VSI can be Up only if at least one AC interface or UPE PW is Up.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_pwTemplates_type">
+		<xs:annotation>
+			<xs:documentation>L2VPN pw templates container.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="pwTemplate" type="l2vpn_pwTemplate_type" minOccurs="0" maxOccurs="2000"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_pwTemplate_type">
+		<xs:annotation>
+			<xs:documentation>L2VPN pw template class.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pwTemplateName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Specifies the PW template name. The value is a case-sensitive string of 1 to 19 characters without blank space.
+</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="l2vpnPwTemplateName">
+							<xs:attribute name="pwTemplateId" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="peerAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Assign a peer IP address to a PW template.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mtu" default="1500">
+				<xs:annotation>
+					<xs:documentation>Configure the mtu value for PW template, 46 to 9600.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="46"/>
+						<xs:maxInclusive value="9600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ctrlWord" type="l2vpnControlWord">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Enable the control word in a PW template.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tunnelPolicy">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Configure a tunnel policy for a PW template.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="39"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vccvCapability">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation> VC connection verification modes:
+cw: control word
+alert: label alert </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="totalPwNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Total number of PWs using this PW template.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ldpPwNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Total number of PWs using this dynamic PW  template</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tdmParameter" type="l2vpn_pwt_tdm_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_acs">
+		<xs:annotation>
+			<xs:documentation>L2VPN ac container.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="l2vpnAc" type="l2vpn_ac" maxOccurs="65536"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_ac">
+		<xs:annotation>
+			<xs:documentation>L2VPN ac class.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="interfaceName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Specifies the AC interface name. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedLong"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="tagged" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Set the encapsulation type whether without VLAN tags.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accessPort" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Only untagged packets are accessed. By default, all packets are accessed.The access-port attribute can be configured only on a main Ethernet interface, and the access-port attribute of the secondary PW must be the same as that of the primary PW.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="state" type="l2vpnState">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Indicates the status of the AC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tdmPerformanceStatisticsEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>This object indicates the enable TDM PW Performance statistics.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="arpEntry" type="l2vpn_arpEntry_type"/>
+			<xs:element name="acArpInfos" type="l2vpn_arpEntryInfos_type"/>
+			<xs:element name="l2vpnPipe" type="L2vpn_pipe_type">
+				<xs:annotation>
+					<xs:appinfo>
+						<owner>product</owner>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tdmPerformanceStatistics" type="l2vpn_vpws_tdmPwPerfInfo_type"/>
+			<xs:element name="ifLinkProtocolTran" type="ifLinkProtocolTran_l2vpn_type">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<owner>product</owner>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_serviceInterfaces_type">
+		<xs:annotation>
+			<xs:documentation>L2VPN service interface.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceInterface" type="l2vpn_serviceInterface_type" maxOccurs="65536"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_serviceInterface_type">
+		<xs:annotation>
+			<xs:documentation>L2VPN service interface class.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="interfaceName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Specifies the AC interface name. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedLong"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="trackPwState" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>L2vpn service interface track pw state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_arpEntry_type">
+		<xs:annotation>
+			<xs:documentation>L2VPN ac class.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="localCeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>Specifies the MAC address of the Ethernet main interface or sub-interface of the CE connected with the local interface.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localCeIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies the IP address of the Ethernet main interface or sub-interface of the CE that connects to the local interface.
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localCeBCast" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Using the local-ce mac broadcast command on a PE, you can enable broadcast on the Ethernet interface connected with a CE.</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteCeIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies the IP address of the remote CE corresponding to an access interface or its sub-interface on a PE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_arpEntryInfos_type">
+		<xs:sequence>
+			<xs:element name="acArpInfo" type="l2vpn_arpEntryInfo_type" minOccurs="0" maxOccurs="3"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_arpEntryInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="macType" type="l2vpnMacType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Modes for learning MAC address:
+S: static D: dynamic B: broadcast
+</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="macAddress" type="macAddress">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>MAC address of the local CE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expireTime" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Aging time in minutes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlanId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>ID of the VLAN to which the MAC address belongs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>IP address of the local CE learnt dynamically.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_vpws_tdmPwPerfInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="missingPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of missing packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="jitterBufferOverruns" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of times the jitter buffer was overrun.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="jitterBufferUnderruns" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of times the jitter buffer was underrun.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misorderPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of misorder packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="malformedPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of malformed packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="misconnectedPackets" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of misconnected packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorSeconds" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of error seconds.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="severelyErrSeconds" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of severely error seconds.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="unavailableSeconds" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Number of unavailable seconds.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_vpws_reroute_type">
+		<xs:annotation>
+			<xs:documentation>L2vpn vpws pw reroute class.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="reRoutePolicy" type="l2vpnRerouteMode">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies the Policy of Reroute.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="delayTime">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies the delay for switching traffic back to the primary PW. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="resumeTime">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies the time after which the peer PE on the secondary PW is notified that the local PE is recovered from the fault. </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastReRouteReason">
+				<xs:annotation>
+					<xs:documentation>Specifies the reason of Last Reroute.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastReRouteTime">
+				<xs:annotation>
+					<xs:documentation>Specifies the time of Last Reroute.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="delayResidual">
+				<xs:annotation>
+					<xs:documentation>Specifies the residual delay time for switching traffic back to the primary PW. </xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="resumeResidual">
+				<xs:annotation>
+					<xs:documentation>Specifies the residual time after which the peer PE on the secondary PW is notified that the local PE is recovered from the fault. </xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_reliabilitys_type">
+		<xs:annotation>
+			<xs:documentation>reliability.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="reliability" type="l2vpn_reliability_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_reliability_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pwRedundancyMode" type="PwRedundancyMode">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Specifies the redundancy mode of VPWS instance.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="switchover" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies switches traffic from the primary PW to the secondary PW.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dualReceive" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies enables a UPE interface to receive packets from both the primary and secondary PWs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reRoute" type="l2vpn_vpws_reroute_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_notMatchRemoteLdpInfos_type">
+		<xs:sequence>
+			<xs:element name="notMatchRemoteLdpInfo" type="l2vpn_notMatchRemoteLdpInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_notMatchRemoteLdpInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pwId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>After an ID is set for a VC, it cannot be changed. Different VCs have different IDs.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="peerIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>Indicates the LSR ID of the VC peer device.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="encapsulateType" type="l2vpnEncapsulateType">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>L2VPN instance encapsulation type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteLabel" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Indicates the remote VC label.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteGroupId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>ID of the remote group.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteMtu" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Indicates the MTU of a remote VC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteStateCode" type="L2vpnVplsLdpPwStateCode">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Indicates the status of a remote VC, which can be:
+FORWARD: The remote VC is in the forwarding state.
+STANDBY: The remote VC is in the standby state.
+AC FAULT: The remote AC interface is faulty.
+PSN FAULT: The remote VC is faulty.
+NO FORWRD: The remote VC interface cannot forward packets owing to other reasons. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_comm_speInfos_type">
+		<xs:sequence>
+			<xs:element name="speInfo" type="l2vpn_comm_speInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_comm_speInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="spePwId">
+				<xs:annotation>
+					<xs:documentation>Indicates the identifier of the PW.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="spePeerIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Specifies the LSR ID of the peer PE.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_pwt_tdm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tdmEncapsulateNumber" default="8">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Number of encapsulated TDM frames.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="jitterBuffer" default="4">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Depth of the TDM jitter buffer.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rtpHeader" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Whether or not the RTP header is added into the transparently transported TDM frame.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_ccc_tdm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tdmEncapsulateNumber" default="8">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Number of encapsulated TDM frames.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="jitterBuffer" default="4">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Depth of the TDM jitter buffer.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rtpHeader" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Whether or not the RTP header is added into the transparently transported TDM frame.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_ldp_tdm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tdmEncapsulateNumber">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Number of encapsulated TDM frames.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="40"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="jitterBuffer">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Depth of the TDM jitter buffer.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="seqenceNumber" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Disables the seq-number function.By default, the seq-number function is disabled.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rtpHeader" type="xs:boolean">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Whether or not the RTP header is added into the transparently transported TDM frame.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

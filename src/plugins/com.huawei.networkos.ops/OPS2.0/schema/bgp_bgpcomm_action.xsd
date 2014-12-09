@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:include schemaLocation="pub_attribute.xsd"/>
+    <xs:include schemaLocation="pub_type.xsd"/>
+    <xs:include schemaLocation="bgp_bgpcomm_type.xsd"/>
+    <xs:include schemaLocation="bgp_bgpcomm.xsd"/>
+    <xs:complexType name="bgp_bgpcomm_action_resetVrf_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the reset bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetAddrAll_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the reset bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetAsNumber_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the reset bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="remoteAS">
+                <xs:annotation>
+                    <xs:documentation>Specifies the AS number of the peer </xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="12"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetIpAddr_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="remoteAddress" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>The nerighbor address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetPeerType_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="peerType" type="bgpcommPeerType">
+                <xs:annotation>
+                    <xs:documentation>Type of BGP link: IBGP Link and EBGP Link</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetGroup_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the reset bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="groupName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the peer group.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpPeerGroup_groupName_Type"/>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetDampAll_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetDampIpv4_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address Family.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="networkAddress" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>specifies the IP network address.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="maskLen">
+                <xs:annotation>
+                    <xs:documentation>Specifies the IP address mask. If the mask is not specified, the address is processed as the classful address.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedByte">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="128"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetFlapAll_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetFlapPeerAddr_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="remoteAddress" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>The nerighbor address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetFlapAsPathRegexp_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="asPathRegexpEnable" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>enable resets route flapping statistics that match the AS-Path regular expression.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="asPathRegexpText">
+                <xs:annotation>
+                    <xs:documentation>resets route flapping statistics that match the AS-Path regular expression.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="79"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetFlapAsPathFilter_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="asPathFilterNumber">
+                <xs:annotation>
+                    <xs:documentation>resets the statistics of the route flapping based on the specified AS-Path filter.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="256"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetFlapNetworkAddr_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="networkAddress" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>Clear the flap-info matching this network address: IPv4</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="maskLen">
+                <xs:annotation>
+                    <xs:documentation>Specifies the IP address mask. If the mask is not specified, the address is processed as the classful address.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedByte">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="128"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_refreshAll_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="direction" type="bgpcommDirectionType">
+                <xs:annotation>
+                    <xs:documentation>triggers softly reset at the outgoing or the incoming  interface.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_refreshPeerType_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="peerType" type="bgpcommPeerType">
+                <xs:annotation>
+                    <xs:documentation>Type of BGP link: IBGP Link and EBGP Link</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="direction" type="bgpcommDirectionType">
+                <xs:annotation>
+                    <xs:documentation>triggers softly reset at the outgoing or the incoming  interface.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_refreshIpAddress_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="remoteAddress" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>The nerighbor address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="direction" type="bgpcommDirectionType">
+                <xs:annotation>
+                    <xs:documentation>triggers softly reset at the outgoing or the incoming  interface.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_refreshGroup_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="groupName" type="bgp_bgpcomm_bgpPeerGroup_groupName_Type">
+                <xs:annotation>
+                    <xs:documentation>groupName</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="direction" type="bgpcommDirectionType">
+                <xs:annotation>
+                    <xs:documentation>triggers softly reset at the outgoing or the incoming  interface.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="bgp_bgpcomm_action_resetFlowSpecStat_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Using the refresh bgp command, you can softly reset the BGP connection manually.</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="bgp_bgpcomm_bgpVrf_vrfName_Type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="afType" type="bgpcommPrefixType">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="reIndex">
+                <xs:annotation>
+                    <xs:documentation>flow route reindex.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+</xs:schema>

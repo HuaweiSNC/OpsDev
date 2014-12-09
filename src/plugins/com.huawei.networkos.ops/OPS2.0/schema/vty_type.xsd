@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.3.0sp1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="vtyTtyAuthModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="init">
+				<xs:annotation>
+					<xs:documentation>init:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+            <xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>None:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="password">
+				<xs:annotation>
+					<xs:documentation>Password:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="aaa">
+				<xs:annotation>
+					<xs:documentation>AAA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vtyTtyPortType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="console">
+				<xs:annotation>
+					<xs:documentation>console:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vty">
+				<xs:annotation>
+					<xs:documentation>vty:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nca">
+				<xs:annotation>
+					<xs:documentation>nca:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vtyTtyPswType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="simple">
+				<xs:annotation>
+					<xs:documentation>simple:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cipher">
+				<xs:annotation>
+					<xs:documentation>cipher:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vtyTtyProtoInbnd">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>all:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ssh">
+				<xs:annotation>
+					<xs:documentation>ssh:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="telnet">
+				<xs:annotation>
+					<xs:documentation>telnet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vtyTtyBoolType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="true">
+				<xs:annotation>
+					<xs:documentation>Enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="false">
+				<xs:annotation>
+					<xs:documentation>Disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

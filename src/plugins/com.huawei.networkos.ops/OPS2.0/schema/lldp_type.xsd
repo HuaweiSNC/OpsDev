@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="manAddrIfSubtype">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="other"/>
+			<xs:enumeration value="unknown"/>
+			<xs:enumeration value="ifIndex"/>
+			<xs:enumeration value="systemPortNumber"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="operMauType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="dot3MauType1000BaseSXHD"/>
+			<xs:enumeration value="dot3MauType1000BaseSXFD"/>
+			<xs:enumeration value="dot3MauType1000BaseCXHD"/>
+			<xs:enumeration value="dot3MauType1000BaseCXFD"/>
+			<xs:enumeration value="dot3MauType1000BaseTHD"/>
+			<xs:enumeration value="dot3MauType1000BaseTFD"/>
+			<xs:enumeration value="dot3MauType10GigBaseX"/>
+			<xs:enumeration value="dot3MauType10GigBaseLX4"/>
+			<xs:enumeration value="dot3MauType10GigBaseR"/>
+			<xs:enumeration value="dot3MauType10GigBaseER"/>
+			<xs:enumeration value="dot3MauType10GigBaseLR"/>
+			<xs:enumeration value="dot3MauType10GigBaseSR"/>
+			<xs:enumeration value="dot3MauType10GigBaseW"/>
+			<xs:enumeration value="dot3MauType10GigBaseEW"/>
+			<xs:enumeration value="dot3MauType10GigBaseLW"/>
+			<xs:enumeration value="dot3MauType10GigBaseSW"/>
+			<xs:enumeration value="unknown"/>
+			<xs:enumeration value="dot3MauTypeAUI"/>
+			<xs:enumeration value="dot3MauType10Base5"/>
+			<xs:enumeration value="dot3MauTypeFoirl"/>
+			<xs:enumeration value="dot3MauType10Base2"/>
+			<xs:enumeration value="dot3MauType10BaseT"/>
+			<xs:enumeration value="dot3MauType10BaseFP"/>
+			<xs:enumeration value="dot3MauType10BaseFB"/>
+			<xs:enumeration value="dot3MauType10BaseFL"/>
+			<xs:enumeration value="dot3MauType10Broad36"/>
+			<xs:enumeration value="dot3MauType10BaseTHD"/>
+			<xs:enumeration value="dot3MauType10BaseTFD"/>
+			<xs:enumeration value="dot3MauType10BaseFLHD"/>
+			<xs:enumeration value="dot3MauType10BaseFLFD"/>
+			<xs:enumeration value="dot3MauType100BaseT4"/>
+			<xs:enumeration value="dot3MauType100BaseTXHD"/>
+			<xs:enumeration value="dot3MauType100BaseTXFD"/>
+			<xs:enumeration value="dot3MauType100BaseFXHD"/>
+			<xs:enumeration value="dot3MauType100BaseFXFD"/>
+			<xs:enumeration value="dot3MauType100BaseT2HD"/>
+			<xs:enumeration value="dot3MauType100BaseT2FD"/>
+			<xs:enumeration value="dot3MauType1000BaseXHD"/>
+			<xs:enumeration value="dot3MauType1000BaseXFD"/>
+			<xs:enumeration value="dot3MauType1000BaseLXHD"/>
+			<xs:enumeration value="dot3MauType1000BaseLXFD"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="portAdminStatus">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="txAndRx"/>
+			<xs:enumeration value="disabled"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mdnPortAdminStatus">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="rxOnly"/>
+			<xs:enumeration value="disabled"/>
+			<xs:enumeration value="default"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="chassisIdSubtype">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="other"/>
+			<xs:enumeration value="chassisComponent"/>
+			<xs:enumeration value="interfaceAlias"/>
+			<xs:enumeration value="portComponent"/>
+			<xs:enumeration value="macAddress"/>
+			<xs:enumeration value="networkAddress"/>
+			<xs:enumeration value="interfaceName"/>
+			<xs:enumeration value="local"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="manAddrSubtype">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="other"/>
+			<xs:enumeration value="ipv4"/>
+			<xs:enumeration value="ipv6"/>
+			<xs:enumeration value="nsap"/>
+			<xs:enumeration value="hdlc"/>
+			<xs:enumeration value="bbn1822"/>
+			<xs:enumeration value="mac"/>
+			<xs:enumeration value="e163"/>
+			<xs:enumeration value="e164"/>
+			<xs:enumeration value="f69"/>
+			<xs:enumeration value="x121"/>
+			<xs:enumeration value="ipx"/>
+			<xs:enumeration value="appleTalk"/>
+			<xs:enumeration value="decnetIV"/>
+			<xs:enumeration value="banyanVines"/>
+			<xs:enumeration value="e164withNsap"/>
+			<xs:enumeration value="dns"/>
+			<xs:enumeration value="distinguishedName"/>
+			<xs:enumeration value="asNumber"/>
+			<xs:enumeration value="xtpOverIpv4"/>
+			<xs:enumeration value="xtpOverIpv6"/>
+			<xs:enumeration value="xtpNativeModeXTP"/>
+			<xs:enumeration value="fibreChannelWWPN"/>
+			<xs:enumeration value="fibreChannelWWN"/>
+			<xs:enumeration value="gwid"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="portIdSubtype">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="other"/>
+			<xs:enumeration value="interfaceAlias"/>
+			<xs:enumeration value="portComponent"/>
+			<xs:enumeration value="macAddress"/>
+			<xs:enumeration value="networkAddress"/>
+			<xs:enumeration value="interfaceName"/>
+			<xs:enumeration value="agentCircuitId"/>
+			<xs:enumeration value="local"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lldpGlobalStatus">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enabled"/>
+			<xs:enumeration value="disabled"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mdnGlobalStatus">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="rxOnly"/>
+			<xs:enumeration value="disabled"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lldpSupportStatus">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes"/>
+			<xs:enumeration value="No"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lldpEnableStatus">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes"/>
+			<xs:enumeration value="No"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,2284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.8
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ospfv2commImptRtProtocol">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="direct">
+				<xs:annotation>
+					<xs:documentation>direct:直连路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ospf">
+				<xs:annotation>
+					<xs:documentation>ospf:ospf路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isis">
+				<xs:annotation>
+					<xs:documentation>isis:isis路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="static">
+				<xs:annotation>
+					<xs:documentation>static:静态路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rip">
+				<xs:annotation>
+					<xs:documentation>rip:rip路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp">
+				<xs:annotation>
+					<xs:documentation>bgp:bgp路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commImporttRtProtocol">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="direct">
+				<xs:annotation>
+					<xs:documentation>direct:直连路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ospf">
+				<xs:annotation>
+					<xs:documentation>ospf:ospf路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isis">
+				<xs:annotation>
+					<xs:documentation>isis:isis路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="static">
+				<xs:annotation>
+					<xs:documentation>static:静态路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rip">
+				<xs:annotation>
+					<xs:documentation>rip:rip路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp">
+				<xs:annotation>
+					<xs:documentation>bgp:bgp路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commFilterRtProtocol">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:未配置</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="direct">
+				<xs:annotation>
+					<xs:documentation>direct:直连路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ospf">
+				<xs:annotation>
+					<xs:documentation>ospf:ospf路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isis">
+				<xs:annotation>
+					<xs:documentation>isis:isis路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="static">
+				<xs:annotation>
+					<xs:documentation>static:静态路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rip">
+				<xs:annotation>
+					<xs:documentation>rip:rip路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp">
+				<xs:annotation>
+					<xs:documentation>bgp:bgp路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commDomainIdType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0005">
+				<xs:annotation>
+					<xs:documentation>0005:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="0105">
+				<xs:annotation>
+					<xs:documentation>0105:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="0205">
+				<xs:annotation>
+					<xs:documentation>0205:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="8005">
+				<xs:annotation>
+					<xs:documentation>8005:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commPrePriority">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Critical">
+				<xs:annotation>
+					<xs:documentation>Critical:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="High">
+				<xs:annotation>
+					<xs:documentation>High:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Medium">
+				<xs:annotation>
+					<xs:documentation>Medium:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Low">
+				<xs:annotation>
+					<xs:documentation>Low:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commPrefixPriority">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="critical">
+				<xs:annotation>
+					<xs:documentation>critical:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="high">
+				<xs:annotation>
+					<xs:documentation>high:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="medium">
+				<xs:annotation>
+					<xs:documentation>medium:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commDefaultCfgType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="cost">
+				<xs:annotation>
+					<xs:documentation>cost:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tag">
+				<xs:annotation>
+					<xs:documentation>tag:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="type">
+				<xs:annotation>
+					<xs:documentation>type:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commFilterType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="import">
+				<xs:annotation>
+					<xs:documentation>import:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="export">
+				<xs:annotation>
+					<xs:documentation>export:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commFilter">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="acl_name_or_num">
+				<xs:annotation>
+					<xs:documentation>acl-name:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip_prefix">
+				<xs:annotation>
+					<xs:documentation>ip-prefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="route_policy">
+				<xs:annotation>
+					<xs:documentation>route-policy:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="None">
+				<xs:annotation>
+					<xs:documentation>No filter type is applied:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="acl_num">
+				<xs:annotation>
+					<xs:documentation>acl_num:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commFilterPolicy">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="acl_name_or_num">
+				<xs:annotation>
+					<xs:documentation>acl-name:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip_prefix">
+				<xs:annotation>
+					<xs:documentation>ip-prefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="route_policy">
+				<xs:annotation>
+					<xs:documentation>route-policy:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commAreaFilterPolicy">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="acl_name_or_num">
+				<xs:annotation>
+					<xs:documentation>acl-name:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip_prefix">
+				<xs:annotation>
+					<xs:documentation>ip-prefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="route_policy">
+				<xs:annotation>
+					<xs:documentation>ip-prefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="acl_num">
+				<xs:annotation>
+					<xs:documentation>ip-prefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commAreaType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Normal">
+				<xs:annotation>
+					<xs:documentation>Normal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stub">
+				<xs:annotation>
+					<xs:documentation>Stub:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Nssa">
+				<xs:annotation>
+					<xs:documentation>Nssa:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commStubRouterFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NoConfig">
+				<xs:annotation>
+					<xs:documentation>NoConfig:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="StubOnHand">
+				<xs:annotation>
+					<xs:documentation>StubOnHand:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="StubOnBoot">
+				<xs:annotation>
+					<xs:documentation>StubOnBoot:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commOspfRouteType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="non-ase">
+				<xs:annotation>
+					<xs:documentation>default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ase">
+				<xs:annotation>
+					<xs:documentation>ase:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commDefRtConfigFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DefRtAdv">
+				<xs:annotation>
+					<xs:documentation>DefRtAdv:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Always">
+				<xs:annotation>
+					<xs:documentation>Always:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Summary">
+				<xs:annotation>
+					<xs:documentation>Summary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commLsaType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Router">
+				<xs:annotation>
+					<xs:documentation>Router:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Network">
+				<xs:annotation>
+					<xs:documentation>Network:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sum_Net">
+				<xs:annotation>
+					<xs:documentation>Sum-Net:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sum_Asbr">
+				<xs:annotation>
+					<xs:documentation>Sum-Asbr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="External">
+				<xs:annotation>
+					<xs:documentation>External:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NSSA">
+				<xs:annotation>
+					<xs:documentation>NSSA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Opq_Link">
+				<xs:annotation>
+					<xs:documentation>Opq-Link:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Opq_Area">
+				<xs:annotation>
+					<xs:documentation>Opq-Area:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Opq_As">
+				<xs:annotation>
+					<xs:documentation>Opq-As:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commOspfDebugType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OspfDebug">
+				<xs:annotation>
+					<xs:documentation>OspfDebug:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OspfTrace">
+				<xs:annotation>
+					<xs:documentation>OspfTrace:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OspfPer">
+				<xs:annotation>
+					<xs:documentation>OspfPer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OspfMsgTrace">
+				<xs:annotation>
+					<xs:documentation>OspfMsgTrace:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OspfTimer">
+				<xs:annotation>
+					<xs:documentation>OspfTimer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OspfJob">
+				<xs:annotation>
+					<xs:documentation>OspfJob:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OspfMemVal">
+				<xs:annotation>
+					<xs:documentation>OspfMemVal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commOspfTnlType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MPLSTE_TNLIF_TYPE_NONTE">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_TYPE_NONTE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLSTE_TNLIF_TYPE_TE">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_TYPE_TE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLSTE_TNLIF_TYPE_SHORTCUT">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_TYPE_SHORTCUT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLSTE_TNLIF_TYPE_FA">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_TYPE_FA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commOspfMetricType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MPLSTE_TNLIF_METRIC_RELATIVE">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_METRIC_RELATIVE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLSTE_TNLIF_METRIC_ABSOLUTE">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_METRIC_ABSOLUTE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commIfTnlType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IGP_shortcut">
+				<xs:annotation>
+					<xs:documentation>IGP_shortcut:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Forwarding_Adjacency">
+				<xs:annotation>
+					<xs:documentation>Forwarding_Adjacency:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commTunnelIGPType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MPLSTE_TNLIF_IGP_NONE">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_IGP_NONE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLSTE_TNLIF_IGP_ISIS">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_IGP_ISIS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLSTE_TNLIF_IGP_OSPF">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_IGP_OSPF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLSTE_TNLIF_IGP_BOTH">
+				<xs:annotation>
+					<xs:documentation>MPLSTE_TNLIF_IGP_BOTH:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commNetworkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="broadcast">
+				<xs:annotation>
+					<xs:documentation>broadcast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nbma">
+				<xs:annotation>
+					<xs:documentation>nbma:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="p2mp">
+				<xs:annotation>
+					<xs:documentation>p2mp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="p2p">
+				<xs:annotation>
+					<xs:documentation>p2p:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commIntfAuthenMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="null">
+				<xs:annotation>
+					<xs:documentation>null:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hmac-sha256">
+				<xs:annotation>
+					<xs:documentation>null:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="md5">
+				<xs:annotation>
+					<xs:documentation>md5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hmac-md5">
+				<xs:annotation>
+					<xs:documentation>hmac-md5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="simple">
+				<xs:annotation>
+					<xs:documentation>simple:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="keychain">
+				<xs:annotation>
+					<xs:documentation>keychain:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commAreaAuthenMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="md5">
+				<xs:annotation>
+					<xs:documentation>md5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hmac-sha256">
+				<xs:annotation>
+					<xs:documentation>hmac-sha256</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+			<xs:enumeration value="hmac-md5">
+				<xs:annotation>
+					<xs:documentation>hmac-md5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="simple">
+				<xs:annotation>
+					<xs:documentation>simple:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="keychain">
+				<xs:annotation>
+					<xs:documentation>keychain:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commAuthenTextType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="plain">
+				<xs:annotation>
+					<xs:documentation>plain:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cipher">
+				<xs:annotation>
+					<xs:documentation>cipher:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commIntfState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Waiting">
+				<xs:annotation>
+					<xs:documentation>Waiting:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P-2-P">
+				<xs:annotation>
+					<xs:documentation>P-2-P:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DR">
+				<xs:annotation>
+					<xs:documentation>DR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BDR">
+				<xs:annotation>
+					<xs:documentation>BDR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DROTHER">
+				<xs:annotation>
+					<xs:documentation>DROTHER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Loopback">
+				<xs:annotation>
+					<xs:documentation>Loopback:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commIntfType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Broadcast">
+				<xs:annotation>
+					<xs:documentation>Broadcast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NBMA">
+				<xs:annotation>
+					<xs:documentation>NBMA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P2P">
+				<xs:annotation>
+					<xs:documentation>P2P:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Virtual">
+				<xs:annotation>
+					<xs:documentation>Virtual:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P2MP">
+				<xs:annotation>
+					<xs:documentation>P2MP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commGRLastExitReason">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="success">
+				<xs:annotation>
+					<xs:documentation>success exit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="grace period expire">
+				<xs:annotation>
+					<xs:documentation>grace period expired</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="recv flush grace lsa">
+				<xs:annotation>
+					<xs:documentation>received flushed grace LSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="recv change lsa">
+				<xs:annotation>
+					<xs:documentation>flooding change LSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="recv two grace lsa">
+				<xs:annotation>
+					<xs:documentation>received multiple grace LSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="recv one way hello">
+				<xs:annotation>
+					<xs:documentation>received 1-way hello packet</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="policy check fail">
+				<xs:annotation>
+					<xs:documentation>policy check failed for received grace LSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nbr reset">
+				<xs:annotation>
+					<xs:documentation>neighbor reset</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="if change">
+				<xs:annotation>
+					<xs:documentation>interface state change</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="proc change">
+				<xs:annotation>
+					<xs:documentation>graceful restart unconfigured at process level</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commGRState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Normal">
+				<xs:annotation>
+					<xs:documentation>Normal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Helper">
+				<xs:annotation>
+					<xs:documentation>Helper:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NA">
+				<xs:annotation>
+					<xs:documentation>NA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commLdpState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Up">
+				<xs:annotation>
+					<xs:documentation>Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GR">
+				<xs:annotation>
+					<xs:documentation>GR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="---">
+				<xs:annotation>
+					<xs:documentation>---</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commBFDState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation>Unknown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Up">
+				<xs:annotation>
+					<xs:documentation>Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commIntfTeState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MPLS TE not enabled">
+				<xs:annotation>
+					<xs:documentation>MPLS TE not enabled:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLS TE enabled">
+				<xs:annotation>
+					<xs:documentation>MPLS TE enabled:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commNbrState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Init">
+				<xs:annotation>
+					<xs:documentation>Init:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Attempt">
+				<xs:annotation>
+					<xs:documentation>Attempt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2-Way">
+				<xs:annotation>
+					<xs:documentation>2-Way:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ExStart">
+				<xs:annotation>
+					<xs:documentation>ExStart:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Exchange">
+				<xs:annotation>
+					<xs:documentation>Exchange:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Loading">
+				<xs:annotation>
+					<xs:documentation>Loading:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Full">
+				<xs:annotation>
+					<xs:documentation>Full:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commNbrDownImmReason">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Neighbor Down Due to Inactivity">
+				<xs:annotation>
+					<xs:documentation>Neighbor Down Due to Inactivity:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor Down Due to LL Down">
+				<xs:annotation>
+					<xs:documentation>Neighbor Down Due to LL Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor Down Due to Kill Neighbor">
+				<xs:annotation>
+					<xs:documentation>Neighbor Down Due to Kill Neighbor:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor Down Due to 1-Wayhello Received">
+				<xs:annotation>
+					<xs:documentation>Neighbor Down Due to 1-Wayhello Received:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor Down Due to AdjOK?">
+				<xs:annotation>
+					<xs:documentation>Neighbor Down Due to AdjOK?:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor Down Due to SequenceNum Mismatch">
+				<xs:annotation>
+					<xs:documentation>Neighbor Down Due to SequenceNum Mismatch:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor Down Due to BadLSreq">
+				<xs:annotation>
+					<xs:documentation>Neighbor Down Due to BadLSreq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commNbrDownPrimReason">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Down reason Init Value">
+				<xs:annotation>
+					<xs:documentation>Down reason Init Value:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Hello Not Seen">
+				<xs:annotation>
+					<xs:documentation>Hello Not Seen:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Interface Parameter Mismatch">
+				<xs:annotation>
+					<xs:documentation>Interface Parameter Mismatch:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Logical Interface State Change">
+				<xs:annotation>
+					<xs:documentation>Logical Interface State Change:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Link Fault or Interface Configuration Change">
+				<xs:annotation>
+					<xs:documentation>Link Fault or Interface Configuration Change:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSPF Process Reset">
+				<xs:annotation>
+					<xs:documentation>OSPF Process Reset:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Area reset">
+				<xs:annotation>
+					<xs:documentation>Area reset:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Area Option Mis-match">
+				<xs:annotation>
+					<xs:documentation>Area Option Mis-match:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Vlink Peer Not Reachable">
+				<xs:annotation>
+					<xs:documentation>Vlink Peer Not Reachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sham-Link Unreachable">
+				<xs:annotation>
+					<xs:documentation>Sham-Link Unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Undo Network Command">
+				<xs:annotation>
+					<xs:documentation>Undo Network Command:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Undo NBMA Peer">
+				<xs:annotation>
+					<xs:documentation>Undo NBMA Peer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Passive Interface Down">
+				<xs:annotation>
+					<xs:documentation>Passive Interface Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Opaque Capability Enabled">
+				<xs:annotation>
+					<xs:documentation>Opaque Capability Enabled:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Opaque Capability Disabled">
+				<xs:annotation>
+					<xs:documentation>Opaque Capability Disabled:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Virtual Interface State Change">
+				<xs:annotation>
+					<xs:documentation>Virtual Interface State Change:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BFD Session Down">
+				<xs:annotation>
+					<xs:documentation>BFD Session Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Retransmission Limit Exceed">
+				<xs:annotation>
+					<xs:documentation>Retransmission Limit Exceed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="1-Wayhello Received">
+				<xs:annotation>
+					<xs:documentation>1-Wayhello Received:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Router State Change from DR or BDR to DROTHER">
+				<xs:annotation>
+					<xs:documentation>Router State Change from DR or BDR to DROTHER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor State Change from DR or BDR to DROTHER">
+				<xs:annotation>
+					<xs:documentation>Neighbor State Change from DR or BDR to DROTHER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NSSA Area Configure Change">
+				<xs:annotation>
+					<xs:documentation>NSSA Area Configure Change:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stub Area Configure Change">
+				<xs:annotation>
+					<xs:documentation>Stub Area Configure Change:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Received Invalid DD Packet">
+				<xs:annotation>
+					<xs:documentation>Received Invalid DD Packet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Not Received DD during RouterDeadInterval">
+				<xs:annotation>
+					<xs:documentation>Not Received DD during RouterDeadInterval:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="M,I,MS bit or SequenceNum Incorrect">
+				<xs:annotation>
+					<xs:documentation>M,I,MS bit or SequenceNum Incorrect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unable Opaque Capability,Find 9,10,11 Type Lsa">
+				<xs:annotation>
+					<xs:documentation>Unable Opaque Capability,Find 9,10,11 Type Lsa:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Not NSSA,Find 7 Type Lsa in Summary List">
+				<xs:annotation>
+					<xs:documentation>Not NSSA,Find 7 Type Lsa in Summary List:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LSrequest Packet,Unknown Reason">
+				<xs:annotation>
+					<xs:documentation>LSrequest Packet,Unknown Reason:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NSSA or STUB Area,Find 5 ,11 Type Lsa">
+				<xs:annotation>
+					<xs:documentation>NSSA or STUB Area,Find 5 ,11 Type Lsa:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LSrequest Packet,Request Lsa is Not in the Lsdb">
+				<xs:annotation>
+					<xs:documentation>LSrequest Packet,Request Lsa is Not in the Lsdb:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LSrequest Packet, exist same lsa in the Lsdb">
+				<xs:annotation>
+					<xs:documentation>LSrequest Packet, exist same lsa in the Lsdb:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LSrequest Packet, exist newer lsa in the Lsdb">
+				<xs:annotation>
+					<xs:documentation>LSrequest Packet, exist newer lsa in the Lsdb:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor state was not full when LSDB overflow">
+				<xs:annotation>
+					<xs:documentation>Neighbor state was not full when LSDB overflow:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Filter LSA configuration change">
+				<xs:annotation>
+					<xs:documentation>Filter LSA configuration change:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ACL changed for Filter LSA">
+				<xs:annotation>
+					<xs:documentation>ACL changed for Filter LSA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Reset Ospf Peer">
+				<xs:annotation>
+					<xs:documentation>Reset Ospf Peer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Interface Reset">
+				<xs:annotation>
+					<xs:documentation>Interface Reset:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Undo OSPF Interface, Undo area, Undo network">
+				<xs:annotation>
+					<xs:documentation>Undo OSPF Interface, Undo area, Undo network:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UNDO OSPF Area">
+				<xs:annotation>
+					<xs:documentation>UNDO OSPF Area:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CPU Overload">
+				<xs:annotation>
+					<xs:documentation>CPU Overload:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Interface State Changed to Standby">
+				<xs:annotation>
+					<xs:documentation>Interface State Changed to Standby:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Undo Router-Id">
+				<xs:annotation>
+					<xs:documentation>Undo Router-Id:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Neighbor Router-Id changed or Ip Conflicted">
+				<xs:annotation>
+					<xs:documentation>Neighbor Router-Id changed or Ip Conflicted:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Component is in Implement stat">
+				<xs:annotation>
+					<xs:documentation>Component is in Implement stat:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Seqeunce Number mismatched">
+				<xs:annotation>
+					<xs:documentation>Seqeunce Number mismatched:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="I Bit Incorrect in DD">
+				<xs:annotation>
+					<xs:documentation>I Bit Incorrect in DD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MS Bit Incorrect in DD">
+				<xs:annotation>
+					<xs:documentation>MS Bit Incorrect in DD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Options Incorrect in DD">
+				<xs:annotation>
+					<xs:documentation>Options Incorrect in DD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Received MTU mismatched DD Packet">
+				<xs:annotation>
+					<xs:documentation>Received MTU mismatched DD Packet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Undo OSPF Interface, Undo area">
+				<xs:annotation>
+					<xs:documentation>Undo OSPF Interface, Undo area:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commNbrMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Slave">
+				<xs:annotation>
+					<xs:documentation>Slave:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Master">
+				<xs:annotation>
+					<xs:documentation>Master:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commLSDBOptions">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ABR">
+				<xs:annotation>
+					<xs:documentation>ABR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR">
+				<xs:annotation>
+					<xs:documentation>ASBR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR ABR">
+				<xs:annotation>
+					<xs:documentation>ASBR ABR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABR  VIRTUAL">
+				<xs:annotation>
+					<xs:documentation>ABR  VIRTUAL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR  ABR  VIRTUAL ">
+				<xs:annotation>
+					<xs:documentation>ASBR  ABR  VIRTUAL :</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commLSDBOption">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None">
+				<xs:annotation>
+					<xs:documentation>None:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E">
+				<xs:annotation>
+					<xs:documentation>E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MC">
+				<xs:annotation>
+					<xs:documentation>MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MC E">
+				<xs:annotation>
+					<xs:documentation>MC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N/P">
+				<xs:annotation>
+					<xs:documentation>N/P:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N/P E">
+				<xs:annotation>
+					<xs:documentation>N/P E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N/P MC">
+				<xs:annotation>
+					<xs:documentation>N/P MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N/P MC E">
+				<xs:annotation>
+					<xs:documentation>N/P MC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA">
+				<xs:annotation>
+					<xs:documentation>EA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA E">
+				<xs:annotation>
+					<xs:documentation>EA E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA MC">
+				<xs:annotation>
+					<xs:documentation>EA MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA MC E">
+				<xs:annotation>
+					<xs:documentation>EA MC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA N/P">
+				<xs:annotation>
+					<xs:documentation>EA N/P:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA N/P E">
+				<xs:annotation>
+					<xs:documentation>EA N/P E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA N/P MC">
+				<xs:annotation>
+					<xs:documentation>EA N/P MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EA N/P MC E">
+				<xs:annotation>
+					<xs:documentation>EA N/P MC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC">
+				<xs:annotation>
+					<xs:documentation>DC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC E">
+				<xs:annotation>
+					<xs:documentation>DC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC MC">
+				<xs:annotation>
+					<xs:documentation>DC MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC MC E">
+				<xs:annotation>
+					<xs:documentation>DC MC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC N/P">
+				<xs:annotation>
+					<xs:documentation>DC N/P:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC N/P E">
+				<xs:annotation>
+					<xs:documentation>DC N/P E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC N/P MC">
+				<xs:annotation>
+					<xs:documentation>DC N/P MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC N/P MC E">
+				<xs:annotation>
+					<xs:documentation>DC N/P MC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC EA">
+				<xs:annotation>
+					<xs:documentation>DC EA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC EA E">
+				<xs:annotation>
+					<xs:documentation>DC EA E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC EA MC">
+				<xs:annotation>
+					<xs:documentation>DC EA MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC EA MC E">
+				<xs:annotation>
+					<xs:documentation>DC EA MC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC EA N/P ">
+				<xs:annotation>
+					<xs:documentation>DC EA N/P :</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC EA N/P  E">
+				<xs:annotation>
+					<xs:documentation>DC EA N/P  E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC EA N/P MC">
+				<xs:annotation>
+					<xs:documentation>DC EA N/P MC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DC EA N/P MC E">
+				<xs:annotation>
+					<xs:documentation>DC EA N/P MC E:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DN">
+				<xs:annotation>
+					<xs:documentation>DN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E DN">
+				<xs:annotation>
+					<xs:documentation>E DN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N/P DN">
+				<xs:annotation>
+					<xs:documentation>E DN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commLSDBLinkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="P-2-P">
+				<xs:annotation>
+					<xs:documentation>P-2-P:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TransNet">
+				<xs:annotation>
+					<xs:documentation>TransNet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="StubNet">
+				<xs:annotation>
+					<xs:documentation>StubNet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Virtual">
+				<xs:annotation>
+					<xs:documentation>Virtual:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commPathType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unkown">
+				<xs:annotation>
+					<xs:documentation>Unkown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Intra-area">
+				<xs:annotation>
+					<xs:documentation>Intra-area:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Transit">
+				<xs:annotation>
+					<xs:documentation>Transit:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stub">
+				<xs:annotation>
+					<xs:documentation>Stub:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inter-area">
+				<xs:annotation>
+					<xs:documentation>Inter-area:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Direct">
+				<xs:annotation>
+					<xs:documentation>Direct:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Type1">
+				<xs:annotation>
+					<xs:documentation>Type1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Type2">
+				<xs:annotation>
+					<xs:documentation>Type2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commRouterType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Normal">
+				<xs:annotation>
+					<xs:documentation>Normal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR">
+				<xs:annotation>
+					<xs:documentation>ASBR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABR">
+				<xs:annotation>
+					<xs:documentation>ABR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABR/ASBR">
+				<xs:annotation>
+					<xs:documentation>ABR/ASBR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commExternalRouteType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Type1">
+				<xs:annotation>
+					<xs:documentation>Type1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Type2">
+				<xs:annotation>
+					<xs:documentation>Type2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commRouteSourceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Local">
+				<xs:annotation>
+					<xs:documentation>Local:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknow">
+				<xs:annotation>
+					<xs:documentation>unknow:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commOSPFSyncState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Sync-Achieved">
+				<xs:annotation>
+					<xs:documentation>Sync-Achieved:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HoldMaxCost">
+				<xs:annotation>
+					<xs:documentation>HoldMaxCost:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Init">
+				<xs:annotation>
+					<xs:documentation>Init:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commSpfIntevalFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="intelligent-timer">
+				<xs:annotation>
+					<xs:documentation>intelligent-timer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="timer">
+				<xs:annotation>
+					<xs:documentation>timer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="millisecond">
+				<xs:annotation>
+					<xs:documentation>millisecond:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commLSDBOptionFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Null">
+				<xs:annotation>
+					<xs:documentation>0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABR">
+				<xs:annotation>
+					<xs:documentation>ABR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR">
+				<xs:annotation>
+					<xs:documentation>ASBR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR ABR">
+				<xs:annotation>
+					<xs:documentation>ASBR ABR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VIRTUAL">
+				<xs:annotation>
+					<xs:documentation>VIRTUAL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABR  VIRTUAL">
+				<xs:annotation>
+					<xs:documentation>ABR  VIRTUAL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR  VIRTUAL">
+				<xs:annotation>
+					<xs:documentation>ASBR  VIRTUAL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR  ABR  VIRTUAL">
+				<xs:annotation>
+					<xs:documentation>ASBR  ABR  VIRTUAL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Nt">
+				<xs:annotation>
+					<xs:documentation>Nt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABR Nt">
+				<xs:annotation>
+					<xs:documentation>ABR Nt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR Nt">
+				<xs:annotation>
+					<xs:documentation>ASBR Nt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR ABR Nt">
+				<xs:annotation>
+					<xs:documentation>ASBR ABR Nt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VIRTUAL Nt">
+				<xs:annotation>
+					<xs:documentation>VIRTUAL Nt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABR VIRTUAL Nt">
+				<xs:annotation>
+					<xs:documentation>ABR VIRTUAL Nt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR VIRTUAL Nt">
+				<xs:annotation>
+					<xs:documentation>ASBR VIRTUAL Nt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASBR ABR VIRTUAL Nt">
+				<xs:annotation>
+					<xs:documentation>ASBR ABR VIRTUAL Nt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commTopology">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="base">
+				<xs:annotation>
+					<xs:documentation>base:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--<xs:simpleType name="ospfv2commVersion">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>-->
+	<xs:simpleType name="ospfv2commGRFilterType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="acl_name">
+				<xs:annotation>
+					<xs:documentation>acl-name:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip_prefix">
+				<xs:annotation>
+					<xs:documentation>ip-prefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="acl_num">
+				<xs:annotation>
+					<xs:documentation>acl-name:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2sockRegStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ICUSCK_COMP_INIT">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_INIT</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_REGISTER">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_REGISTER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_UNREGISTER">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_UNREGISTER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_PREPAIR_DOPRIMARY">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_PREPAIR_DOPRIMARY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_WAIT_APP_DOPRIMARY">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_WAIT_APP_DOPRIMARY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_WAIT_SCK_SWITCH_END">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_WAIT_SCK_SWITCH_END:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_WAIT_APP_SWITCH_END">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_WAIT_APP_SWITCH_END:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_RUN_ALONE">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_RUN_ALONE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_WAIT_BBTYPE_ACK">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_WAIT_BBTYPE_ACK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_WAIT_APP_BBOVER">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_WAIT_APP_BBOVER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_WAIT_SCK_BBOVER">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_WAIT_SCK_BBOVER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_WAIT_APP_BBOVER_ACK">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_WAIT_APP_BBOVER_ACK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_RUN_TOGETHER">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_RUN_TOGETHER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_COMP_STATE_MAX">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_COMP_STATE_MAX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2sockFSMStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_INIT">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_INIT</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_REQUESTING">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_REQUESTING</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_CREATING">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_CREATING</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_RUN">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_RUN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_SMOOTHING">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_SMOOTHING:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_WAIT_CLOSING">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_WAIT_CLOSING:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_CLOSING">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_CLOSING:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_ATTACHING">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_ATTACHING:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_DETACHING">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_DETACHING:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ICUSCK_ENTRY_STATE_MAX">
+				<xs:annotation>
+					<xs:documentation>ICUSCK_ENTRY_STATE_MAX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2RecvPipeStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CLOSE">
+				<xs:annotation>
+					<xs:documentation>CLOSE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WAIT OPEN ACK">
+				<xs:annotation>
+					<xs:documentation>WAIT OPEN ACK</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OPEN">
+				<xs:annotation>
+					<xs:documentation>OPEN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CONGESTION">
+				<xs:annotation>
+					<xs:documentation>CONGESTION:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WAIT CLOSE ACK">
+				<xs:annotation>
+					<xs:documentation>WAIT CLOSE ACK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commPktStatType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PKTSTATTYPE_EXTERNAL">
+				<xs:annotation>
+					<xs:documentation>PKTSTATTYPE_EXTERNAL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PKTSTATTYPE_INTERNAL">
+				<xs:annotation>
+					<xs:documentation>PKTSTATTYPE_INTERNAL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2BfdStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation>Unknown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Up">
+				<xs:annotation>
+					<xs:documentation>Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commBorderRouter">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NORMAL">
+				<xs:annotation>
+					<xs:documentation>NORMAL</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AREA">
+				<xs:annotation>
+					<xs:documentation>AREA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AS">
+				<xs:annotation>
+					<xs:documentation>AS</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AREA AS">
+				<xs:annotation>
+					<xs:documentation>AREA AS</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NSSA">
+				<xs:annotation>
+					<xs:documentation>NSSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AREA NSSA">
+				<xs:annotation>
+					<xs:documentation>AREA NSSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AS NSSA">
+				<xs:annotation>
+					<xs:documentation>AS NSSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AREA AS NSSA">
+				<xs:annotation>
+					<xs:documentation>AREA AS NSSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commIETFMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Non-Standard IETF Mode">
+				<xs:annotation>
+					<xs:documentation>Non-Standard IETF Mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Standard IETF Mode">
+				<xs:annotation>
+					<xs:documentation>Standard IETF Mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commBackupType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LFA LINK">
+				<xs:annotation>
+					<xs:documentation>LFA LINK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LFA LINK-NODE">
+				<xs:annotation>
+					<xs:documentation>LFA LINK-NODE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2NSSATransState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Enabled">
+				<xs:annotation>
+					<xs:documentation>Enabled</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Elected">
+				<xs:annotation>
+					<xs:documentation>Elected</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Disabled">
+				<xs:annotation>
+					<xs:documentation>Disabled</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2NSSATransRole">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Always">
+				<xs:annotation>
+					<xs:documentation>Always</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Candidate">
+				<xs:annotation>
+					<xs:documentation>Candidate</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2AsbrSumStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Not Advertise">
+				<xs:annotation>
+					<xs:documentation>Not Advertise</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Advertise">
+				<xs:annotation>
+					<xs:documentation>Advertise</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commHstScope">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Link-Scope">
+				<xs:annotation>
+					<xs:documentation>Link-Scope</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Area-Scope">
+				<xs:annotation>
+					<xs:documentation>Area-Scope</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AS-Scope">
+				<xs:annotation>
+					<xs:documentation>AS-Scope</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2RtrIdConState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Normal">
+				<xs:annotation>
+					<xs:documentation>Normal</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Wait select">
+				<xs:annotation>
+					<xs:documentation>Wait select</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Selecting">
+				<xs:annotation>
+					<xs:documentation>Selecting</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RtrId Changed">
+				<xs:annotation>
+					<xs:documentation>RtrId Changed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Suspend">
+				<xs:annotation>
+					<xs:documentation>Suspend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NA">
+				<xs:annotation>
+					<xs:documentation>Not applicable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2commNbrDispGRState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Normal">
+				<xs:annotation>
+					<xs:documentation>Normal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Doing GR">
+				<xs:annotation>
+					<xs:documentation>Doing GR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Helper">
+				<xs:annotation>
+					<xs:documentation>Helper:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NA">
+				<xs:annotation>
+					<xs:documentation>NA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2HelperCapabality">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="disabled">
+				<xs:annotation>
+					<xs:documentation>disabled</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="enabled">
+				<xs:annotation>
+					<xs:documentation>enabled</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2HelperSupport">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="planned, strict lsa check">
+				<xs:annotation>
+					<xs:documentation>planned, strict lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="un-planned, strict lsa check">
+				<xs:annotation>
+					<xs:documentation>un-planned, strict lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="planned, un-planned, strict lsa check">
+				<xs:annotation>
+					<xs:documentation>planned, un-planned, strict lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ignore external lsa check">
+				<xs:annotation>
+					<xs:documentation>ignore external lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="planned, ignore external lsa check">
+				<xs:annotation>
+					<xs:documentation>planned, ignore external lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="un-planned, ignore external lsa check">
+				<xs:annotation>
+					<xs:documentation>un-planned, ignore external lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="planned, un-planned, ignore external lsa check">
+				<xs:annotation>
+					<xs:documentation>planned, un-planned, ignore external lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="never">
+				<xs:annotation>
+					<xs:documentation>never</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="planned, strict lsa check">
+				<xs:annotation>
+					<xs:documentation>planned, strict lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="un-planned, strict lsa check">
+				<xs:annotation>
+					<xs:documentation>un-planned, strict lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="planned and un-planned, strict lsa check">
+				<xs:annotation>
+					<xs:documentation>planned and un-planned, strict lsa check</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lsa checking ignore">
+				<xs:annotation>
+					<xs:documentation>lsa checking ignore</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="planned">
+				<xs:annotation>
+					<xs:documentation>planned</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="un-planned, lsa checking ignore">
+				<xs:annotation>
+					<xs:documentation>un-planned, lsa checking ignore</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="planned and unplanned">
+				<xs:annotation>
+					<xs:documentation>planned and unplanned</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2OnHelper">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="successful exit">
+				<xs:annotation>
+					<xs:documentation>successful exit</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="grace period expired">
+				<xs:annotation>
+					<xs:documentation>grace period expired</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="received flushed grace LSA">
+				<xs:annotation>
+					<xs:documentation>received flushed grace LSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="flooding changed LSA">
+				<xs:annotation>
+					<xs:documentation>flooding changed LSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="received flushed grace LSA">
+				<xs:annotation>
+					<xs:documentation>received flushed grace LSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="policy check failed for received grace LSA">
+				<xs:annotation>
+					<xs:documentation>policy check failed for received grace LSA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="neighbor reset">
+				<xs:annotation>
+					<xs:documentation>neighbor reset</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="interface status changed">
+				<xs:annotation>
+					<xs:documentation>interface status changed</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="graceful restart unconfigured at process level">
+				<xs:annotation>
+					<xs:documentation>graceful restart unconfigured at process level</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="grace lsa not found">
+				<xs:annotation>
+					<xs:documentation>grace lsa not found</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ospfv2GRNbrState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Normal">
+				<xs:annotation>
+					<xs:documentation>Normal</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Restarter">
+				<xs:annotation>
+					<xs:documentation>Restarter</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

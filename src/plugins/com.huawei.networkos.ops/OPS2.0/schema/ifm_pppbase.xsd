@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.17
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="ifm_pppbase_type.xsd"/>
+	<xs:complexType name="ifm_pppbase_pppConfig_type">
+		<xs:annotation>
+			<xs:documentation>此项为PAF规格</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="negoTimeout" default="3">
+				<xs:annotation>
+					<xs:documentation>用来设置PPP协商超时的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="deadLinkTime" default="30">
+				<xs:annotation>
+					<xs:documentation>PPP LCP处于Link Dead阶段的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="5"/>
+						<xs:maxInclusive value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="peerIpAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>对端IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mruNegoMtd" type="pppbaseMruNegoMtd" default="IPV4">
+				<xs:annotation>
+					<xs:documentation>指定MRU协商方式，0表示IPV4，1表示IPV6</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifPapAuth" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>pap认证方式标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifChapAuth" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>chap认证方式标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="magicNumCheck" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>魔术字校验</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="peerHostRoute" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>抑制对端主机路由添加到本端直连路由表</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="papUserName">
+				<xs:annotation>
+					<xs:documentation>PAP认证时的本地用户名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="85"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="papPaswrd" type="password">
+				<xs:annotation>
+					<xs:documentation>PAP认证时本地被对端验证时的口令</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<cipher>true</cipher>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chapUserName">
+				<xs:annotation>
+					<xs:documentation>chap认证时的本地用户名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="85"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="chapPaswrd" type="password">
+				<xs:annotation>
+					<xs:documentation>CHAP认证时本地被对端验证时的口令</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<cipher>true</cipher>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dnsAdmitAny" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接受对端提出的任何DNS地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="primDNSAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>主DNS服务器地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secndDNSAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>从DNS服务器地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifLink" type="ifm_pppbase_ifLink_type"/>
+			<xs:element name="crcParam" type="ifmPppCrcParamType">
+				<xs:annotation>
+					<xs:documentation>crc误码参数配置</xs:documentation>
+					<xs:appinfo>
+						<owner>product</owner>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pppStatistics" type="ifm_pppStat_type">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<owner>product</owner>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifm_pppbase_ifLink_type">
+		<xs:annotation>
+			<xs:documentation>此项为PAF规格</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="timeInternal" default="10">
+				<xs:annotation>
+					<xs:documentation>轮询时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<unit>second</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="32767"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifmPppCrcParamType">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="errType" type="pppbaseCrcType" default="Default">
+				<xs:annotation>
+					<xs:documentation> CRC误码告警类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="highThreshold">
+				<xs:annotation>
+					<xs:documentation> CRC误码告警门限</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lowThreshold">
+				<xs:annotation>
+					<xs:documentation> CRC误码恢复门限</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="interval">
+				<xs:annotation>
+					<xs:documentation>时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pktAlaCof">
+				<xs:annotation>
+					<xs:documentation> 错包率告警系数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pktAlaPow">
+				<xs:annotation>
+					<xs:documentation> 错包率告警幂指数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pktResCof">
+				<xs:annotation>
+					<xs:documentation> 错包率告警恢复系数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pktResPow">
+				<xs:annotation>
+					<xs:documentation> 错包率告警恢复幂指数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bitAlaCof">
+				<xs:annotation>
+					<xs:documentation> 错帧率告警系数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1"/>
+						<xs:minLength value="1"/>
+						<xs:pattern value="^[1]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>			
+			<xs:element name="bitAlaPow">
+				<xs:annotation>
+					<xs:documentation>  错帧率告警幂指数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bitResCof">
+				<xs:annotation>
+					<xs:documentation>错帧率告警恢复系数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1"/>
+						<xs:minLength value="1"/>
+						<xs:pattern value="^[1]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bitResPow">
+				<xs:annotation>
+					<xs:documentation> 错帧率告警恢复幂指数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="shutdown" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>CRC误码告警联动down</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>						
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="crcBit" type="pppbaseCrcBitType" default="32">
+				<xs:annotation>
+					<xs:documentation>CRC位数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifm_pppStat_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="inputShortPkts" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>短包数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputLongPkts" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>长包数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputCrcPkts" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>crc包数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputLostPkts" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>接收丢包数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outLostPkts" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>发送丢包数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outOverPkts" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>发送上溢包数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outUnderPkts" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>发送下溢包数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>	
+</xs:schema>

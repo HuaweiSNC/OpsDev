@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="l2mcAfType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ipv4unicast">
+				<xs:annotation>
+					<xs:documentation>ipv4unicast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipv6unicast">
+				<xs:annotation>
+					<xs:documentation>ipv6unicast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2mcFwdMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ip">
+				<xs:annotation>
+					<xs:documentation>ip:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mac">
+				<xs:annotation>
+					<xs:documentation>mac:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2mcSnpMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="asm-ssm">
+				<xs:annotation>
+					<xs:documentation>asm-ssm:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="asm-only">
+				<xs:annotation>
+					<xs:documentation>asm-only:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ssm-only">
+				<xs:annotation>
+					<xs:documentation>ssm-only:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="exitOrNot">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Not-exist">
+				<xs:annotation>
+					<xs:documentation>Not-exist:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Exist">
+				<xs:annotation>
+					<xs:documentation>Exist:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtFilterMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Exclude">
+				<xs:annotation>
+					<xs:documentation>Exclude:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Include">
+				<xs:annotation>
+					<xs:documentation>Include:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+    <xs:simpleType name="flagType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STATIC">
+				<xs:annotation>
+					<xs:documentation>STATIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DYNAMIC">
+				<xs:annotation>
+					<xs:documentation>DYNAMIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATIC_DYNAMIC">
+				<xs:annotation>
+					<xs:documentation>STATIC_DYNAMIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>	
+	<xs:simpleType name="compatMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="V1">
+				<xs:annotation>
+					<xs:documentation>V1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="V2">
+				<xs:annotation>
+					<xs:documentation>V2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="V3">
+				<xs:annotation>
+					<xs:documentation>V3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2mcPortType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Invalid">
+				<xs:annotation>
+					<xs:documentation>Invalid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PW-interface">
+				<xs:annotation>
+					<xs:documentation>PW-interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="L2-interface">
+				<xs:annotation>
+					<xs:documentation>L2-interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Encapsulation-sub-interface">
+				<xs:annotation>
+					<xs:documentation>Encapsulation-sub-interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Termination-sub-interface">
+				<xs:annotation>
+					<xs:documentation>Termination-sub-interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Interface-Board">
+				<xs:annotation>
+					<xs:documentation>Interface-Board:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Vlanif-Port">
+				<xs:annotation>
+					<xs:documentation>Vlanif-Port:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NoChg">
+				<xs:annotation>
+					<xs:documentation>NoChg</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Add">
+				<xs:annotation>
+					<xs:documentation>Add</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Del">
+				<xs:annotation>
+					<xs:documentation>Del</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Update">
+				<xs:annotation>
+					<xs:documentation>Update</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AgeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="No">
+				<xs:annotation>
+					<xs:documentation>No</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Yes">
+				<xs:annotation>
+					<xs:documentation>Yes</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

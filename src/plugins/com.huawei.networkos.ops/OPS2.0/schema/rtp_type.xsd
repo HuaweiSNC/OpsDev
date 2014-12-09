@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.4
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="rtpMatchMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="permit">
+				<xs:annotation>
+					<xs:documentation>permit:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="deny">
+				<xs:annotation>
+					<xs:documentation>deny:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpApplyCostChoice">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Add">
+				<xs:annotation>
+					<xs:documentation>Add:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sub">
+				<xs:annotation>
+					<xs:documentation>Sub:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Replace">
+				<xs:annotation>
+					<xs:documentation>Replace:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inherit">
+				<xs:annotation>
+					<xs:documentation>Inherit:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpCostType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="external">
+				<xs:annotation>
+					<xs:documentation>external:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="internal">
+				<xs:annotation>
+					<xs:documentation>internal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="type_1">
+				<xs:annotation>
+					<xs:documentation>type_1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="type_2">
+				<xs:annotation>
+					<xs:documentation>type_2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpRouteType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OspfStubArea">
+				<xs:annotation>
+					<xs:documentation>OspfStubArea:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OspfBackbone">
+				<xs:annotation>
+					<xs:documentation>OspfBackbone:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IsisLevel1">
+				<xs:annotation>
+					<xs:documentation>IsisLevel1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IsisLevel2">
+				<xs:annotation>
+					<xs:documentation>IsisLevel2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IsisLevel12">
+				<xs:annotation>
+					<xs:documentation>IsisLevel12:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpOriginType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="egp">
+				<xs:annotation>
+					<xs:documentation>egp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="igp">
+				<xs:annotation>
+					<xs:documentation>igp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="incomplete">
+				<xs:annotation>
+					<xs:documentation>incomplete:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpCmntyFilterType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="basic">
+				<xs:annotation>
+					<xs:documentation>basic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="advanced">
+				<xs:annotation>
+					<xs:documentation>advanced:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+		<xs:simpleType name="rtpApplyQosChoice">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="QosID">
+				<xs:annotation>
+					<xs:documentation>qosLocalID:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Behavior">
+				<xs:annotation>
+					<xs:documentation>behavior:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IpPrecedence">
+				<xs:annotation>
+					<xs:documentation>ipPrecedence:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpMchRtType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="external1">
+				<xs:annotation>
+					<xs:documentation>external1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="external2">
+				<xs:annotation>
+					<xs:documentation>external2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="internal">
+				<xs:annotation>
+					<xs:documentation>internal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isisLevel1">
+				<xs:annotation>
+					<xs:documentation>isisLevel1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isisLevel2">
+				<xs:annotation>
+					<xs:documentation>isisLevel2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nssaExternal1">
+				<xs:annotation>
+					<xs:documentation>nssaExternal1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nssaExternal2">
+				<xs:annotation>
+					<xs:documentation>nssaExternal2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpWellKnownCmnty">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="internet">
+				<xs:annotation>
+					<xs:documentation>internet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="no_advertise">
+				<xs:annotation>
+					<xs:documentation>no-advertise:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="no_export">
+				<xs:annotation>
+					<xs:documentation>no-export:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="no_export_subconfed">
+				<xs:annotation>
+					<xs:documentation>no-export-subconfed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpMatchType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchDestPF">
+				<xs:annotation>
+					<xs:documentation>matchDestPF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchDestPF6">
+				<xs:annotation>
+					<xs:documentation>matchDestPF6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchSrcPF">
+				<xs:annotation>
+					<xs:documentation>matchSrcPF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchSrcPF6">
+				<xs:annotation>
+					<xs:documentation>matchSrcPF6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchNHopPF">
+				<xs:annotation>
+					<xs:documentation>matchNHopPF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchNHopPF6">
+				<xs:annotation>
+					<xs:documentation>matchNHopPF6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchDestAcl">
+				<xs:annotation>
+					<xs:documentation>matchDestAcl:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchSrcAcl">
+				<xs:annotation>
+					<xs:documentation>matchSrcAcl:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchNHopAcl">
+				<xs:annotation>
+					<xs:documentation>matchNHopAcl:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchAPF">
+				<xs:annotation>
+					<xs:documentation>matchAPF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchCF">
+				<xs:annotation>
+					<xs:documentation>matchCF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchECF">
+				<xs:annotation>
+					<xs:documentation>matchECF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchRDF">
+				<xs:annotation>
+					<xs:documentation>matchRDF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchCost">
+				<xs:annotation>
+					<xs:documentation>matchCost:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchTag">
+				<xs:annotation>
+					<xs:documentation>matchTag:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchRtType">
+				<xs:annotation>
+					<xs:documentation>matchRtType:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchLabel">
+				<xs:annotation>
+					<xs:documentation>matchLabel:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpTnlSelMchType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="matchNHopPF">
+				<xs:annotation>
+					<xs:documentation>matchNHopPF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="matchNHopAcl">
+				<xs:annotation>
+					<xs:documentation>matchNHopAcl:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpApplyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyCFDel">
+				<xs:annotation>
+					<xs:documentation>applyCFDel:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyCost">
+				<xs:annotation>
+					<xs:documentation>applyCost:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyTag">
+				<xs:annotation>
+					<xs:documentation>applyTag:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyLabel">
+				<xs:annotation>
+					<xs:documentation>applyLabel:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyAsPath">
+				<xs:annotation>
+					<xs:documentation>applyAsPath:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyCmnty">
+				<xs:annotation>
+					<xs:documentation>applyCmnty:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyCostType">
+				<xs:annotation>
+					<xs:documentation>applyCostType:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyLclPref">
+				<xs:annotation>
+					<xs:documentation>applyLclPref:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyPref">
+				<xs:annotation>
+					<xs:documentation>applyPref:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyTrafIdx">
+				<xs:annotation>
+					<xs:documentation>applyTrafIdx:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyPrefVal">
+				<xs:annotation>
+					<xs:documentation>applyPrefVal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyNHop4">
+				<xs:annotation>
+					<xs:documentation>applyNHop4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyNHop6">
+				<xs:annotation>
+					<xs:documentation>applyNHop6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyRtType">
+				<xs:annotation>
+					<xs:documentation>applyRtType:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyExtCmnty">
+				<xs:annotation>
+					<xs:documentation>applyExtCmnty:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyOrigin">
+				<xs:annotation>
+					<xs:documentation>applyOrigin:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyQosId">
+				<xs:annotation>
+					<xs:documentation>applyQosId:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyBehavior">
+				<xs:annotation>
+					<xs:documentation>applyBehavior:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyIpPrecedence">
+				<xs:annotation>
+					<xs:documentation>applyIpPrecedence:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="applyDamp">
+				<xs:annotation>
+					<xs:documentation>applyDamp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpRTPFilterTypes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="prefixFilter">
+				<xs:annotation>
+					<xs:documentation>prefixFilter:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="prefix6Filter">
+				<xs:annotation>
+					<xs:documentation>prefix6Filter:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="asPathFilter">
+				<xs:annotation>
+					<xs:documentation>asPathFilter:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cmntyFilter">
+				<xs:annotation>
+					<xs:documentation>cmntyFilter:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="extCmntyFilter">
+				<xs:annotation>
+					<xs:documentation>extCmntyFilter:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rdFilter">
+				<xs:annotation>
+					<xs:documentation>rdFilter:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="aclFilter">
+				<xs:annotation>
+					<xs:documentation>aclFilter:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rtpAdditiveChoice">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="delete">
+				<xs:annotation>
+					<xs:documentation>delete:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="replace">
+				<xs:annotation>
+					<xs:documentation>replace:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="additive">
+				<xs:annotation>
+					<xs:documentation>additive:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

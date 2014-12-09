@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="l2vpn_type.xsd"/>
+	<xs:complexType name="l2vpn_tnlRef_LdpPws_type">
+		<xs:sequence>
+			<xs:element name="ldpPwInfo" type="l2vpn_tnlRef_LdpPw_type" minOccurs="0" maxOccurs="64000"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_tnlRef_LdpPw_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pwId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+						<allowNull>false</allowNull>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>Indicates the identifier of the PW.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="peerIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Specifies the LSR ID of the peer PE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interfaceName" type="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>Indicates the type and number of the AC interface.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_tnlRef_SwPws_type">
+		<xs:sequence>
+			<xs:element name="switchPwInfo" type="l2vpn_tnlRef_SwPw_type" minOccurs="0" maxOccurs="64000"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_tnlRef_SwPw_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pwId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+						<allowNull>false</allowNull>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>Indicates the identifier of the PW.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="peerIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>Specifies the LSR ID of the peer PE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="encapsulateType" type="l2vpnEncapsulateType" default="ethernet">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>VPWS instance encapsulation type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_tnlRef_VplsLdpPws_type">
+		<xs:sequence>
+			<xs:element name="vplsLdpPwInfo" type="l2vpn_tnlRef_VplsLdpPw_type" minOccurs="0" maxOccurs="64000"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_tnlRef_VplsLdpPw_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vsiName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Specifies VPLS instance name.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="l2vpnInstanceName">
+							<xs:attribute name="instanceId" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="negotiationPwId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>Indicates the identifier of the PW.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="peerIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+					<xs:documentation>Specifies the LSR ID of the peer PE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:include schemaLocation="pub_attribute.xsd"/>
+    <xs:include schemaLocation="pub_type.xsd"/>
+    <xs:include schemaLocation="l3vpn_l3vpncomm_type.xsd"/>
+    <xs:include schemaLocation="l3vpn_mpls.xsd"/>
+    <xs:include schemaLocation="l3vpn_tnl.xsd"/>
+    <xs:complexType name="l3vpn_l3vpncomm_l3vpncomm_type">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="l3vpnInstances" type="l3vpn_l3vpncomm_l3vpnInstances_type"/>
+        </xs:choice>
+        <xs:attributeGroup ref="versionAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_l3vpnInstances_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="l3vpnInstance" type="l3vpn_l3vpncomm_l3vpnInstance_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_l3vpnInstance_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the VPN instance. It is a string of 1 to 31 case-sensitive characters.</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="l3vpn_l3vpncomm_l3vpnInstance_vrfName_type">
+                            <xs:attribute name="vrfId" type="xs:string"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="vrfDescription">
+                <xs:annotation>
+                    <xs:documentation>Description about the VPN instance.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="242"/>
+                        <xs:pattern value="([^?]*)"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cfgRouterId" type="ipv4Address" default="0.0.0.0">
+                <xs:annotation>
+                    <xs:documentation>Specifies the system router id.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sysRouterId" type="ipv4Address" default="0.0.0.0">
+                <xs:annotation>
+                    <xs:documentation>The system router id.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vpnInstAFs" type="l3vpn_l3vpncomm_vpnInstAFs_type"/>
+            <xs:element name="l3vpnIfs" type="l3vpn_l3vpncomm_interfaces_type"/>
+            <xs:element name="ipv6AddrPolicys" type="ifm_ifmcomm_ipv6AddrPolicys_type"/>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:simpleType name="l3vpn_l3vpncomm_l3vpnInstance_vrfName_type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="31"/>
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="l3vpn_l3vpncomm_interfaces_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="l3vpnIf" type="l3vpn_l3vpncomm_interface_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_interface_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="ifName">
+                <xs:annotation>
+                    <xs:documentation>interface Name.</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="ifName">
+                            <xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ipv4Addr" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>Interface Address.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="subnetMask" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>Interface address mask.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:simpleType name="l3vpn_l3vpncomm_interface_interfaceName_type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="l3vpn_l3vpncomm_vpntargets_type">
+        <xs:sequence>
+            <xs:element name="vpnTarget" type="l3vpn_l3vpncomm_vpntarget_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_vpntarget_type">
+        <xs:annotation>
+            <xs:documentation>L3vpn vpntarget configure class</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vrfRTValue">
+                <xs:annotation>
+                    <xs:documentation>Vpn-target: adds VPN target extended community attribute to the export or import VPN target extended community list. The vpn-target can be expressed in either of the following formats:
+(1)16-bit AS number:32-bit user-defined number
+For example, 1:3. The AS number ranges from 0 to 65535. The user-defined number ranges from 0 to 4294967295. The AS number and the user-defined number cannot be 0s at the same time. That is, a VPN target cannot be 0:0.
+(2)32-bit IP address:16-bit user-defined number
+For example, 192.168.122.15:1. The IP address ranges from 0.0.0.0 to 255.255.255.255. The user-defined number ranges from 0 to 65535.</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="21"/>
+                        <xs:minLength value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="vrfRTType" type="l3vpncommonVrfRtType" default="export_extcommunity">
+                <xs:annotation>
+                    <xs:documentation>Specifies the vpn target type, export-extcommunity: specifies the extended community attributes carried in routing information to be sent. import-extcommunity: receives routing information carrying specified extended community attributes.</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="operation" type="editOperation" use="optional"/>
+        <xs:attribute name="difference" type="configDifference" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_vpnInstAFs_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="vpnInstAF" type="l3vpn_l3vpncomm_vpnInstAF_type" minOccurs="0" maxOccurs="2"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_vpnInstAF_type">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="afType" type="l3vpncommonL3vpnPrefixType" default="ipv4uni">
+                <xs:annotation>
+                    <xs:documentation>Address family</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vrfRD">
+                <xs:annotation>
+                    <xs:documentation>route-distinguisher.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="3"/>
+                        <xs:maxLength value="21"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="vpnTargets" type="l3vpn_l3vpncomm_vpntargets_type"/>
+            <xs:element name="imPolicyName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the routing policy on receive routes of the VPN instance</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="40"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="exPolicyName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of the routing policy on sent routes of the VPN instance</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="40"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="vrfLabelMode" type="l3vpncommonLabelMode" default="perRoute">
+                <xs:annotation>
+                    <xs:documentation>Apply one label mode for the VPN instance route.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="tnlPolicyName">
+                <xs:annotation>
+                    <xs:documentation>Specifies the name of a tunnel policy to be associated with a VPN instance</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="39"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="transitVpn" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                    <xs:documentation>Keep the VRF state up.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vpnFrr" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                    <xs:documentation>Fast Reroute.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vrfAFVerboseInfo" type="l3vpn_l3vpncomm_vrfAFVerboseInfo_type"/>
+            <xs:element name="l3vpnVrfPipe" type="vrf_vrfpipe_type">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <owner>product</owner>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="l3vpnTtlMode" type="vrf_vrfttlmode_type">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <owner>product</owner>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="routingTables" type="l3vpn_l3vpncomm_routingTables_type"/>
+            <xs:element name="tunnelInfos" type="l3vpn_vrfTnlInfos_type"/>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_vrfAFVerboseInfo_type">
+        <xs:annotation>
+            <xs:documentation>Display the information of the vrfAF</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="vrfCreateTime" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>CreateTime of the vrfAF.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vrfUpTime">
+                <xs:annotation>
+                    <xs:documentation>UpTime period of the vrfAF.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="timeTick">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="label" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Label of the vrfAF.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vrfStatus" type="l3vpncommonVrfStatus">
+                <xs:annotation>
+                    <xs:documentation>vrf status.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_routingTables_type">
+        <xs:sequence>
+            <xs:element name="routingTable" type="l3vpn_l3vpncomm_routingTable_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="l3vpn_l3vpncomm_routingTable_type">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="prefix" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>Indicates the address  of the destination network or host.</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="maskLength">
+                <xs:annotation>
+                    <xs:documentation>Indicates the mask  of the destination network or host.</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="128"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="protocolId" type="rmbaseProtocolType">
+                <xs:annotation>
+                    <xs:documentation>Indicates the routing protocol.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="preference">
+                <xs:annotation>
+                    <xs:documentation>Indicates the preference.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cost">
+                <xs:annotation>
+                    <xs:documentation>Indicates the route cost.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="65535"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="flags" type="rmbaseRouteFlag">
+                <xs:annotation>
+                    <xs:documentation>Indicates the route flag, that is, Route Flags in the header of the routing table.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="nextHop" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>Indicates the next hop.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ifName" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Indicates the outbound interface through which the next hop is reachable.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="relayNexthop" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>relay Next Hop.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="isActive" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>is active.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="processId" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>process Id.</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="tag">
+                <xs:annotation>
+                    <xs:documentation>tag of the route.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="65535"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="priority" type="rmbaseRoutePriority">
+                <xs:annotation>
+                    <xs:documentation>Priority of the route.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="label" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Label of route.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="qosId" type="xs:hexBinary">
+                <xs:annotation>
+                    <xs:documentation>qosId</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="indirectID" type="xs:hexBinary">
+                <xs:annotation>
+                    <xs:documentation>Index of route.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="state" type="rmbaseRouteState">
+                <xs:annotation>
+                    <xs:documentation>State of route.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="neighbour" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>Neigubour of route.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="age">
+                <xs:annotation>
+                    <xs:documentation>Age of route.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="directNexthop" type="ipAddress">
+                <xs:annotation>
+                    <xs:documentation>direct NextHop.</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attribute name="operation" type="editOperation" use="optional"/>
+        <xs:attribute name="difference" type="configDifference" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="ifm_ifmcomm_ipv6AddrPolicys_type">
+        <xs:annotation>
+            <xs:documentation>ipv6源/目的地址选择策略规则</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ipv6AddrPolicy" type="ifm_ifmcomm_ipv6AddrPolicy_type" minOccurs="0" maxOccurs="50"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ifm_ifmcomm_ipv6AddrPolicy_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="ipv6AddrPrefix" type="ipv6Address">
+                <xs:annotation>
+                    <xs:documentation>IPv6地址</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="prefixLength">
+                <xs:annotation>
+                    <xs:documentation>前缀长度</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="128"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="prefixPrecedence">
+                <xs:annotation>
+                    <xs:documentation>前缀作为目的地址时该表项的优先级</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="prefixLabel">
+                <xs:annotation>
+                    <xs:documentation>前缀为源地址时该表项的优先级</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="defaultFlag" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>是否默认配置</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.22
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="aclMatchOrder">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Config">
+				<xs:annotation>
+					<xs:documentation>Config:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Auto">
+				<xs:annotation>
+					<xs:documentation>Auto:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aclRuleAction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="permit">
+				<xs:annotation>
+					<xs:documentation>permit:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="deny">
+				<xs:annotation>
+					<xs:documentation>deny:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aclFragmentType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fragment_subseq">
+				<xs:annotation>
+					<xs:documentation>fragment-subseq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fragment">
+				<xs:annotation>
+					<xs:documentation>fragment:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="non_fragment">
+				<xs:annotation>
+					<xs:documentation>non-fragment:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="non_subseq">
+				<xs:annotation>
+					<xs:documentation>non-subseq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fragment_spe_first">
+				<xs:annotation>
+					<xs:documentation>fragment-spe-first:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="clear_fragment">
+				<xs:annotation>
+					<xs:documentation>clear_fragment:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aclRangeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lt">
+				<xs:annotation>
+					<xs:documentation>lt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="eq">
+				<xs:annotation>
+					<xs:documentation>eq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="gt">
+				<xs:annotation>
+					<xs:documentation>gt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="neq">
+				<xs:annotation>
+					<xs:documentation>neq:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="range">
+				<xs:annotation>
+					<xs:documentation>range:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ICMPNAME">
+		<xs:restriction base="xs:string">
+		    <xs:enumeration value="unconfiged">
+				<xs:annotation>
+					<xs:documentation>unconfiged:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="echo">
+				<xs:annotation>
+					<xs:documentation>echo:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="echo-reply">
+				<xs:annotation>
+					<xs:documentation>echo-reply:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fragmentneed-DFset">
+				<xs:annotation>
+					<xs:documentation>fragmentneed-DFset:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host-redirect">
+				<xs:annotation>
+					<xs:documentation>host-redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host-tos-redirect">
+				<xs:annotation>
+					<xs:documentation>host-tos-redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host-unreachable">
+				<xs:annotation>
+					<xs:documentation>host-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="information-reply">
+				<xs:annotation>
+					<xs:documentation>information-reply:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="information-request">
+				<xs:annotation>
+					<xs:documentation>information-request:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="net-redirect">
+				<xs:annotation>
+					<xs:documentation>net-redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="net-tos-redirect">
+				<xs:annotation>
+					<xs:documentation>net-tos-redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="net-unreachable">
+				<xs:annotation>
+					<xs:documentation>net-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="parameter-problem">
+				<xs:annotation>
+					<xs:documentation>parameter-problem:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="port-unreachable">
+				<xs:annotation>
+					<xs:documentation>port-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="protocol-unreachable">
+				<xs:annotation>
+					<xs:documentation>protocol-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="reassembly-timeout">
+				<xs:annotation>
+					<xs:documentation>reassembly-timeout:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="source-quench">
+				<xs:annotation>
+					<xs:documentation>source-quench:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="source-route-failed">
+				<xs:annotation>
+					<xs:documentation>source-route-failed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="timestamp-reply">
+				<xs:annotation>
+					<xs:documentation>timestamp-reply:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="timestamp-request">
+				<xs:annotation>
+					<xs:documentation>timestamp-request:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ttl-exceeded">
+				<xs:annotation>
+					<xs:documentation>ttl-exceeded:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="custom">
+				<xs:annotation>
+					<xs:documentation>custom:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ICMP6NAME">
+		<xs:restriction base="xs:string">
+		    <xs:enumeration value="unconfiged">
+				<xs:annotation>
+					<xs:documentation>unconfiged:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Redirect">
+				<xs:annotation>
+					<xs:documentation>Redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="echo">
+				<xs:annotation>
+					<xs:documentation>echo:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="echo-reply">
+				<xs:annotation>
+					<xs:documentation>echo-reply:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="err-Header-field">
+				<xs:annotation>
+					<xs:documentation>err-Header-field:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="frag-time-exceeded">
+				<xs:annotation>
+					<xs:documentation>frag-time-exceeded:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hop-limit-exceeded">
+				<xs:annotation>
+					<xs:documentation>hop-limit-exceeded:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host-admin-prohib">
+				<xs:annotation>
+					<xs:documentation>host-admin-prohib:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host-unreachable">
+				<xs:annotation>
+					<xs:documentation>host-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="neighbor-advertisement">
+				<xs:annotation>
+					<xs:documentation>neighbor-advertisement:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="neighbor-solicitation">
+				<xs:annotation>
+					<xs:documentation>neighbor-solicitation:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="network-unreachable">
+				<xs:annotation>
+					<xs:documentation>network-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="packet-too-big">
+				<xs:annotation>
+					<xs:documentation>packet-too-big:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="port-unreachable">
+				<xs:annotation>
+					<xs:documentation>port-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="router-advertisement">
+				<xs:annotation>
+					<xs:documentation>router-advertisement:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="router-solicitation">
+				<xs:annotation>
+					<xs:documentation>router-solicitation:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown-ipv6-opt">
+				<xs:annotation>
+					<xs:documentation>unknown-ipv6-opt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown-next-hdr">
+				<xs:annotation>
+					<xs:documentation>unknown-next-hdr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="custom">
+				<xs:annotation>
+					<xs:documentation>custom:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="timeName">
+		<xs:annotation>
+			<xs:documentation>timeName is begin with a-z or A-Z</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="^[a-zA-Z].*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aclNumOrName">
+		<xs:annotation>
+			<xs:documentation>aclNumOrName is begin with a-z or A-Z or 0-9</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="(^[1-5]\d{3}$)|(^10[0-9]{3}$)|(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="acl6NumOrName">
+		<xs:annotation>
+			<xs:documentation>acl6NumOrName is begin with a-z or A-Z or 0-9</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="(^[1-3]\d{3}$)|(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aclOffsetBegin">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="l2-head">
+				<xs:annotation>
+					<xs:documentation>l2-head:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipv4-head">
+				<xs:annotation>
+					<xs:documentation>ipv4-head:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="l4-head">
+				<xs:annotation>
+					<xs:documentation>l4-head:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aclEncapType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ether-ii">
+				<xs:annotation>
+					<xs:documentation>ether-ii:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="802.3">
+				<xs:annotation>
+					<xs:documentation>802.3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="snap">
+				<xs:annotation>
+					<xs:documentation>snap:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="acl4GroupType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Interface">
+				<xs:annotation>
+					<xs:documentation>Interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Link">
+				<xs:annotation>
+					<xs:documentation>Link:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Basic">
+				<xs:annotation>
+					<xs:documentation>Basic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Advance">
+				<xs:annotation>
+					<xs:documentation>Advance:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Mpls">
+				<xs:annotation>
+					<xs:documentation>Mpls:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="User">
+				<xs:annotation>
+					<xs:documentation>User:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="acl6GroupType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Basic">
+				<xs:annotation>
+					<xs:documentation>Basic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Advance">
+				<xs:annotation>
+					<xs:documentation>Advance:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Interface">
+				<xs:annotation>
+					<xs:documentation>Interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

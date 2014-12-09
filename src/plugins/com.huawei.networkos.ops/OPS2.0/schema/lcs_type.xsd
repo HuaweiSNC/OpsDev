@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.4
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.huawei.com/netconf/vrp" xmlns="http://www.huawei.com/netconf/vrp" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:simpleType name="lcsLcsItemtypeE" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="res" >
+                <xs:annotation>
+                    <xs:documentation>res:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="func" >
+                <xs:annotation>
+                    <xs:documentation>func:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lcsLcsAuthtypeE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="demo">
+				<xs:annotation>
+					<xs:documentation>demo type</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="comm">
+				<xs:annotation>
+					<xs:documentation>common type</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lcsLcsActiveE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="active">
+				<xs:annotation>
+					<xs:documentation>active mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unactive">
+				<xs:annotation>
+					<xs:documentation>unactive mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lcsLcsCtrltypeE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="resinstance">
+				<xs:annotation>
+					<xs:documentation>resinstance:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="resrelation">
+				<xs:annotation>
+					<xs:documentation>resrelation:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="resfield">
+				<xs:annotation>
+					<xs:documentation>resfield:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="funcclass">
+				<xs:annotation>
+					<xs:documentation>funcclass:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="funcfield">
+				<xs:annotation>
+					<xs:documentation>funcfield:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lcsLcsStaordynE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="static">
+				<xs:annotation>
+					<xs:documentation>static:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dynamic">
+				<xs:annotation>
+					<xs:documentation>dynamic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lcsLcsValueE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="min">
+				<xs:annotation>
+					<xs:documentation>min:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="max">
+				<xs:annotation>
+					<xs:documentation>max:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lcsLcsSpecType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RES">
+				<xs:annotation>
+					<xs:documentation>RES:To identify spec type is resource.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FUNC">
+				<xs:annotation>
+					<xs:documentation>FUNC:To identify spec type is function.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MIN">
+				<xs:annotation>
+					<xs:documentation>MIN:To identify spec type is minimum.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DEFAULT">
+				<xs:annotation>
+					<xs:documentation>DEFAULT:To identify spec type is default.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MAX">
+				<xs:annotation>
+					<xs:documentation>MAX:To identify spec type is maximum.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lcsLcsStateTypeE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:To identify LK  in default state</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="trial">
+				<xs:annotation>
+					<xs:documentation>trail:To identify LK  in trail state</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:To identify LK  in normal state</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="emergency">
+				<xs:annotation>
+					<xs:documentation>emergency:To identify LK  in emergency state</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="demo">
+				<xs:annotation>
+					<xs:documentation>demo:To identify LK  in demo state</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.24
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="tm_type.xsd"/>
+	<xs:element name="tm" type="tm_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>tm</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="tm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ntpDateTimeInfo" type="tm_ntpDateTimeInfo_type"/>
+			<xs:element name="ntpTzCfg" type="tm_ntpTzCfg_type"/>
+			<xs:element name="ntpDstCfg" type="tm_ntpDstCfg_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tm_ntpDateTimeInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>This table is used to get datetime information</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="curTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Current time</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="weekDay" type="tmNtpDayofweek">
+				<xs:annotation>
+					<xs:documentation>day of the week</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tm_ntpTzCfg_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>This table is used to get timezone information</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="timeZoneName" default="DefaultZoneName">
+				<xs:annotation>
+					<xs:documentation>Time zone name</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="option" type="tmNtpTzOption">
+				<xs:annotation>
+					<xs:documentation>Indicates whether to add or subtract</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="timeZoneOffset" type="xs:time">
+				<xs:annotation>
+					<xs:documentation>Offset to be applied for this time zone</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tm_ntpDstCfg_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>This table is used to get dst information</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="isDstEnabled" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Indicates whether or not DST is enabled</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dstName">
+				<xs:annotation>
+					<xs:documentation>Name of time zone in summer</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="type" type="tmNtpDstType">
+				<xs:annotation>
+					<xs:documentation>Indicates whether this setting is for one year or recurring</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startYear">
+				<xs:annotation>
+					<xs:documentation>Start year</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="2000"/>
+						<xs:maxInclusive value="2037"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="startMonth" type="tmNtpStartMonth">
+				<xs:annotation>
+					<xs:documentation>Starting month</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startDay" type="tmNtpDay">
+				<xs:annotation>
+					<xs:documentation>Start day</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startWeekNum" type="tmNtpWeekNum">
+				<xs:annotation>
+					<xs:documentation>Start week number in the specified month</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startWeekDay" type="tmNtpStartwkDay">
+				<xs:annotation>
+					<xs:documentation>Start day in the specified week</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startTime" type="time_hhmm">
+				<xs:annotation>
+					<xs:documentation>Start time</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endYear">
+				<xs:annotation>
+					<xs:documentation>End year</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="2000"/>
+						<xs:maxInclusive value="2037"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="endMonth" type="tmNtpEndMonth">
+				<xs:annotation>
+					<xs:documentation>Ending month</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endDay" type="tmNtpDay">
+				<xs:annotation>
+					<xs:documentation>End day</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endWeekNum" type="tmNtpWeekNum">
+				<xs:annotation>
+					<xs:documentation>End week number in the specified month</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endWeekDay" type="tmNtpEndwkDay">
+				<xs:annotation>
+					<xs:documentation>End day in the specified week</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endTime" type="time_hhmm">
+				<xs:annotation>
+					<xs:documentation>End time</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dstOffset" type="time_hhmm">
+				<xs:annotation>
+					<xs:documentation>Offset to be applied</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

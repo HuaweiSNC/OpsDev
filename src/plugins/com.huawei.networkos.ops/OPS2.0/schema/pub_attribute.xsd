@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Schema content Version: 1.0
+file format version 1.0
+This file contains the common attribute definitions.
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+ -->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:documentation>schema version</xs:documentation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="formatVersion">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([1-9]{0,1}\d\.\d)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="contentVersion">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([1-9]{0,1}\d\.\d)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="editOperation">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="create"/>
+			<xs:enumeration value="merge"/>
+			<xs:enumeration value="replace"/>
+			<xs:enumeration value="delete"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="configDifference">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="create"/>
+			<xs:enumeration value="modify"/>
+			<xs:enumeration value="delete"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="deleteOperation">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="delete"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:attributeGroup name="versionAttributeGroup">
+		<xs:annotation>
+			<xs:documentation>Common version information attibutes</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="formatVersion" type="formatVersion" use="optional"/>
+		<xs:attribute name="contentVersion" type="contentVersion" use="required"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="objectAttributeGroup">
+		<xs:annotation>
+			<xs:documentation>Common object operation and difference attibutes</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="operation" type="editOperation" use="optional"/>
+		<xs:attribute name="difference" type="configDifference" use="optional"/>
+	</xs:attributeGroup>
+</xs:schema>

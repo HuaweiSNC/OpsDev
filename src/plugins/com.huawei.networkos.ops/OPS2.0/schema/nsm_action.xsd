@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="nsm_type.xsd"/>
+	<xs:element name="nsm" type="nsm_action_type"/>
+	<xs:complexType name="nsm_action_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nsmResetCache" type="nsm_action_NsmRstCache_type"/>
+			<xs:element name="nsmResetStat" type="nsm_action_NsmRstStat_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="nsm_action_NsmRstCache_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">			
+			<xs:element name="flowType" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>IPv4/IPv6</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="slot" type="slotPath">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>复位缓存信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cache" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>复位统计信息计数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="nsm_action_NsmRstStat_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">			
+			<xs:element name="flowType" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>IPv4/IPv6</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="slot" type="slotPath">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>复位缓存信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resetstatistics" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>复位统计信息计数</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

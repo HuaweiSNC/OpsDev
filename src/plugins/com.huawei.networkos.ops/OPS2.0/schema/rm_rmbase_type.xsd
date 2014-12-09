@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="rmbaseVrfLabelMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="perInstance">
+				<xs:annotation>
+					<xs:documentation>perInstance:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="perRoute">
+				<xs:annotation>
+					<xs:documentation>perRoute:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="perNextHop">
+				<xs:annotation>
+					<xs:documentation>perNextHop:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseRouteFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="D">
+				<xs:annotation>
+					<xs:documentation>D:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RD">
+				<xs:annotation>
+					<xs:documentation>RD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="R">
+				<xs:annotation>
+					<xs:documentation>R:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseRouteState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active_Adv">
+				<xs:annotation>
+					<xs:documentation>Active Adv:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Active_NoAdv">
+				<xs:annotation>
+					<xs:documentation>Active NoAdv:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inactive_Adv">
+				<xs:annotation>
+					<xs:documentation>Inactive Adv:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Active_Adv_Relied">
+				<xs:annotation>
+					<xs:documentation>Active Adv Relied:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Invalid_Adv">
+				<xs:annotation>
+					<xs:documentation>Invalid Adv:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Active_NoAdv_Relied">
+				<xs:annotation>
+					<xs:documentation>Active NoAdv Relied:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Invalid_NoAdv">
+				<xs:annotation>
+					<xs:documentation>Invalid NoAdv:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inactive_NoAdv">
+				<xs:annotation>
+					<xs:documentation>Inactive NoAdv:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseRoutePriority">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="critical">
+				<xs:annotation>
+					<xs:documentation>critical:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="high">
+				<xs:annotation>
+					<xs:documentation>high:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="medium">
+				<xs:annotation>
+					<xs:documentation>medium:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="low">
+				<xs:annotation>
+					<xs:documentation>low:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseRMComplyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LR">
+				<xs:annotation>
+					<xs:documentation>LR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VR">
+				<xs:annotation>
+					<xs:documentation>VR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VRF">
+				<xs:annotation>
+					<xs:documentation>VRF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BOARD">
+				<xs:annotation>
+					<xs:documentation>BOARD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PEER">
+				<xs:annotation>
+					<xs:documentation>PEER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseStatisticType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DIRECT">
+				<xs:annotation>
+					<xs:documentation>DIRECT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATIC">
+				<xs:annotation>
+					<xs:documentation>STATIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RIP">
+				<xs:annotation>
+					<xs:documentation>RIP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RIPng">
+				<xs:annotation>
+					<xs:documentation>RIPng:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSPF">
+				<xs:annotation>
+					<xs:documentation>OSPF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSPFv3">
+				<xs:annotation>
+					<xs:documentation>OSPFv3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IS_IS">
+				<xs:annotation>
+					<xs:documentation>IS-IS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BGP">
+				<xs:annotation>
+					<xs:documentation>BGP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Total">
+				<xs:annotation>
+					<xs:documentation>Total:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseStatisticType2">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STATIC">
+				<xs:annotation>
+					<xs:documentation>STATIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseStateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="total">
+				<xs:annotation>
+					<xs:documentation>total:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="active">
+				<xs:annotation>
+					<xs:documentation>active:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="inactive">
+				<xs:annotation>
+					<xs:documentation>inactive:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseRmTableId">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="base">
+				<xs:annotation>
+					<xs:documentation>base:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="localmt">
+				<xs:annotation>
+					<xs:documentation>localmt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="igpext">
+				<xs:annotation>
+					<xs:documentation>igpext:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mbgp">
+				<xs:annotation>
+					<xs:documentation>mbgp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="msr">
+				<xs:annotation>
+					<xs:documentation>msr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseProtoTypeInCli">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="direct">
+				<xs:annotation>
+					<xs:documentation>direct:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ospf">
+				<xs:annotation>
+					<xs:documentation>ospf:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isis">
+				<xs:annotation>
+					<xs:documentation>isis:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="static">
+				<xs:annotation>
+					<xs:documentation>static:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rip">
+				<xs:annotation>
+					<xs:documentation>rip:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp">
+				<xs:annotation>
+					<xs:documentation>bgp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rmbaseTtlMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="uniform">
+				<xs:annotation>
+					<xs:documentation>uniform:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="pipe">
+				<xs:annotation>
+					<xs:documentation>pipe:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="commodelSubProtocolType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NO_SUB_PROTOCOL">
+				<xs:annotation>
+					<xs:documentation>NO_SUB_PROTOCOL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INTRA_AREA">
+				<xs:annotation>
+					<xs:documentation>INTRA_AREA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INTER_AREA">
+				<xs:annotation>
+					<xs:documentation>INTER_AREA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EXTERNAL1">
+				<xs:annotation>
+					<xs:documentation>EXTERNAL1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EXTERNAL2">
+				<xs:annotation>
+					<xs:documentation>EXTERNAL2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NSSA1">
+				<xs:annotation>
+					<xs:documentation>NSSA1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NSSA2">
+				<xs:annotation>
+					<xs:documentation>NSSA2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LEVEL1">
+				<xs:annotation>
+					<xs:documentation>LEVEL1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LEVEL2">
+				<xs:annotation>
+					<xs:documentation>LEVEL2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IBGP">
+				<xs:annotation>
+					<xs:documentation>IBGP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EBGP">
+				<xs:annotation>
+					<xs:documentation>EBGP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="commodelProtocolType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INIT">
+				<xs:annotation>
+					<xs:documentation>INIT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Direct">
+				<xs:annotation>
+					<xs:documentation>Direct:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSPF">
+				<xs:annotation>
+					<xs:documentation>OSPF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ISIS">
+				<xs:annotation>
+					<xs:documentation>ISIS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Static">
+				<xs:annotation>
+					<xs:documentation>Static:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RIP">
+				<xs:annotation>
+					<xs:documentation>RIP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BGP">
+				<xs:annotation>
+					<xs:documentation>BGP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSPFV3">
+				<xs:annotation>
+					<xs:documentation>OSPFV3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RIPNG">
+				<xs:annotation>
+					<xs:documentation>RIPNG:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Total">
+				<xs:annotation>
+					<xs:documentation>Total:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NetStream">
+				<xs:annotation>
+					<xs:documentation>NetStream:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="commodelProtocolType2">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Static">
+				<xs:annotation>
+					<xs:documentation>Static:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="commodelAfType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ipv4unicast">
+				<xs:annotation>
+					<xs:documentation>ipv4unicast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipv6unicast">
+				<xs:annotation>
+					<xs:documentation>ipv6unicast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="frrType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Primary">
+				<xs:annotation>
+					<xs:documentation>Primary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Backup">
+				<xs:annotation>
+					<xs:documentation>Backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

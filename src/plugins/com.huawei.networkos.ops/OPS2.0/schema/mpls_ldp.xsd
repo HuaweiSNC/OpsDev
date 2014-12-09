@@ -1,0 +1,1742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.9 L20090424pm for schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+  <xs:annotation>
+    <xs:appinfo>
+      <formatVersion>1.0</formatVersion>
+      <contentVersion>1.0</contentVersion>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:include schemaLocation="pub_attribute.xsd"/>
+  <xs:include schemaLocation="pub_type.xsd"/>
+  <xs:include schemaLocation="mpls_ldp_type.xsd"/>
+  <xs:complexType name="mpls_ldp_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="ldpGlobalPara" type="mpls_ldp_ldpGlobalPara_type">
+        <xs:annotation>
+          <xs:documentation>LDP全局配置信息</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ldpInstances" type="mpls_ldp_ldpInstances_type"/>
+    </xs:choice>
+    <xs:attributeGroup ref="versionAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpInstances_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpInstance" type="mpls_ldp_ldpInstance_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpInstance_type">
+    <xs:annotation>
+      <xs:documentation>LDP实例</xs:documentation>
+      <xs:appinfo>
+        <autoDeleteChildren>true</autoDeleteChildren>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="vrfName" default="_public_">
+        <xs:annotation>
+          <xs:documentation>实例名</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+            <unique>true</unique>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lsrid" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>配置LDP的lsr-id</xs:documentation>
+          <xs:appinfo>
+            <access>readWrite</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="igpSyncDelayTime" default="10">
+        <xs:annotation>
+          <xs:documentation>IGP联动延迟时间</xs:documentation>
+          <xs:appinfo>
+            <access>readWrite</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="gracefulDeleteEnable" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>优雅删除使能标志</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gracefulDeleteTime" default="5">
+        <xs:annotation>
+          <xs:documentation>优雅删除时间</xs:documentation>
+          <xs:appinfo>
+            <access>readWrite</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="noMappingEnable" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>向远端邻居发送mapping使能标志</xs:documentation>
+          <xs:appinfo>
+            <access>readWrite</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="loopDetect" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>使能Loop Detect</xs:documentation>
+          <xs:appinfo>
+            <access>readWrite</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="pathVectors" default="32">
+        <xs:annotation>
+          <xs:documentation>路径向量最大值</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="splitHorizon" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>水平分割标志</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ldpOutBoundFecPeerAll" type="mpls_ldp_ldpOutBoundFecAll_type">
+        <xs:annotation>
+          <xs:documentation>OutBound peer all配置</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <!--xs:element name="ldpOutBoundAlls" type="mpls_ldp_ldpOutBoundAlls_type"/-->
+      <xs:element name="ldpOutBoundBgpPeerAll" type="mpls_ldp_ldpOutBoundBgpAll_type">
+        <xs:annotation>
+          <xs:documentation>OutBound peer all配置</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ldpOutBoundPeerFecGroups" type="mpls_ldp_ldpOutBoundPeerFecGroups_type"/>
+      <xs:element name="ldpOutBoundPeerBgpGroups" type="mpls_ldp_ldpOutBoundPeerBgpGroups_type"/>
+      <xs:element name="ldpInterfaces" type="mpls_ldp_ldpInterfaces_type"/>
+      <xs:element name="ldpRemotePeers" type="mpls_ldp_ldpRemotePeers_type"/>
+      <xs:element name="ldpPeers" type="mpls_ldp_ldpPeers_type"/>
+      <xs:element name="ldpGtsms" type="mpls_ldp_ldpGtsms_type"/>
+      <xs:element name="ldpSessions" type="mpls_ldp_ldpSessions_type"/>
+      <xs:element name="ldpFecVs" type="mpls_ldp_ldpFecVs_type"/>
+      <xs:element name="ldpLsps" type="mpls_ldp_ldpLsps_type"/>
+      <xs:element name="ldpInstanceStatus" type="mpls_ldp_ldpInstanceStatus_type">
+        <xs:annotation>
+          <xs:documentation>LDP实例状态信息</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpInterfaces_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpInterface" type="mpls_ldp_ldpInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpInterface_type">
+    <xs:annotation>
+      <xs:documentation>LDP接口</xs:documentation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="ifName" type="ifName">
+        <xs:annotation>
+          <xs:documentation>接口名</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readCreate</access>
+            <unique>true</unique>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="helloSendTime">
+        <xs:annotation>
+          <xs:documentation>Hello定时器发送时间间隔</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="helloHoldTime">
+        <xs:annotation>
+          <xs:documentation>Hello保持定时器值</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="3"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="keepaliveSendTime">
+        <xs:annotation>
+          <xs:documentation>Keepalive发送时间间隔</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="keepaliveHoldTime">
+        <xs:annotation>
+          <xs:documentation>Keepalive hold定时器值</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="30"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="igpSyncDelayTime">
+        <xs:annotation>
+          <xs:documentation>IGP联动延迟时间</xs:documentation>
+          <xs:appinfo>
+            <allowNull>true</allowNull>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="transportAddrInterface" type="ifName">
+        <xs:annotation>
+          <xs:documentation>传输地址引用接口名</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ldpInterfaceStatus" type="mpls_ldp_ldpInterface_ldpInterfaceStatus_type">
+        <xs:annotation>
+          <xs:documentation>接口状态</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpRemotePeers_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpRemotePeer" type="mpls_ldp_ldpRemotePeer_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpRemotePeer_type">
+    <xs:annotation>
+      <xs:documentation>LDP远端邻居</xs:documentation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="remotePeerName">
+        <xs:annotation>
+          <xs:documentation>配置RemotePeer名称</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readCreate</access>
+            <unique>true</unique>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="32"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="remoteIp" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>远端邻居IP</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unique>true</unique>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="noMapping" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>禁止发送mapping消息</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="helloSendTime">
+        <xs:annotation>
+          <xs:documentation>配置发送Hello时间间隔</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="helloHoldTime">
+        <xs:annotation>
+          <xs:documentation>配置Hello保持定时器时间</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="3"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="keepaliveSendTime">
+        <xs:annotation>
+          <xs:documentation>配置发送Keepalive时间间隔</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="keepaliveHoldTime">
+        <xs:annotation>
+          <xs:documentation>Keepalive保持定时器值</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="30"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="remotePeerStateInfo" type="mpls_ldp_ldpRemotePeer_info_type">
+        <xs:annotation>
+          <xs:documentation>远端邻居状态信息组</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpRemotePeer_info_type">
+    <xs:annotation>
+      <xs:documentation>LDP远端邻居状态信息</xs:documentation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="peerState" type="ldpState">
+        <xs:annotation>
+          <xs:documentation>远端邻居状态</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="negotiatedHelloHoldTime">
+        <xs:annotation>
+          <xs:documentation>协商的hello hold定时器值</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpSessions_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpSession" type="mpls_ldp_ldpSession_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpSession_type">
+    <xs:annotation>
+      <xs:documentation>LDP会话</xs:documentation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="peerLsrid">
+        <xs:annotation>
+          <xs:documentation>对等体LDP标识符</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+            <key>true</key>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="localLsrid">
+        <xs:annotation>
+          <xs:documentation>本地LDP标识符</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="tcpSourceAddr" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>该会话的TCP连接源端信息</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tcpDestAddr" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>该会话的TCP连接目的端信息</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sessionState" type="ldpSessionState">
+        <xs:annotation>
+          <xs:documentation>设置触发建立LSP的策略</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sessionRole" type="ldpSessionRole">
+        <xs:annotation>
+          <xs:documentation>本LSR在LDP会话中的角色</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sessionType" type="ldpSessionType">
+        <xs:annotation>
+          <xs:documentation>会话类型</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="negotiatedKaHoldTime">
+        <xs:annotation>
+          <xs:documentation>协商的keepalvie保持定时器的值</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="kaSent">
+        <xs:annotation>
+          <xs:documentation>Keep alive message发送计数</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="4294967295"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="kaReceived">
+        <xs:annotation>
+          <xs:documentation>Keep alive message接收计数</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="4294967295"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="sessionDistMode" type="ldpLabelDistMode">
+        <xs:annotation>
+          <xs:documentation>协商的标签发布模式</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="peerLabelState" type="ldpPeerLabelState">
+        <xs:annotation>
+          <xs:documentation>对等体的标签资源状态</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ftFlag" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>GR能力标志</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="md5Flag" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>MD5能力证标志</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="reconnetTime">
+        <xs:annotation>
+          <xs:documentation>协商的重接定时器时间</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="recoveryTime">
+        <xs:annotation>
+          <xs:documentation>协商的恢复定时器时间</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="sessionAge">
+        <xs:annotation>
+          <xs:documentation>LDP会话建立的时长</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpFecVs_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpFec" type="mpls_ldp_ldpFecV_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpFecV_type">
+    <xs:annotation>
+      <xs:documentation>LDP FEC信息</xs:documentation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="fecAddr" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>目的地址</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="prefixLength">
+        <xs:annotation>
+          <xs:documentation>掩码长度</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="outIfaceName" type="ifName">
+        <xs:annotation>
+          <xs:documentation>接口名</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="nextHop" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>LSP下一跳地址</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="routeType" type="ldpRouteType">
+        <xs:annotation>
+          <xs:documentation>路由类型</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fecState" type="ldpFecState">
+        <xs:annotation>
+          <xs:documentation>MPLS控制平面路由状态</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lsp">
+        <xs:annotation>
+          <xs:documentation>LSP数量</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="4294967295"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpLsps_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpLsp" type="mpls_ldp_ldpLsp_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpLsp_type">
+    <xs:annotation>
+      <xs:documentation>LDP LSP</xs:documentation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="lspAddr" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>LSP的目的地址</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="prefixLength">
+        <xs:annotation>
+          <xs:documentation>目的掩码长度</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="32"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lspIndex" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>LSP索引</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lspType" type="ldpLspType">
+        <xs:annotation>
+          <xs:documentation>LSP的类型</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="outIfaceName" type="ifName">
+        <xs:annotation>
+          <xs:documentation>接口名</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="nextHop" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>LSP下一跳地址</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="isFrrLsp" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>是否FRR LSP</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lspMtu">
+        <xs:annotation>
+          <xs:documentation>LSP接口的最大传输单元</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lspTimeStamp">
+        <xs:annotation>
+          <xs:documentation>LSP建立的时间戳</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="4294967295"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="inLabel">
+        <xs:annotation>
+          <xs:documentation>入标签</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="4294967295"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="outLabel">
+        <xs:annotation>
+          <xs:documentation>出标签</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="4294967295"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpInterface_ldpInterfaceStatus_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="interfaceState" type="ldpState">
+        <xs:annotation>
+          <xs:documentation>接口状态</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="labelDistMode" type="ldpLabelDistMode">
+        <xs:annotation>
+          <xs:documentation>标签发布模式</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="negotiatedHelloHoldTime">
+        <xs:annotation>
+          <xs:documentation>协商的Hello Hold定时器</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="effectiveMtu">
+        <xs:annotation>
+          <xs:documentation>MPLS转发时实际采用的MTU值</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpGlobalPara_type">
+    <xs:sequence>
+      <xs:element name="mtuSignalingEnable" type="xs:boolean" default="true">
+        <xs:annotation>
+          <xs:documentation>MTU信令能力使能标记（私有TLV）</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="mtuSignalingApplyTLVEnable" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>MTU信令能力使能标记(公有TLV)</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lspTriggerMode" type="ldpTriggerType" default="host">
+        <xs:annotation>
+          <xs:documentation>设置触发建立LSP的策略</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lspIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>触发建立LSP的IP地址前缀列表名</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="lspTrPolicyName">
+        <xs:annotation>
+          <xs:documentation>允许建立Transit LSP的IP地址前缀列表名</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="grEnable" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>GR使能标志</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="reconnectTime" default="300">
+        <xs:annotation>
+          <xs:documentation>配置LDP会话重连接定时器的值</xs:documentation>
+          <xs:appinfo>
+            <allowNull>true</allowNull>
+            <access>readCreate</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="3"/>
+            <xs:maxInclusive value="3600"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="recoveryTime" default="300">
+        <xs:annotation>
+          <xs:documentation>配置LSP恢复定时器的值</xs:documentation>
+          <xs:appinfo>
+            <allowNull>true</allowNull>
+            <access>readCreate</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="3"/>
+            <xs:maxInclusive value="3600"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="peerLiveTime" default="600">
+        <xs:annotation>
+          <xs:documentation>邻居存活定时器时间值</xs:documentation>
+          <xs:appinfo>
+            <allowNull>true</allowNull>
+            <access>readCreate</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="3"/>
+            <xs:maxInclusive value="3600"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="backOffInitTime" default="15">
+        <xs:annotation>
+          <xs:documentation>BackOff初使时间</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="5"/>
+            <xs:maxInclusive value="2147483"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="backOffMaxTime" default="120">
+        <xs:annotation>
+          <xs:documentation>BackOff最大时间</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <unit>second</unit>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="5"/>
+            <xs:maxInclusive value="2147483"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="bgpLabel" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>BGP分标签是否使能</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="bgpIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>bgp分标签策略的IP前缀名</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="autoFrrlspTriggerMode" type="autoFrrldpTriggerType" default="host">
+        <xs:annotation>
+          <xs:documentation>设置触发建立LSP的策略</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="autoFrrlspIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>触发建立LSP的IP地址前缀列表名</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <!--xs:element name="distributedInstNum" default="1">
+				<xs:annotation>
+					<xs:documentation>Ldp分布式实例数</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>readCreate</access>
+						<unit>second</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="distributedInstIdDeleting" default="1">
+				<xs:annotation>
+					<xs:documentation>删除的Ldp实例ID</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>readCreate</access>
+						<unit>second</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outBoundPeerAll" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>outBound所有peer有效</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outBoundPeer" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>OutBound指定peer有效</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element-->
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpRemotePeer_ldpRemotePeerStatus_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="peerState" type="ldpState">
+        <xs:annotation>
+          <xs:documentation>远端邻居状态</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="negotiatedHelloHoldTime">
+        <xs:annotation>
+          <xs:documentation>协商的hello hold定时器值</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpInstanceStatus_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="labelDistMode" type="ldpLabelDistMode">
+        <xs:annotation>
+          <xs:documentation>该实例使用的标签发布模式</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="labelRetentionMode" type="ldpLabelRetentionMode">
+        <xs:annotation>
+          <xs:documentation>该实例使用的标签保持模式</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lspNum" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>该实例已经建立的LSP数量</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sessionNum" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>该实例已经建立的会话数量</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="adjacencyNum" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>该实例建立的邻接体数量</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="interfaceNum" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>该实例配置LDP能力接口数量</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fecNum" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>该实例下的FEC数量</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpPeers_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpPeer" type="mpls_ldp_ldpPeer_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpPeer_type">
+    <xs:annotation>
+      <xs:documentation>LDP Peer</xs:documentation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="peerid" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>邻居LSR ID</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readCreate</access>
+            <unique>true</unique>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="md5Password" type="passwordExtend">
+        <xs:annotation>
+          <xs:documentation>MD5密码</xs:documentation>
+          <xs:appinfo>
+            <allowNull>true</allowNull>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <!-- xs:element name="kyChainName">
+				<xs:annotation>
+					<xs:documentation>Keychain名字</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element -->
+      <xs:element name="outBound" type="xs:boolean" default="false">
+        <xs:annotation>
+          <xs:documentation>水平分割</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+			<xs:element name="outBoundForDC" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>水平分割</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+      <!--xs:element name="ldpPeerOutBounds" type="mpls_ldp_ldpPeer_ldpOutBounds_type">
+				<xs:annotation>
+					<xs:documentation>LDP单peer下OutBound策略</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element-->
+      <xs:element name="ldpPeerOutBoundFec" type="mpls_ldp_ldpPeer_ldpOutBoundFec_type">
+        <xs:annotation>
+          <xs:documentation>LDP单peer下OutBound策略</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ldpPeerOutBoundBgp" type="mpls_ldp_ldpPeer_ldpOutBoundBgp_type">
+        <xs:annotation>
+          <xs:documentation>LDP单peer下OutBound策略</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpGtsms_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpGtsm" type="mpls_ldp_ldpGtsm_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpGtsm_type">
+    <xs:annotation>
+      <xs:documentation>LDP Peer</xs:documentation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="peerTransportAddr" type="ipv4Address">
+        <xs:annotation>
+          <xs:documentation>对端传输地址</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readCreate</access>
+            <unique>true</unique>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gtsmHops">
+        <xs:annotation>
+          <xs:documentation>TTL值</xs:documentation>
+          <xs:appinfo>
+            <mandatory>true</mandatory>
+            <allowNull>false</allowNull>
+            <access>readCreate</access>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedShort">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpOutBoundFecAll_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="fecPolicyMode" type="fecIpPrefixType" default="default">
+        <xs:annotation>
+          <xs:documentation>设置指定Fec的类型</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fecIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpOutBoundBgpAll_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="bgpPolicyMode" type="bgpIpPrefixType" default="default">
+        <xs:annotation>
+          <xs:documentation>设置指定BGP标签路由的类型</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="bgpIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <!--xs:element name="fecFlag" type="outBoundRouteType" default="fec">
+				<xs:annotation>
+					<xs:documentation>设置路由类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="policyMode" type="fecIpPrefixType" default="default">
+				<xs:annotation>
+					<xs:documentation>设置OutBound策略模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipPrefixName">
+				<xs:annotation>
+					<xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element-->
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpOutBoundPeerFecGroups_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpOutBoundPeerFecGroup" type="mpls_ldp_ldpOutBoundPeerFecGroup_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpOutBoundPeerFecGroup_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="peerGroupName">
+        <xs:annotation>
+          <xs:documentation>选择建立好的peerGroup</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+            <key>true</key>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="fecPolicyMode" type="fecIpPrefixGroupType" default="host">
+        <xs:annotation>
+          <xs:documentation>设置指定Fec的类型</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fecIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpOutBoundPeerBgpGroups_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ldpOutBoundPeerBgpGroup" type="mpls_ldp_ldpOutBoundPeerBgpGroup_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpOutBoundPeerBgpGroup_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="peerGroupName">
+        <xs:annotation>
+          <xs:documentation>选择建立好的peerGroup</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+            <key>true</key>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="bgpPolicyMode" type="bgpIpPrefixGroupType" default="none">
+        <xs:annotation>
+          <xs:documentation>设置指定BGP标签路由的类型</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="bgpIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <!--xs:element name="fecFlag" type="outBoundRouteType" default="fec">
+				<xs:annotation>
+					<xs:documentation>设置路由类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="policyMode" type="fecIpPrefixType" default="default">
+				<xs:annotation>
+					<xs:documentation>设置指定Fec的类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipPrefixName">
+				<xs:annotation>
+					<xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element-->
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_configPeerMode_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded"/>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_configFecIpPrefixMode_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded"/>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_configBgpIpPrefixMode_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded"/>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpPeer_ldpOutBoundFec_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <!--xs:element name="fecFlag" type="outBoundRouteType" default="fec">
+				<xs:annotation>
+					<xs:documentation>设置路由类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="policyMode" type="fecIpPrefixType" default="default">
+				<xs:annotation>
+					<xs:documentation>设置OutBound策略模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipPrefixName">
+				<xs:annotation>
+					<xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element-->
+      <xs:element name="fecPolicyMode" type="fecIpPrefixType" default="default">
+        <xs:annotation>
+          <xs:documentation>设置指定Fec的类型</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fecIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="mpls_ldp_ldpPeer_ldpOutBoundBgp_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="bgpPolicyMode" type="bgpIpPrefixType" default="default">
+        <xs:annotation>
+          <xs:documentation>设置指定BGP标签路由的类型</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="bgpIpPrefixName">
+        <xs:annotation>
+          <xs:documentation>选择建立好的ipPrefix名字</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="169"/>
+            <xs:minLength value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+</xs:schema>

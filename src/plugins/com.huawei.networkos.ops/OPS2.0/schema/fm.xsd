@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.7
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="fm_type.xsd"/>
+	<xs:element name="fm" type="fm_fm_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>fm</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="fm_fm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="activeAlarms" type="fm_activeAlarms_type"/>
+			<xs:element name="alarmStas" type="fm_alarmStas_type"/>
+			<xs:element name="historyAlarms" type="fm_historyAlarms_type"/>
+			<xs:element name="globalParam" type="fm_globalParam_type"/>
+			<xs:element name="rules" type="fm_rules_type"/>
+			<xs:element name="hosts" type="fm_hosts_type"/>
+			<xs:element name="alarmCfgs" type="fm_alarmCfgViews_type"/>
+			<xs:element name="trapCfgs" type="fm_trapCfgViews_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_rules_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rule" type="fm_rule_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_rule_type">
+		<xs:annotation>
+			<xs:documentation>告警屏蔽表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ruleName">
+				<xs:annotation>
+					<xs:documentation>屏蔽表名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="critical" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>屏蔽紧急告警</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="major" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>屏蔽重要告警</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="minor" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>屏蔽次要告警</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="warning" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>屏蔽提示告警</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alarmItems" type="fm_alarmItems_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="fm_rule_ruleName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="fm_hosts_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="host" type="fm_host_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_host_type">
+		<xs:annotation>
+			<xs:documentation>网管告警订阅</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="targetHostName">
+				<xs:annotation>
+					<xs:documentation>主机名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="33"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ruleName">
+				<xs:annotation>
+					<xs:documentation>屏蔽表名称</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="fm_host_ruleName_type"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="fm_host_ruleName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="fm_alarmItems_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="alarmItem" type="fm_alarmItem_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_alarmItem_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="alarmName">
+				<xs:annotation>
+					<xs:documentation>告警名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_globalParam_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>告警抑制使能</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="suppressEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>告警抑制使开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_trapEnableTbl_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>trap使能</xs:documentation>
+		</xs:annotation>
+		<xs:choice/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_historyAlarms_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="historyAlarm" type="fm_historyAlarm_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_historyAlarm_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="alarmSequence" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>告警序号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alarmName">
+				<xs:annotation>
+					<xs:documentation>告警名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="alarmId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>告警标识</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level" type="severityLevel">
+				<xs:annotation>
+					<xs:documentation>告警级别</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="generatedTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>告警产生时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clearedTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>告警结束时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reason" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>告警原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrName">
+				<xs:annotation>
+					<xs:documentation>告警源vrName</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vbinfos" type="fm_vbinfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_activeAlarms_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="activeAlarm" type="fm_activeAlarm_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_activeAlarm_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sequence" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>告警序号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alarmName">
+				<xs:annotation>
+					<xs:documentation>告警名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="alarmId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>告警标识</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="level" type="severityLevel">
+				<xs:annotation>
+					<xs:documentation>告警级别</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="generatedTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>告警产生时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reason" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>告警原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrName">
+				<xs:annotation>
+					<xs:documentation>告警源vrName</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vbinfos" type="fm_vbinfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_alarmStas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="alarmSta" type="fm_alarmSta_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_alarmSta_type">
+		<xs:annotation>
+			<xs:documentation>查询告警统计个数</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="level" type="severityLevel">
+				<xs:annotation>
+					<xs:documentation>告警级别</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="count" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>告警统计个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_vbinfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="vbinfo" type="fm_vbinfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_vbinfo_type">
+		<xs:annotation>
+			<xs:documentation>告警参数查询</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>告警参数索引</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value" type="block">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_alarmCfgViews_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="alarmCfg" type="fm_alarmCfgView_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_alarmCfgView_type">
+		<xs:annotation>
+			<xs:documentation>查询告警项配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="alarmName">
+				<xs:annotation>
+					<xs:documentation>告警名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="moduleName">
+				<xs:annotation>
+					<xs:documentation>告警源模块名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level" type="severityLevel" default="Warning">
+				<xs:annotation>
+					<xs:documentation>默认告警级别</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clearPersistTime" default="1">
+				<xs:annotation>
+					<xs:documentation>当前清除告警抑制时间</xs:documentation>
+					<xs:appinfo>
+						<unit>second</unit>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="causePersistTime" default="1">
+				<xs:annotation>
+					<xs:documentation>当前产生告警抑制时间</xs:documentation>
+					<xs:appinfo>
+						<unit>second</unit>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastChangedTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>上次修改时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="fm_trapCfgViews_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="trapCfg" type="fm_trapCfgView_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fm_trapCfgView_type">
+		<xs:annotation>
+			<xs:documentation>查询Trap项配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="trapName">
+				<xs:annotation>
+					<xs:documentation>trap名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="featureName">
+				<xs:annotation>
+					<xs:documentation>trap模块名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trapDefStatus" type="trapStatus" default="on">
+				<xs:annotation>
+					<xs:documentation>trap缺省状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trapCfgStatus" type="trapStatus" default="on">
+				<xs:annotation>
+					<xs:documentation>trap配置状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

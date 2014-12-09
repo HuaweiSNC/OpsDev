@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.24
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="qos_type.xsd"/>
+	<xs:element name="qos" type="qos_action_qos_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>qos</taskName>
+			</xs:appinfo>
+			<xs:documentation>服务质量</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="qos_action_qos_type">
+		<xs:annotation>
+			<xs:documentation>QoS操作类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="qosResetIfCar" type="qosResetIfCar"/>
+			<xs:element name="qosResetPolicyApply" type="qosResetPolicyApply"/>
+			<xs:element name="qosRestoreDs" type="qosRestoreDs"/>
+			<xs:element name="qosResetIfQppb" type="qosResetIfQppb"/>
+			<xs:element name="qosResetPortQueue" type="qosResetPortQueue"/>
+			<xs:element name="qosResetProfile" type="qosResetProfile"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="qosResetIfCar">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>清除接口CAR统计类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>接口名</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="direction" type="qosDirectionType" default="inbound">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>上下行方向</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="qosResetPolicyApply">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>清除流量策略统计类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>接口名</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="direction" type="qosDirectionType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>上下行方向</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="qosRestoreDs">
+		<xs:annotation>
+			<xs:documentation>恢复DS域默认值类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dsName" type="qosDsName">
+				<xs:annotation>
+					<xs:documentation>DS域名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="qosRestoreBa">
+		<xs:annotation>
+			<xs:documentation>恢复BA默认值类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dsName">
+				<xs:annotation>
+					<xs:documentation>DS域名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="baType">
+				<xs:annotation>
+					<xs:documentation>内部优先级类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="baValue">
+				<xs:annotation>
+					<xs:documentation>内部优先级值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="qosRestorePhb">
+		<xs:annotation>
+			<xs:documentation>恢复PHB默认值类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dsName">
+				<xs:annotation>
+					<xs:documentation>DS域名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phbType">
+				<xs:annotation>
+					<xs:documentation>外部优先级类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceClass">
+				<xs:annotation>
+					<xs:documentation>服务等级</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="color">
+				<xs:annotation>
+					<xs:documentation>颜色</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="qosResetIfQppb">
+		<xs:annotation>
+			<xs:documentation>清除IfQppb的统计计数类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>接口名</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="direction" type="qosIfQppbMode">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>上下行方向</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="qosResetPortQueue">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>清除接口流量整形统计类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>接口名</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="serviceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>服务等级</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="qosResetProfile">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>清除qos-profile统计类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>接口名</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="serviceClass" type="qosServiceClass">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>服务等级</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

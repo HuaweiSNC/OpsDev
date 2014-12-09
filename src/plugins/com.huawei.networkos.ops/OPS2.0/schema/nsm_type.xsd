@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:simpleType name="nsmSamplingMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="fix_packets">
+                <xs:annotation>
+                    <xs:documentation>fix-packets:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="fix_time">
+                <xs:annotation>
+                    <xs:documentation>fix-time:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="random_packets">
+                <xs:annotation>
+                    <xs:documentation>random-packets:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+			<xs:enumeration value="random_time">
+				<xs:annotation>
+					<xs:documentation>random-time:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+	<xs:simpleType name="nsmDIRECTION">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="inbound">
+                <xs:annotation>
+                    <xs:documentation>inbound:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="outbound">
+                <xs:annotation>
+                    <xs:documentation>outbound:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmAggType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="as">
+                <xs:annotation>
+                    <xs:documentation>as:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="as_tos">
+                <xs:annotation>
+                    <xs:documentation>as-tos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="protocol_port">
+                <xs:annotation>
+                    <xs:documentation>protocol-port:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="protocol_port_tos">
+                <xs:annotation>
+                    <xs:documentation>protocol-port-tos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="source_prefix">
+                <xs:annotation>
+                    <xs:documentation>source-prefix:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="source_prefix_tos">
+                <xs:annotation>
+                    <xs:documentation>source-prefix-tos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="destination_prefix">
+                <xs:annotation>
+                    <xs:documentation>destination-prefix:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="destination_prefix_tos">
+                <xs:annotation>
+                    <xs:documentation>destination-prefix-tos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="prefix">
+                <xs:annotation>
+                    <xs:documentation>prefix:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="prefix_tos">
+                <xs:annotation>
+                    <xs:documentation>prefix-tos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="mpls_label">
+                <xs:annotation>
+                    <xs:documentation>mpls-label:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="vlan_id">
+                <xs:annotation>
+                    <xs:documentation>vlan-id:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="bgp_nexthop_tos">
+                <xs:annotation>
+                    <xs:documentation>bgp-nexthop-tos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="index_tos">
+                <xs:annotation>
+                    <xs:documentation>index-tos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="source_index_tos">
+                <xs:annotation>
+                    <xs:documentation>source-index-tos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmStatType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Template">
+                <xs:annotation>
+                    <xs:documentation>Template:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Pack">
+                <xs:annotation>
+                    <xs:documentation>Pack:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmTemplatType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="option">
+                <xs:annotation>
+                    <xs:documentation>option:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="aggregation">
+                <xs:annotation>
+                    <xs:documentation>aggregation:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="origin">
+                <xs:annotation>
+                    <xs:documentation>origin:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmEnable">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="false">
+                <xs:annotation>
+                    <xs:documentation>false:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="true">
+                <xs:annotation>
+                    <xs:documentation>true:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmAggVersion">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>8:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>9:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmOriginVersion">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>5:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>9:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmAsType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="invalid_as">
+                <xs:annotation>
+                    <xs:documentation>invalid-as:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="origin_as">
+                <xs:annotation>
+                    <xs:documentation>origin-as:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="peer_as">
+                <xs:annotation>
+                    <xs:documentation>peer-as:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmAsmodeIndex">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="16">
+                <xs:annotation>
+                    <xs:documentation>16:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="32">
+                <xs:annotation>
+                    <xs:documentation>32:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmMplsAware">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ip_only">
+                <xs:annotation>
+                    <xs:documentation>ip-only:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="label_and_ip">
+                <xs:annotation>
+                    <xs:documentation>label-and-ip:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="label_only">
+                <xs:annotation>
+                    <xs:documentation>label-only:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmRstType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="statistics">
+                <xs:annotation>
+                    <xs:documentation>statistics:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="cache">
+                <xs:annotation>
+                    <xs:documentation>cache:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nsmTalType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="mpls">
+                <xs:annotation>
+                    <xs:documentation>mpls:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+	<xs:simpleType name="nsmFLOWTYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ip_flow">
+				<xs:annotation>
+					<xs:documentation>ip flow:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipv6_flow">
+				<xs:annotation>
+					<xs:documentation>ipv6 flow:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="nsmDESBOARD">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="self">
+				<xs:annotation>
+					<xs:documentation>self:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="main">
+				<xs:annotation>
+					<xs:documentation>main:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bak">
+				<xs:annotation>
+					<xs:documentation>bak:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="nsmRANDOMTIME">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="3_0">
+				<xs:annotation>
+					<xs:documentation>3.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6_0">
+				<xs:annotation>
+					<xs:documentation>6.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="12_0">
+				<xs:annotation>
+					<xs:documentation>12.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="24_0">
+				<xs:annotation>
+					<xs:documentation>24.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="48_0">
+				<xs:annotation>
+					<xs:documentation>48.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="96_0">
+				<xs:annotation>
+					<xs:documentation>96.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="192_0">
+				<xs:annotation>
+					<xs:documentation>192.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="383_5">
+				<xs:annotation>
+					<xs:documentation>383.5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="767_0">
+				<xs:annotation>
+					<xs:documentation>767.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="1534_0">
+				<xs:annotation>
+					<xs:documentation>1534.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3068_0">
+				<xs:annotation>
+					<xs:documentation>3068.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6136_0">
+				<xs:annotation>
+					<xs:documentation>6136.0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

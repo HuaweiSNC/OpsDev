@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="radius_type.xsd"/>
+	<xs:element name="radius" type="radius_radius_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>radius</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="radius_radius_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rdsClient" type="radius_rdsClient_type"/>
+			<xs:element name="rdsTemplates" type="radius_rdsTemplates_type"/>
+			<xs:element name="rdsCoaClientCfgs" type="radius_rdsCoaClCfgs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="radius_rdsCoaClCfgs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rdsCoaClientCfg" type="radius_rdsCoaClCfg_type" minOccurs="0" maxOccurs="32"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="radius_rdsCoaClCfg_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="clientIpv4Address" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>IPv4 address of COA Client</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vpnName" default="_public_">
+				<xs:annotation>
+					<xs:documentation>VPN instance name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sharedKey">
+				<xs:annotation>
+					<xs:documentation>Shared key value, in simple form only</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rspHoldTime" default="0">
+				<xs:annotation>
+					<xs:documentation>Response message hold timer value</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="300"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="radius_rdsTemplates_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rdsTemplate" type="radius_rdsTemplate_type" minOccurs="0" maxOccurs="128"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="radius_rdsTemplate_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="groupName">
+				<xs:annotation>
+					<xs:documentation>Unique name to identifying the group</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+                                                <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="retransmissionCount" default="3">
+				<xs:annotation>
+					<xs:documentation>Number of times packet retransmission will happen if server is not responding</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="retransmissionInterval" default="5">
+				<xs:annotation>
+					<xs:documentation>Time interval after which actual RADIUS packet is resend if server is not responding (Seconds)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="25"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="probeInterval" default="5">
+				<xs:annotation>
+					<xs:documentation>Time interval between sending of two subsequent probe packets (Minutes)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="1440"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sharedKey">
+				<xs:annotation>
+					<xs:documentation>Transactions between the client and RADIUS server are authenticated through the use of a shared key</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isDomainInclude" default="true">
+				<xs:annotation>
+					<xs:documentation>Domain name to be included/excluded from username while sending RADIUS packets by this group</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:boolean"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="groupMode" type="radiusRdsMode" default="Pri-secondary">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Group Mode (primary secondary or load balance)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rdsServers" type="radius_rdsServers_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="radius_rdsServers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rdsServer" type="radius_rdsServer_type" minOccurs="0" maxOccurs="32"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="radius_rdsServer_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serverType" type="radiusRdsSvrType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+					<xs:documentation>Server Type of RADIUS Server</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverIPAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>IPv4 address of RADIUS Server</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverPort">
+				<xs:annotation>
+					<xs:documentation>Client is using this UDP port while sending requests to this server</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serverMode" type="radiusPriSec">
+				<xs:annotation>
+					<xs:documentation>To specify Primary server or not</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceLoopbackInterfaceName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>To configure source interface name</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sharedKey">
+				<xs:annotation>
+					<xs:documentation>Transactions between the client and RADIUS server are authenticated through the use of a shared key</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vpnName" type="vrfName" default="_public_">
+				<xs:annotation>
+					<xs:documentation>To configure VPN instance</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverCurrentState" type="radiusRdsSvrState">
+				<xs:annotation>
+					<xs:documentation>Current Server State</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isCurrentServer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>This server will be selected or not from the group to serve new user requests</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="radius_rdsClient_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="isEnable" default="false">
+				<xs:annotation>
+					<xs:documentation>To enable / disable radius client services</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:boolean"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="coaEnable">
+				<xs:annotation>
+					<xs:documentation>To indicate if the COA server is enabled</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:boolean"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="authClientIdentifier">
+				<xs:annotation>
+					<xs:documentation>The NAS-Identifier of the RADIUS authentication client</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>			
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ethernetMacLearnPriority">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ethernetIsolateGroupId">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ethernetportPriority">
+		<xs:restriction base="xs:unsignedByte">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ethernetEnableStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>Enable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>Disable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ethernetVlanId">
+		<xs:restriction base="xs:unsignedShort">
+			<xs:minInclusive value="1"/>
+			<xs:maxInclusive value="4094"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ethernetLinkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="access">
+				<xs:annotation>
+					<xs:documentation>Acess</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="trunk">
+				<xs:annotation>
+					<xs:documentation>Trunk</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hybrid">
+				<xs:annotation>
+					<xs:documentation>Hybrid</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dot1qtunnel">
+				<xs:annotation>
+					<xs:documentation>Dot1qTunnel</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ethernetMacSecurityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="common">
+				<xs:annotation>
+					<xs:documentation>Common MAC</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="security">
+				<xs:annotation>
+					<xs:documentation>Security MAC</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sticky">
+				<xs:annotation>
+					<xs:documentation>Sticky MAC</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ethernetMacSecurityActionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="protect">
+				<xs:annotation>
+					<xs:documentation>Protect</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="restrict">
+				<xs:annotation>
+					<xs:documentation>Restrict</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="shutdown">
+				<xs:annotation>
+					<xs:documentation>Shutdown</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ethernetIsolateMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="l2">
+				<xs:annotation>
+					<xs:documentation>Acess</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>Trunk</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="flowType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="VlanType">
+				<xs:annotation>
+					<xs:documentation>VlanType</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Dot1qTerm">
+				<xs:annotation>
+					<xs:documentation>Dot1qTerm</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="QinQTerm">
+				<xs:annotation>
+					<xs:documentation>QinQTerm</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stacking">
+				<xs:annotation>
+					<xs:documentation>Stacking</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="remarkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TrustPe8021p">
+				<xs:annotation>
+					<xs:documentation>TrustPe8021p</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TrustCe8021p">
+				<xs:annotation>
+					<xs:documentation>TrustCe8021p</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Precedence">
+				<xs:annotation>
+					<xs:documentation>Precedence</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Invalid">
+				<xs:annotation>
+					<xs:documentation>Invalid</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tagType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None">
+				<xs:annotation>
+					<xs:documentation>None</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LocalSwitch">
+				<xs:annotation>
+					<xs:documentation>LocalSwitch</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RtProtocol">
+				<xs:annotation>
+					<xs:documentation>RtProtocol</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="suppressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="broadcast">
+				<xs:annotation>
+					<xs:documentation>Broadcast Suppress</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multicast">
+				<xs:annotation>
+					<xs:documentation>Multicast Suppress</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown">
+				<xs:annotation>
+					<xs:documentation>Unknown-unicast</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="groupModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="single">
+				<xs:annotation>
+					<xs:documentation>single</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multiple">
+				<xs:annotation>
+					<xs:documentation>multiple</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="symmetryType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Symmetry">
+				<xs:annotation>
+					<xs:documentation>symmetry</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Asymmetry">
+				<xs:annotation>
+					<xs:documentation>asymmetry</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Invalid">
+				<xs:annotation>
+					<xs:documentation>Invalid</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="userModeEnable">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Enable">
+				<xs:annotation>
+					<xs:documentation>enable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Disable">
+				<xs:annotation>
+					<xs:documentation>disable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Invalid">
+				<xs:annotation>
+					<xs:documentation>Invalid</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="directionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="inbound">
+				<xs:annotation>
+					<xs:documentation>Inbound</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="outbound">
+				<xs:annotation>
+					<xs:documentation>Outbound</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="cfgCheckPointClientE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CLI">
+				<xs:annotation>
+					<xs:documentation>修改配置生成回退点的客户端是CLI</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NETCONF">
+				<xs:annotation>
+					<xs:documentation>修改配置生成回退点的客户端是NETCONF</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SNMP">
+				<xs:annotation>
+					<xs:documentation>修改配置生成回退点的客户端是SNMP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ROLLBACK">
+				<xs:annotation>
+					<xs:documentation>执行配置回退生成的回退点客户端是ROLLBACK</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RESTORE">
+				<xs:annotation>
+					<xs:documentation>系统启动配置与最新的回退点不一致时生成的回退点客户端是RESTORE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SYSTEM">
+				<xs:annotation>
+					<xs:documentation>无法获取当前用户信息的内部配置，CFG显示回退点客户端为SYSTEM</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="-">
+				<xs:annotation>
+					<xs:documentation>无法识别的客户端</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cfgSetStartupType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="setToCentralChassis">
+				<xs:annotation>
+					<xs:documentation>设置下次启动文件到中央交换框</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="setToAllchassis">
+				<xs:annotation>
+					<xs:documentation>设置下次启动文件到所有框</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="set">
+				<xs:annotation>
+					<xs:documentation>setToOnechassis</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

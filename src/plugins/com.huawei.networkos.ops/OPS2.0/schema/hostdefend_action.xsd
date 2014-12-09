@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.6
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="hostdefend_type.xsd"/>
+	<xs:element name="hostdefend" type="hostdefend_action_hostdefend_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>hostdefend</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="hostdefend_action_hostdefend_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secResetGtsmStat" type="hostdefend_action_secResetGtsmStat_type"/>
+			<xs:element name="secResetFragCarStat" type="hostdefend_action_secResetFragCarStat_type"/>
+			<xs:element name="secResetMaDefendStat" type="hostdefend_action_secResetMaDefendStat_type"/>			
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_action_secResetGtsmStat_type">
+		<xs:annotation>
+			<xs:documentation>清除GTSM统计信息</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secSlotId">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="secProtocol" type="hostdefendGTSMPROTOCOL">
+				<xs:annotation>
+					<xs:documentation>协议类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>			
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_action_secResetFragCarStat_type">
+		<xs:annotation>
+			<xs:documentation>清除分片CAR的统计信息</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element name="secSlotId">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_action_secResetMaDefendStat_type">
+		<xs:annotation>
+			<xs:documentation>清除管理平面防护的统计信息</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0">
+			<xs:element name="slotId">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="protocolType" type="hostdefendMaDefendPROTOCOL">
+				<xs:annotation>
+					<xs:documentation>协议类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

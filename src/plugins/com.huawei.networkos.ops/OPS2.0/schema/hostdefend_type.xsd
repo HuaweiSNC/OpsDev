@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.6
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="hostdefendMAAction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Default">
+				<xs:annotation>
+					<xs:documentation>Default:默认方式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Deny">
+				<xs:annotation>
+					<xs:documentation>Deny:拒绝协议报文的上送</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Permit">
+				<xs:annotation>
+					<xs:documentation>Permit:允许协议报文的上送</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendGTSMPROTOCOL">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BGP">
+				<xs:annotation>
+					<xs:documentation>BGP:BGP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BGPv6">
+				<xs:annotation>
+					<xs:documentation>BGPv6:BGPv6协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSPF">
+				<xs:annotation>
+					<xs:documentation>OSPF:OSPF协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LDP">
+				<xs:annotation>
+					<xs:documentation>LDP:LDP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendMaDefendPROTOCOL">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FTP_SERVER">
+				<xs:annotation>
+					<xs:documentation>FTP-SERVER:FTP-SERVER协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SSH_SERVER">
+				<xs:annotation>
+					<xs:documentation>SSH-SERVER:SSH-SERVER协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SNMP">
+				<xs:annotation>
+					<xs:documentation>SNMP:SNMP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TELNET_SERVER">
+				<xs:annotation>
+					<xs:documentation>TELNET-SERVER:TELNET-SERVER协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TFTP">
+				<xs:annotation>
+					<xs:documentation>TFTP:TFTP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BGP">
+				<xs:annotation>
+					<xs:documentation>BGP:BGP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LDP">
+				<xs:annotation>
+					<xs:documentation>LDP:LDP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RSVP">
+				<xs:annotation>
+					<xs:documentation>RSVP:RSVP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OSPF">
+				<xs:annotation>
+					<xs:documentation>OSPF:OSPF协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RIP">
+				<xs:annotation>
+					<xs:documentation>RIP:RIP协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ISIS">
+				<xs:annotation>
+					<xs:documentation>ISIS:ISIS协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PIMSM">
+				<xs:annotation>
+					<xs:documentation>PIMSM:PIM-SM协议</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendCaptPhyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Interface">
+				<xs:annotation>
+					<xs:documentation>Interface:根据接口抓包</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LinkType">
+				<xs:annotation>
+					<xs:documentation>LinkType:根据链路类型抓包</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendAclType">
+		<xs:restriction base="xs:string">
+		        <xs:enumeration value="InvalidAcl">
+				<xs:annotation>
+					<xs:documentation>InvalidAcl:Invalid Acl</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CaptAcl">
+				<xs:annotation>
+					<xs:documentation>CaptIpv4Acl:Ipv4 Acl</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CaptIpv6Acl">
+				<xs:annotation>
+					<xs:documentation>CaptIpv6Acl:Ipv6 4Acl</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendCaptAcl">
+		<xs:annotation>
+			<xs:documentation>aclNumOrName is begin with a-z or A-Z or 0-9</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="(^[2-3]\d{3}$)|(^40\d{2}$)|(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendforwardAcl">
+		<xs:annotation>
+			<xs:documentation>aclNumOrName is begin with a-z or A-Z or 0-9</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="(^[2-3]\d{3}$)|(^40\d{2}$)|(^10[0-9]{3}$)|(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendCaptIpv6Acl">
+		<xs:annotation>
+			<xs:documentation>acl6NumOrName is begin with a-z or A-Z or 0-9</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="(^[2-3]\d{3}$)|(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendCaptDirection">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="inbound">
+				<xs:annotation>
+					<xs:documentation>inbound</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="outbound">
+				<xs:annotation>
+					<xs:documentation>outbound</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendCaptLinkType">
+		<xs:restriction base="xs:string">
+		        <xs:enumeration value="-">
+				<xs:annotation>
+					<xs:documentation>-:interfaces' protocol type</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ethernet">
+				<xs:annotation>
+					<xs:documentation>ethernet:Ethernet protocol</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ppp">
+				<xs:annotation>
+					<xs:documentation>ppp:PPP protocol</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hdlc">
+				<xs:annotation>
+					<xs:documentation>hdlc:hdlc protocol</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendPktLenType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="totalPacket">
+				<xs:annotation>
+					<xs:documentation>totalPacket:整包抓包</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="specifyPacket">
+				<xs:annotation>
+					<xs:documentation>specifyPacket:指定包长度抓包</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="hostdefendDestType">
+		<xs:restriction base="xs:string">
+			<!--<xs:enumeration value="terminal">
+				<xs:annotation>
+					<xs:documentation>terminal:输出到终端</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>-->
+			<xs:enumeration value="file">
+				<xs:annotation>
+					<xs:documentation>file:输出到文件</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<!--<xs:enumeration value="terminalFile">
+				<xs:annotation>
+					<xs:documentation>terminalFile:输出到文件和终端</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>-->
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

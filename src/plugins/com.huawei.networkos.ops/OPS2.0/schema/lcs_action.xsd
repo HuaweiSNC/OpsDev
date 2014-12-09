@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.2
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="lcs_type.xsd"/>
+	<xs:element name="lcs" type="lcs_action_lcs_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>lcs</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="lcs_action_lcs_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lcsActive" type="lcs_action_lcsActive_type"/>
+			<xs:element name="lcsRevoke" type="xs:boolean"/>
+			<xs:element name="lcsVerify" type="lcs_action_lcsVerify_type"/>
+			<xs:element name="lcsRevokeChassis" type="lcs_action_lcsRevokeChassis_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lcs_action_lcsActive_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>to active or cancel activate the license file.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lcsFileName">
+				<xs:annotation>
+					<xs:documentation>license file activated by user</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127"/>
+						<xs:minLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lcs_action_lcsRevokeChassis_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>to revoke the license file, and get the revoke-ticket.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="chassisID">
+				<xs:annotation>
+					<xs:documentation>chassis ID</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lcs_action_lcsVerify_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>to verify the license file.</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lcsFileName">
+				<xs:annotation>
+					<xs:documentation>license file verified by user</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127"/>
+						<xs:minLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

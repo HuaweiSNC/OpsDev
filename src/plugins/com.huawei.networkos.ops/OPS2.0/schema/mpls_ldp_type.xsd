@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.9 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ldpTriggerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>所有静态路由和IGP路由项触发建立LSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host">
+				<xs:annotation>
+					<xs:documentation>主机32位地址的IP路由触发建立LSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>不触发建立LSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip-prefix">
+				<xs:annotation>
+					<xs:documentation>对特定前缀的IP路由触发建立LSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="autoFrrldpTriggerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>所有静态路由和IGP路由项触发建立LSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host">
+				<xs:annotation>
+					<xs:documentation>主机32位地址的IP路由触发建立LSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>不触发建立LSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip-prefix">
+				<xs:annotation>
+					<xs:documentation>对特定前缀的IP路由触发建立LSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="outBoundRouteType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fec">
+				<xs:annotation>
+					<xs:documentation>路由类型是fec</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp-label-route">
+				<xs:annotation>
+					<xs:documentation>路由类型是bgp路由</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="outBoundPeerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="peer-id">
+				<xs:annotation>
+					<xs:documentation>该outBound策略针对的是单个Peer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="peer-group">
+				<xs:annotation>
+					<xs:documentation>该outBound策略针对的是Peer组</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>该outBound策略针对的是所有Peer</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="fecIpPrefixType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>ipprefix对象是none</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host">
+				<xs:annotation>
+					<xs:documentation>ipprefix对象是主机</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip-prefix">
+				<xs:annotation>
+					<xs:documentation>ipprefix对象是策略</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>缺省无策略</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+    <xs:simpleType name="fecIpPrefixGroupType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none">
+                <xs:annotation>
+                    <xs:documentation>ipprefix对象是none</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="host">
+                <xs:annotation>
+                    <xs:documentation>ipprefix对象是主机</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ip-prefix">
+                <xs:annotation>
+                    <xs:documentation>ipprefix对象是策略</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+	<xs:simpleType name="bgpIpPrefixType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>ipprefix对象是none</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip-prefix">
+				<xs:annotation>
+					<xs:documentation>ipprefix对象是策略</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>缺省无策略</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bgpIpPrefixGroupType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none">
+                <xs:annotation>
+                    <xs:documentation>ipprefix对象是none</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ip-prefix">
+                <xs:annotation>
+                    <xs:documentation>ipprefix对象是策略</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpAuthenType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="plain">
+				<xs:annotation>
+					<xs:documentation>明文显示</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cipher">
+				<xs:annotation>
+					<xs:documentation>密文显示</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpSessionState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NON_EXISTENT">
+				<xs:annotation>
+					<xs:documentation>零状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INITIALIZED">
+				<xs:annotation>
+					<xs:documentation>初始化状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OPENREC">
+				<xs:annotation>
+					<xs:documentation>等待接受init消息状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OPENSENT">
+				<xs:annotation>
+					<xs:documentation>等待发送keepalive消息状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OPERATIONAL">
+				<xs:annotation>
+					<xs:documentation>会话建立状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpLabelDistMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DOD">
+				<xs:annotation>
+					<xs:documentation>上游按需请求标签模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DU">
+				<xs:annotation>
+					<xs:documentation>下游自主分发模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UNAVAILABLE">
+				<xs:annotation>
+					<xs:documentation>无标签分发模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpLabelRetentionMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Liberal">
+				<xs:annotation>
+					<xs:documentation>自由保持模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Conservative">
+				<xs:annotation>
+					<xs:documentation>保守保持模式</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpSessionRole">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active">
+				<xs:annotation>
+					<xs:documentation>主动方</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Passive">
+				<xs:annotation>
+					<xs:documentation>被动方</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpSessionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Local">
+				<xs:annotation>
+					<xs:documentation>本地类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Remote">
+				<xs:annotation>
+					<xs:documentation>远端类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LocalRemote">
+				<xs:annotation>
+					<xs:documentation>本地和远端共存类型</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpLspType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Ingress">
+				<xs:annotation>
+					<xs:documentation>入口节点</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Transit">
+				<xs:annotation>
+					<xs:documentation>中间节点</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Egress">
+				<xs:annotation>
+					<xs:documentation>出口节点</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpRouteType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IGP">
+				<xs:annotation>
+					<xs:documentation>IGP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EGP">
+				<xs:annotation>
+					<xs:documentation>EGP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Static">
+				<xs:annotation>
+					<xs:documentation>Static</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Direct">
+				<xs:annotation>
+					<xs:documentation>Direct</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unknown">
+				<xs:annotation>
+					<xs:documentation>Unknown</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpFecState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Idle">
+				<xs:annotation>
+					<xs:documentation>Idle</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SettingUp">
+				<xs:annotation>
+					<xs:documentation>SettingUp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Up">
+				<xs:annotation>
+					<xs:documentation>Up</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active">
+				<xs:annotation>
+					<xs:documentation>激活状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Inactive">
+				<xs:annotation>
+					<xs:documentation>非激活状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpLabelState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Establish">
+				<xs:annotation>
+					<xs:documentation>正常建立状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stale">
+				<xs:annotation>
+					<xs:documentation>老化状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpPeerLabelState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Available">
+				<xs:annotation>
+					<xs:documentation>可用状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Unavailable">
+				<xs:annotation>
+					<xs:documentation>不可用状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ldpIpAddressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IPV4">
+				<xs:annotation>
+					<xs:documentation>IPv4地址</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IPV6">
+				<xs:annotation>
+					<xs:documentation>IPv6地址</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

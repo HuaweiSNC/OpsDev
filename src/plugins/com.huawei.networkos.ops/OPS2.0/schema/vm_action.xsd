@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.huawei.com/netconf/vrp" xml:lang="en" xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="pub_attribute.xsd" />
+  <xs:include schemaLocation="pub_type.xsd" />
+  <xs:include schemaLocation="vm_type.xsd" />
+  <xs:annotation>
+    <xs:appinfo>
+      <formatVersion>1.0</formatVersion>
+      <contentVersion>1.0</contentVersion>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="vm" type="vm_action_type">
+    <xs:annotation>
+      <xs:appinfo>
+        <taskName>vm</taskName>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="vm_action_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vmAssociation" type="vm_OnLine_type">
+				<xs:annotation>
+					<xs:documentation>nCenter（网管）通过netconf Action方式通知TOR(接入交换机)某个VM上线</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+    <xs:attributeGroup ref="versionAttributeGroup" />
+  </xs:complexType>
+	<xs:complexType name="vm_OnLine_type">
+		<xs:annotation>
+			<xs:documentation>VM上线通知</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>TOR上的物理接口</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="vsiId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>虚拟接口标识</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="macAddress" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>虚拟接口MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlanId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>虚拟接口所属的VLAN</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>虚拟接口IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipFlag" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>虚拟接口IP地址标识</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nCenterId">
+				<xs:annotation>
+					<xs:documentation>VSI Manager ID</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="profileID">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+					<xs:documentation>策略模板ID</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="associationType" type="associationType">
+				<xs:annotation>
+					<xs:documentation>用上线操作类型</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<status>current</status>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

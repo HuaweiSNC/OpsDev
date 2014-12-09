@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.4
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="lcs_type.xsd"/>
+	<xs:element name="lcs" type="lcs_lcs_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>lcs</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="lcs_lcs_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lcsGlobalInfos" type="lcs_lcsconfigs_type">
+				<xs:annotation>
+					<xs:documentation>the global license informations</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lcsItems" type="lcs_lcsItems_type"/>
+			<xs:element name="specItems" type="lcs_specItems_type"/>
+			<xs:element name="lcsFileInfos" type="lcs_lcsFileContents_type"/>
+			<xs:element name="lcsSpecRelations" type="lcs_lcsSpecMaps_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lcs_lcsItems_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lcsItem" type="lcs_lcsItem_type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>the license item be controled by the license file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lcs_lcsconfigs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lcsGlobalInfo" type="lcs_lcsconfig_type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>the global license infomation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lcs_lcsconfig_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="chassisID" default="">
+				<xs:annotation>
+					<xs:documentation>chassis ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="activeFileName" default="License.dat">				
+				<xs:annotation>
+					<xs:documentation>license file activated by user</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127"/>
+						<xs:minLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lcsActiveState" type="lcsLcsStateTypeE" default="default">
+				<xs:annotation>
+					<xs:documentation>to indicate the license activating state of the system</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="revokeTicketInfo">
+				<xs:annotation>
+					<xs:documentation>license revoke-ticket info</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="135"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lcsEsn">
+				<xs:annotation>
+					<xs:documentation>license esn</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="2047"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lcs_lcsItem_type">
+		<xs:annotation>
+			<xs:documentation>the table of license item</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lcsItemName">
+				<xs:annotation>
+					<xs:documentation>license item name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="lcs_lcsItem_lcsItemName_type">
+							<xs:attribute name="lcsItemId" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="lcsDefaultValue" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>the default value of a license item, when license file is not provide,</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lcsItemMaxValue" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>the max value of license item.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lcsItemCurrenValue" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>the value using currently</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="lcs_lcsItem_lcsItemName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="lcs_specItems_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="specItem" type="lcs_specItem_type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>the specification item which represent a specific capiablity of the system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lcs_specItem_type">
+		<xs:annotation>
+			<xs:documentation>specification item</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="specName">
+				<xs:annotation>
+					<xs:documentation>specification item name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="lcs_specItem_specName_type">
+							<xs:attribute name="specId" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="specType" type="lcsLcsSpecType" >
+				<xs:annotation>
+					<xs:documentation>specification type</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="specValue" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>the specicication value.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lcs_lcsFileContents_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lcsFileInfo" type="lcs_lcsFileContent_type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The detailed license file information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lcs_generalInfo_type">
+		<xs:annotation>
+			<xs:documentation>License general information</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serialNo">
+				<xs:annotation>
+					<xs:documentation>License Serial No .</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="creator">
+				<xs:annotation>
+					<xs:documentation>Creator of this license</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="createdTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Time of License be effective</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="country">
+				<xs:annotation>
+					<xs:documentation>Country information</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="custom">
+				<xs:annotation>
+					<xs:documentation>customer infomation .</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="office">
+				<xs:annotation>
+					<xs:documentation>customer location .</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lcs_featureInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="featureInfo" type="lcs_featureInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lcs_featureInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>License Feature information</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="featureName">
+				<xs:annotation>
+					<xs:documentation>feature name .</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="product">
+				<xs:annotation>
+					<xs:documentation>product infomation.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="esn">
+				<xs:annotation>
+					<xs:documentation>esn of entity .</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="2055"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="authType" type="lcsLcsAuthtypeE">
+				<xs:annotation>
+					<xs:documentation>the type of authorizing</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="runDeadline" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>period of validity.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trialDays" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>trial days.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sftMtDeadline" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Software maitained deadline.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hdMtDeadline" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Hardware maintained deadline .</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sftUpgrdDeadline" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>Software upgraded deadline .</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="featureItems" type="lcs_featureItems_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lcs_lcsFileContent_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>License File content</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="chassisID" default="">
+				<xs:annotation>
+					<xs:documentation>chassis ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>	
+			<xs:element name="fileName">
+				<xs:annotation>
+					<xs:documentation>license file name</xs:documentation>
+					<xs:appinfo>
+					    <supportFilter>true</supportFilter>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="127"/>
+						<xs:minLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="licenseFileSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>the size of a license file.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="generalInfo" type="lcs_generalInfo_type"/>
+			<xs:element name="featureInfos" type="lcs_featureInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lcs_featureItems_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="featureItem" type="lcs_featureItem_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lcs_featureItem_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>System License capacity</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="itemName">
+				<xs:annotation>
+					<xs:documentation>item name of license item .</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="value" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>value of license item .</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="lcs_specItem_specName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="lcs_lcsSpecMaps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lcsSpecRelation" type="lcs_lcsSpecMap_type" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The relation between a license item and a specification item.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lcs_lcsSpecMap_type">
+		<xs:annotation>
+			<xs:documentation>The relation of license item and specification item.</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lcsItemName">
+				<xs:annotation>
+					<xs:documentation>license item name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="lcs_lcsSpecMap_lcsItemName_type">
+							<xs:attribute name="lcsItemID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="specName">
+				<xs:annotation>
+					<xs:documentation>specification item name</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="lcs_lcsSpecMap_specName_type">
+							<xs:attribute name="lcsSpecID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="lcs_lcsSpecMap_lcsItemName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="31"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="lcs_lcsSpecMap_specName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

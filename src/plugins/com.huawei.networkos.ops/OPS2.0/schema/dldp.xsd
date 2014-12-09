@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="dldp_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="dldp" type="dldp_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>dldp</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="dldp_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dldpSys" type="dldp_dldpSys_type"/>
+			<xs:element name="dldpInterfaces" type="dldp_dldpInterfaces_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dldp_dldpSys_type">
+		<xs:annotation>
+			<xs:documentation>DLDP全局参数</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>
+        </key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dldpEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>DLDP全局使能标记，缺省关闭状态</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dldpInterval" default="5">
+				<xs:annotation>
+					<xs:documentation>DLDP通告报文频率，缺省5秒，配置范围1~100秒</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="100"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dldpDelayDownInterval" default="1">
+				<xs:annotation>
+					<xs:documentation>DLDP防抖动时间，配置范围1~5秒，缺省1秒</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="5"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dldpWorkMode" type="dldpWorkMode" default="dldpEnhance">
+				<xs:annotation>
+					<xs:documentation>DLDP工作模式，缺省为增强模式
+1 - 普通模式
+2 - 增强模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dldpDownMode" type="dldpDownMode" default="dldpAutoDown">
+				<xs:annotation>
+					<xs:documentation>DLDP阻塞端口模式，缺省自动缺省阻塞模式
+1 - 自动阻塞模式
+2 - 手动阻塞模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dldpAuthMode" type="dldpAuthMode" default="dldpAuthNone">
+				<xs:annotation>
+					<xs:documentation>DLDP认证模式
+0 - 无认证（缺省模式）
+1 - 明文认证
+2 - MD5认证</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dldpPasswords">
+				<xs:annotation>
+					<xs:documentation>DLDP认证密码</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="password">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dldp_dldpInterfaces_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dldpInterface" type="dldp_dldpInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dldp_dldpInterface_type">
+		<xs:annotation>
+			<xs:documentation>DLDP接口参数</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>ifName</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="dldpEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>DLDP接口使能标记</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dldpStatus" type="dldpStatus" default="dldpInit">
+				<xs:annotation>
+					<xs:documentation>接口的DLDP状态
+1 - INIT状态
+2 - INACTIVE状态
+3 - ACTIVE状态
+4 - ADVERTISEMENT状态
+5 - PROBE状态
+6 - DISABLE状态
+7 - DELAYDOWN状态
+8 - NONE</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkStatus" type="dldpIfLinkStatus">
+				<xs:annotation>
+					<xs:documentation>接口物理状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dldpCompatibleEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>DLDP兼容模式，缺省不兼容模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dldpLocalMac" type="macAddress" default="0000-0000-0000" nillable="true">
+				<xs:annotation>
+					<xs:documentation>接口发送DLDP时PDU内的MAC</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="neighbors" type="dldp_neighbors_type"/>
+			<xs:element name="dldpStatistics" type="dldp_dldpStatistics_type"/>
+			<xs:element name="dldpErrPkt" type="dldp_dldpErrPkt_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dldp_neighbors_type">
+		<xs:sequence>
+			<xs:element name="neighbor" type="dldp_neighbor_type" minOccurs="0" maxOccurs="128"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dldp_neighbor_type">
+		<xs:annotation>
+			<xs:documentation>邻居信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>
+        </key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="macAddress" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>邻居设备的系统MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>邻居设备的端口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="state" type="dldpNegStatus">
+				<xs:annotation>
+					<xs:documentation>邻居状态
+1 - 未知
+2 - 单通
+3 - 双通</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ageTimes" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>邻居老化时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dldp_dldpStatistics_type">
+		<xs:annotation>
+			<xs:documentation>接口DLDP统计计数</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="totalSnd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="invalidIntervalRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="invalidAuthRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="invalidOpCodeRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="invalidVerRcv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loopPktRcv" type="xs:unsignedInt"/>
+			<xs:element name="lastRecordTime" type="xs:dateTime"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="dldp_dldpErrPkt_type">
+		<xs:annotation>
+			<xs:documentation>接口DLDP错误报文</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pktData">
+				<xs:annotation>
+					<xs:documentation>错误报文信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rcvTime" type="xs:dateTime"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

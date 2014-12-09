@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.3.8
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="pp4SwitchOp">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pp4PktAction">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="rcvPkt">
+				<xs:annotation>
+					<xs:documentation>rcvPkt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sndPkt">
+				<xs:annotation>
+					<xs:documentation>sndPkt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pp4OptionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="routeAlert">
+				<xs:annotation>
+					<xs:documentation>routeAlert:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="routeRecord">
+				<xs:annotation>
+					<xs:documentation>routeRecord:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sourceRoute">
+				<xs:annotation>
+					<xs:documentation>sourceRoute:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="timeStamp">
+				<xs:annotation>
+					<xs:documentation>timeStamp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="udphelperFamousPortType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="dns">
+				<xs:annotation>
+					<xs:documentation>dns</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="netbios-ds">
+				<xs:annotation>
+					<xs:documentation>netbios-ds</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="netbios-ns">
+				<xs:annotation>
+					<xs:documentation>netbios-ns</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tacacs">
+				<xs:annotation>
+					<xs:documentation>tacacs</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tftp">
+				<xs:annotation>
+					<xs:documentation>tftp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="time">
+				<xs:annotation>
+					<xs:documentation>time</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="pp4IfIcmpSecType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="echo">
+				<xs:annotation>
+					<xs:documentation>echo:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="echo-reply">
+				<xs:annotation>
+					<xs:documentation>echo-reply:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fragmentneed-dfset">
+				<xs:annotation>
+					<xs:documentation>fragmentneed-dfset:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host-redirect">
+				<xs:annotation>
+					<xs:documentation>host-redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host-tos-redirect">
+				<xs:annotation>
+					<xs:documentation>host-tos-redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="host-unreachable">
+				<xs:annotation>
+					<xs:documentation>host-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="information-reply">
+				<xs:annotation>
+					<xs:documentation>information-reply:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="information-request">
+				<xs:annotation>
+					<xs:documentation>information-request:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="net-redirect">
+				<xs:annotation>
+					<xs:documentation>net-redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="net-tos-redirect">
+				<xs:annotation>
+					<xs:documentation>net-tos-redirect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="net-unreachable">
+				<xs:annotation>
+					<xs:documentation>net-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="parameter-problem">
+				<xs:annotation>
+					<xs:documentation>parameter-problem:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="port-unreachable">
+				<xs:annotation>
+					<xs:documentation>port-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="protocol-unreachable">
+				<xs:annotation>
+					<xs:documentation>protocol-unreachable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="reassembly-timeout">
+				<xs:annotation>
+					<xs:documentation>reassembly-timeout:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="source-quench">
+				<xs:annotation>
+					<xs:documentation>source-quench:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="source-route-failed">
+				<xs:annotation>
+					<xs:documentation>source-route-failed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="timestamp-reply">
+				<xs:annotation>
+					<xs:documentation>timestamp-reply:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="timestamp-request">
+				<xs:annotation>
+					<xs:documentation>timestamp-request:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ttl-exceeded">
+				<xs:annotation>
+					<xs:documentation>ttl-exceeded:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="user-defined">
+				<xs:annotation>
+					<xs:documentation>user-defined:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="appProtolTYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="management">
+				<xs:annotation>
+					<xs:documentation>management:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="control">
+				<xs:annotation>
+					<xs:documentation>control:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

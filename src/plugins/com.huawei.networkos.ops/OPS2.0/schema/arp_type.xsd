@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="arpStrictLearn">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="force-disable">
+				<xs:annotation>
+					<xs:documentation>force-enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="force-enable">
+				<xs:annotation>
+					<xs:documentation>force-enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="trust">
+				<xs:annotation>
+					<xs:documentation>trust:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="arpSuppType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ARP">
+				<xs:annotation>
+					<xs:documentation>ARP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ARP-miss">
+				<xs:annotation>
+					<xs:documentation>ARP-miss:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="arpSuppIpType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Dest_Ip">
+				<xs:annotation>
+					<xs:documentation>dest-ip:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Src_Ip">
+				<xs:annotation>
+					<xs:documentation>src-ip:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="arpStyleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="StaticArp">
+				<xs:annotation>
+					<xs:documentation>StaticArp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DynamicArp">
+				<xs:annotation>
+					<xs:documentation>DynamicArp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InterfaceArp">
+				<xs:annotation>
+					<xs:documentation>InterfaceArp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="arpClearArpType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ClearAllArp">
+				<xs:annotation>
+					<xs:documentation>ClearAllArp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ClearStaticArp">
+				<xs:annotation>
+					<xs:documentation>ClearStaticArp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ClearDynamicArp">
+				<xs:annotation>
+					<xs:documentation>ClearDynamicArp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

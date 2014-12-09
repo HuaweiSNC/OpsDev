@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="mstp_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="mstp" type="mstp_action_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>mstp</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="mstp_action_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="resetStpStat" type="mstp_resetStpStat_type"/>
+			<xs:element name="processmcheck" type="mstp_processmcheck_type"/>
+			<xs:element name="bridgeDiameter" type="mstp_bridgeDiameter_type"/>
+			<xs:element name="portmcheck" type="mstp_portmcheck_type"/>
+			<xs:element name="resetStpPortStat" type="mstp_resetStpPortStat_type"/>
+			<xs:element name="resetStpErrorPkt" type="xs:boolean"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="mstp_resetStpStat_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="mstp_processmcheck_type">
+		<xs:annotation>
+			<xs:documentation>对进程下所有端口执行MCheck操作</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mstp_bridgeDiameter_type">
+		<xs:annotation>
+			<xs:documentation>配置网络直径，将Hello Time、Forward Delay与Max Age三个时间参数设置为一个较优的值。</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="processId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="diameter">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="7"/>
+						<xs:minInclusive value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mstp_portmcheck_type">
+		<xs:annotation>
+			<xs:documentation>对当前端口执行MCheck操作</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mstp_resetStpPortStat_type">
+		<xs:annotation>
+			<xs:documentation>清除端口报文计数</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

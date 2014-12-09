@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.3.0sp1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="bfdSmpLinkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IP">
+				<xs:annotation>
+					<xs:documentation>IP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LDP_LSP">
+				<xs:annotation>
+					<xs:documentation>LDP_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATIC_LSP">
+				<xs:annotation>
+					<xs:documentation>STATIC_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TE_LSP">
+				<xs:annotation>
+					<xs:documentation>TE_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TE_TUNNEL">
+				<xs:annotation>
+					<xs:documentation>TE_TUNNEL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LDP_TUNNEL">
+				<xs:annotation>
+					<xs:documentation>LDP_TUNNEL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VLL_PW">
+				<xs:annotation>
+					<xs:documentation>VLL_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VSI_PW">
+				<xs:annotation>
+					<xs:documentation>VSI_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTHER">
+				<xs:annotation>
+					<xs:documentation>OTHER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdLinkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IP">
+				<xs:annotation>
+					<xs:documentation>IP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LDP_LSP">
+				<xs:annotation>
+					<xs:documentation>LDP_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TE_LSP">
+				<xs:annotation>
+					<xs:documentation>TE_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TE_TUNNEL">
+				<xs:annotation>
+					<xs:documentation>TE_TUNNEL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<!--<xs:enumeration value="STATIC_LSP">
+				<xs:annotation>
+					<xs:documentation>STATIC_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>-->
+			<xs:enumeration value="VLL_PW">
+				<xs:annotation>
+					<xs:documentation>VLL_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VSI_PW">
+				<xs:annotation>
+					<xs:documentation>VSI_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdGlobalCmdType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SET_BFD">
+				<xs:annotation>
+					<xs:documentation>SET_BFD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SET_DELAY">
+				<xs:annotation>
+					<xs:documentation>SET_DELAY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLS_PASSIVE">
+				<xs:annotation>
+					<xs:documentation>MPLS_PASSIVE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PING_TIME">
+				<xs:annotation>
+					<xs:documentation>PING_TIME:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpCreateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SESS_STATIC">
+				<xs:annotation>
+					<xs:documentation>SESS_STATIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SESS_AUTO">
+				<xs:annotation>
+					<xs:documentation>SESS_AUTO:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SESS_DYNAMIC">
+				<xs:annotation>
+					<xs:documentation>SESS_DYNAMIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PASSIVE">
+				<xs:annotation>
+					<xs:documentation>PASSIVE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdCreateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SESS_STATIC">
+				<xs:annotation>
+					<xs:documentation>SESS_STATIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SESS_AUTO">
+				<xs:annotation>
+					<xs:documentation>SESS_AUTO:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpDispType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ALL">
+				<xs:annotation>
+					<xs:documentation>ALL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATIC">
+				<xs:annotation>
+					<xs:documentation>STATIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DYNAMIC">
+				<xs:annotation>
+					<xs:documentation>DYNAMIC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PASSIVE">
+				<xs:annotation>
+					<xs:documentation>PASSIVE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DISCRIMINATOR">
+				<xs:annotation>
+					<xs:documentation>DISCRIMINATOR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATIC_AUTO">
+				<xs:annotation>
+					<xs:documentation>STATIC_AUTO:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PEER_IP">
+				<xs:annotation>
+					<xs:documentation>PEER_IP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATIC_LSP">
+				<xs:annotation>
+					<xs:documentation>STATIC_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LDP_LSP">
+				<xs:annotation>
+					<xs:documentation>LDP_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MPLS_TE">
+				<xs:annotation>
+					<xs:documentation>MPLS_TE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INTERFACE">
+				<xs:annotation>
+					<xs:documentation>INTERFACE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpDbgType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EVT">
+				<xs:annotation>
+					<xs:documentation>EVT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PKT">
+				<xs:annotation>
+					<xs:documentation>PKT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SOCK">
+				<xs:annotation>
+					<xs:documentation>SOCK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MSG">
+				<xs:annotation>
+					<xs:documentation>MSG:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ERR">
+				<xs:annotation>
+					<xs:documentation>ERR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SCM">
+				<xs:annotation>
+					<xs:documentation>SCM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FSM">
+				<xs:annotation>
+					<xs:documentation>FSM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HA">
+				<xs:annotation>
+					<xs:documentation>HA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TMR">
+				<xs:annotation>
+					<xs:documentation>TMR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PROC">
+				<xs:annotation>
+					<xs:documentation>PROC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ALL">
+				<xs:annotation>
+					<xs:documentation>ALL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpDetectMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASYNC_WITH_ECHO">
+				<xs:annotation>
+					<xs:documentation>ASYNC_WITH_ECHO:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ASYNC_WITHOUT_ECHO">
+				<xs:annotation>
+					<xs:documentation>ASYNC_WITHOUT_ECHO:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DEMAND_WITH_ECHO">
+				<xs:annotation>
+					<xs:documentation>DEMAND_WITH_ECHO:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DEMAND_WITHOUT_ECHO">
+				<xs:annotation>
+					<xs:documentation>DEMAND_WITHOUT_ECHO:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpBfdCap">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IPV4">
+				<xs:annotation>
+					<xs:documentation>IPV4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IPV6">
+				<xs:annotation>
+					<xs:documentation>IPV6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpBfdState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ADMINDOWN">
+				<xs:annotation>
+					<xs:documentation>ADMINDOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DOWN">
+				<xs:annotation>
+					<xs:documentation>DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INIT">
+				<xs:annotation>
+					<xs:documentation>INIT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UP">
+				<xs:annotation>
+					<xs:documentation>UP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpBfdDiag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE">
+				<xs:annotation>
+					<xs:documentation>NONE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DETECT_DOWN">
+				<xs:annotation>
+					<xs:documentation>DETECT_DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ECHO_DOWN">
+				<xs:annotation>
+					<xs:documentation>ECHO_DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NEIGHBOR_DOWN">
+				<xs:annotation>
+					<xs:documentation>NEIGHBOR_DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FORWARDING_RESET">
+				<xs:annotation>
+					<xs:documentation>FORWARDING_RESET:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PATH_DOWN">
+				<xs:annotation>
+					<xs:documentation>PATH_DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CONCAT_PATH_DOWN">
+				<xs:annotation>
+					<xs:documentation>CONCAT_PATH_DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ADMIN_DOWN">
+				<xs:annotation>
+					<xs:documentation>ADMIN_DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REVERSE_CONCAT_PATH_DOWN">
+				<xs:annotation>
+					<xs:documentation>REVERSE_CONCAT_PATH_DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RECEIVE_ADMIN_DOWN">
+				<xs:annotation>
+					<xs:documentation>RECEIVE_ADMIN_DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpHafState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INIT">
+				<xs:annotation>
+					<xs:documentation>INIT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BATCH_BACKUP">
+				<xs:annotation>
+					<xs:documentation>BATCH_BACKUP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AWAIT">
+				<xs:annotation>
+					<xs:documentation>AWAIT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SMOOTH_INSIDE">
+				<xs:annotation>
+					<xs:documentation>SMOOTH_INSIDE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SMOOTH_FEI">
+				<xs:annotation>
+					<xs:documentation>SMOOTH_FEI:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SMOOTH_FES">
+				<xs:annotation>
+					<xs:documentation>SMOOTH_FES:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SMOOTH_APP">
+				<xs:annotation>
+					<xs:documentation>SMOOTH_APP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="WORK">
+				<xs:annotation>
+					<xs:documentation>WORK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpOperState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DOWN">
+				<xs:annotation>
+					<xs:documentation>DOWN:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UP">
+				<xs:annotation>
+					<xs:documentation>UP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpSessType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SINGLE_HOP_IP">
+				<xs:annotation>
+					<xs:documentation>SINGLE_HOP_IP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MULTI_HOP_IP">
+				<xs:annotation>
+					<xs:documentation>MULTI_HOP_IP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STATIC_LSP">
+				<xs:annotation>
+					<xs:documentation>STATIC_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LDP_LSP">
+				<xs:annotation>
+					<xs:documentation>LDP_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TE_LSP">
+				<xs:annotation>
+					<xs:documentation>TE_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TUNNEL">
+				<xs:annotation>
+					<xs:documentation>TUNNEL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VLL_PW">
+				<xs:annotation>
+					<xs:documentation>VLL_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VSI_PW">
+				<xs:annotation>
+					<xs:documentation>VSI_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpLinkFilter">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LINK_FILTER_ALL">
+				<xs:annotation>
+					<xs:documentation>LINK_FILTER_ALL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FOR_IP">
+				<xs:annotation>
+					<xs:documentation>FOR_IP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FOR_LSP">
+				<xs:annotation>
+					<xs:documentation>FOR_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FOR_TE">
+				<xs:annotation>
+					<xs:documentation>FOR_TE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FOR_PW">
+				<xs:annotation>
+					<xs:documentation>FOR_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FOR_VSI_PW">
+				<xs:annotation>
+					<xs:documentation>FOR_VSI_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdSmpCreateLink">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="S_IP_IF">
+				<xs:annotation>
+					<xs:documentation>S_IP_IF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_IP_PEER">
+				<xs:annotation>
+					<xs:documentation>S_IP_PEER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_LDP_LSP">
+				<xs:annotation>
+					<xs:documentation>S_LDP_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_STA_LSP">
+				<xs:annotation>
+					<xs:documentation>S_STA_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_TE_LSP">
+				<xs:annotation>
+					<xs:documentation>S_TE_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_TE_TNL">
+				<xs:annotation>
+					<xs:documentation>S_TE_TNL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_PW(M)">
+				<xs:annotation>
+					<xs:documentation>S_PW(M):</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_PW(S)">
+				<xs:annotation>
+					<xs:documentation>S_PW(S):</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_VSI_PW">
+				<xs:annotation>
+					<xs:documentation>S_VSI_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D_IP_IF">
+				<xs:annotation>
+					<xs:documentation>D_IP_IF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D_IP_PEER">
+				<xs:annotation>
+					<xs:documentation>D_IP_PEER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D_LDP_LSP">
+				<xs:annotation>
+					<xs:documentation>D_LDP_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D_STA_LSP">
+				<xs:annotation>
+					<xs:documentation>D_STA_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D_TE_LSP">
+				<xs:annotation>
+					<xs:documentation>D_TE_LSP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="D_TE_TNL">
+				<xs:annotation>
+					<xs:documentation>D_TE_TNL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+						<xs:enumeration value="D_PW(M)">
+				<xs:annotation>
+					<xs:documentation>D_PW(M):</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+						<xs:enumeration value="D_PW(S)">
+				<xs:annotation>
+					<xs:documentation>D_PW(S):</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+						<xs:enumeration value="D_VSI_PW">
+				<xs:annotation>
+					<xs:documentation>D_VSI_PW:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_AUTO_IF">
+				<xs:annotation>
+					<xs:documentation>S_AUTO_IF:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="S_AUTO_PEER">
+				<xs:annotation>
+					<xs:documentation>S_AUTO_PEER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E_Dynamic">
+				<xs:annotation>
+					<xs:documentation>E_Dynamic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTHER">
+				<xs:annotation>
+					<xs:documentation>OTHER:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdDeployMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DISTRIBUTE">
+				<xs:annotation>
+					<xs:documentation>DISTRIBUTE:distribute</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CENTRAL">
+				<xs:annotation>
+					<xs:documentation>CENTRAL:CENTRAL</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="bfdbaseNotUpReason">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="In-negotiation">
+				<xs:annotation>
+					<xs:documentation>In-negotiation:In negotiation</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="In-negotiation-1">
+				<xs:annotation>
+					<xs:documentation>In-negotiation-1:In negotiation</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Board-selecting-failed">
+				<xs:annotation>
+					<xs:documentation>Board-selecting-failed:Board selecting failed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sess-State-Up">
+				<xs:annotation>
+					<xs:documentation>Sess-State-Up:Session State Up</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,579 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="vm_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="vm" type="vm_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>eum</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="vm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vmSys" type="vm_Sys_type"/>
+			<xs:element name="shareGroups" type="vm_shareGroups_type"/>
+			<xs:element name="userInfos" type="vm_userInfos_type"/>
+			<xs:element name="defaultAcl" type="vm_defaultAcl_type"/>
+			<xs:element name="defaultQos" type="vm_defaultQos_type"/>
+			<xs:element name="vmPassword" type="vm_vmPassword_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vm_Sys_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>
+        </key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rdsSvrTmpltName">
+				<xs:annotation>
+					<xs:documentation>RADIUS服务器模板</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vm_shareGroups_type">
+		<xs:sequence>
+			<xs:element name="shareGroup" type="vm_shareGroup_type" minOccurs="0" maxOccurs="256"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vm_shareGroup_type">
+		<xs:annotation>
+			<xs:documentation>
+      </xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>groupName</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="groupName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sharePorts" type="vm_sharePorts_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vm_sharePorts_type">
+		<xs:sequence>
+			<xs:element name="sharePort" type="vm_sharePort_type" minOccurs="0" maxOccurs="4"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vm_sharePort_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<key>ifName</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<autoKyeType>unsignedInt</autoKyeType>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="ifName"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vm_userInfos_type">
+		<xs:sequence>
+			<xs:element name="userInfo" type="vm_userInfo_type" minOccurs="0" maxOccurs="4096"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vm_userInfo_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>ifName</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vlanId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vsiMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="vsiIP" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="downloadProfileState" type="userState">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="uploadProfileState" type="userState">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="profileId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aclName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userQoSs" type="vm_userQoSs_type"/>
+			<xs:element name="userSecurityRules" type="vm_userSecurityRules_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vm_userQoSs_type">
+		<xs:sequence>
+			<xs:element name="userQoS" type="vm_userQoS_type"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vm_userQoS_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cir" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pir" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="vm_userSecurityRules_type">
+		<xs:sequence>
+			<xs:element name="userSecurityRule" type="vm_userSecurityRule_type" maxOccurs="1024"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vm_userSecurityRule_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>
+        </key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="direction" type="directionType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ruleAction" type="ruleAction">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protocolType" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+						<valueReplace>
+							<item value="0">IP</item>
+							<item value="1">ICMP</item>
+							<item value="2">IGMP</item>
+							<item value="4">IPINIP</item>
+							<item value="6">TCP</item>
+							<item value="17">UDP</item>
+							<item value="47">GRE</item>
+							<item value="89">OSPF</item>
+							<item value="256">any</item>
+						</valueReplace>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcIP" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="srcIPWild" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dstIP" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dstIPWild" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclSrcPortBegin">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aclSrcPortEnd">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aclDestPortBegin">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aclDestPortEnd">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vm_defaultAcl_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readWrite</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="aclName">
+				<xs:annotation>
+					<xs:documentation>ACL名称</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aclDirection" type="directionType">
+				<xs:annotation>
+					<xs:documentation>ACL方向</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vm_defaultQos_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readWrite</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="qosCir">
+				<xs:annotation>
+					<xs:documentation>cir流量</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="47295"/>
+						<xs:minInclusive value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="qosPir">
+				<xs:annotation>
+					<xs:documentation>pir流量</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="47295"/>
+						<xs:minInclusive value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="qosDirection" type="directionType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vm_vmPassword_type">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo>
+				<access>readWrite</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="password">
+				<xs:annotation>
+					<xs:documentation>用户认证密码</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="password">
+						<xs:minLength value="6"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

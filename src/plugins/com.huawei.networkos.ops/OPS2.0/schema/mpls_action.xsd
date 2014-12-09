@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.9 L20090424pm for schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="mpls_type.xsd"/>
+	<xs:include schemaLocation="mpls_te_action.xsd"/>
+	<xs:include schemaLocation="mpls_ldp_action.xsd"/>
+	<xs:element name="mpls" type="mpls_action_mpls_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>mpls</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="mpls_action_mpls_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="mplsTe" type="mpls_action_mplsTe_type"/>
+			<xs:element name="mplsLdp" type="mpls_action_ldp_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.7L20090407 for Schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ifmcommPhyType">
+		<xs:annotation>
+			<xs:documentation>ifmcommRouterType is like Ethernet/Eth-Trunk/...</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Ethernet">
+				<xs:annotation>
+					<xs:documentation>Ethernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GigabitEthernet">
+				<xs:annotation>
+					<xs:documentation>GigabitEthernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Eth-Trunk">
+				<xs:annotation>
+					<xs:documentation>Eth-Trunk:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Ip-Trunk">
+				<xs:annotation>
+					<xs:documentation>Ip-Trunk:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Pos">
+				<xs:annotation>
+					<xs:documentation>Pos:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Tunnel">
+				<xs:annotation>
+					<xs:documentation>Tunnel:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NULL">
+				<xs:annotation>
+					<xs:documentation>NULL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LoopBack">
+				<xs:annotation>
+					<xs:documentation>LoopBack:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Vlanif">
+				<xs:annotation>
+					<xs:documentation>Vlanif:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="100GE">
+				<xs:annotation>
+					<xs:documentation>100GigabitEthernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="40GE">
+				<xs:annotation>
+					<xs:documentation>40GigabitEthernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MTunnel">
+				<xs:annotation>
+					<xs:documentation>MTunnel:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="10GE">
+				<xs:annotation>
+					<xs:documentation>10GigabitEthernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GEBrief">
+				<xs:annotation>
+					<xs:documentation>GigabitEthernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MEth">
+				<xs:annotation>
+					<xs:documentation>Manage-Ethernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Stack-Port">
+				<xs:annotation>
+					<xs:documentation>Stack-Port:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sip">
+				<xs:annotation>
+					<xs:documentation>Sip:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Cpos">
+				<xs:annotation>
+					<xs:documentation>Cpos:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E1">
+				<xs:annotation>
+					<xs:documentation>E1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Serial">
+				<xs:annotation>
+					<xs:documentation>Serial:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Mp-group">
+				<xs:annotation>
+					<xs:documentation>Mp-group:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Virtual-Ethernet">
+				<xs:annotation>
+					<xs:documentation>Virtual-Ethernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VMEth">
+				<xs:annotation>
+					<xs:documentation>Virtual Manage-Ethernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Ima-group">
+				<xs:annotation>
+					<xs:documentation>Ima-group:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Remote-Ap">
+				<xs:annotation>
+					<xs:documentation>Remote-Ap:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VBridge">
+				<xs:annotation>
+					<xs:documentation>VBridge:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Atm-Bundle">
+				<xs:annotation>
+					<xs:documentation>Atm-Bundle:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+                        <xs:enumeration value="Fiber-Channel">
+				<xs:annotation>
+					<xs:documentation>Fiber-Channel:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+                        <xs:enumeration value="Infiniband">
+				<xs:annotation>
+					<xs:documentation>Infiniband:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="T1">
+				<xs:annotation>
+					<xs:documentation>T1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="T3">
+				<xs:annotation>
+					<xs:documentation>T3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<!--<xs:enumeration value="InLoopBack">
+				<xs:annotation>
+					<xs:documentation>InLoopBack:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>-->
+			<!--<xs:enumeration value="Fast-Ethernet">
+				<xs:annotation>
+					<xs:documentation>Fast-Ethernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>-->
+			<!--<xs:enumeration value="RPR">
+				<xs:annotation>
+					<xs:documentation>RPR:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Serial">
+				<xs:annotation>
+					<xs:documentation>Serial:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>-->
+			<!--<xs:enumeration value="CPos">
+				<xs:annotation>
+					<xs:documentation>CPos:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ATM">
+				<xs:annotation>
+					<xs:documentation>ATM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GRE">
+				<xs:annotation>
+					<xs:documentation>GRE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Aux">
+				<xs:annotation>
+					<xs:documentation>Aux:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>-->
+			<xs:enumeration value="Global-VE">
+				<xs:annotation>
+					<xs:documentation>Global-VE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VC4">
+				<xs:annotation>
+					<xs:documentation>VC4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VC12">
+				<xs:annotation>
+					<xs:documentation>VC12:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Vbdif">
+				<xs:annotation>
+					<xs:documentation>Vbdif:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Fabric-Port">
+				<xs:annotation>
+					<xs:documentation>Fabric-Port:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmcommRouterType">
+		<xs:annotation>
+			<xs:documentation>ifmcommRouterType is like NBMA/Broadcast/...</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PtoP">
+				<xs:annotation>
+					<xs:documentation>PtoP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PtoMP">
+				<xs:annotation>
+					<xs:documentation>PtoMP:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Broadcast">
+				<xs:annotation>
+					<xs:documentation>Broadcast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NBMA">
+				<xs:annotation>
+					<xs:documentation>NBMA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmcommAdminStaType">
+		<xs:annotation>
+			<xs:documentation>ifmcommAdminStaType is like up/down</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>ready to pass packets:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>not ready to pass packets:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmcommLinkProtocol">
+		<xs:annotation>
+			<xs:documentation>ifmcommLinkProtocol is like ppp/hdlc/fr</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ethernet">
+				<xs:annotation>
+					<xs:documentation>eth:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ppp">
+				<xs:annotation>
+					<xs:documentation>ppp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hdlc">
+				<xs:annotation>
+					<xs:documentation>hdlc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fr">
+				<xs:annotation>
+					<xs:documentation>fr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tdm">
+				<xs:annotation>
+					<xs:documentation>tdm:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="atm">
+				<xs:annotation>
+					<xs:documentation>atm:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<!--<xs:enumeration value="lapb">
+				<xs:annotation>
+					<xs:documentation>lapb:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="x25">
+				<xs:annotation>
+					<xs:documentation>x25:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>-->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmcommIfStatus">
+		<xs:annotation>
+			<xs:documentation>ifmcommIfStatus is like up/down</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmam4IpAddrType">
+		<xs:annotation>
+			<xs:documentation>ifmam4IpAddrType is like main/sub</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="main">
+				<xs:annotation>
+					<xs:documentation>main:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sub">
+				<xs:annotation>
+					<xs:documentation>sub:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="neg">
+				<xs:annotation>
+					<xs:documentation>neg:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="neg_remote">
+				<xs:annotation>
+					<xs:documentation>neg_remote:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unnumber">
+				<xs:annotation>
+					<xs:documentation>unnumber:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nap">
+				<xs:annotation>
+					<xs:documentation>nap:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmam4CfgType">
+		<xs:annotation>
+			<xs:documentation>ifmam4CfgType is like config/unnumbered/negotiation</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="config">
+				<xs:annotation>
+					<xs:documentation>config:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="negotiation">
+				<xs:annotation>
+					<xs:documentation>negotiation:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unnumbered">
+				<xs:annotation>
+					<xs:documentation>unnumbered:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmam6IpAddr6Type">
+		<xs:annotation>
+			<xs:documentation>ifmam6IpAddr6Type is like linklocal/global/ndPrefix</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="global">
+				<xs:annotation>
+					<xs:documentation>global:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="linkLocal">
+				<xs:annotation>
+					<xs:documentation>linkLocal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ndPrefix">
+				<xs:annotation>
+					<xs:documentation>ndPrefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="eui64">
+				<xs:annotation>
+					<xs:documentation>eui64:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="anycast">
+				<xs:annotation>
+					<xs:documentation>anycast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmam6IDGenType">
+		<xs:annotation>
+			<xs:documentation>ifmam6IDGenType is like cga/eui64</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="cga">
+				<xs:annotation>
+					<xs:documentation>cga:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="eui64">
+				<xs:annotation>
+					<xs:documentation>eui64:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmcommServiceType">
+		<xs:annotation>
+			<xs:documentation>ifmcommServiceType is like manageport/trunkmember/l2ser/l3ser/l2switch</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None">
+				<xs:annotation>
+					<xs:documentation>None:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TrunkMember">
+				<xs:annotation>
+					<xs:documentation>TrunkMember:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="StackMember">
+				<xs:annotation>
+					<xs:documentation>StackMember:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MpMember">
+				<xs:annotation>
+					<xs:documentation>MpMember:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VbridgeMember">
+				<xs:annotation>
+					<xs:documentation>VbridgeMember:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ImaMember">
+				<xs:annotation>
+					<xs:documentation>ImaMember:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BundleMember">
+				<xs:annotation>
+					<xs:documentation>BundleMember:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LagMasterMember">
+				<xs:annotation>
+					<xs:documentation>LagMasterMember:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LagSlaveMember">
+				<xs:annotation>
+					<xs:documentation>LagSlaveMember:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmcommErrorDownType">
+		<xs:annotation>
+			<xs:documentation>ifmcommErrorDownType is like bpdu-protection</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="bpdu-protection">
+				<xs:annotation>
+					<xs:documentation>bpdu-protection:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="auto-defend">
+				<xs:annotation>
+					<xs:documentation>auto-defend:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="loopback-detect">
+				<xs:annotation>
+					<xs:documentation>loopback-detect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="portsec-reachedlimit">
+				<xs:annotation>
+					<xs:documentation>portsec-reachedlimit:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mac-address-flapping">
+				<xs:annotation>
+					<xs:documentation>mac-address-flapping:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="storm-control">
+				<xs:annotation>
+					<xs:documentation>storm-control:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dual-active">
+				<xs:annotation>
+					<xs:documentation>dual-active:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="no-stack-link">
+				<xs:annotation>
+					<xs:documentation>no-stack-link:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="crc-statistics">
+				<xs:annotation>
+					<xs:documentation>crc-statistics:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="transceiver-power-low">
+				<xs:annotation>
+					<xs:documentation>transceiver-power-low:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="link-flap">
+				<xs:annotation>
+					<xs:documentation>link-flap:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="l2-loop-occured">
+				<xs:annotation>
+					<xs:documentation>l2-loop-occured:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="veInterfaceType">
+		<xs:annotation>
+			<xs:documentation>veIfType is like L2VE/L3VE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L2VE">
+				<xs:annotation>
+					<xs:documentation>L2VE:l2-terminate</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="L3VE">
+				<xs:annotation>
+					<xs:documentation>L3VE:l3-access</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifIpStatiModeType">
+		<xs:annotation>
+			<xs:documentation> fei statistic mode type </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="forward">
+				<xs:annotation>
+					<xs:documentation> forward mode statistic </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mac">
+				<xs:annotation>
+					<xs:documentation> mac mode statistic </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		<xs:enumeration value="invalid">
+			<xs:annotation>
+				<xs:documentation> invalid:</xs:documentation>
+			</xs:annotation>
+		</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

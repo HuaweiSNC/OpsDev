@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.3.7
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="dhcpTYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="dhcpOpt82SubOpt">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="circuit-id">
+				<xs:annotation>
+					<xs:documentation>circuit-id</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remote-id">
+				<xs:annotation>
+					<xs:documentation>remote-id</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="circuit-remote">
+				<xs:annotation>
+					<xs:documentation>circuit-remote</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>      			
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dhcpOpt82VendorSubOptFormat">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ascii">
+				<xs:annotation>
+					<xs:documentation>ascii</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hex">
+				<xs:annotation>
+					<xs:documentation>hex</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip-address">
+				<xs:annotation>
+					<xs:documentation>ip-address</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sysname">
+				<xs:annotation>
+					<xs:documentation>sysname</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dhcpOpt82Format">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="common">
+				<xs:annotation>
+					<xs:documentation>common</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="extend">
+				<xs:annotation>
+					<xs:documentation>extend</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="user-defined">
+				<xs:annotation>
+					<xs:documentation>user-defined</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="type1">
+				<xs:annotation>
+					<xs:documentation>type1</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+			<xs:enumeration value="type2">
+				<xs:annotation>
+					<xs:documentation>type2</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>						
+			<xs:enumeration value="cn-telecom">
+				<xs:annotation>
+					<xs:documentation>cn-telecom</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>		
+			<xs:enumeration value="self-define">
+				<xs:annotation>
+					<xs:documentation>self-define</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>										
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dhcpOpt82Action">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="insert">
+				<xs:annotation>
+					<xs:documentation>insert</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rebuild">
+				<xs:annotation>
+					<xs:documentation>rebuild</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dhcpInterfaceState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Trusted">
+				<xs:annotation>
+					<xs:documentation>Trusted</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Untrusted">
+				<xs:annotation>
+					<xs:documentation>Untrusted</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

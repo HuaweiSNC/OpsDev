@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="sshcSshcSrvcType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STelnetIPv4">
+				<xs:annotation>
+					<xs:documentation>STelnetIPv4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STelnetIPv6">
+				<xs:annotation>
+					<xs:documentation>STelnetIPv6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SftpIPv4">
+				<xs:annotation>
+					<xs:documentation>SftpIPv4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SftpIPv6">
+				<xs:annotation>
+					<xs:documentation>SftpIPv6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshcSshcCipherList">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DES">
+				<xs:annotation>
+					<xs:documentation>DES:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TripleDES">
+				<xs:annotation>
+					<xs:documentation>TripleDES:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AES128">
+				<xs:annotation>
+					<xs:documentation>AES128:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshcSshcHmacList">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SHA1">
+				<xs:annotation>
+					<xs:documentation>SHA1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SHA1_96">
+				<xs:annotation>
+					<xs:documentation>SHA1_96:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MD5">
+				<xs:annotation>
+					<xs:documentation>MD5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MD5_96">
+				<xs:annotation>
+					<xs:documentation>MD5_96:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshcSshcKeyExList">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DH_Group1_SHA1">
+				<xs:annotation>
+					<xs:documentation>DH_Group1_SHA1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DH_GroupEx_SHA1">
+				<xs:annotation>
+					<xs:documentation>DH_GroupEx_SHA1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshcSshcConnState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Stop">
+				<xs:annotation>
+					<xs:documentation>Stop:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Started">
+				<xs:annotation>
+					<xs:documentation>Started:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshcBoolType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Enable">
+				<xs:annotation>
+					<xs:documentation>Enable the option</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Disable">
+				<xs:annotation>
+					<xs:documentation>Disable the option</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshcTransCmdType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="put">
+				<xs:annotation>
+					<xs:documentation>put:file_transfer_on_put_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="get">
+				<xs:annotation>
+					<xs:documentation>get:file_transfer_on_get_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshcPubKeyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="-">
+				<xs:annotation>
+					<xs:documentation>-:No public key configuration</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RSA">
+				<xs:annotation>
+					<xs:documentation>RSA:RSA public key</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sshcMapKeyState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CONFIGURE">
+				<xs:annotation>
+					<xs:documentation>CONFIGURE:Configuration present in database</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DYNAMIC">
+				<xs:annotation>
+					<xs:documentation>DYNAMIC:Dynamic configuration</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

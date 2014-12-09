@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="tftpc_type.xsd"/>
+	<xs:element name="tftpc" type="tftpc_action_tftpc_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>tftpc</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="tftpc_action_tftpc_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tftpcTransferFiles" type="tftpc_action_tftpcTransferFile_types"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tftpc_action_tftpcTransferFile_types">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tftpcTransferFile" type="tftpc_action_tftpcTransferFile_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tftpc_action_tftpcTransferFile_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Tftp client configuration command</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sourceIpv4Address" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Source ip address configured for IPV4 connections</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverIpv4Address" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Host IPV4</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localFileName">
+				<xs:annotation>
+					<xs:documentation>Local file name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remoteFileName">
+				<xs:annotation>
+					<xs:documentation>Remote file name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="commandType" type="tftpcTransCmd">
+				<xs:annotation>
+					<xs:documentation>Specify the operation mode of the file transfer</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vpnInstanceName">
+				<xs:annotation>
+					<xs:documentation>Vpn instance name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sourceInterfaceName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Source Interface name</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

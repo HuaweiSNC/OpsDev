@@ -1,0 +1,865 @@
+<body align="center"><br><p><p><font size="6" color="red"> URI :  /staticrt/staticrtbase/srBfdParas/srBfdPara </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> afType </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> localAddress </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> minTxInterval </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> minRxInterval </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> multiplier </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 3 </td><td> 50 </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> afType </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> localAddress </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> minTxInterval </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> minRxInterval </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> multiplier </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 3 </td><td> 50 </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> afType </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> afType </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /staticrt/staticrtbase/srIPv4StaticSite </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> relayswitch </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> preference </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 60 </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> minTxInterval </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50 </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> minRxInterval </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50 </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> multiplier </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 3 </td><td> NA </td><td> 3 </td><td> 50 </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> relayswitch </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> preference </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 60 </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> minTxInterval </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50 </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> minRxInterval </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50 </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> multiplier </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 3 </td><td> NA </td><td> 3 </td><td> 50 </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /staticrt/staticmrt/srMRoutes/srMRoute </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 32 </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> ipv4Address </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> preference </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> InterfaceState </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 8 </td><td> NA </td><td> NA </td></tr><tr><td> BfdDetect </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 36 </td><td> NA </td><td> NA </td></tr><tr><td> State </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 20 </td><td> NA </td><td> NA </td></tr><tr><td> IndirectID </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> LocalAddress </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RemoteIp </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayNextHop </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayInterface </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> TunnelID </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 21 </td><td> NA </td><td> NA </td><td> </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 32 </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> ipv4Address </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> preference </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> InterfaceState </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 8 </td><td> NA </td><td> NA </td></tr><tr><td> BfdDetect </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 36 </td><td> NA </td><td> NA </td></tr><tr><td> State </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 20 </td><td> NA </td><td> NA </td></tr><tr><td> IndirectID </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> LocalAddress </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RemoteIp </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayNextHop </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayInterface </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> TunnelID </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 21 </td><td> NA </td><td> NA </td><td> </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 32 </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> ipv4Address </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 32 </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> ipv4Address </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> true </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /staticrt/staticrtbase/srRoutes/srRoute </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> topologyName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> base </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 128 </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> description </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 35 </td><td> NA </td><td> NA </td></tr><tr><td> preference </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> tag </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 4294967295 </td></tr><tr><td> bfdEnable </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sessionName </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 15 </td><td> NA </td><td> NA </td></tr><tr><td> trackNqaAdminName </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> trackNqaTestName </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> isInheritCost </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> topologyName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> base </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 128 </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> description </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 35 </td><td> NA </td><td> NA </td></tr><tr><td> preference </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> tag </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 4294967295 </td></tr><tr><td> bfdEnable </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> sessionName </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 15 </td><td> NA </td><td> NA </td></tr><tr><td> trackNqaAdminName </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> trackNqaTestName </td><td> false </td><td> readCreate </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> isInheritCost </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> topologyName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> base </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 128 </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> topologyName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> base </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 128 </td></tr><tr><td> ifName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readCreate </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /staticrt/staticrtbase/srStaticSite </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> maxRouteNum </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50000 </td><td> NA </td><td> 0 </td><td> 50000 </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> maxRouteNum </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50000 </td><td> NA </td><td> 0 </td><td> 50000 </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /staticrt/staticrtbase/srRouteInfoTables/srRouteInfoTable </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> topologyName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> base </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 128 </td></tr><tr><td> ifName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> preference </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> tag </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 4294967295 </td></tr><tr><td> BfdType </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 15 </td><td> NA </td><td> NA </td></tr><tr><td> sessionName </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 15 </td><td> NA </td><td> NA </td></tr><tr><td> InterfaceState </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 8 </td><td> NA </td><td> NA </td></tr><tr><td> BfdDetect </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 36 </td><td> NA </td><td> NA </td></tr><tr><td> State </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 20 </td><td> NA </td><td> NA </td></tr><tr><td> IndirectID </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> LocalAddress </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RemoteIp </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayNextHop </td><td> true </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayInterface </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> TunnelID </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 21 </td><td> NA </td><td> NA </td></tr><tr><td> trackNqaAdminName </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> trackNqaTestName </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> nqaDetect </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 8 </td><td> NA </td><td> NA </td></tr><tr><td> isInheritCost </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> topologyName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> base </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 128 </td></tr><tr><td> ifName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> preference </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> tag </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> unsignedInt </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> 1 </td><td> 4294967295 </td></tr><tr><td> BfdType </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 15 </td><td> NA </td><td> NA </td></tr><tr><td> sessionName </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 15 </td><td> NA </td><td> NA </td></tr><tr><td> InterfaceState </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 8 </td><td> NA </td><td> NA </td></tr><tr><td> BfdDetect </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 36 </td><td> NA </td><td> NA </td></tr><tr><td> State </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 20 </td><td> NA </td><td> NA </td></tr><tr><td> IndirectID </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> LocalAddress </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RemoteIp </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> false </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayNextHop </td><td> true </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayInterface </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> TunnelID </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 21 </td><td> NA </td><td> NA </td></tr><tr><td> trackNqaAdminName </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> trackNqaTestName </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 32 </td><td> NA </td><td> NA </td></tr><tr><td> nqaDetect </td><td> false </td><td> readOnly </td><td> false </td><td> true </td><td> string </td><td> false </td><td> NA </td><td> NA </td><td> 8 </td><td> NA </td><td> NA </td></tr><tr><td> isInheritCost </td><td> false </td><td> readOnly </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> topologyName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> base </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 128 </td></tr><tr><td> ifName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayNextHop </td><td> true </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayInterface </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 63 </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> topologyName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> base </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> prefix </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> maskLength </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> unsignedInt </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> 0 </td><td> 128 </td></tr><tr><td> ifName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> Invalid0 </td><td> 63 </td><td> NA </td><td> NA </td></tr><tr><td> destVrfName </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> _public_ </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> nexthop </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> 0.0.0.0 </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayNextHop </td><td> true </td><td> readOnly </td><td> false </td><td> true </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> RelayInterface </td><td> true </td><td> readOnly </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 63 </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /staticrt/staticrtbase/srUniAfs/srUniAf </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> frrEnable </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr><tr><td> frrEnable </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> ENUM </td><td> false </td><td> NA </td><td> false </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> vrfName </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> string </td><td> true </td><td> NA </td><td> NA </td><td> 31 </td><td> NA </td><td> NA </td></tr><tr><td> afType </td><td> true </td><td> readWrite </td><td> false </td><td> fals </td><td> ENUM </td><td> true </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td><td> NA </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><br><p><p><font size="6" color="red"> URI :  /staticrt/staticrtbase/srIPv6StaticSite </font><hr size="2" color="green"><font size="5" color="blue"> PUT </font><hr size="1" color="black"><h3> <b>Input Parameters </b></h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> ipv6Preference </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 60 </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> minTxInterval6 </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50 </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> minRxInterval6 </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50 </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> multiplier6 </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 3 </td><td> NA </td><td> 3 </td><td> 50 </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> POST </font><hr size="1" color="black"><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr><tr><td> ipv6Preference </td><td> false </td><td> readWrite </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 60 </td><td> NA </td><td> 1 </td><td> 255 </td></tr><tr><td> minTxInterval6 </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50 </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> minRxInterval6 </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 50 </td><td> NA </td><td> 3 </td><td> 1000 </td></tr><tr><td> multiplier6 </td><td> false </td><td> readCreate </td><td> false </td><td> NA </td><td> unsignedInt </td><td> false </td><td> NA </td><td> 3 </td><td> NA </td><td> 3 </td><td> 50 </td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> <b>GET </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br><font size="5" color="blue"> DELETE </font><hr size="1" color="black"><br><h3> <b>Input Parameters <b> </h3><table border="1" ><tr><td><b>Attribute</b></td><td><b>key</b></td><td><b>access</b></td><td><b>mandatory</b></td><td><b>allowNull</b></td><td><b>type</b></td><td><b>unique</b></td><td><b>supportFilter</b></td><td><b>default</b></td><td><b>maxLength</b></td><td><b>minInclusive</b></td><td><b>maxInclusive</b></td></tr></table><h3> Status Code </h3>
+                <table border="1">
+                    <tr>
+                        <td><b>code</b></td>
+                        <td><b>description</b></td>
+                    </tr>
+                    <tr>
+                        <td>200</td>
+                        <td>Operation successful </td>
+                    </tr>
+                    <tr>
+                        <td>204</td>
+                        <td>No content in string</td>
+                    </tr>
+                    <tr>
+                        <td>501</td>
+                        <td>Http not implemented</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>NO server response</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br></body>

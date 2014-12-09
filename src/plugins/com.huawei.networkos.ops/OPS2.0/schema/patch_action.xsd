@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.5sp1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="patch_type.xsd"/>
+	<xs:element name="patch" type="patch_action_patch_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>patch</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="patch_action_patch_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="patchActive">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="patchDeactive">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="patchDelete">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="patchLoad" type="patch_action_patchLoad_type"/>
+			<xs:element name="patchRun">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="startup" type="patch_action_startup_type"/>
+			<xs:element name="resetpatch">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="patch_action_patchActive_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>激活补丁包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+	</xs:complexType>
+	<xs:complexType name="patch_action_patchDeactive_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>去激活补丁包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+	</xs:complexType>
+	<xs:complexType name="patch_action_patchDelete_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>删除补丁包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+	</xs:complexType>
+	<xs:complexType name="patch_action_patchLoad_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>安装补丁包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="packageName">
+				<xs:annotation>
+					<xs:documentation>补丁包名称</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="state" type="patchLoadState">
+				<xs:annotation>
+					<xs:documentation>补丁包状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="patch_action_patchRun_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>运行补丁包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+	</xs:complexType>
+	<xs:complexType name="patch_action_startup_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>设置下次启动补丁包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="packageName">
+				<xs:annotation>
+					<xs:documentation>补丁包名称</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="patch_action_resetpatch_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>清除下次启动补丁包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+	</xs:complexType>
+</xs:schema>

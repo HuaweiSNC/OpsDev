@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.9 L20090424pm for schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="cspfIgpType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ospf">
+				<xs:annotation>
+					<xs:documentation>ospf:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isis">
+				<xs:annotation>
+					<xs:documentation>isis:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cspfBcModel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RDM">
+				<xs:annotation>
+					<xs:documentation>RDM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MAM">
+				<xs:annotation>
+					<xs:documentation>MAM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EXTMAM">
+				<xs:annotation>
+					<xs:documentation>EXTMAM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cspfOperMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TE">
+				<xs:annotation>
+					<xs:documentation>TE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DSTE">
+				<xs:annotation>
+					<xs:documentation>DSTE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cspfLinkStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Up">
+				<xs:annotation>
+					<xs:documentation>Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="cspfCspfLinkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="P2P">
+				<xs:annotation>
+					<xs:documentation>P2P:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Multi_Acess">
+				<xs:annotation>
+					<xs:documentation>Multi-Acess:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mplsTeTnlHsbRevertMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="revertive">
+				<xs:annotation>
+					<xs:documentation>revertive</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nonRevertive">
+				<xs:annotation>
+					<xs:documentation>non-evertive</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mplsTeHsbSwitchMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="primary2hsb">
+				<xs:annotation>
+					<xs:documentation>switch from primary to hot-standby</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hsb2primary">
+				<xs:annotation>
+					<xs:documentation>switch from hot-standby to primary</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="p2pteTunnelPathRole">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="primary">
+				<xs:annotation>
+					<xs:documentation>primary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="secondary">
+				<xs:annotation>
+					<xs:documentation>secondary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rsvpteFrrMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEFAULT">
+				<xs:annotation>
+					<xs:documentation>DEFAULT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LINK">
+				<xs:annotation>
+					<xs:documentation>LINK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NODE">
+				<xs:annotation>
+					<xs:documentation>NODE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DISABLE">
+				<xs:annotation>
+					<xs:documentation>DISABLE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rsvpteMPLSAUTHALG">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MD5">
+				<xs:annotation>
+					<xs:documentation>MD5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SHA1">
+				<xs:annotation>
+					<xs:documentation>SHA1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="rsvpteMPLSAUTHKEYTPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="plain">
+				<xs:annotation>
+					<xs:documentation>plain:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cipher">
+				<xs:annotation>
+					<xs:documentation>cipher:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tebaseTieBreaking">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LEASTFILL">
+				<xs:annotation>
+					<xs:documentation>LEASTFILL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MOSTFILL">
+				<xs:annotation>
+					<xs:documentation>MOSTFILL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RANDOM">
+				<xs:annotation>
+					<xs:documentation>RANDOM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="p2pTnlTieBreaking">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LEASTFILL">
+				<xs:annotation>
+					<xs:documentation>LEASTFILL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MOSTFILL">
+				<xs:annotation>
+					<xs:documentation>MOSTFILL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RANDOM">
+				<xs:annotation>
+					<xs:documentation>RANDOM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DEFAULT">
+				<xs:annotation>
+					<xs:documentation>DEFAULT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GLOBALPATHMETRICTYPE">
+		<xs:annotation>
+			<xs:documentation>算路使用的度量类型</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IGP">
+				<xs:annotation>
+					<xs:documentation>IGP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TE">
+				<xs:annotation>
+					<xs:documentation>TE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="mplsTeCspfSrlgPathCalcMode">
+		<xs:annotation>
+			<xs:documentation>cspf srlg path calculating mode</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>none, not care</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="preferred">
+				<xs:annotation>
+					<xs:documentation>preferred</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="strict">
+				<xs:annotation>
+					<xs:documentation>strict</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TUNNELPATHMETRICTYPE">
+		<xs:annotation>
+			<xs:documentation>算路使用的度量类型</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE">
+				<xs:annotation>
+					<xs:documentation>缺省</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IGP">
+				<xs:annotation>
+					<xs:documentation>IGP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TE">
+				<xs:annotation>
+					<xs:documentation>TE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tebaseSrlgCalcMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DONTCARE">
+				<xs:annotation>
+					<xs:documentation>DONTCARE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STRICT">
+				<xs:annotation>
+					<xs:documentation>STRICT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PREFERRED">
+				<xs:annotation>
+					<xs:documentation>PREFERRED:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tebaseMimBcm">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MIM_BCM_RDM">
+				<xs:annotation>
+					<xs:documentation>MIM_BCM_RDM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MIM_BCM_MAM">
+				<xs:annotation>
+					<xs:documentation>MIM_BCM_MAM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MIM_BCM_EMAM">
+				<xs:annotation>
+					<xs:documentation>MIM_BCM_EMAM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teE2EMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DISABLE">
+				<xs:annotation>
+					<xs:documentation>DISABLE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ONEBYONE">
+				<xs:annotation>
+					<xs:documentation>ONEBYONE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<!-- xs:enumeration value="ONEPLUSONE">
+				<xs:annotation>
+					<xs:documentation>ONEPLUSONE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teFRRMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DISABLE">
+				<xs:annotation>
+					<xs:documentation>DISABLE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LINK">
+				<xs:annotation>
+					<xs:documentation>LINK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NODE">
+				<xs:annotation>
+					<xs:documentation>NODE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teTrafficLockType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DONT_LOCK">
+				<xs:annotation>
+					<xs:documentation>DONT_LOCK:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LOCK_ONPRIMARY">
+				<xs:annotation>
+					<xs:documentation>LOCK_ONPRIMARY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LOCK_ONSECONDARY">
+				<xs:annotation>
+					<xs:documentation>LOCK_ONSECONDARY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teRecordRouteMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DISABLE">
+				<xs:annotation>
+					<xs:documentation>DISABLE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RECORD_ROUTE_ONLY">
+				<xs:annotation>
+					<xs:documentation>RECORD_ROUTE_ONLY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RECORD_LABLE">
+				<xs:annotation>
+					<xs:documentation>RECORD_LABLE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teTunnelRole">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HEAD">
+				<xs:annotation>
+					<xs:documentation>HEAD:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TRANSIT">
+				<xs:annotation>
+					<xs:documentation>TRANSIT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TAIL">
+				<xs:annotation>
+					<xs:documentation>TAIL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="HEADANDTAIL">
+				<xs:annotation>
+					<xs:documentation>HEADANDTAIL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teTunnelPathType">
+		<xs:annotation>
+			<xs:documentation>隧道的路径类型</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="primary">
+				<xs:annotation>
+					<xs:documentation>主路径</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hot_standby">
+				<xs:annotation>
+					<xs:documentation>热备份路径</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ordinary">
+				<xs:annotation>
+					<xs:documentation>重路由路径</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="best_effort">
+				<xs:annotation>
+					<xs:documentation>逃生路径</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teHopStrictType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STRICT">
+				<xs:annotation>
+					<xs:documentation>STRICT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LOOSE">
+				<xs:annotation>
+					<xs:documentation>LOOSE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teHopAddrType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IPV4">
+				<xs:annotation>
+					<xs:documentation>IPV4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<!-- xs:enumeration value="IPV6">
+				<xs:annotation>
+					<xs:documentation>IPV6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration -->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teTunnelOwner">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="USER">
+				<xs:annotation>
+					<xs:documentation>User config</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AutoBypass">
+				<xs:annotation>
+					<xs:documentation>Create for auto frr protect</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifIGPShortCutMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ospf">
+				<xs:annotation>
+					<xs:documentation>ospf:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isis">
+				<xs:annotation>
+					<xs:documentation>isis:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="both">
+				<xs:annotation>
+					<xs:documentation>both:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifIGPMetricMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="absolute">
+				<xs:annotation>
+					<xs:documentation>absolute:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="relative">
+				<xs:annotation>
+					<xs:documentation>relative:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="interfaceStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="resvStyle">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SE">
+				<xs:annotation>
+					<xs:documentation>Shared Explicit Style:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FF">
+				<xs:annotation>
+					<xs:documentation>Fixed Filter Style:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tunnelState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UP">
+				<xs:annotation>
+					<xs:documentation>CR-LSP is Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DOWN">
+				<xs:annotation>
+					<xs:documentation>CR-LSP is Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Setting">
+				<xs:annotation>
+					<xs:documentation>CR-LSP is setting Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MBBWaitForDeleting">
+				<xs:annotation>
+					<xs:documentation>Modifying CR-LSP is waiting for deleting:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MBBWaitForSwitch">
+				<xs:annotation>
+					<xs:documentation>Modifying CR-LSP is waiting for switching:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AllPathReady">
+				<xs:annotation>
+					<xs:documentation>Primary CR-LSP Up and HotBackup CR-LSP Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PriReadyBackupSetting">
+				<xs:annotation>
+					<xs:documentation>Primary CR-LSP UP and HotBackup CR-LSP setting Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PriDownBackupSetting">
+				<xs:annotation>
+					<xs:documentation>Primary CR-LSP Down and Backup CR-LSP setting Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BackupInUsePriSetting">
+				<xs:annotation>
+					<xs:documentation>Backup CR-LSP In use and Primary CR-LSP setting Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="erHopType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="includeStrict">
+				<xs:annotation>
+					<xs:documentation>严格包含</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="includeLoose">
+				<xs:annotation>
+					<xs:documentation>松散包含</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="exclude">
+				<xs:annotation>
+					<xs:documentation>排除</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teFrrInUsedState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="frrNotExist">
+				<xs:annotation>
+					<xs:documentation>不存在FRR保护</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="frrAvilable">
+				<xs:annotation>
+					<xs:documentation>FRR保护可用</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="frrInUsed">
+				<xs:annotation>
+					<xs:documentation>正在使用FRR保护</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AutoBwType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ADJUSTMENT">
+				<xs:annotation>
+					<xs:documentation>adjustment:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="COLLECTBW">
+				<xs:annotation>
+					<xs:documentation>collect-bw:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DISABLE">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TRANSITRROType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DISABLE">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INCOMING">
+				<xs:annotation>
+					<xs:documentation>incoming:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INCOMINGWITHLABEL">
+				<xs:annotation>
+					<xs:documentation>incoming with label:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ROUTERID">
+				<xs:annotation>
+					<xs:documentation>routerid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ROUTERIDWITHLABEL">
+				<xs:annotation>
+					<xs:documentation>routerid with label:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OUTGOING">
+				<xs:annotation>
+					<xs:documentation>outgoing:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OUTGOINGWITHLABEL">
+				<xs:annotation>
+					<xs:documentation>outgoing with label:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EGRESSRROType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DISABLE">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INCOMING">
+				<xs:annotation>
+					<xs:documentation>incoming:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="INCOMINGWITHLABEL">
+				<xs:annotation>
+					<xs:documentation>incoming with label:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ROUTERID">
+				<xs:annotation>
+					<xs:documentation>routerid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ROUTERIDWITHLABEL">
+				<xs:annotation>
+					<xs:documentation>routerid with label:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CHopType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="include">
+				<xs:annotation>
+					<xs:documentation>include</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="exclude">
+				<xs:annotation>
+					<xs:documentation>exclude</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CHopReachability">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="reachable">
+				<xs:annotation>
+					<xs:documentation>reachable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unreachable">
+				<xs:annotation>
+					<xs:documentation>unreachable</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tePipeMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pipe">
+				<xs:annotation>
+					<xs:documentation>pipe:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="uniform">
+				<xs:annotation>
+					<xs:documentation>uniform:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tePipeServiceClass">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="be">
+				<xs:annotation>
+					<xs:documentation>be:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af1">
+				<xs:annotation>
+					<xs:documentation>af1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af2">
+				<xs:annotation>
+					<xs:documentation>af2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af3">
+				<xs:annotation>
+					<xs:documentation>af3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af4">
+				<xs:annotation>
+					<xs:documentation>af4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ef">
+				<xs:annotation>
+					<xs:documentation>ef:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cs6">
+				<xs:annotation>
+					<xs:documentation>cs6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cs7">
+				<xs:annotation>
+					<xs:documentation>cs7:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tePipeColor">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="green">
+				<xs:annotation>
+					<xs:documentation>green:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="yellow">
+				<xs:annotation>
+					<xs:documentation>yellow:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="red">
+				<xs:annotation>
+					<xs:documentation>red:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="teLocalProtectType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>None</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="link">
+				<xs:annotation>
+					<xs:documentation>Link Protect Mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="node">
+				<xs:annotation>
+					<xs:documentation>Node Protect Mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

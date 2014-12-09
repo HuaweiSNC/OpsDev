@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.13
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="dtools_type.xsd"/>
+	<xs:element name="dtools" type="dtools_action_dtools_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>dtools</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="dtools_action_dtools_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="stopIcmpPing" type="dtools_action_stopicmpping_type"/>
+			<xs:element name="stopIcmpTrace" type="dtools_action_stopicmptrace_type"/>
+			<xs:element name="stopLspPing" type="dtools_action_stoplspping_type"/>
+			<xs:element name="stopLspTrace" type="dtools_action_stoplsptrace_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dtools_action_stopicmpping_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>停止ICMP Ping操作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="adminName">
+				<xs:annotation>
+					<xs:documentation>管理员名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="testName">
+				<xs:annotation>
+					<xs:documentation>测试例名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="dtools_action_stopicmptrace_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>停止ICMP trace操作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="adminName">
+				<xs:annotation>
+					<xs:documentation>管理员名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="testName">
+				<xs:annotation>
+					<xs:documentation>测试例名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="dtools_action_stoplspping_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>停止LSP Ping操作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="adminName">
+				<xs:annotation>
+					<xs:documentation>管理员名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="testName">
+				<xs:annotation>
+					<xs:documentation>测试例名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="dtools_action_stoplsptrace_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>停止LSP trace操作</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="adminName">
+				<xs:annotation>
+					<xs:documentation>管理员名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="testName">
+				<xs:annotation>
+					<xs:documentation>测试例名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

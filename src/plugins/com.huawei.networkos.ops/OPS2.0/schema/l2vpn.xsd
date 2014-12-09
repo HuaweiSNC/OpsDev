@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="l2vpn_l2vpncomm.xsd"/>
+	<xs:include schemaLocation="l2vpn_l2vpnvpws.xsd"/>
+	<xs:include schemaLocation="l2vpn_l2vpnvpls.xsd"/>
+	<xs:element name="l2vpn" type="l2vpn_l2vpn_type"/>
+	<xs:complexType name="l2vpn_l2vpn_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="l2vpncommon" type="l2vpn_l2vpncomm_type"/>
+			<xs:element name="l2vpnvpws" type="l2vpn_vpws_type"/>
+			<xs:element name="l2vpnvpls" type="l2vpn_vpls_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

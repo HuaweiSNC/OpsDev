@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.3.8
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="pp4_type.xsd"/>
+	<xs:element name="pp4" type="pp4_pp4_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>pp4</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="pp4_pp4_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="icmpSecuritys" type="pp4_icmpSecuritys_type"/>
+			<xs:element name="IpOptSecuritys" type="pp4_IpOptSecuritys_type"/>
+			<xs:element name="ReasTimeout" type="pp4_ReasTimeout_type"/>
+			<xs:element name="ifIcmpSecuritys" type="pp4_ifIcmpSecuritys_type"/>
+			<xs:element name="IpStats" type="pp4_IpStats_type"/>
+			<xs:element name="IcmpStats" type="pp4_IcmpStats_type"/>
+			<xs:element name="globalCfg" type="globalCfg_type"/>
+			<xs:element name="udphelperPorts" type="udphelperPorts_type"/>
+			<xs:element name="udphelperVlanifs" type="udphelperVlanifs_type"/>
+			<xs:element name="icmpRateLimtInterfaces" type="pp4_IcmpRateLimitIntfs_type"/>
+			<xs:element name="icmpRedirectInterfaces" type="pp4_IcmpRedirectIntfs_type"/>
+			<xs:element name="IpDSCPs" type="pp4_IpDSCPs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_DscpPriority_type">
+		<xs:annotation>
+			<xs:documentation>系统ICMP安全配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_icmpSecuritys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icmpSecurity" type="pp4_icmpSecurity_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_icmpSecurity_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="action" type="pp4PktAction">
+				<xs:annotation>
+					<xs:documentation>发送或接收</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icmpName" type="pp4IfIcmpSecType" default="user-defined">
+				<xs:annotation>
+					<xs:documentation>ICMP name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icmpType">
+				<xs:annotation>
+					<xs:documentation>ICMP类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icmpCode">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="switchOp" type="pp4SwitchOp" default="enable">
+				<xs:annotation>
+					<xs:documentation>使能标记</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_IpOptSecuritys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IpOptSecurity" type="pp4_IpOptSecurity_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_IpOptSecurity_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="optionType" type="pp4OptionType">
+				<xs:annotation>
+					<xs:documentation>选项类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="switchOp" type="pp4SwitchOp" default="enable">
+				<xs:annotation>
+					<xs:documentation>使能标记</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_ReasTimeouts_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ReasTimeout" type="pp4_ReasTimeout_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_ReasTimeout_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="timeout" default="30">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="5"/>
+						<xs:maxInclusive value="120"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_ifIcmpSecuritys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ifIcmpSecurity" type="pp4_ifIcmpSecurity_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_ifIcmpSecurity_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="action" type="pp4PktAction">
+				<xs:annotation>
+					<xs:documentation>发送或接收</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icmpName" type="pp4IfIcmpSecType" default="user-defined">
+				<xs:annotation>
+					<xs:documentation>ICMP name</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icmpType">
+				<xs:annotation>
+					<xs:documentation>ICMP类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icmpCode">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="switchOp" type="pp4SwitchOp" default="enable">
+				<xs:annotation>
+					<xs:documentation>使能标记</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="pp4_ifIcmpSecurity_ifName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="63"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="pp4_IpStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IpStat" type="pp4_IpStat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_IpStat_type">
+		<xs:annotation>
+			<xs:documentation>查询获取IP统计数据</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="inSum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inLocal" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收本地报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inBadProto" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收未知协议报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inBadOpt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>选项错误的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inDiscardSrr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>丢弃带源路由选项的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inTtlExceed" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>由于TTL超时丢弃的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outFwd" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被转发报文的数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outNoRoute" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>没有路由的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fragDropped" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被丢弃的分片数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reassSum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>重组成功的分片数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reassTimeouts" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>超时的分片数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inBadFmt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收格式错误报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inBadChecksum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>校验错误的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outLocal" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>本地产生的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outDropped" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>丢弃的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fragOutput" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被创建发送的分片数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pktFraged" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被分片成功的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fragForbid" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>无法分片的报文数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fragInput" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的分片数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inHdrErr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的错误报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_IcmpStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IcmpStat" type="pp4_IcmpStat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_IcmpStat_type">
+		<xs:annotation>
+			<xs:documentation>查询获取ICMP统计数据</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="inBadFmt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收格式错误ICMP报文数个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inBadChecksum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>校验错误的ICMP报文数量个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inEcho" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的ECHO REQUEST报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inDstUnreach" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的目的不可达报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inSrcQuench" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的源抑制报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inRedirect" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的重定向报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inEchoReply" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的ECHO REPLY报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inParaErr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的参数错误ICMP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inTimeStamp" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的时间戳ICMP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inInfoRequest" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的信息查询ICMP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inMaskRequest" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的掩码请求报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inMaskReply" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的掩码回应报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inTimeExceed" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接收到的超时报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outEcho" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的ECHO REQUEST报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outDstUnreach" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的目的不可达报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outSrcQuench" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的源抑制报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outRedirect" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的重定向报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outEchoReply" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的ECHO REPLY报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outParaErr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的的参数错误ICMP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outTimeStamp" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的时间戳ICMP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outInfoRequest" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的信息查询ICMP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outMaskRequest" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的掩码请求报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outMaskReply" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的掩码回应报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outTimeExceed" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的超时报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inIcmpSum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的ICMP报文的总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inIcmpErr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>收到的错误的ICMP报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outIcmpSum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的ICMP报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outIcmpErr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发出的错误的ICMP报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="globalCfg_type">
+		<xs:annotation>
+			<xs:documentation>UDP Helper全局配置信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="udphelperEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>UDP Helper功能使能标记</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dscpEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>dscp enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dscpPriorityValue" default="0">
+				<xs:annotation>
+					<xs:documentation>Dscp Priority </xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icmpRateLimitEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>ICMP rate-limit enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icmpRateLmtThreshold" default="100">
+				<xs:annotation>
+					<xs:documentation>ICMP抑制报文速率门限，单位(pps)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="5000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icmpStopTimer" default="2">
+				<xs:annotation>
+					<xs:documentation>ICMP抑制解除时间，单位(minute)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="2"/>
+						<xs:maxInclusive value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icmpTtlExdDrpEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>ICMP ttl-exceeded drop enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icmpWithOptDropEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>ICMP with-options drop enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icmpBroadEchoEn" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>ICMP Broadcast echo reply</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icmpUnrchRevEn" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>ICMP unreachable receive drop</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="udphelperPorts_type">
+		<xs:annotation>
+			<xs:documentation>UDP Helper端口号信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="udphelperPort" type="udphelperPort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="udphelperPort_type">
+		<xs:annotation>
+			<xs:documentation>UDP Helper端口号信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="udphelperPortNum">
+				<xs:annotation>
+					<xs:documentation>UDP端口号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="udphelperPortDes">
+				<xs:annotation>
+					<xs:documentation>UDP端口描述信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="39"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="udphelperVlanifs_type">
+		<xs:annotation>
+			<xs:documentation>UDP Helper VLANIF信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="udphelperVlanif" type="udphelperVlanif_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="udphelperVlanif_type">
+		<xs:annotation>
+			<xs:documentation>UDP Helper VLANIF信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>UDP Helper服务器地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="udphelperServers" type="udphelperServers_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="udphelperServers_type">
+		<xs:annotation>
+			<xs:documentation>UDP Helper服务器信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="udphelperServer" type="udphelperServer_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="udphelperServer_type">
+		<xs:annotation>
+			<xs:documentation>UDP Helper服务器信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="packetsCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>UDP Helper服务器报文统计</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropPacketsCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>UDP Helper服务器报文统计</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_IcmpRateLimitIntfs_type">
+		<xs:annotation>
+			<xs:documentation>ICMP二层端口限速抑制</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icmpRateLimitInterface" type="pp4_IcmpRateLimitIntf_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_IcmpRateLimitIntf_type">
+		<xs:annotation>
+			<xs:documentation>ICMP二层端口限速抑制</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rateLimitThreshold" default="100">
+				<xs:annotation>
+					<xs:documentation>ICMP抑制报文速率门限单位(pps)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="5000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_IcmpRedirectIntfs_type">
+		<xs:annotation>
+			<xs:documentation>ICMP重定向报文</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icmpRedirectInterface" type="pp4_IcmpRedirectIntf_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_IcmpRedirectIntf_type">
+		<xs:annotation>
+			<xs:documentation>ICMP重定向报文</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifRdrctSndEn" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>ICMP redirect send drop</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifRdrctRevEn" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>ICMP redirect receive drop</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="pp4_IpDSCPs_type">
+		<xs:annotation>
+			<xs:documentation>ICMP重定向报文</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IpDSCP" type="pp4_IpDSCP_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="pp4_IpDSCP_type">
+		<xs:annotation>
+			<xs:documentation>协议类型</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="protoType" type="appProtolTYPE">
+				<xs:annotation>
+					<xs:documentation>协议类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dscp" default="0">
+				<xs:annotation>
+					<xs:documentation>Dscp Priority </xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

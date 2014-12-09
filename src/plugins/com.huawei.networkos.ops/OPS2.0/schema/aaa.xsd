@@ -1,0 +1,1160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="aaa_type.xsd"/>
+	<xs:include schemaLocation="aaa_lam.xsd"/>
+	<xs:element name="aaa" type="aaa_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>aaa</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="aaa_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tasks" type="aaa_tasks_type"/>
+			<xs:element name="taskGroups" type="aaa_taskGroups_type"/>
+			<xs:element name="userGroups" type="aaa_userGroups_type"/>
+			<xs:element name="taskGroupTaskMaps" type="aaa_taskGroupTaskMaps_type"/>
+			<xs:element name="userGroupTaskGroupMaps" type="aaa_userGroupTaskGroupMaps_type"/>
+			<xs:element name="authenticationSchemes" type="aaa_authenticationSchemes_type"/>
+			<xs:element name="authorizationSchemes" type="aaa_authorizationSchemes_type"/>
+			<xs:element name="accountingSchemes" type="aaa_accountingSchemes_type"/>
+			<xs:element name="domains" type="aaa_domains_type"/>
+			<xs:element name="cmdLevelRearrange" type="aaa_cmdLevelRearrange_type"/>
+			<xs:element name="aliveUserQrys" type="aaa_aliveUserQrys_type"/>
+			<xs:element name="lam" type="aaa_lam_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="aaa_domains_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="domain" type="aaa_domain_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_domain_type">
+		<xs:annotation>
+			<xs:documentation>用户管理域。限定用户使用的认证方案、授权方案等信息的策略模板。</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="domainName">
+				<xs:annotation>
+					<xs:documentation>域名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_domain_domainName_type">
+							<xs:attribute name="domainID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="authenSchemeName" default="default">
+				<xs:annotation>
+					<xs:documentation>认证方案名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_domain_authenSchemeName_type">
+							<xs:attribute name="authenSchemeID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="authorSchemeName" default="default">
+				<xs:annotation>
+					<xs:documentation>授权方案名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_domain_authorSchemeName_type">
+							<xs:attribute name="authorSchemeID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="acctSchemeName" default="default">
+				<xs:annotation>
+					<xs:documentation>计费方案名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_domain_acctSchemeName_type">
+							<xs:attribute name="acctSchemeID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="accessLimit">
+				<xs:annotation>
+					<xs:documentation>域内最大在线用户数</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="279552"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="onlineNum">
+				<xs:annotation>
+					<xs:documentation>域内当前在线用户数</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:long">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="279552"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="radiusServerTemplate">
+				<xs:annotation>
+					<xs:documentation>RADIUS服务器模板</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="hwTacacsServerTemplate">
+				<xs:annotation>
+					<xs:documentation>HWTACACS服务器模板</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="domainState" type="aaaStateType" default="active">
+				<xs:annotation>
+					<xs:documentation>域状态</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_domain_domainName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aaa_domain_acctSchemeName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aaa_domain_authorSchemeName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aaa_domain_authenSchemeName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_authenticationSchemes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="authenticationScheme" type="aaa_authenticationScheme_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_authenticationScheme_type">
+		<xs:annotation>
+			<xs:documentation>认证策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="authenSchemeName">
+				<xs:annotation>
+					<xs:documentation>认证方案名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_authenticationScheme_authenSchemeName_type">
+							<xs:attribute name="authenSchemeID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="firstAuthenMode" type="aaaAuthenMode" default="local">
+				<xs:annotation>
+					<xs:documentation>认证方式1，可选的认证方式有本地(local), radius, hwtacacs三种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secondAuthenMode" type="aaaAuthenMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>认证方式2，可选的认证方式有本地(local), radius, hwtacacs三种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="thirdAuthenMode" type="aaaAuthenMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>认证方式3，可选的认证方式有本地(local), radius, hwtacacs三种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fourthAuthenMode" type="aaaAuthenMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>认证方式4，可选的认证方式有本地(local), radius, hwtacacs三种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_authenticationScheme_authenSchemeName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_authorizationSchemes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="authorizationScheme" type="aaa_authorizationScheme_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_authorizationScheme_type">
+		<xs:annotation>
+			<xs:documentation>授权策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="authorSchemeName">
+				<xs:annotation>
+					<xs:documentation>授权方案名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_authorizationScheme_authorSchemeName_type">
+							<xs:attribute name="authorSchemeID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="firstAuthorMode" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>授权方式1，可选的认证方式有本地(local), hwtacacs, if-authenticated, none四种
+					</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secondAuthorMode" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>授权方式2，可选的认证方式有本地(local), hwtacacs, if-authenticated, none四种
+					</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="thirdAuthorMode" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>授权方式3，可选的认证方式有本地(local), hwtacacs, if-authenticated, none四种
+					</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fourthAuthorMode" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>授权方式4，可选的认证方式有本地(local), hwtacacs, if-authenticated, none四种
+					</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="noLvlFirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>无level命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="noLvlSecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>无level命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl0FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 0 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl0SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 0 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl1FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 1 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl1SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 1 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl2FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 2 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl2SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 2 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl3FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 3 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl3SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 3 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl4FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 4 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl4SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 4 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl5FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 5 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl5SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 5 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl6FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 6 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl6SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 6 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl7FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 7 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl7SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 7 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl8FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 8 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl8SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 8 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl9FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 9 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl9SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 9 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl10FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 10 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl10SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 10 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl11FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 11 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl11SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 11 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl12FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 12 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl12SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 12 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl13FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 13 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl13SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 13 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl14FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 14 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl14SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 14 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl15FirstCmdAuthor" type="aaaAuthorMode" default="local">
+				<xs:annotation>
+					<xs:documentation>Level 15 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lvl15SecondCmdAuthor" type="aaaAuthorMode" default="invalid">
+				<xs:annotation>
+					<xs:documentation>Level 15 命令行鉴权方式，可选的鉴权方式有本地(local), hwtacacs两种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_authorizationScheme_authorSchemeName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_accountingSchemes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="accountingScheme" type="aaa_accountingScheme_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_accountingScheme_type">
+		<xs:annotation>
+			<xs:documentation>计费策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="acctSchemeName">
+				<xs:annotation>
+					<xs:documentation>计费方案名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_accountingScheme_acctSchemeName_type">
+							<xs:attribute name="acctSchemeID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="accountingMode" type="aaaAcctMode" default="none">
+				<xs:annotation>
+					<xs:documentation>计费方式，可选的计费方式有radius, hwtacacs，none三种</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_accountingScheme_acctSchemeName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_userGroups_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="userGroup" type="aaa_userGroup_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_userGroup_type">
+		<xs:annotation>
+			<xs:documentation>用户组</xs:documentation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="userGroupName">
+				<xs:annotation>
+					<xs:documentation>用户组名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_userGroup_userGroupName_type">
+							<xs:attribute name="userGroupID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_userGroup_userGroupName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_taskGroups_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="taskGroup" type="aaa_taskGroup_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_taskGroup_type">
+		<xs:annotation>
+			<xs:documentation>任务组</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="taskGroupName">
+				<xs:annotation>
+					<xs:documentation>任务组名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_taskGroup_taskGroupName_type">
+							<xs:attribute name="taskGroupID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_taskGroup_taskGroupName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_tasks_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="task" type="aaa_task_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_task_type">
+		<xs:annotation>
+			<xs:documentation>任务</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="taskName">
+				<xs:annotation>
+					<xs:documentation>任务名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_task_taskName_type">
+							<xs:attribute name="taskID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_task_taskName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_taskGroupTaskMaps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="taskGroupTaskMap" type="aaa_taskGroupTaskMap_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_taskGroupTaskMap_type">
+		<xs:annotation>
+			<xs:documentation>任务组和任务的映射表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="taskGroupName">
+				<xs:annotation>
+					<xs:documentation>任务组名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_taskGroupTaskMap_taskGroupName_type">
+							<xs:attribute name="taskGroupID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="taskName">
+				<xs:annotation>
+					<xs:documentation>任务名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_taskGroupTaskMap_taskName_type">
+							<xs:attribute name="taskID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="read" type="aaaTaskMode" default="disable">
+				<xs:annotation>
+					<xs:documentation>是否有读权限</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="write" type="aaaTaskMode" default="disable">
+				<xs:annotation>
+					<xs:documentation>是否有写权限</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="execute" type="aaaTaskMode" default="disable">
+				<xs:annotation>
+					<xs:documentation>是否有执行权限</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="debug" type="aaaTaskMode" default="disable">
+				<xs:annotation>
+					<xs:documentation>是否有调试权限</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_taskGroupTaskMap_taskGroupName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aaa_taskGroupTaskMap_taskName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_userGroupTaskGroupMaps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="userGroupTaskGroupMap" type="aaa_userGroupTaskGroupMap_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_userGroupTaskGroupMap_type">
+		<xs:annotation>
+			<xs:documentation>用户组和任务组的映射表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="userGroupName">
+				<xs:annotation>
+					<xs:documentation>用户组名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_userGroupTaskGroupMap_userGroupName_type">
+							<xs:attribute name="userGroupID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="taskGroupName">
+				<xs:annotation>
+					<xs:documentation>任务组名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="aaa_userGroupTaskGroupMap_taskGroupName_type">
+							<xs:attribute name="taskGroupID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="aaa_userGroupTaskGroupMap_userGroupName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aaa_userGroupTaskGroupMap_taskGroupName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="aaa_aliveUserQrys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="aliveUserQry" type="aaa_aliveUserQry_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="aaa_aliveUserQry_type">
+		<xs:annotation>
+			<xs:documentation>活动用户查询</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="16">
+			<xs:element name="userName">
+				<xs:annotation>
+					<xs:documentation>用户名</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="253"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userId">
+				<xs:annotation>
+					<xs:documentation>用户Id</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level">
+				<xs:annotation>
+					<xs:documentation>级别</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userGroupName">
+				<xs:annotation>
+					<xs:documentation>用户组名</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="domainName">
+				<xs:annotation>
+					<xs:documentation>域名</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="accessType" type="aaaUserAccessType">
+				<xs:annotation>
+					<xs:documentation>接入类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenType" type="aaaAuthenAccessType">
+				<xs:annotation>
+					<xs:documentation>认证管理类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenMethod" type="aaaAuthenMode">
+				<xs:annotation>
+					<xs:documentation>认证模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenState" type="aaaAuthenStateType">
+				<xs:annotation>
+					<xs:documentation>认证状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorMethod" type="aaaAuthorMode">
+				<xs:annotation>
+					<xs:documentation>授权模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorState" type="aaaAuthorStateType">
+				<xs:annotation>
+					<xs:documentation>授权状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctMethod" type="aaaAcctMode">
+				<xs:annotation>
+					<xs:documentation>计费模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctState" type="aaaAcctStateType">
+				<xs:annotation>
+					<xs:documentation>计费状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="aaa_cmdLevelRearrange_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="isRearrange" default="false">
+				<xs:annotation>
+					<xs:documentation>To enable / disable rearrange commands level</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:boolean"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

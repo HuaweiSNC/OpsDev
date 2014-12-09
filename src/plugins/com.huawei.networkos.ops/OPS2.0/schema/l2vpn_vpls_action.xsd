@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="l2vpn_type.xsd"/>
+	<xs:complexType name="l2vpn_action_vpls_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="resetVsiTraffStat" type="l2vpn_action_resetVsiTraffStat_type"/>
+			<xs:element name="resetVsiPwTraffStat" type="l2vpn_action_resetVsiPwTraffStat_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_action_resetVsiTraffStat_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="l2vpnInstanceName">
+							<xs:attribute name="instanceId" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2vpn_action_resetVsiPwTraffStat_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="l2vpnInstanceName">
+							<xs:attribute name="instanceId" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="peerIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+					<xs:documentation>Specifies the LSR ID of the peer PE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="negotiationPwId">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+					<xs:documentation>Indicates the identifier of the PW.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

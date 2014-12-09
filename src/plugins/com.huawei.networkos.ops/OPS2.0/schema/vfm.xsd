@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="vfm_type.xsd"/>
+    <xs:element type="vfm_vfm_type" name="vfm" >
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>vfm</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="vfm_vfm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element type="vfm_pwds_type" name="pwds" />
+            <xs:element type="vfm_dirs_type" name="dirs" />
+            <xs:element type="vfm_dfs_type" name="dfs" />			
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+    <xs:complexType name="vfm_pwds_type" >
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" type="vfm_pwd_type" name="pwd" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="vfm_pwd_type" >
+        <xs:annotation>
+            <xs:documentation>显示当前路径</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded" >
+            <xs:element minOccurs="1" name="dictionaryName" >
+                <xs:annotation>
+                    <xs:documentation>目录名称</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string" >
+                        <xs:maxLength value="256" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup" />
+    </xs:complexType>
+    	
+	<xs:complexType name="vfm_dirs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" type="vfm_dir_type" name="dir" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="vfm_dir_type">
+		<xs:annotation>
+			<xs:documentation>显示文件信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element minOccurs="1" name="fileName" >
+                <xs:annotation>
+                    <xs:documentation>目录/文件名称</xs:documentation>
+                    <xs:appinfo>
+						<key>true</key>
+                        <access>readOnly</access>
+						<supportFilter>true</supportFilter>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string" >
+                        <xs:maxLength value="256" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="Attr" >
+				<xs:annotation>
+					<xs:documentation>目录/文件属性</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element minOccurs="1" name="DirSize" >
+				<xs:annotation>
+					<xs:documentation>目录/文件大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+            <xs:element minOccurs="1" type="xs:dateTime" name="modifyDatetime" >
+				<xs:annotation>
+					<xs:documentation>修改时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+    <xs:complexType name="vfm_dfs_type" >
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" type="vfm_df_type" name="df" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="vfm_df_type" >
+        <xs:annotation>
+            <xs:documentation>显示磁盘空间</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded" >
+            <xs:element minOccurs="1" name="fileSys" >
+                <xs:annotation>
+					<xs:documentation>分区名</xs:documentation>
+                    <xs:appinfo>
+						<key>true</key>
+                        <access>readOnly</access>
+						<supportFilter>true</supportFilter>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string" >
+                        <xs:maxLength value="64" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="inputPath" >
+                <xs:annotation>
+					<xs:documentation>路径</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string" >
+                        <xs:maxLength value="64" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="totalSize" >
+                <xs:annotation>
+					<xs:documentation>总大小(KB)</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+						<unit>KB</unit>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string" >
+                        <xs:maxLength value="32" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" name="freeSize" >
+                <xs:annotation>
+					<xs:documentation>剩余大小(KB)</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+						<unit>KB</unit>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string" >
+                        <xs:maxLength value="32" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="1" type="xs:unsignedInt" name="usedPer" >
+                <xs:annotation>
+					<xs:documentation>使用百分比(%)</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup" />
+    </xs:complexType>
+	
+</xs:schema>

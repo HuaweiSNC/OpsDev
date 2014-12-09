@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by wangcong (Shenzhen Huawei Technologies Software Co.,Ltd.) -->
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.9 L20090424pm for schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="servicechain_type.xsd"/>
+	<xs:element name="servicechain" type="servicechain_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>servicechain</taskName>
+			</xs:appinfo>
+			<xs:documentation>Service Chain</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="servicechain_type">
+		<xs:annotation>
+			<xs:documentation>Service Chain</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceNodePools" type="servicechain_service_pools_type">
+				<xs:annotation>
+					<xs:documentation>Service pool configuration</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="classifierNodePools" type="servicechain_classifier_pools_type">
+				<xs:annotation>
+					<xs:documentation>Classifier pool configuration</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceChains" type="servicechain_service_chains_type">
+				<xs:annotation>
+					<xs:documentation>Service-chain configuration</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceChainPolicys" type="servicechain_service_chain_policys_type">
+				<xs:annotation>
+					<xs:documentation>Service-chain-policy configuration</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceChainInstances" type="servicechain_service_chain_instances_type">
+				<xs:annotation>
+					<xs:documentation>Show the service chain running</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_pools_type">
+		<xs:annotation>
+			<xs:documentation>Set of service node pool</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceNodePool" type="servicechain_service_pool_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_classifier_pools_type">
+		<xs:annotation>
+			<xs:documentation>Set of flow classifier node pool</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="classifierNodePool" type="servicechain_classifier_pool_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chains_type">
+		<xs:annotation>
+			<xs:documentation>Set of service chain</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceChain" type="servicechain_service_chain_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_policys_type">
+		<xs:annotation>
+			<xs:documentation>Set of service node pool</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceChainPolicy" type="servicechain_service_chain_policy_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_instances_type">
+		<xs:annotation>
+			<xs:documentation>Set of service chain instances running</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceChainInstance" type="servicechain_service_chain_instance_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_pool_type">
+		<xs:annotation>
+			<xs:documentation>Bisic Configuration of Service Pool</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceNodePoolName">
+				<xs:annotation>
+					<xs:documentation>Create a service pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceType" type="svcServiceType">
+				<xs:annotation>
+					<xs:documentation>Specify the service type of the pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceForwardMode" type="svcServiceModeType">
+				<xs:annotation>
+					<xs:documentation>Specify the service forwarding mode of the pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceNodes" type="servicechain_service_nodes_type">
+				<xs:annotation>
+					<xs:documentation>Create a set of service pool nodes</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_classifier_pool_type">
+		<xs:annotation>
+			<xs:documentation>Bisic Configuration of Classifier Pool</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="classifierNodePoolName">
+				<xs:annotation>
+					<xs:documentation>Create a classifier pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="classifierNodes" type="servicechain_classifier_nodes_type">
+				<xs:annotation>
+					<xs:documentation>Create a set of classifier pool nodes</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_type">
+		<xs:annotation>
+			<xs:documentation>Bisic Configuration of Service Chain</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceChainName">
+				<xs:annotation>
+					<xs:documentation>Create a service chain</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceChainRules" type="servicechain_service_chain_rules_type">
+				<xs:annotation>
+					<xs:documentation>Create a set of service chain rule</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_policy_type">
+		<xs:annotation>
+			<xs:documentation>Bisic Configuration of Service Chain Policy</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceChainPolicyName">
+				<xs:annotation>
+					<xs:documentation>Create a node of service pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchClassifierPools" type="servicechain_match_classifier_pools_type">
+				<xs:annotation>
+					<xs:documentation>Match a set of classifier pools</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_instance_type">
+		<xs:annotation>
+			<xs:documentation>Show one service chain instance</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceChainInstanceID" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>A service chain instance ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceChainName">
+				<xs:annotation>
+					<xs:documentation>The name of service chain used</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="classifierNodePoolName">
+				<xs:annotation>
+					<xs:documentation>The name of classifier node pool used</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceChainNodes" type="servicechain_service_chain_nodes_type">
+				<xs:annotation>
+					<xs:documentation>The set of service chain node in using</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_nodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Set of service node</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceNode" type="servicechain_service_node_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_classifier_nodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Set of classifier node</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="classifierNode" type="servicechain_classifier_node_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_nodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Set of service chain nodes in using</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceChainNode" type="servicechain_service_chain_node_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_node_type">
+		<xs:annotation>
+			<xs:documentation>Create a service node of Service Pool</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceNodeId">
+				<xs:annotation>
+					<xs:documentation>Create a node of service pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceDispatchNodes" type="servicechain_service_dispatch_nodes_type">
+				<xs:annotation>
+					<xs:documentation>Create a set info for the service dispatch node</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_classifier_node_type">
+		<xs:annotation>
+			<xs:documentation>Create a classifier node of Service Pool</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="classifierNodeId">
+				<xs:annotation>
+					<xs:documentation>Create a node of classifier pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="classifierDispatchNodes" type="servicechain_classifier_dispatch_nodes_type">
+				<xs:annotation>
+					<xs:documentation>Create a set info for the classifier dispatch node</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_node_type">
+		<xs:annotation>
+			<xs:documentation>Show a node of the service chain</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sequenceID" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The sequence of the node</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceNodePoolName">
+				<xs:annotation>
+					<xs:documentation>The name of service node pool</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceNodeId">
+				<xs:annotation>
+					<xs:documentation>The ID of service node</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceDispatchNodeId" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>The ID of service switch VAS attatched</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<!-->
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+				</!-->
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_dispatch_nodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Set of service dispatch node</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceDispatchNode" type="servicechain_service_dispatch_node_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_classifier_dispatch_nodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Set of classifier dispatch node</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="classifierDispatchNode" type="servicechain_classifier_dispatch_node_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_rules_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>Rules of service chain</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="serviceChainRule" type="servicechain_service_chain_rule_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_match_classifier_pools_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>set of classifier pool using in service chain policy</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchClassifierPool" type="servicechain_match_classifier_pool_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_dispatch_node_type">
+		<xs:annotation>
+			<xs:documentation>Create a dispatch info for the service node</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceDispNodeId" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>Create a node of service pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<!-->
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+				</!-->
+			</xs:element>
+			<xs:element name="inInterfaceName">
+				<xs:annotation>
+					<xs:documentation>Input interface of dispatch node for the service node</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="outInterfaceName">
+				<xs:annotation>
+					<xs:documentation>Output interface of dispatch node for the service node</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inIpAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>The IP address in VAS from the input interface</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outIpAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>The IP address in VAS from the output interface</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceNodeForwardType" type="svcServiceNodeForwardType">
+				<xs:annotation>
+					<xs:documentation>Specify the forwarding type of this node</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_classifier_dispatch_node_type">
+		<xs:annotation>
+			<xs:documentation>Create a dispatch info for the classifier node</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="classifierDispNodeId" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>Create a dispatch node of classifier node</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<!-->
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+				</!-->
+			</xs:element>
+			<xs:element name="inInterfaceName">
+				<xs:annotation>
+					<xs:documentation>Input interface of dispatch node for the classifier node</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="outInterfaceName">
+				<xs:annotation>
+					<xs:documentation>Output interface of dispatch node for the classifier node</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="outIpAddress">
+				<xs:annotation>
+					<xs:documentation>The IP address in flow router from the output interface</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_service_chain_rule_type">
+		<xs:annotation>
+			<xs:documentation>Create a rule of the service chain</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sequence" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>Specify the sequence of the rule</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceNodePoolName">
+				<xs:annotation>
+					<xs:documentation>Specify the name of service node pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="performance" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>Specify the performance value of the service</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_match_classifier_pool_type">
+		<xs:annotation>
+			<xs:documentation>Match a classifier pool</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="classifierPoolName">
+				<xs:annotation>
+					<xs:documentation>Specify the classifier pool</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="applyServiceIdWithServiceChains" type="servicechain_app_service_chains_type">
+				<xs:annotation>
+					<xs:documentation>A set of service bind with service chain temp</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="servicechain_app_service_chains_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>A set of service bind with service chain temp</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyServiceIdWithServiceChain" type="servicechain_app_service_chain_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="servicechain_app_service_chain_type">
+		<xs:annotation>
+			<xs:documentation>Apply service chain for the classifier pool</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serviceChainName">
+				<xs:annotation>
+					<xs:documentation>Specify the service chain</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceIdType" type="svcServiceIdType">
+				<xs:annotation>
+					<xs:documentation>Specify the service ID type of the rule</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upStreamMac" type="macAddress" default="0000-0000-0000">
+				<xs:annotation>
+					<xs:documentation>Specify the MAC address of up stream</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="downStreamMac" type="macAddress" default="0000-0000-0000">
+				<xs:annotation>
+					<xs:documentation>Specify the MAC address of down stream</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upStreamVlanID" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>Specify the vlan id of up stream</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="downStreamVlanID" type="xs:unsignedInt" default="0">
+				<xs:annotation>
+					<xs:documentation>Specify the vlan id of down stream</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

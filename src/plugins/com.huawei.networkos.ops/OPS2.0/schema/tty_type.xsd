@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.5sp1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ttyCamlLineType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CON">
+				<xs:annotation>
+					<xs:documentation>CON:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AUX">
+				<xs:annotation>
+					<xs:documentation>AUX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TTY">
+				<xs:annotation>
+					<xs:documentation>TTY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="VTY">
+				<xs:annotation>
+					<xs:documentation>VTY:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="LTT">
+				<xs:annotation>
+					<xs:documentation>LTT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NCA">
+				<xs:annotation>
+					<xs:documentation>NCA:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyCamlProtFlg">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CON">
+				<xs:annotation>
+					<xs:documentation>CON:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AUX">
+				<xs:annotation>
+					<xs:documentation>AUX:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="TEL">
+				<xs:annotation>
+					<xs:documentation>TEL:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SSH">
+				<xs:annotation>
+					<xs:documentation>SSH:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MDM">
+				<xs:annotation>
+					<xs:documentation>MDM:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyCamlConnState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="YES">
+				<xs:annotation>
+					<xs:documentation>YES:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NO">
+				<xs:annotation>
+					<xs:documentation>NO:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtySpeedType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="300">
+				<xs:annotation>
+					<xs:documentation>300:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="600">
+				<xs:annotation>
+					<xs:documentation>600:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="1200">
+				<xs:annotation>
+					<xs:documentation>1200:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2400">
+				<xs:annotation>
+					<xs:documentation>2400:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="4800">
+				<xs:annotation>
+					<xs:documentation>4800:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="9600">
+				<xs:annotation>
+					<xs:documentation>9600:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="19200">
+				<xs:annotation>
+					<xs:documentation>19200:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="38400">
+				<xs:annotation>
+					<xs:documentation>38400:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="57600">
+				<xs:annotation>
+					<xs:documentation>57600:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="115200">
+				<xs:annotation>
+					<xs:documentation>115200:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyFlwCntrlType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:no_flow_control</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="software">
+				<xs:annotation>
+					<xs:documentation>software:software_flow_control</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hardware">
+				<xs:annotation>
+					<xs:documentation>hardware:hardware_flow_control</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyStpBitsType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1">
+				<xs:annotation>
+					<xs:documentation>1:one_stop_bits</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="1.5">
+				<xs:annotation>
+					<xs:documentation>1.5:one_five_stop_bits</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="2">
+				<xs:annotation>
+					<xs:documentation>2:two_stop_bits</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyDataBitsType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="5">
+				<xs:annotation>
+					<xs:documentation>5:five_data_bits</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6">
+				<xs:annotation>
+					<xs:documentation>6:six_data_bits</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="7">
+				<xs:annotation>
+					<xs:documentation>7:seven_data_bits</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="8">
+				<xs:annotation>
+					<xs:documentation>8:eight_data_bits</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyParityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:no_check_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="odd">
+				<xs:annotation>
+					<xs:documentation>odd:odd_check_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="even">
+				<xs:annotation>
+					<xs:documentation>even:even_check_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mark">
+				<xs:annotation>
+					<xs:documentation>mark:mark_check_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="space">
+				<xs:annotation>
+					<xs:documentation>space:space_check_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyAuthModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="init">
+				<xs:annotation>
+					<xs:documentation>init:init_authentication_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="password">
+				<xs:annotation>
+					<xs:documentation>password:pass_authentication</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="aaa">
+				<xs:annotation>
+					<xs:documentation>aaa:aaa_authentication_mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyCallStatType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="call_in">
+				<xs:annotation>
+					<xs:documentation>call-in:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="both">
+				<xs:annotation>
+					<xs:documentation>both:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTriggerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="login">
+				<xs:annotation>
+					<xs:documentation>login:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="connect">
+				<xs:annotation>
+					<xs:documentation>connect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="logout">
+				<xs:annotation>
+					<xs:documentation>logout:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dial">
+				<xs:annotation>
+					<xs:documentation>dial:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="init">
+				<xs:annotation>
+					<xs:documentation>init:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyPortType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="console">
+				<xs:annotation>
+					<xs:documentation>console:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vty">
+				<xs:annotation>
+					<xs:documentation>vty:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nca">
+				<xs:annotation>
+					<xs:documentation>nca:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyPswType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="simple">
+				<xs:annotation>
+					<xs:documentation>simple:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cipher">
+				<xs:annotation>
+					<xs:documentation>cipher:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ttyTtyCmdType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CMD_TYPE_SCR_LEN">
+				<xs:annotation>
+					<xs:documentation>CMD_TYPE_SCR_LEN:Temporary Screen Length Command</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CMD_TYPE_HISTORY">
+				<xs:annotation>
+					<xs:documentation>CMD_TYPE_HISTORY:History Cmd Type</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CMD_TYPE_REDIRECT">
+				<xs:annotation>
+					<xs:documentation>CMD_TYPE_REDIRECT:Redirect Command</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CMD_TYPE_SHELL">
+				<xs:annotation>
+					<xs:documentation>CMD_TYPE_SHELL:Shell Command</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="speed">
+				<xs:annotation>
+					<xs:documentation>speed:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="flow_control">
+				<xs:annotation>
+					<xs:documentation>flow-control:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="stopbits">
+				<xs:annotation>
+					<xs:documentation>stopbits:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="databits">
+				<xs:annotation>
+					<xs:documentation>databits:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="parity">
+				<xs:annotation>
+					<xs:documentation>parity:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="idle_timeout">
+				<xs:annotation>
+					<xs:documentation>idle-timeout:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="authentication_mode">
+				<xs:annotation>
+					<xs:documentation>authentication-mode:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="auto_execute">
+				<xs:annotation>
+					<xs:documentation>auto-execute:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="modem">
+				<xs:annotation>
+					<xs:documentation>modem:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="script_trigger">
+				<xs:annotation>
+					<xs:documentation>script-trigger:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="modemtimeranswer">
+				<xs:annotation>
+					<xs:documentation>modemtimeranswer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="modemautoanswer">
+				<xs:annotation>
+					<xs:documentation>modemautoanswer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="user_privilege">
+				<xs:annotation>
+					<xs:documentation>user_privilege:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="setAuthenticationPassword">
+				<xs:annotation>
+					<xs:documentation>setAuthenticationPassword:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cmdTypeModem">
+				<xs:annotation>
+					<xs:documentation>cmdTypeModem:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cmdTypeScreenWidth">
+				<xs:annotation>
+					<xs:documentation>cmdTypeScreenWidth:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

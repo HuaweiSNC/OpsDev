@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by chenxi (Shenzhen Huawei Technologies Software Co.,Ltd.) -->
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.6
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="efm_type.xsd"/>
+	<xs:element name="efm" type="efm_type"/>
+	<xs:complexType name="efm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="efmGlobalCfg" type="efmGlobalCfg_type"/>
+			<xs:element name="efmInterfaces" type="efmInterfaces_type"/>
+			<xs:element name="efmRemotes" type="efmRemotes_type"/>
+			<xs:element name="efmTestInfos" type="efmTestInfos_type"/>
+			<xs:element name="efmErrPkts" type="efmErrPkts_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="efmRemotes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="efmRemote" type="efmRemote_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="efmRemote_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>The name of interface which  has EFM configuration.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="remoteMAC" type="macAddress">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Remote equipment's MAC address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteState" type="efmState">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Remote equipment's EFM state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteMode" type="efmMode">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Remote equipment's EFM operation state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remoteMaxPdu" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Remote equipment's max size of EFM Packet.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="efmInterfaces_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="efmInterface" type="efmInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="efmInterface_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>The name of interface which  has EFM configuration.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="state" type="efmState" default="disable">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>EFM state in interface.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mode" type="efmMode" default="active">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>EFM operating mode.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxPduCfg" default="128">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Max size of EFM packet.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="64"/>
+						<xs:maxInclusive value="1518"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errFramePeriod" default="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Period of error frame event.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errFrameThresh" default="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Threshold of error frame event.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errFrameNotify" type="efmState" default="disable">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Notification of error frame event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errFrmSecPeriod" default="60">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Period of error frame second event.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="900"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errFrmSecThresh" default="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Threshold of error frame second event.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="900"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errFrmSecNotify" type="efmState" default="disable">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Notification of error frame second event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errCodePeriod" default="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Period of error code event.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errCodeThresh" default="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Threshold of error code event.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errCodeNotify" type="efmState" default="disable">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Notification of error code event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="triggerIfDown" type="efmState" default="disable">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Trigger if-down by error event.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="interval" default="1000">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Interval of sending EFM packet.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="100"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="timeout" default="5000">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Timeout of receiveing EFM packet.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="3000"/>
+						<xs:maxInclusive value="30000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="holdUpTime" default="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Wait to restore up time.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="localFsmState" type="efmFsmState">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Local EFM state machine's state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loopbackTimeout" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>Timeout of remote loopback.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorEcEfStatistics" type="errEcEfStatis_type">
+				<xs:annotation>
+					<xs:documentation>Error code of frame statistics.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="efmGlobalCfg_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="efmGlobalEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+					<xs:documentation>The global EFM state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="efmTestInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="efmTestInfo" type="efmTestInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="efmTestInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sendPduNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The number of send test packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recvPduNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The number of receive test packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropPduNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The number of drop test packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendPduTotal" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The total bytes of send test packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recvPduTotal" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The total bytes of receive test packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropPduTotal" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The total bytes of drop test packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Time of start sending test packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stopTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Time of stop sending test packets.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="errEcEfStatis_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="errorsEC" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorTotalEC" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eventTotalEC" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorsEF" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorTotalEF" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eventTotalEF" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorsEFS" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorTotalEFS" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eventTotalEFS" type="xs:unsignedShort">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation/>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="efmErrPkts_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="efmErrPkt" type="efmErrPkt_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="efmErrPkt_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pktNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The packet no.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="slotId">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The slot id.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The interface name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="time" type="xs:dateTime">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The time at which error packet is received.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errPkt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The error packet.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="reason">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The error packet reason.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

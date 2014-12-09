@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.7
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="vrrpGratArpFlag">
+		<xs:annotation>
+			<xs:documentation>vrrpGratArpFlag is like nosendgraarp/sendgraarp.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="nosendgraarp">
+				<xs:annotation>
+					<xs:documentation>nosendgraarp:不发送免费ARP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sendgraarp">
+				<xs:annotation>
+					<xs:documentation>sendgraarp:发送免费ARP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrpTtlCheckFlag">
+		<xs:annotation>
+			<xs:documentation>vrrpTtlCheckFlag is like nocheckttl/checkttl.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="nocheckttl">
+				<xs:annotation>
+					<xs:documentation>nocheckttl:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="checkttl">
+				<xs:annotation>
+					<xs:documentation>checkttl:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrpAuthentiMode">
+		<xs:annotation>
+			<xs:documentation>vrrpAuthentiMode is like none/simple/md5.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="simple">
+				<xs:annotation>
+					<xs:documentation>simple:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="md5">
+				<xs:annotation>
+					<xs:documentation>md5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrpOperState">
+		<xs:annotation>
+			<xs:documentation>vrrpOperState is like initialize/backup/master.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="initialize">
+				<xs:annotation>
+					<xs:documentation>initialize:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="backup">
+				<xs:annotation>
+					<xs:documentation>backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="master">
+				<xs:annotation>
+					<xs:documentation>master:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrpPreemptMode">
+		<xs:annotation>
+			<xs:documentation>vrrpPreemptMode is like nopreempt/preempt.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="nopreempt">
+				<xs:annotation>
+					<xs:documentation>nopreempt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="preempt">
+				<xs:annotation>
+					<xs:documentation>preempt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrpTrackMode">
+		<xs:annotation>
+			<xs:documentation>vrrpTrackMode is like increase/reduce.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="increase">
+				<xs:annotation>
+					<xs:documentation>increase:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="reduce">
+				<xs:annotation>
+					<xs:documentation>reduce:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrpBfdType">
+		<xs:annotation>
+			<xs:documentation>vrrpBfdType is like normal/link/peer.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="link">
+				<xs:annotation>
+					<xs:documentation>link:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="peer">
+				<xs:annotation>
+					<xs:documentation>peer:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vrrpType">
+		<xs:annotation>
+			<xs:documentation>vrrpType is like normal/admin/member.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="normal">
+				<xs:annotation>
+					<xs:documentation>normal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="admin">
+				<xs:annotation>
+					<xs:documentation>admin:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="member">
+				<xs:annotation>
+					<xs:documentation>member:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lbrg">
+				<xs:annotation>
+					<xs:documentation>lbrg:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lbrg-mem">
+				<xs:annotation>
+					<xs:documentation>lbrg-mem:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.13
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="devm_type.xsd"/>
+	<xs:element name="devm" type="devm_action_devm_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>devm</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="devm_action_devm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="resetBoard" type="devm_action_resetSlot_type">
+				<xs:annotation>
+					<xs:documentation>复位单板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resetMpuBoard" type="devm_action_resetMpu_type">
+				<xs:annotation>
+					<xs:documentation>复位MPU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resetLpuBoard" type="devm_action_resetLpu_type">
+				<xs:annotation>
+					<xs:documentation>复位LPU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resetSfuBoard" type="devm_action_resetSfu_type">
+				<xs:annotation>
+					<xs:documentation>复位SFU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="switchOver" type="devm_action_switchOver_type">
+				<xs:annotation>
+					<xs:documentation>主备倒换</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resetCard" type="devm_action_resetSubSlot_type">
+				<xs:annotation>
+					<xs:documentation>复位子卡</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="resetChassis" type="devm_action_resetChassis_type">
+				<xs:annotation>
+					<xs:documentation>复位机框</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reboot" type="devm_action_reboot_type">
+				<xs:annotation>
+					<xs:documentation>整机复位</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transferFile" type="devm_action_transferFile_type">
+				<xs:annotation>
+					<xs:documentation>使用FTP客户端传输文件</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerOnMpu" type="devm_action_powerOnMpu_type">
+				<xs:annotation>
+					<xs:documentation>上电MPU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerOffMpu" type="devm_action_powerOffMpu_type">
+				<xs:annotation>
+					<xs:documentation>下电MPU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerOnLpu" type="devm_action_powerOnLpu_type">
+				<xs:annotation>
+					<xs:documentation>上电LPU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerOffLpu" type="devm_action_powerOffLpu_type">
+				<xs:annotation>
+					<xs:documentation>下电LPU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerOnSfu" type="devm_action_powerOnSfu_type">
+				<xs:annotation>
+					<xs:documentation>上电SFU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerOffSfu" type="devm_action_powerOffSfu_type">
+				<xs:annotation>
+					<xs:documentation>下电SFU板</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerOnCard" type="devm_action_powerOnSubSlot_type">
+				<xs:annotation>
+					<xs:documentation>上电子卡</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerOffCard" type="devm_action_powerOffSubSlot_type">
+				<xs:annotation>
+					<xs:documentation>下电子卡</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_action_resetSlot_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>复位单板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>子槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_resetMpu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>复位MPU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>MPU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_resetLpu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>复位LPU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>LPU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_resetSfu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>复位SFU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>SFU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_reboot_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>复位当前路由器命令</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="saveConfig">
+				<xs:annotation>
+					<xs:documentation>保存配置标识</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:boolean"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_resetSubSlot_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>复位子卡</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cardPosition">
+				<xs:annotation>
+					<xs:documentation>子卡槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_switchOver_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>主备倒换命令</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>主备倒换命令</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_transferFile_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>使用FTP客户端传输文件</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serverIpAddress" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>Server Ipv4 address</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverPort" default="21">
+				<xs:annotation>
+					<xs:documentation>FTP服务器端口（非必须参数，默认为服务器协议的默认端口）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="21"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vpnInstanceName">
+				<xs:annotation>
+					<xs:documentation>VPN实例名称（非必须参数，默认为空）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sourceIpv4Address" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Source ip address configured for IPV4 connections</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sourceInterfaceName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>源接口名（主机接口名非必须参数，默认为空）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverType" type="devmServerType" default="ftp">
+				<xs:annotation>
+					<xs:documentation>服务器协议类别：ftp/tftp/sftp	（非必须参数，默认为ftp）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="commandType" type="devmTransType" default="put">
+				<xs:annotation>
+					<xs:documentation>传输方式：put/get（非必须参数，默认为put）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userName">
+				<xs:annotation>
+					<xs:documentation>FTP用户名（必须参数，TFTP不使用）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>false</allowNull>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="85"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="password" type="password">
+				<xs:annotation>
+					<xs:documentation>FTP密码（必须参数，TFTP不使用）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>false</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localFileName">
+				<xs:annotation>
+					<xs:documentation>需要获取的文件名（可指定路径，但是必须限定在主机提供的目录下，必须参数）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>false</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remoteFileName">
+				<xs:annotation>
+					<xs:documentation>放置到FTP服务器的路径（非必须参数，默认以主机的文件名放置在当前目录下）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remoteExtension" default=".hw!">
+				<xs:annotation>
+					<xs:documentation>临时文件扩展名，可靠性设计用（非必须参数，默认为.hw!）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="5"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="secureTransferOptions" type="devm_action_secureTransferOptions_type">
+				<xs:annotation>
+					<xs:documentation>安全协商加密算法使用的参数（SFTP协议使用，非必须参数）</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_secureTransferOptions_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>安全协商加密算法使用的参数</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="preferKex" type="devmPreferKexType">
+				<xs:annotation>
+					<xs:documentation>加密算法（非必须参数，KEX_DH_EXCHANGE_GROUP/KEX_DH_GROUP1，默认为空）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="preferStocCipher" type="devmCipherType">
+				<xs:annotation>
+					<xs:documentation>客户端到服务器的消息加密算法（非必须参数，CIPHER_3DES/CIPHER_AES128/CIPHER_DES，默认为空）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="preferCtosCipher" type="devmCipherType">
+				<xs:annotation>
+					<xs:documentation>服务器到客户端的消息加密算法（非必须参数，CIPHER_3DES/CIPHER_AES128/CIPHER_DES，默认为空）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="preferStocHmac" type="devmStocHmacType">
+				<xs:annotation>
+					<xs:documentation>客户端到服务器的消息MAC算法（非必须参数，HMAC_MD5/HMAC_MD5_96/HMAC_SHA1/HMAC_SHA1_96，默认为空）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="preferCtosHmac" type="devmStocHmacType">
+				<xs:annotation>
+					<xs:documentation>服务器到客户端的消息MAC算法（非必须参数，HMAC_MD5/HMAC_MD5_96/HMAC_SHA1/HMAC_SHA1_96，默认为空）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="keepAliveInterval" default="0">
+				<xs:annotation>
+					<xs:documentation>唤醒时间（非必须参数，默认为0）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="keepAliveCount" default="0">
+				<xs:annotation>
+					<xs:documentation>唤醒次数（非必须参数，默认为0）</xs:documentation>
+					<xs:appinfo>
+						<allowNull>true</allowNull>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_resetChassis_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>复位机框</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="chassisPosition">
+				<xs:annotation>
+					<xs:documentation>机框位置</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_powerOnMpu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>上电MPU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>MPU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_powerOffMpu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>下电MPU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>MPU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_powerOnLpu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>上电LPU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>LPU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_powerOffLpu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>下电LPU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>LPU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_powerOnSfu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>上电SFU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>SFU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_powerOffSfu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>下电SFU板</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>SFU槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_powerOnSubSlot_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>上电子卡</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cardPosition">
+				<xs:annotation>
+					<xs:documentation>子卡槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_action_powerOffSubSlot_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>下电子卡</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cardPosition">
+				<xs:annotation>
+					<xs:documentation>子卡槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>writeOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

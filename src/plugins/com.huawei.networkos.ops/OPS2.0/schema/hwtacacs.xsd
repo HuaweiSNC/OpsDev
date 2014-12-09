@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="hwtacacs_type.xsd"/>
+	<xs:element name="hwtacacs" type="hwtacacs_hwtacacs_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>hwtacacs</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="hwtacacs_hwtacacs_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="hwTacGlobalCfg" type="hwtacacs_hwTacGlobalCfg_type"/>
+			<xs:element name="hwTacTempCfgs" type="hwtacacs_hwTacTempCfgs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hwtacacs_hwTacGlobalCfg_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="isEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>To enable / disable HwTacacs service</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalTemplateNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Total Number of Template configured</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalSrvNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Total Number of server configured</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hwtacacs_hwTacTempCfgs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="hwTacTempCfg" type="hwtacacs_hwTacTempCfg_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hwtacacs_hwTacTempCfg_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="templateName">
+				<xs:annotation>
+					<xs:documentation>Unique name to identifying the template in corresponding VR</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+                                                <xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isDomainInclude" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Domain name to be included/excluded from username while sending HwTACACS packets by this template</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="responseTimeout" default="5">
+				<xs:annotation>
+					<xs:documentation>Wait for receiving the  responses of the sent packets</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="300"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="quietTime" default="5">
+				<xs:annotation>
+					<xs:documentation>Time after which primary server is to be checked once it is not being used to serve the requests</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sharedKey">
+				<xs:annotation>
+					<xs:documentation>Transactions between the client and HwTACACS server are authenticated through the use of a shared key</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sourceIpAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Use this IPv4 address as source address while  sending HwTACACS packets</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priAuthenSrv" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Primary Authentication Server</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priAuthorSrv" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Primary Authorization Server</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="curAuthenSrv" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Current Authentication Server</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="curAuthorSrv" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>Current Authorization Server</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secAuthenSrvNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Secondary Authentication server number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secAuthorSrvNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Secondary Authorization server number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priAuthenPort" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Primary Authentication port number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priAuthorPort" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Primary Authorization port number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="curAuthenPort" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Current Authentication port number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="curAuthorPort" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Current Authorization port number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenSrvOpenNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication server open number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenSrvClseNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication server close number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenReqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication request number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenRspNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication response number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenUnknownNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication unknown number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenTimeoutNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication timeout number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenPktDropNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication packet drop number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenChPassNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Change Password number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenLoginNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Login Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenSendNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Send Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenSndPassNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Pass Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenAbortNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Abort Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenConnectNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Connect Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenRspErrNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Response Error Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenRspFailNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication response fail Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenFollowNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication follow Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenGetdataNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication get data Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenGetpassNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication GetPass Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenGetusrNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Get user Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenRspPassNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Response Pass Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenRestartNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication restart Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenPndreqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication pending request Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenRndTrpTim" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication round trip</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenMalformNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication Malformed Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorSrvOpenNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization Server Open Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorSrvClseNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization Server Close Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorReqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization request Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorRspNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization response Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorUnknownNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization unknown Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorTimeoutNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization Timeout Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorPktDropNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization Packetdrop Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorEXECNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization EXEC Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorPPPNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization PointToPoint  Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorVPDNNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization VPDN Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorRspErrNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization response error Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorRspEXECNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization response EXEC Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorRspPPPNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization response PPP Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorRspVPDNNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization response VPDN Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorRndTrpTim" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization Round Trip</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorPndreqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization pending request Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorMalformNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization Malformed Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secAccountSrvNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Secondary Accounting server number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="curAccountPort" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Current Accounting Port</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priAccountPort" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Primary Accounting Port</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="curAccountSrv" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Current Accounting Server</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priAccountSrv" type="ipv4Address">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Primary Accounting Server</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctStopPktNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Stop Packet Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctRspPassNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Responce Pass Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctRspNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Responce Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctSrvOpenNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Server Open Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctStartPktNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Server Start Packet Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctReqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Request Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctSrvClseNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Server Close Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctRspErrNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Responce Error Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctFollowNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Server Follow Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctPndreqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting pending request Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hwTacSrvCfgs" type="hwtacacs_hwTacSrvCfgs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hwtacacs_hwTacSrvCfgs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="hwTacSrvCfg" type="hwtacacs_hwTacSrvCfg_type" minOccurs="0" maxOccurs="32"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hwtacacs_hwTacSrvCfg_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="serverIpAddress" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>IPv4 address of HwTACACS Server</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverPort" default="49">
+				<xs:annotation>
+					<xs:documentation>Client is using this TCP port while sending requests to this server</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serverType" type="hwtacacsSrvType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+					<xs:documentation>Server Type (Authentication and/or Authorization and/or Accounting)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isSecondaryServer" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Primary / secondary  server</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isMuxModeEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Mux Mode enable or not</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverCurrentState" type="hwtacacsSrvState">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Current state of server</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isCurrentSrv" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Current server or not</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sharedKey">
+				<xs:annotation>
+					<xs:documentation>Transactions between the client and HwTACACS server are authenticated through the use of a shared key</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vpnName" type="vrfName" default="_public_">
+				<xs:annotation>
+					<xs:documentation>Set Vpn Instance.</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>												
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenSrvOpenNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication server open number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenSrvClseNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication server Close number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenReqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication request number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenRspNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authentication response  number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorSrvOpenNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization server open Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorSrvClseNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization server close Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorReqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization request Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authorRspNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Authorization response Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctReqNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Request Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctRspNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Responce Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctSrvOpenNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Server Open Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="acctSrvClseNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>Accounting Server Close Number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

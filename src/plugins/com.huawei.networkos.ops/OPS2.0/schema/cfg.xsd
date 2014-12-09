@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.6smk1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="cfg_type.xsd"/>
+	<xs:element name="cfg" type="cfg_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>cfg</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="cfg_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="autoSaveconfig" type="cfg_autoSaveconfig_type"/>
+			<xs:element name="cfgChgFlowId" type="cfg_cfgChgFlowId_type"/>
+			<xs:element name="startupInfos" type="cfg_oper_startupInfos_type"/>
+			<xs:element name="cfgFiles" type="cfg_oper_cfgFiles_type"/>
+			<xs:element name="checkPointInfos" type="cfg_oper_checkPointInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_autoSaveconfig_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>自动保存配置。</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="isEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>自动保存使能标识</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intervalTime" default="30">
+				<xs:annotation>
+					<xs:documentation>当设置的定时保存配置时间间隔到达时，系统都会定时保存配置。</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<unit>minute</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="30"/>
+						<xs:maxInclusive value="43200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="delayTime" default="5">
+				<xs:annotation>
+					<xs:documentation>当配置发生变化时，系统将在设置的延时时间后自动保存配置。</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<unit>minute</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cpuLimit" default="50">
+				<xs:annotation>
+					<xs:documentation>配置自动保存时系统CPU使用率上限。</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_cfgChgFlowId_type">
+		<xs:annotation>
+			<xs:documentation>配置变更流水号。</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="curCfgChgFlowId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前配置变更流水号。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cfgBaselineTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>系统配置基线化时间。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_startupInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>启动信息列表。</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="startupInfo" type="cfg_oper_startupInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_startupInfo_type">
+		<xs:annotation>
+			<xs:documentation>系统启动信息。</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>设备位置。</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="configedSysSoft">
+				<xs:annotation>
+					<xs:documentation>用户配置的用于本次启动的系统软件的文件名。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="curSysSoft">
+				<xs:annotation>
+					<xs:documentation>本次启动实际使用的系统软件的文件名。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextSysSoft">
+				<xs:annotation>
+					<xs:documentation>配置的用于下次启动的系统软件的文件名。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="curStartupFile">
+				<xs:annotation>
+					<xs:documentation>本次启动采用的配置文件的文件名。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextStartupFile">
+				<xs:annotation>
+					<xs:documentation>配置的用于下次启动的配置文件的文件名。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="curPatchFile">
+				<xs:annotation>
+					<xs:documentation>本次启动采用的补丁包文件名 </xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextPatchFile">
+				<xs:annotation>
+					<xs:documentation>下次启动使用的补丁包文件名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_cfgFiles_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>配置文件列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cfgFile" type="cfg_oper_cfgFile_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_cfgFile_type">
+		<xs:annotation>
+			<xs:documentation>配置文件信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="fileName">
+				<xs:annotation>
+					<xs:documentation>配置文件名。</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="size" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>配置文件大小。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>B</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="createTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>配置文件创建的时间。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_checkPointInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>配置回退点列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="checkPointInfo" type="cfg_oper_checkPointInfo_type" minOccurs="0" maxOccurs="50"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_checkPointInfo_type">
+		<xs:annotation>
+			<xs:documentation>配置回退点信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="50">
+			<xs:element name="commitId">
+				<xs:annotation>
+					<xs:documentation>配置回退点ID。</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userLabel">
+				<xs:annotation>
+					<xs:documentation>配置回退点标签。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userName">
+				<xs:annotation>
+					<xs:documentation>用户名。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="85"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="line">
+				<xs:annotation>
+					<xs:documentation>终端类型。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="85"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="client" type="cfgCheckPointClientE">
+				<xs:annotation>
+					<xs:documentation>配置工具端。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="timeStamp" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>时间戳。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>回退点注释信息。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="61"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="currentPointChanges" type="cfg_oper_currentPointChanges_type">
+				<xs:annotation>
+					<xs:documentation>单个回退点配置变更信息。</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sincePointChanges" type="cfg_oper_sincePointChanges_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_sincePointChanges_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>配置变更信息列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sincePointChange" type="cfg_oper_sincePointChange_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_sincePointChange_type">
+		<xs:annotation>
+			<xs:documentation>配置变更信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>配置变更命令序号</xs:documentation>
+					<xs:appinfo>
+					    <key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="configChange">
+				<xs:annotation>
+					<xs:documentation>配置变更信息。</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="1056"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_currentPointChanges_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>单个配置回退点的配置变更信息</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="currentPointChange" type="cfg_oper_currentPointChange_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="cfg_oper_currentPointChange_type">
+		<xs:annotation>
+			<xs:documentation>配置变更信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>配置变更命令序号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="configChange">
+				<xs:annotation>
+					<xs:documentation>配置变更信息。</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="1056"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

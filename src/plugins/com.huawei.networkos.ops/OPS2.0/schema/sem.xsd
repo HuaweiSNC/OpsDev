@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+  <xs:element name="sem"  type="sem_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>sem</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>	
+	<xs:complexType name="sem_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+    <xs:element name="osGrpInfos"  type="sem_osGrpInfos_type"/>			
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>	
+	<xs:complexType name="sem_osGrpInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="osGrpInfo" type="sem_osGrpInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>	
+	<xs:complexType name="sem_osGrpInfo_type">
+		<xs:annotation>
+			<xs:documentation>显示OS组信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="osGrpName">
+			  <xs:annotation>
+		  	  <xs:documentation>OS组名字</xs:documentation>
+		  	  <xs:appinfo>
+		    	  <key>true</key>
+		    	  <access>readOnly</access>
+		    	  <supportFilter>true</supportFilter>
+		  	  </xs:appinfo>
+			  </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string" >
+                <xs:maxLength value="256" />
+            </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+			<xs:element name="boardID">
+				<xs:annotation>
+					<xs:documentation>板名称</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>	
+</xs:schema>

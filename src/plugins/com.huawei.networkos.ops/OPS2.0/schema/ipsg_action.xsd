@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.huawei.com/netconf/vrp" xml:lang="en" xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="pub_attribute.xsd" />
+  <xs:include schemaLocation="pub_type.xsd" />
+  <xs:include schemaLocation="ipsg_type.xsd" />
+  <xs:annotation>
+    <xs:appinfo>
+      <formatVersion>1.0</formatVersion>
+      <contentVersion>1.0</contentVersion>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:complexType name="ipsg_action_type">
+    <xs:choice minOccurs="0" maxOccurs="unbounded" />
+    <xs:attributeGroup ref="versionAttributeGroup" />
+  </xs:complexType>
+</xs:schema>

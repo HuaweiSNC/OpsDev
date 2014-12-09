@@ -1,0 +1,2054 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.7L20090407 for Schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="lldp_type.xsd"/>
+	<xs:element name="lldp" type="lldp_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>lldp</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="lldp_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lldpSys" type="lldp_lldpSys_type"/>
+			<xs:element name="lldpInterfaces" type="lldp_lldpInterfaces_type"/>
+			<xs:element name="mdnInterfaces" type="lldp_mdnInterfaces_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpSys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lldpEnable" type="lldpGlobalStatus" default="disabled">
+				<xs:annotation>
+					<xs:documentation>LLDP使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mdnStatus" type="mdnGlobalStatus" default="disabled">
+				<xs:annotation>
+					<xs:documentation>MDN使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lldpSysInformation" type="lldp_lldpSysInformation_type"/>
+			<xs:element name="lldpSysParameter" type="lldp_lldpSysParameter_type"/>
+			<xs:element name="mdnSysStatistics" type="lldp_mdnSysStatistics_type"/>
+			<xs:element name="lldpSysStatistics" type="lldp_lldpSysStatistics_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpSysInformation_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="chassisIdSubtype" type="chassisIdSubtype">
+				<xs:annotation>
+					<xs:documentation>设备ID子类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chassisId">
+				<xs:annotation>
+					<xs:documentation>设备ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="765"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysName">
+				<xs:annotation>
+					<xs:documentation>设备名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysDesc">
+				<xs:annotation>
+					<xs:documentation>设备描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysCapEnabled">
+				<xs:annotation>
+					<xs:documentation>设备所使能的能力</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysCapSupported">
+				<xs:annotation>
+					<xs:documentation>设备所支持的能力</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="manAddrSubtype" type="manAddrSubtype">
+				<xs:annotation>
+					<xs:documentation>管理地址类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manAddr">
+				<xs:annotation>
+					<xs:documentation>管理地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="93"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="manAddrLen">
+				<xs:annotation>
+					<xs:documentation>管理地址长度</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="2147483647"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="manAddrIfSubtype" type="manAddrIfSubtype">
+				<xs:annotation>
+					<xs:documentation>管理地址接口类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manAddrIfId">
+				<xs:annotation>
+					<xs:documentation>管理地址接口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="2147483647"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="manAddrOid">
+				<xs:annotation>
+					<xs:documentation>管理地址OID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="640"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lldpUpTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>LLDP启动时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpSysParameter_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="messageTxInterval" default="30">
+				<xs:annotation>
+					<xs:documentation>发送LLDP报文的时间周期</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="32768"/>
+						<xs:minInclusive value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="messageTxHoldMultiplier" default="4">
+				<xs:annotation>
+					<xs:documentation>消息时间保持倍数</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="10"/>
+						<xs:minInclusive value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="reinitDelay" default="2">
+				<xs:annotation>
+					<xs:documentation>LLDP重新初始化时延</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="10"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="txDelay" default="2">
+				<xs:annotation>
+					<xs:documentation>发送LLDP报文的时延时间</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="8192"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationInterval" default="5">
+				<xs:annotation>
+					<xs:documentation>远端信息变化告警时延</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="3600"/>
+						<xs:minInclusive value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationEnable" type="lldpGlobalStatus" default="enabled">
+				<xs:annotation>
+					<xs:documentation>告警通告状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fastMessageCount" default="4">
+				<xs:annotation>
+					<xs:documentation>快速发包个数</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="8"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mdnNotificationInterval" default="5">
+				<xs:annotation>
+					<xs:documentation>MDN邻居变化trap延迟时间</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="3600"/>
+						<xs:minInclusive value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mdnNotificationEnable" type="lldpGlobalStatus" default="disabled">
+				<xs:annotation>
+					<xs:documentation>MDN邻居变化告警开关状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="configManAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>用户配置的管理地址</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_mdnSysStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="remTablesLastChangeTime">
+				<xs:annotation>
+					<xs:documentation>MDN邻居表最后更新时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remTablesInserts">
+				<xs:annotation>
+					<xs:documentation>MDN邻居表新增个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remTablesDeletes">
+				<xs:annotation>
+					<xs:documentation>MDN邻居表删除个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remTablesDrops">
+				<xs:annotation>
+					<xs:documentation>MDN邻居表丢弃个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remTablesAgeouts">
+				<xs:annotation>
+					<xs:documentation>MDN邻居表老化个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="totalNeighbors">
+				<xs:annotation>
+					<xs:documentation>MDN邻居个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpSysStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="remTablesLastChangeTime">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居表最后更新时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remTablesInserts">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居表新增个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remTablesDeletes">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居表删除个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remTablesDrops">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居表丢弃个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remTablesAgeouts">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居老化个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="totalNeighbors">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpInterfaces_type">
+		<xs:sequence>
+			<xs:element name="lldpInterface" type="lldp_lldpInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpInterface_type">
+		<xs:annotation>
+			<xs:documentation>LLDP接口信息</xs:documentation>
+			<xs:appinfo>
+				<access>readWrite</access>
+				<key>ifName</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="lldpAdminStatus" type="portAdminStatus" default="txAndRx">
+				<xs:annotation>
+					<xs:documentation>lldp接口使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lldpIfInformation" type="lldp_lldpIfInformation_type"/>
+			<xs:element name="lldpErrPkt" type="lldp_lldpErrPkt_type"/>
+			<xs:element name="tlvTxEnable" type="lldp_tlvTxEnable_type"/>
+			<xs:element name="lldpStatistics" type="lldp_lldpStatistics_type"/>
+			<xs:element name="lldpNeighbors" type="lldp_lldpNeighbors_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpIfInformation_type">
+		<xs:annotation>
+			<xs:documentation>LLDP接口信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="portIdSubtype" type="portIdSubtype">
+				<xs:annotation>
+					<xs:documentation>接口ID子类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portId">
+				<xs:annotation>
+					<xs:documentation>接口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="765"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="portDescription">
+				<xs:annotation>
+					<xs:documentation>接口描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="portVlanId">
+				<xs:annotation>
+					<xs:documentation>端口VLAN ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="protoVlanSupported" type="lldpSupportStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否支持协议VLAN</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protoVlanEnabled" type="lldpEnableStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否使能协议VLAN</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protoVlanId">
+				<xs:annotation>
+					<xs:documentation>协议VLAN ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vlanNameId">
+				<xs:annotation>
+					<xs:documentation>VLAN名称的VLAN ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vlanName">
+				<xs:annotation>
+					<xs:documentation>VLAN名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="protocolIdentity">
+				<xs:annotation>
+					<xs:documentation>协议ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="autoNegSupported" type="lldpSupportStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否支持自协商</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="autoNegEnabled" type="lldpEnableStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否使能自协商</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="autoNegAdvertisedCap">
+				<xs:annotation>
+					<xs:documentation>端口子协商能力</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="192"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="operMauType" type="operMauType">
+				<xs:annotation>
+					<xs:documentation>端口MAU类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkAggregationSupported" type="lldpSupportStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否支持链路聚合</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkAggregationEnabled" type="lldpEnableStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否使能链路聚合</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aggregationPortId">
+				<xs:annotation>
+					<xs:documentation>聚合端口的端口ID，倘若未使能链路聚合功能，值为0</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="2147483647"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maximumFrameSize">
+				<xs:annotation>
+					<xs:documentation>端口支持的最大帧长度</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="65535"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpErrPkt_type">
+		<xs:annotation>
+			<xs:documentation>接口MDN统计信息</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="errPktRecvTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>错误报文接收时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errPktInfo">
+				<xs:annotation>
+					<xs:documentation>错误的MDN报文内容</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4600"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_tlvTxEnable_type">
+		<xs:annotation>
+			<xs:documentation>接口允许发布的可选TLV</xs:documentation>
+			<xs:appinfo>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="manAddrTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送管理地址TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portDescTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送端口描述TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysCapTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送系统能力TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysDescTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送系统描述TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysNameTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送系统名称TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portVlanTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送端口PVID TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protoVlanTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送端口协议VLAN TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txProtocolVlanId">
+				<xs:annotation>
+					<xs:documentation>端口发送协议VLAN的VLAN ID</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vlanNameTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送VLAN名称TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="txVlanNameId">
+				<xs:annotation>
+					<xs:documentation>端口发送VLAN NAME TLV的VLAN ID</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="protoIdTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送Protocol ID TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="macPhyTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送MAC/PHY配置和状态TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkAggreTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送链路聚合TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxFrameTxEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送最大帧长度TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eee" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>端口使能发送EEE TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dcbx" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>端口使能发送DCBX TLV</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpStatistics_type">
+		<xs:annotation>
+			<xs:documentation>接口统计信息</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="totalNeighbors">
+				<xs:annotation>
+					<xs:documentation>该属性不支持重置</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="transmittedFrames">
+				<xs:annotation>
+					<xs:documentation>接口发送的LLDP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="receivedFrames">
+				<xs:annotation>
+					<xs:documentation>接口接收的LLDP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="discardedFrames">
+				<xs:annotation>
+					<xs:documentation>接口丢弃的LLDP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errorFrames">
+				<xs:annotation>
+					<xs:documentation>接口接收的错误LLDP报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="discardedTlvs">
+				<xs:annotation>
+					<xs:documentation>接口丢弃的LLDP TLV个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unrecognizedTlvs">
+				<xs:annotation>
+					<xs:documentation>接口接收的不可识别的LLDP TLV个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="expiredNeighbors">
+				<xs:annotation>
+					<xs:documentation>接口老化LLDP邻居个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="transmittedDcbxTlvs">
+				<xs:annotation>
+					<xs:documentation>接口发送的DCBX TLV个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="receivedDcbxTlvs">
+				<xs:annotation>
+					<xs:documentation>接口接收的DCBX TLV个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastClearedTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>接口LLDP报文统计信息最后被清除的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpNeighbors_type">
+		<xs:sequence>
+			<xs:element name="lldpNeighbor" type="lldp_lldpNeighbor_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_lldpNeighbor_type">
+		<xs:annotation>
+			<xs:documentation>接口邻居信息</xs:documentation>
+			<xs:appinfo>
+				<access>readOnly</access>
+				<key>nbIndex</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nbIndex">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居索引</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="chassisIdSubtype" type="chassisIdSubtype">
+				<xs:annotation>
+					<xs:documentation>设备ID类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chassisId">
+				<xs:annotation>
+					<xs:documentation>设备ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="765"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="portIdSubtype" type="portIdSubtype">
+				<xs:annotation>
+					<xs:documentation>邻居接口ID子类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portId">
+				<xs:annotation>
+					<xs:documentation>邻居接口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="765"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="portDescription">
+				<xs:annotation>
+					<xs:documentation>接口描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="systemName">
+				<xs:annotation>
+					<xs:documentation>设备名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="systemDescription">
+				<xs:annotation>
+					<xs:documentation>设备描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="systemCapabilitiesEnabled">
+				<xs:annotation>
+					<xs:documentation>邻居节点使能能力</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="systemCapabilitiesSupported">
+				<xs:annotation>
+					<xs:documentation>邻居节点支持能力</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="90"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="expiredTime">
+				<xs:annotation>
+					<xs:documentation>远端邻居老化时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="65535"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="portVlanId">
+				<xs:annotation>
+					<xs:documentation>邻居端口VLAN ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="protocolIdentity">
+				<xs:annotation>
+					<xs:documentation>协议ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="autoNegSupported" type="lldpSupportStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否支持自协商</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="autoNegEnabled" type="lldpEnableStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否使能自协商</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="autoNegAdvertisedCap">
+				<xs:annotation>
+					<xs:documentation>端口自协商能力</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="192"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="operMauType" type="operMauType">
+				<xs:annotation>
+					<xs:documentation>端口自适应的速率和双工状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkAggregationSupported" type="lldpSupportStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否支持链路聚合</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkAggregationEnabled" type="lldpEnableStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否使能链路聚合</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aggregationPortId">
+				<xs:annotation>
+					<xs:documentation>聚合端口的端口ID，倘若未使能链路聚合功能，值为0。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="2147483647"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maximumFrameSize">
+				<xs:annotation>
+					<xs:documentation>端口支持的最大帧长度</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="65535"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="discoveredTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>邻居被发现的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="managementAddresss" type="lldp_managementAddresss_type"/>
+			<xs:element name="protoVlans" type="lldp_protoVlans_type"/>
+			<xs:element name="vlanNames" type="lldp_vlanNames_type"/>
+			<xs:element name="unknownTlvs" type="lldp_unknownTlvs_type"/>
+			<xs:element name="unknownOrgDefTlvs" type="lldp_unknownOrgDefTlvs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_managementAddresss_type">
+		<xs:sequence>
+			<xs:element name="managementAddress" type="lldp_managementAddress_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_managementAddress_type">
+		<xs:annotation>
+			<xs:documentation>LLDP邻居的管理地址</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="manAddrSubtype" type="manAddrSubtype">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居管理地址类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manAddr">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居管理地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="93"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="manAddrLen">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居管理地址长度</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="2147483647"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="manAddrIfSubtype" type="manAddrIfSubtype">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居管理地址接口类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manAddrIfId">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居管理地址接口ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="2147483647"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="manAddrOid">
+				<xs:annotation>
+					<xs:documentation>管理地址OID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="640"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_protoVlans_type">
+		<xs:sequence>
+			<xs:element name="protoVlan" type="lldp_protoVlan_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_protoVlan_type">
+		<xs:annotation>
+			<xs:documentation>LLDP邻居的协议VLAN</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="protoVlanSupported" type="lldpSupportStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否支持协议VLAN</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protoVlanEnabled" type="lldpEnableStatus">
+				<xs:annotation>
+					<xs:documentation>端口是否使能协议VLAN</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protoVlanId">
+				<xs:annotation>
+					<xs:documentation>协议VLAN ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_vlanNames_type">
+		<xs:sequence>
+			<xs:element name="vlanName" type="lldp_vlanName_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_vlanName_type">
+		<xs:annotation>
+			<xs:documentation>LLDP邻居的VLAN NAME</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vlanNameId">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居的VLAN NAME的VLAN ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vlanName">
+				<xs:annotation>
+					<xs:documentation>LLDP邻居的VLAN NAME</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="33"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_unknownTlvs_type">
+		<xs:sequence>
+			<xs:element name="unknownTlv" type="lldp_unknownTlv_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_unknownTlv_type">
+		<xs:annotation>
+			<xs:documentation>不可识别的TLV</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="unknownTlvType">
+				<xs:annotation>
+					<xs:documentation>不可识别的TLV类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="126"/>
+						<xs:minInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unknownTlvInfo">
+				<xs:annotation>
+					<xs:documentation>不可识别TLV信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1600"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_unknownOrgDefTlvs_type">
+		<xs:sequence>
+			<xs:element name="unknownOrgDefTlv" type="lldp_unknownOrgDefTlv_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_unknownOrgDefTlv_type">
+		<xs:annotation>
+			<xs:documentation>不可识别的组织定义TLV</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="unknownOrgDefInfoOui">
+				<xs:annotation>
+					<xs:documentation>不可识别的组织定义TLV的OUI</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unknownOrgDefSubtype">
+				<xs:annotation>
+					<xs:documentation>不可识别的组织定义TLV的类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="256"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unknownOrgDefInfoIndex">
+				<xs:annotation>
+					<xs:documentation>不可识别的组织定义TLV的索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:maxInclusive value="2147483647"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unknownOrgDefInfo">
+				<xs:annotation>
+					<xs:documentation>不可识别的组织定义TLV信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1600"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_mdnInterfaces_type">
+		<xs:sequence>
+			<xs:element name="mdnInterface" type="lldp_mdnInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_mdnInterface_type">
+		<xs:annotation>
+			<xs:documentation>MDN接收使能的端口信息</xs:documentation>
+			<xs:appinfo>
+				<access>readWrite</access>
+				<key>ifName</key>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<key>true</key>
+						<mandatary>true</mandatary>
+						<status>current</status>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="mdnStatus" type="mdnPortAdminStatus" default="disabled">
+				<xs:annotation>
+					<xs:documentation>MDN邻居使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mdnErrPkt" type="lldp_mdnErrPkt_type"/>
+			<xs:element name="mdnStatistics" type="lldp_mdnStatistics_type"/>
+			<xs:element name="mdnNeighbors" type="lldp_mdnNeighbors_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="lldp_mdnErrPkt_type">
+		<xs:annotation>
+			<xs:documentation>接口MDN统计信息</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="errPktRecvTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>错误报文接收时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errPktInfo">
+				<xs:annotation>
+					<xs:documentation>错误的MDN报文内容</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4600"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_mdnStatistics_type">
+		<xs:annotation>
+			<xs:documentation>接口MDN统计信息</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="totalNeighbors">
+				<xs:annotation>
+					<xs:documentation>该属性不支持重置</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="receivedFrames">
+				<xs:annotation>
+					<xs:documentation>接口接收的MDN报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="discardedFrames">
+				<xs:annotation>
+					<xs:documentation>接口丢弃的MDN报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="errorFrames">
+				<xs:annotation>
+					<xs:documentation>接口接收的错误MDN报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastClearedTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>接口MDN报文统计信息最后被清除的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lldp_mdnNeighbors_type">
+		<xs:sequence>
+			<xs:element name="mdnNeighbor" type="lldp_mdnNeighbor_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="lldp_mdnNeighbor_type">
+		<xs:annotation>
+			<xs:documentation>MDN邻居信息</xs:documentation>
+			<xs:appinfo>
+				<access>readWrite</access>
+				<status>current</status>
+				<version>V8R5</version>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nbIndex">
+				<xs:annotation>
+					<xs:documentation>MDN邻居索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remMacAddress" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>MDN邻居MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="discoveredTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>MDN邻居发现时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

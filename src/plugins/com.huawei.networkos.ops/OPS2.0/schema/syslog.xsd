@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="syslog_type.xsd"/>
+	<xs:element name="syslog" type="im_im_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>im</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="im_im_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="syslogServers" type="im_syslogServers_type"/>
+			<xs:element name="globalParam" type="im_globalParam_type"/>
+			<xs:element name="icChannels" type="im_icChannels_type"/>
+			<xs:element name="icDirChannels" type="im_icDirChannels_type"/>
+			<xs:element name="icSources" type="im_icSources_type"/>
+			<xs:element name="icStatistics" type="im_icStatistics_type"/>
+			<xs:element name="icFilters" type="im_icFilters_type"/>
+			<xs:element name="idSwitchTbls" type="im_idSwitchTbls_type"/>
+			<xs:element name="icInfoCenters" type="im_icInfoCenters_type"/>
+			<xs:element name="moduleInfos" type="im_moduleInfos_type"/>
+			<xs:element name="icLogBuffers" type="im_icLogBuffers_type"/>
+			<xs:element name="icTrapBuffers" type="im_icTrapBuffers_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_syslogServers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="syslogServer" type="im_syslogServer_type" minOccurs="0" maxOccurs="8"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icChannels_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icChannel" type="im_icChannel_type" minOccurs="0" maxOccurs="10"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icDirChannels_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icDirChannel" type="im_icDirChannel_type" minOccurs="0" maxOccurs="7"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icSources_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icSource" type="im_icSource_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icStatistic" type="im_icStatistic_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_moduleInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="moduleInfo" type="im_moduleInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icFilter" type="im_icFilter_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_idSwitchTbls_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="idSwitchTbl" type="im_idSwitchTbl_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icInfoCenters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icInfoCenter" type="im_icInfoCenter_type" minOccurs="0" maxOccurs="2"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icChannel_type">
+		<xs:annotation>
+			<xs:documentation>通道列表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:annotation>
+				<xs:appinfo>
+					<key>true</key>
+					<access>readCreate</access>
+					<mandatory>true</mandatory>
+				</xs:appinfo>
+			</xs:annotation>
+			<xs:element name="icChnlId" default="0">
+				<xs:annotation>
+					<xs:documentation>信息中心通道ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<allowNull>false</allowNull>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icChnlDefName" default="Name">
+				<xs:annotation>
+					<xs:documentation>信息中心通道缺省名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icChnlCfgName" default="Name">
+				<xs:annotation>
+					<xs:documentation>信息中心通道配置名称</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_icDirChannel_type">
+		<xs:annotation>
+			<xs:documentation>输出方向和通道绑定关系</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="icOutDirect">
+				<xs:annotation>
+					<xs:documentation>信息输出方向</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icDefChnlId" default="0">
+				<xs:annotation>
+					<xs:documentation>信息中心通道ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icCfgChnlId" default="0">
+				<xs:annotation>
+					<xs:documentation>信息中心配置通道ID</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icCfgChnlName" default="name">
+				<xs:annotation>
+					<xs:documentation>通道名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_icSource_type">
+		<xs:annotation>
+			<xs:documentation>信息中心过滤规则</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="moduleName" default="default">
+				<xs:annotation>
+					<xs:documentation>模块名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icChannelId" default="0">
+				<xs:annotation>
+					<xs:documentation>信息中心通道ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icChannelName">
+				<xs:annotation>
+					<xs:documentation>通道名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="logEnFlg" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>日志开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="logEnLevel" type="imLogLevel" default="debugging">
+				<xs:annotation>
+					<xs:documentation>日志级别</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trapEnFlg" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>告警开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trapEnLevel" type="imLogLevel" default="debugging">
+				<xs:annotation>
+					<xs:documentation>告警级别</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dbgEnFlg" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>调试信息开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dbgEnLevel" type="imLogLevel" default="debugging">
+				<xs:annotation>
+					<xs:documentation>调试信息级别</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_icStatistic_type">
+		<xs:annotation>
+			<xs:documentation>日志统计</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="icModuleName">
+				<xs:annotation>
+					<xs:documentation>模块名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icLogRecv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>日志接收</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icLogDrop" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>日志丢弃</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icDiagRecv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>诊断接收</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icDiagDrop" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>诊断丢弃</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icEventTrapRecv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>事件trap接收</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icEventTrapDrop" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>事件trap丢弃</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icDebugRecv" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>调试接收</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icDebugDrop" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>调试丢弃</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_icFilter_type">
+		<xs:annotation>
+			<xs:documentation>日志过滤</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="icFeatureName">
+				<xs:annotation>
+					<xs:documentation>过滤日志特性名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icFilterLogName">
+				<xs:annotation>
+					<xs:documentation>过滤日志名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icFilterFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>过滤日志标志</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_idSwitchTbl_type">
+		<xs:annotation>
+			<xs:documentation>日志名称</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="icFeatureName">
+				<xs:annotation>
+					<xs:documentation>日志特性名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icLogName">
+				<xs:annotation>
+					<xs:documentation>日志名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_icInfoCenter_type">
+		<xs:annotation>
+			<xs:documentation>显示缓冲区</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="icBufferName">
+				<xs:annotation>
+					<xs:documentation>缓冲区名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+                                                <key>true</key>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icEnableFlag" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icMaxBuffSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>最大可配置大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icCurBuffSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前配置大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icCuffentMsgs" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前消息数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icDroppedMsgs" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>丢弃消息数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icOverWrtMsgs" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>覆盖消息数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icInfoChnlId" default="0">
+				<xs:annotation>
+					<xs:documentation>信息中心通道ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="icInfoChnlName">
+				<xs:annotation>
+					<xs:documentation>信息中心通道名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>false</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_syslogServer_type">
+		<xs:annotation>
+			<xs:documentation>设置日志主机</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:annotation>
+				<xs:documentation>日志主机属性</xs:documentation>
+				<xs:appinfo>
+					<key>true</key>
+					<access>readCreate</access>
+					<mandatory>true</mandatory>
+				</xs:appinfo>
+				<xs:documentation>日志主机的IP地址类型</xs:documentation>
+				<xs:appinfo>
+					<key>true</key>
+					<access>readCreate</access>
+					<allowNull>false</allowNull>
+					<mandatory>true</mandatory>
+				</xs:appinfo>
+				<xs:documentation>日志主机的IP地址</xs:documentation>
+				<xs:appinfo>
+					<key>true</key>
+					<access>readCreate</access>
+					<allowNull>false</allowNull>
+					<mandatory>true</mandatory>
+				</xs:appinfo>
+			</xs:annotation>
+			<xs:element name="ipType" type="imAddrFamilyType" default="ipv4">
+				<xs:annotation>
+					<xs:documentation>当前日志主机ip地址类型;</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverIp" type="ipAddress">
+				<xs:annotation>
+					<xs:documentation>日志主机的IPv4或者IPv6地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrfName" default="_public_">
+				<xs:annotation>
+					<xs:documentation>vpn名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="level" type="imLogLevel" default="debugging">
+				<xs:annotation>
+					<xs:documentation>日志的级别</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serverPort" default="514">
+				<xs:annotation>
+					<xs:documentation>发送时对应的端口号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="facility" type="imLogHostFacility" default="local7">
+				<xs:annotation>
+					<xs:documentation>设置日志主机记录工具</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chnlId" default="2">
+				<xs:annotation>
+					<xs:documentation>通道ID</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="chnlName" default="loghost">
+				<xs:annotation>
+					<xs:documentation>通道名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>false</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="timestamp" type="imTimeStampFormat" default="UTC">
+				<xs:annotation>
+					<xs:documentation>时间戳</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>false</allowNull>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>	
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_globalParam_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>全局属性</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="icEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>信息中心输出总开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bufferSize" default="512">
+				<xs:annotation>
+					<xs:documentation>日志buffer的大小</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="102400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxFileNum" default="200">
+				<xs:annotation>
+					<xs:documentation>单类日志文件最大个数</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="500"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="suppressEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>连续重复日志统计输出使能开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxFileSize" default="8">
+				<xs:annotation>
+					<xs:documentation>单个日志文件最大值(MB)</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="4"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="logTimeStamp" type="imTimeStamp" default="DATE_SECOND">
+				<xs:annotation>
+					<xs:documentation>设置日志的时间戳格式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trapTimeStamp" type="imTimeStamp" default="DATE_SECOND">
+				<xs:annotation>
+					<xs:documentation>设置告警的时间戳格式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="debugTimeStamp" type="imTimeStamp" default="DATE_MILLISECOND">
+				<xs:annotation>
+					<xs:documentation>设置调试的时间戳格式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>源接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="icLogBuffEn" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>日志缓冲区输出开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="icTrapBuffEn" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Trap缓冲区输出开关</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="trapBuffSize" default="256">
+				<xs:annotation>
+					<xs:documentation>Trap缓冲区大小</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_moduleInfo_type">
+		<xs:annotation>
+			<xs:documentation>模块信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="moduleName">
+				<xs:annotation>
+					<xs:documentation>模块名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_icLogBuffers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icLogBuffer" type="im_icLogBuffer_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icLogBuffer_type">
+		<xs:annotation>
+			<xs:documentation>日志缓冲区信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sequence" default="1">
+				<xs:annotation>
+					<xs:documentation>序号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="102400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="starttime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>查询开始时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endtime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>查询结束时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="logSize" default="1">
+				<xs:annotation>
+					<xs:documentation>缓冲区大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="102400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="levelEnum" type="imLogLevel" default="debugging">
+				<xs:annotation>
+					<xs:documentation>日志级别</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+						<mandatory>false</mandatory>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="logContent">
+				<xs:annotation>
+					<xs:documentation>日志内容</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="im_icTrapBuffers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icTrapBuffer" type="im_icTrapBuffer_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="im_icTrapBuffer_type">
+		<xs:annotation>
+			<xs:documentation>告警缓冲区信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sequence" default="1">
+				<xs:annotation>
+					<xs:documentation>序号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<mandatory>false</mandatory>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trapSize" default="1">
+				<xs:annotation>
+					<xs:documentation>缓冲区大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trapContent">
+				<xs:annotation>
+					<xs:documentation>告警内容</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="1200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

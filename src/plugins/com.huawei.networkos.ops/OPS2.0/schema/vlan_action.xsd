@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="vlan_type.xsd"/>
+	<xs:element name="vlan" type="vlan_action_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>vlan</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="vlan_action_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="shVlanInstCrt" type="vlan_action_shVlanInstCrt_type"/>
+			<xs:element name="shVlanInstDel" type="vlan_action_shVlanInstDel_type"/>
+			<xs:element name="shVlanBatchCrt" type="vlan_action_shVlanBatchCrt_type"/>
+			<xs:element name="shVlanBatchDel" type="vlan_action_shVlanBatchDel_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vlan_action_shVlanInstCrt_type">
+		<xs:annotation>
+			<xs:documentation>创建vlaninstance</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="48"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vlans" type="VLAN_BITMAP">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vlan_action_shVlanInstDel_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>删除vlaninstance</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="instanceId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="48"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vlans" type="VLAN_BITMAP">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allownull>true</allownull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vlan_action_shVlanBatchCrt_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>删除vlaninstance</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vlans" type="VLAN_BITMAP">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allownull>true</allownull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="vlan_action_shVlanBatchDel_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>删除vlaninstance</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vlans" type="VLAN_BITMAP">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<allownull>true</allownull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

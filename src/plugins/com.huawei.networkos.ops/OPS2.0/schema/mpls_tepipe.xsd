@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="mpls_te_type.xsd"/>
+	<xs:complexType name="mpls_mplstepipe_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>TE管道</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pipeMode" type="tePipeMode" default="uniform">
+				<xs:annotation>
+					<xs:documentation>Pipe模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceClass" type="tePipeServiceClass" default="be">
+				<xs:annotation>
+					<xs:documentation>服务等级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="color" type="tePipeColor"  default="green">
+				<xs:annotation>
+					<xs:documentation>颜色</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="mpls_teServiceClass_type">
+		<xs:annotation>
+			<xs:documentation>隧道承载的服务优先级</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="defaultServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载default优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="beServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载be优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="af1ServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载af1优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="af2ServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载af2优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="af3ServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载af3优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="af4ServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载af4优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="efServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载ef优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cs6ServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载cs6优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cs7ServiceClassEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>承载cs7优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

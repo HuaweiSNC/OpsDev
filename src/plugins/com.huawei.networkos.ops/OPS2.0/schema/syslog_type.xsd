@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="imLogHostFacility">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="local0">
+				<xs:annotation>
+					<xs:documentation>local0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="local1">
+				<xs:annotation>
+					<xs:documentation>local1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="local2">
+				<xs:annotation>
+					<xs:documentation>local2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="local3">
+				<xs:annotation>
+					<xs:documentation>local3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="local4">
+				<xs:annotation>
+					<xs:documentation>local4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="local5">
+				<xs:annotation>
+					<xs:documentation>local5:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="local6">
+				<xs:annotation>
+					<xs:documentation>local6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="local7">
+				<xs:annotation>
+					<xs:documentation>local7:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="imLogLevel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="emergencies">
+				<xs:annotation>
+					<xs:documentation>emergencies:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="alert">
+				<xs:annotation>
+					<xs:documentation>alert:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="critical">
+				<xs:annotation>
+					<xs:documentation>critical:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="error">
+				<xs:annotation>
+					<xs:documentation>error:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="warning">
+				<xs:annotation>
+					<xs:documentation>warning:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="notification">
+				<xs:annotation>
+					<xs:documentation>notification:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="informational">
+				<xs:annotation>
+					<xs:documentation>informational:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="debugging">
+				<xs:annotation>
+					<xs:documentation>debugging:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="imAddrFamilyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ipv4">
+				<xs:annotation>
+					<xs:documentation>ipv4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipv6">
+				<xs:annotation>
+					<xs:documentation>ipv6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="imTimeStamp">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DATE_NONE">
+				<xs:annotation>
+					<xs:documentation>DATE_NONE:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DATE_BOOT">
+				<xs:annotation>
+					<xs:documentation>DATE_BOOT:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DATE_SECOND">
+				<xs:annotation>
+					<xs:documentation>DATE_SECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DATE_TENTHSECOND">
+				<xs:annotation>
+					<xs:documentation>DATE_TENTHSECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DATE_MILLISECOND">
+				<xs:annotation>
+					<xs:documentation>DATE_MILLISECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SHORTDATE_SECOND">
+				<xs:annotation>
+					<xs:documentation>SHORTDATE_SECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SHORTDATE_TENTHSECOND">
+				<xs:annotation>
+					<xs:documentation>SHORTDATE_TENTHSECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SHORTDATE_MILLISECOND">
+				<xs:annotation>
+					<xs:documentation>SHORTDATE_MILLISECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FORMATDATE_SECOND">
+				<xs:annotation>
+					<xs:documentation>FORMATDATE_SECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FORMATDATE_TENTHSECOND">
+				<xs:annotation>
+					<xs:documentation>FORMATDATE_TENTHSECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FORMATDATE_MILLISECOND">
+				<xs:annotation>
+					<xs:documentation>FORMATDATE_MILLISECOND:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="imTimeStampFormat">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UTC">
+				<xs:annotation>
+					<xs:documentation>UTC:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+			<xs:enumeration value="localtime">
+				<xs:annotation>
+					<xs:documentation>localtime:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>	
+</xs:schema>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.24
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="qosMacType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="source">
+				<xs:annotation>
+					<xs:documentation>source:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="destination">
+				<xs:annotation>
+					<xs:documentation>destination:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosPriorityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="8021p">
+				<xs:annotation>
+					<xs:documentation>8021p:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipPrecedence">
+				<xs:annotation>
+					<xs:documentation>ipPrecedence:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dscp">
+				<xs:annotation>
+					<xs:documentation>dscp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mplsExp">
+				<xs:annotation>
+					<xs:documentation>mplsExp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dscp6">
+				<xs:annotation>
+					<xs:documentation>dscp6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosLoadBalanceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="flow">
+				<xs:annotation>
+					<xs:documentation>flow:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="packet">
+				<xs:annotation>
+					<xs:documentation>packet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosSampleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fixPackets">
+				<xs:annotation>
+					<xs:documentation>fixPackets:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosEnableFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosFilterFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="permit">
+				<xs:annotation>
+					<xs:documentation>permit:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="deny">
+				<xs:annotation>
+					<xs:documentation>deny:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosPortMirror">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosAddressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="source">
+				<xs:annotation>
+					<xs:documentation>source:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="destination">
+				<xs:annotation>
+					<xs:documentation>destination:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosIPFamily">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ipv4">
+				<xs:annotation>
+					<xs:documentation>ipv4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipv6">
+				<xs:annotation>
+					<xs:documentation>ipv6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosIPv6Family">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ipv6">
+				<xs:annotation>
+					<xs:documentation>ipv6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosUrpfCheckType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="strict">
+				<xs:annotation>
+					<xs:documentation>strict:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="loose">
+				<xs:annotation>
+					<xs:documentation>loose:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosClassOperator">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="or">
+				<xs:annotation>
+					<xs:documentation>or:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="and">
+				<xs:annotation>
+					<xs:documentation>and:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionCar">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="car">
+				<xs:annotation>
+					<xs:documentation>car:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionFilter">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="filter">
+				<xs:annotation>
+					<xs:documentation>filter:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionUrpf">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="urpf">
+				<xs:annotation>
+					<xs:documentation>urpf:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionLoadBalance">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="loadBalance">
+				<xs:annotation>
+					<xs:documentation>loadBalance:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionServiceClass">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="serviceClass">
+				<xs:annotation>
+					<xs:documentation>serviceClass:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionRedirectNextHop">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="redirectNextHop">
+				<xs:annotation>
+					<xs:documentation>redirectNextHop:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionRedirectMultiHop">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="redirectMultiHop">
+				<xs:annotation>
+					<xs:documentation>redirectMultiHop:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionRedirectNextHop6">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="redirectNextHop6">
+				<xs:annotation>
+					<xs:documentation>redirectNextHop6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionRedirectLsp">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="redirectLsp">
+				<xs:annotation>
+					<xs:documentation>redirectLsp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionRedirectVpnGroup">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="redirectVpnGroup">
+				<xs:annotation>
+					<xs:documentation>redirectVpnGroup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionRedirectIf">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="redirectIf">
+				<xs:annotation>
+					<xs:documentation>redirectIf:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionPortMirror">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="portMirror">
+				<xs:annotation>
+					<xs:documentation>portMirror:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionRemark">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="remark8021p">
+				<xs:annotation>
+					<xs:documentation>remark8021p:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remarkIpv4Dscp">
+				<xs:annotation>
+					<xs:documentation>remarkIpv4Dscp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remarkIpv6Dscp">
+				<xs:annotation>
+					<xs:documentation>remarkIpv6Dscp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remarkIpPrecedence">
+				<xs:annotation>
+					<xs:documentation>remarkIpPrecedence:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="remarkMplsExp">
+				<xs:annotation>
+					<xs:documentation>remarkMplsExp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosActionRedirectMultiHop6">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="redirectMultiHop6">
+				<xs:annotation>
+					<xs:documentation>redirectMultiHop6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosRdrType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="direct">
+				<xs:annotation>
+					<xs:documentation>direct:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="backup">
+				<xs:annotation>
+					<xs:documentation>backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosLspRdrType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="destAddr">
+				<xs:annotation>
+					<xs:documentation>destAddr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="nhp">
+				<xs:annotation>
+					<xs:documentation>nhp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="interface">
+				<xs:annotation>
+					<xs:documentation>interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="secondary">
+				<xs:annotation>
+					<xs:documentation>secondary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="qosNsFlowType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ipv4">
+				<xs:annotation>
+					<xs:documentation>ipv4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipv6">
+				<xs:annotation>
+					<xs:documentation>ipv6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

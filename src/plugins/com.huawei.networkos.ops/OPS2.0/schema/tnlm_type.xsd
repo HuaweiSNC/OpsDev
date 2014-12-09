@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.11
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.huawei.com/netconf/vrp" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="tnlmbaseTnlType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:空隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ldp">
+				<xs:annotation>
+					<xs:documentation>ldp:ldp类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp">
+				<xs:annotation>
+					<xs:documentation>bgp:bgp类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="te">
+				<xs:annotation>
+					<xs:documentation>te:te类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="static_lsp">
+				<xs:annotation>
+					<xs:documentation>static-lsp:static-lsp类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="gre">
+				<xs:annotation>
+					<xs:documentation>gre:gre类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="uni">
+				<xs:annotation>
+					<xs:documentation>uni:uni类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tnl_group">
+				<xs:annotation>
+					<xs:documentation>tnl-group:隧道组</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sub_te">
+				<xs:annotation>
+					<xs:documentation>sub-te:子隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sub_group">
+				<xs:annotation>
+					<xs:documentation>sub-group:子隧道隧道组</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6over4">
+				<xs:annotation>
+					<xs:documentation>6over4:手动方式的IPv4承载IPv6隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6to4">
+				<xs:annotation>
+					<xs:documentation>6to4:自动方式的IPv4承载IPv6隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp_local_ifnet">
+				<xs:annotation>
+					<xs:documentation>bgp_local_ifnet类型的隧道，用于OptionB场景</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ldp6">
+				<xs:annotation>
+					<xs:documentation>ldp6:ldp类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="p2mp-te">
+				<xs:annotation>
+					<xs:documentation>p2mp-te:p2mp-te类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tnlmbaseTnlPolicyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:Invalid类型的隧道策略</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tnlSelectSeq">
+				<xs:annotation>
+					<xs:documentation>tnlSelectSeq:隧道顺序选择类型的隧道策略</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tnlBinding">
+				<xs:annotation>
+					<xs:documentation>tnlBinding:绑定类型的隧道策略</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tnlmbaseTypeSeq">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lsp">
+				<xs:annotation>
+					<xs:documentation>lsp:选择lsp包括BGPLSP静态LSPLDPLSP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cr-lsp">
+				<xs:annotation>
+					<xs:documentation>cr-lsp:选择cr-lsp隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lsp;cr-lsp">
+				<xs:annotation>
+					<xs:documentation>lsp;cr-lsp:先选lsp隧道再选cr-lsp隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cr-lsp;lsp">
+				<xs:annotation>
+					<xs:documentation>cr-lsp;lsp:先选cr-lsp隧道再选lsp隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tnlmbaseTnlStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:隧道状态up</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:隧道状态down</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="tnlPolicyExist">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="true">
+				<xs:annotation>
+					<xs:documentation>true:策略存在</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="false">
+				<xs:annotation>
+					<xs:documentation>false:策略不存在</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.8sp1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="systemLanguageE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="English">
+				<xs:annotation>
+					<xs:documentation>English:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Chinese">
+				<xs:annotation>
+					<xs:documentation>Chinese:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Spanish">
+				<xs:annotation>
+					<xs:documentation>Spanish:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Russian">
+				<xs:annotation>
+					<xs:documentation>Russian:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Arabic">
+				<xs:annotation>
+					<xs:documentation>Arabic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="German">
+				<xs:annotation>
+					<xs:documentation>German:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Portuguese">
+				<xs:annotation>
+					<xs:documentation>Portuguese:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="French">
+				<xs:annotation>
+					<xs:documentation>French:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Italian">
+				<xs:annotation>
+					<xs:documentation>Italian:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="systemEncodingE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="gbk">
+				<xs:annotation>
+					<xs:documentation>gbk:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="iso8859_1">
+				<xs:annotation>
+					<xs:documentation>iso8859-1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="utf_8">
+				<xs:annotation>
+					<xs:documentation>utf-8:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="systemCfgtoolsE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="netconf">
+				<xs:annotation>
+					<xs:documentation>netconf:netconf</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cli">
+				<xs:annotation>
+					<xs:documentation>cli:cli</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="snmp">
+				<xs:annotation>
+					<xs:documentation>snmp:snmp</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="systemLsRoleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="admin">
+				<xs:annotation>
+					<xs:documentation>admin: 该LS为admin-LS, 具有PR层面的操作权限</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="common">
+				<xs:annotation>
+					<xs:documentation>common: 该LS为普通LS, 没有PR层面的操作权限</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invaild: 无效，说明不支持LS角色, 如不支持多LS特性或License</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

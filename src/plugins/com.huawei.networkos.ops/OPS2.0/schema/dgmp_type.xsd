@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.3.8
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="commodelAfType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ipv4unicast">
+				<xs:annotation>
+					<xs:documentation>ipv4unicast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipv6unicast">
+				<xs:annotation>
+					<xs:documentation>ipv6unicast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dgmpIfState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DOWN">
+				<xs:annotation>
+					<xs:documentation>DOWN:DOWN</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UP">
+				<xs:annotation>
+					<xs:documentation>UP:UP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dgmpStartupQTState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OFF">
+				<xs:annotation>
+					<xs:documentation>OFF:OFF</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ON">
+				<xs:annotation>
+					<xs:documentation>ON:ON</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NA">
+				<xs:annotation>
+					<xs:documentation>NA:NA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dgmpOtherQueTState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OFF">
+				<xs:annotation>
+					<xs:documentation>OFF:OFF</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ON">
+				<xs:annotation>
+					<xs:documentation>ON:ON</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dgmpSrcFilterMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INCLUDE">
+				<xs:annotation>
+					<xs:documentation>INCLUDE:INCLUDE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EXCLUDE">
+				<xs:annotation>
+					<xs:documentation>EXCLUDE:EXCLUDE</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NA">
+				<xs:annotation>
+					<xs:documentation>NA:NA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dgmpQuerierLocal">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NA">
+				<xs:annotation>
+					<xs:documentation>NA:NA</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NO_QUERIER">
+				<xs:annotation>
+					<xs:documentation>NO_QUERIER:NO_QUERIER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="THIS_ROUTER">
+				<xs:annotation>
+					<xs:documentation>THIS_ROUTER:THIS_ROUTER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OTHER_ROUTER">
+				<xs:annotation>
+					<xs:documentation>OTHER_ROUTER:OTHER_ROUTER</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

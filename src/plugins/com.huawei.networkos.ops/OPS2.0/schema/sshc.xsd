@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+  <xs:annotation>
+    <xs:appinfo>
+      <formatVersion>1.0</formatVersion>
+      <contentVersion>1.0</contentVersion>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:include schemaLocation="pub_attribute.xsd"/>
+  <xs:include schemaLocation="pub_type.xsd"/>
+  <xs:include schemaLocation="sshc_type.xsd"/>
+  <xs:element name="sshc" type="sshc_sshc_type">
+    <xs:annotation>
+      <xs:appinfo>
+        <taskName>sshc</taskName>
+      </xs:appinfo>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="sshc_sshc_type">
+    <xs:choice minOccurs="0">
+      <xs:element name="sshClient" type="sshc_sshClient_type"/>
+      <xs:element name="sshCliKeyCfgs" type="sshc_sshCliKeyCfgs_type"/>
+    </xs:choice>
+    <xs:attributeGroup ref="versionAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="sshc_sshCliKeyCfgs_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="sshCliKeyCfg" type="sshc_sshCliKeyCfg_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sshc_sshCliKeyCfg_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="serverName">
+        <xs:annotation>
+          <xs:documentation>Set SSH host name</xs:documentation>
+          <xs:appinfo>
+            <key>true</key>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+		<xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="255"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="keyName">
+        <xs:annotation>
+          <xs:documentation>Public Key Name</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <mandatory>true</mandatory>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:maxLength value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="pubKeyType" type="sshcPubKeyType">
+        <xs:annotation>
+          <xs:documentation>SSH server public key type</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="state" type="sshcMapKeyState">
+        <xs:annotation>
+          <xs:documentation>SSH server public key state</xs:documentation>
+          <xs:appinfo>
+            <access>readOnly</access>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+  <xs:complexType name="sshc_sshClient_type">
+    <xs:annotation>
+      <xs:appinfo/>
+    </xs:annotation>
+    <xs:choice minOccurs="0">
+      <xs:element name="keepAliveTime" default="0">
+        <xs:annotation>
+          <xs:documentation>KeepAlive Time Interval</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="3600"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="keepAliveCount" default="3">
+        <xs:annotation>
+          <xs:documentation>KeepAlive Maximum Count</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="30"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="firstTimeEnable" type="sshcBoolType">
+        <xs:annotation>
+          <xs:documentation>First Time Server Authentication not Required</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SrcInterface" type="ifName">
+        <xs:annotation>
+          <xs:documentation>To configure the Source Interface name</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SrcIpv4Addr" type="ipv4Address" default="0.0.0.0">
+        <xs:annotation>
+          <xs:documentation>Source ip address configured for IPV4 connections</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="vpnInstanceName" type="vrfName">
+        <xs:annotation>
+          <xs:documentation>To configure VPN instance</xs:documentation>
+          <xs:appinfo>
+            <access>readCreate</access>
+            <allowNull>true</allowNull>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="objectAttributeGroup"/>
+  </xs:complexType>
+</xs:schema>

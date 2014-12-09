@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:include schemaLocation="pub_attribute.xsd"/>
+    <xs:include schemaLocation="pub_type.xsd"/>
+    <xs:include schemaLocation="dhcp_type.xsd"/>
+    <xs:include schemaLocation="dhcp_snooping_type.xsd"/>
+    <xs:complexType name="dhcpSnooping_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 特性</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="dhcpSnpGlobal" type="dhcpSnoopingGlobal_type">
+                <xs:annotation>
+                    <xs:documentation>DHCPSNP</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpVlans" type="dhcpSnoopingVlans_type">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping VLAN通用配置</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vlanTrustInterfaces" type="dhcpSnoopingVlanTrustIntfs_type">
+                <xs:annotation>
+                    <xs:documentation>Trusted interfaces in VLAN</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpInterfaces" type="dhcpSnoopingInterfaces_type">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping 接口信息</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpUserBindTbls" type="dhcpSnoopingUserBindTbls_type">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping 动态绑定表信息</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="versionAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingGlobal_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 全局信息</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="dhcpSnpEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="serverDetectEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping Server Detect enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpUserBindAutoSaveEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>User-bind auto save enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpUserBindFileName">
+                <xs:annotation>
+                    <xs:documentation>User-bind file name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="51"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="globalCheckRateEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping global check rate enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpGlobalRate" default="100">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping global rate</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="checkRateAlarmEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping check rate alarm enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="rateThreshold" default="100">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping system rate threshold</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="alarmThreshold" default="100">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping system alarm threshold</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="rateLimitPacketCount" type="xs:unsignedInt" default="0">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping packets drop count by rate limit</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpUserOfflineRemoveMac" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>User offline remove MAC</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpArpDetectEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>Flag of ARP Detect</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpGlobalMaxUser" default="32768">
+                <xs:annotation>
+                    <xs:documentation>Maximum User Number</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="32768"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dhcpSnpUserTransferEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>User transfer enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingVlanInfo_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping VLAN信息</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingUserBindInfo_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 绑定表信息</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingInterfaceInfo_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 接口信息</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingVlanLists_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 使能的VLAN列表</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dhcpSnpVlanList" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="dhcpSnoopingVlanList_type"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingVlanList_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 使能的VLAN列表</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vlanId" type="xs:unsignedShort">
+                <xs:annotation>
+                    <xs:documentation>VlanId</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingIntfLists_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 使能的接口列表</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dhcpSnpIntfList" type="dhcpSnoopingIntfList_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingIntfList_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 使能的接口列表</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="ifName" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Interface Name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping Enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingTrustIntfs_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 信任的接口列表</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dhcpSnpTurstIntf" type="dhcpSnoopingTrustIntf_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingTrustIntf_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 信任的接口列表</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="ifName" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Interface Name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingVlans_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping VLAN全局配置信息</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dhcpSnpVlan" type="dhcpSnoopingVlan_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingVlan_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping VLAN全局配置信息</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vlanId">
+                <xs:annotation>
+                    <xs:documentation>VlanId</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="4094"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dhcpSnpEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping vlan enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="checkRateEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping vlan check DHCP rate enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpVlanRate">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping vlan rate</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+						<allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="checkMacEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping vlan check MAC enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="checkUserBindEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping vlan check user-bind enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpVlanMaxUserNum" default="32768">
+                <xs:annotation>
+                    <xs:documentation>Max user number of VLAN enabled DHCP snooping</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="32768"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingVlanTrustIntfs_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping VLAN内的信任端口</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="vlanTrustInterface" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="dhcpSnoopingVlanTrustIntf_type"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingVlanTrustIntf_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping VLAN内的信任端口</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vlanId">
+                <xs:annotation>
+                    <xs:documentation>VlanId</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="4094"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ifName" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Interface Name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingInterfaces_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 接口信息</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dhcpSnpInterface" type="dhcpSnoopingInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingInterface_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 接口信息</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="ifName" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Interface Name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>DHCP Snooping vlan enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="checkRateEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface check DHCP rate enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpIfRate">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface rate</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+						<allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="checkMacEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface check MAC enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="checkUserBindEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface check user-bind enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpIfTrustEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface trust enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpIfDisable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface disable flag</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="alarmRateEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface alarm DHCP rate enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="alarmRateThreshold">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface alarm threshold of DHCP rate</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+						<allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="alarmUserBindEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface alarm user-bind enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="alarmUserBindThreshold">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface alarm threshold of user-bind check</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+						<allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="alarmMacEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface alarm MAC check enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="alarmMacThreshold">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface alarm threshold of MAC check</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+						<allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="alarmReplyEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface alarm untrusted reply enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="alarmReplyThreshold">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping interface alarm threshold of untrusted reply</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+						<allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dhcpSnpIntfMaxUserNum" default="32768">
+                <xs:annotation>
+                    <xs:documentation>Max user number of interface enabled DHCP snooping</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="32768"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dhcpSnpInterfStickyMacEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>dhcp snooping sticky MAC enable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dhcpSnpIfStatistics" type="dhcpSnpIfStatistics_type">
+                <xs:annotation>
+                    <xs:documentation>Statistics of interface</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingIntfMacSnpTbls_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping Sticky MAC生成的MAC表项</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dhcpSnpIntfStickyMac" type="dhcpSnoopingIntfMacSnpTbl_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingIntfMacSnpTbl_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping Sticky MAC生成的MAC表项</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="macAddress" type="macAddress">
+                <xs:annotation>
+                    <xs:documentation>MAC address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vlanId" type="xs:unsignedShort">
+                <xs:annotation>
+                    <xs:documentation>VLAN id</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ifName" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Interface Name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="type" type="xs:unsignedByte">
+                <xs:annotation>
+                    <xs:documentation>Type</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingIntfMacSnpDisTbls_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 去使能的Sticky MAC表项</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dhcpSnpIntfStickyMacDisabled" type="dhcpSnoopingIntfMacSnpDisTbl_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingIntfMacSnpDisTbl_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 去使能的Sticky MAC表项</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="vlanId" type="xs:unsignedShort">
+                <xs:annotation>
+                    <xs:documentation>VLAN id</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnpIfStatistics_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 接口统计信息</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="pktCntDropByUserBind" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>dhcp packet dropped by user-bind</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>true</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="pktCntDropByMac" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>dhcp packet dropped by mac-address checking</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>true</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="pktCntDropByUntrustReply" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>dhcp packet dropped by Untrust reply</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>true</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="pktCntDropByRate" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>dhcp packet dropped by Rate</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>true</unique>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingUserBindTbls_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 绑定表信息</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dhcpSnpUserBindTbl" type="dhcpSnoopingUserBindTbl_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="dhcpSnoopingUserBindTbl_type">
+        <xs:annotation>
+            <xs:documentation>DHCP Snooping 绑定表信息</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="ipAddress" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>IP address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="macAddress" type="macAddress">
+                <xs:annotation>
+                    <xs:documentation>MAC address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="outerVlan" type="xs:unsignedShort">
+                <xs:annotation>
+                    <xs:documentation>Outer VLAN of user bind table</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="innerVlan" type="xs:unsignedShort">
+                <xs:annotation>
+                    <xs:documentation>Inner VLAN of user bind table</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ifName" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Interface Name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="lease" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>Lease of user bind table</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="gateway" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>Gateway address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="server" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>Server ip address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <mandatory>false</mandatory>
+                        <unique>false</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+</xs:schema>

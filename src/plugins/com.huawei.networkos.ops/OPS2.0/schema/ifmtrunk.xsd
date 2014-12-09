@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.23
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="ifmtrunk_type.xsd"/>
+	<xs:element name="ifmtrunk" type="ifmtrunk_cfg_ifmtrunk_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>ifmtrunk</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ifmtrunk_cfg_ifmtrunk_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="lacpSysInfo" type="lacpSysInfo_type"/>
+			<xs:element name="TrunkIfs" type="ifmtrunk_cfg_TrunkIfs_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifmtrunk_cfg_TrunkIfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TrunkIf" type="ifmtrunk_cfg_TrunkIf_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ifmtrunk_cfg_TrunkIf_type">
+		<xs:annotation>
+			<xs:documentation>Trunk接口描述表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>Trunk接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="minUpNum" default="1">
+				<xs:annotation>
+					<xs:documentation>Trunk口成员链路UP的下限阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxUpNum" default="32">
+				<xs:annotation>
+					<xs:documentation>二层Eth-Trunk口链路UP的上限阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trunkType" type="ifmtrunkTrunkType" default="EthTrunk">
+				<xs:annotation>
+					<xs:documentation>Trunk接口的类型，如Eth-Trunk、Ip-Trunk</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hashType" type="ifmtrunkTrunkHashType" default="IP">
+				<xs:annotation>
+					<xs:documentation>Trunk接口的散列算法</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="workMode" type="ifmtrunkTrunkMode" default="Manual">
+				<xs:annotation>
+					<xs:documentation>Trunk接口的工作模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>Trunk接口的MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upMemberIfNum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Trunk接口中UP的成员端口数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="memberIfNum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Trunk接口中总成员端口的数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxBandWidth" type="xs:unsignedLong" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Trunk接口的最大带宽</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lacpTrunk" type="lacpTrunk_type"/>
+			<xs:element name="lacpErrPkt" type="lacpErrPkt_type"/>
+			<xs:element name="TrunkMemberIfs" type="ifmtrunk_cfg_TrunkMemberIfs_type"/>
+			<xs:element name="TrunkFwdTbls" type="ifmtrunk_TrunkFwdTbls_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifmtrunk_cfg_TrunkMemberIfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TrunkMemberIf" type="ifmtrunk_cfg_TrunkMemberIf_type" minOccurs="0" maxOccurs="32"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ifmtrunk_cfg_TrunkMemberIf_type">
+		<xs:annotation>
+			<xs:documentation>Trunk成员端口信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="memberIfName">
+				<xs:annotation>
+					<xs:documentation>Trunk成员端口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="weight" default="1">
+				<xs:annotation>
+					<xs:documentation>Trunk成员端口的权重</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="memberIfState" type="ifmtrunkMemberState">
+				<xs:annotation>
+					<xs:documentation>Trunk成员端口的状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lacpPortInfo" type="lacpPortInfo_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifmtrunk_TrunkFwdTbls_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="TrunkFwdTbl" type="ifmtrunk_TrunkFwdTbl_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ifmtrunk_TrunkFwdTbl_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>显示Trunk转发表信息</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ID" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="masterPortName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Master成员端口名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="slavePortName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Salve成员端口名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:group name="ifmtrunk_PortCfgInfo_stuGroup">
+		<xs:choice/>
+	</xs:group>
+	<xs:complexType name="lacpTrunk_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="isSupportPrmpt" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>是否支持抢占</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rcvTimeoutType" type="lacpRcvTmOutType">
+				<xs:annotation>
+					<xs:documentation>超时模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="selectPortStd" type="lacpSelectStd">
+				<xs:annotation>
+					<xs:documentation>选择方式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="promptDelay" default="30">
+				<xs:annotation>
+					<xs:documentation>抢占延时</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="180"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxActiveNum" default="32">
+				<xs:annotation>
+					<xs:documentation>最大激活端口数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lacpTrunkInfo" type="lacpTrunkInfo_type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lacpErrPkt_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="portName">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>port name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="time" type="xs:dateTime">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>time.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errPkt">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+					<xs:documentation>The error packet.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="512"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lacpTrunkInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="portUpNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LACP协议UP端口数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lacpPortInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="status" type="ifmtrunkMemberSelectedState">
+				<xs:annotation>
+					<xs:documentation>LACP成员端口状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portType" type="lacpPortType">
+				<xs:annotation>
+					<xs:documentation>LACP成员端口类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="actorState">
+				<xs:annotation>
+					<xs:documentation>LACP本端状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="actorPortKey" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LACP本端端口Key</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="partnerSysPri" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LACP对端系统优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="partnerSysId" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>LACP对端系统ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="partnerPortPri" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LACP对端端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="partnerPortNo" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LACP对端端口编号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="partnerPortKey" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LACP对端端口Key</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="partnerState">
+				<xs:annotation>
+					<xs:documentation>LACP对端状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lacpPort" type="lacpPort_type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lacpPort_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="portPriority" type="xs:unsignedShort" default="32768">
+				<xs:annotation>
+					<xs:documentation>LACP端口优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="lacpSysInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="priority" type="xs:unsignedShort" default="32768">
+				<xs:annotation>
+					<xs:documentation>Lacp系统优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

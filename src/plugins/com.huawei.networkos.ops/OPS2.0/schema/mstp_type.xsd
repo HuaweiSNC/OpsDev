@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="stpBpduFilter">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Disable"/>
+			<xs:enumeration value="Enable"/>
+			<xs:enumeration value="Undo"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpCompliance">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Auto"/>
+			<xs:enumeration value="Dot1s"/>
+			<xs:enumeration value="Legacy"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpEdgePort">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Disabled"/>
+			<xs:enumeration value="Enabled"/>
+			<xs:enumeration value="Default"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpLinkShareFlag">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NoLinkShare"/>
+			<xs:enumeration value="LinkShare"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpMode">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Stp"/>
+			<xs:enumeration value="Rstp"/>
+			<xs:enumeration value="Mstp"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpPathCostStanard">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Dot1D"/>
+			<xs:enumeration value="Dot1T"/>
+			<xs:enumeration value="Legacy"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpPointToPoint">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ForceTrue"/>
+			<xs:enumeration value="ForceFalse"/>
+			<xs:enumeration value="Auto"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpPortMode">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Stp"/>
+			<xs:enumeration value="Rstp"/>
+			<xs:enumeration value="Mstp"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpPortState">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Down"/>
+			<xs:enumeration value="Disabled"/>
+			<xs:enumeration value="Forwarding"/>
+			<xs:enumeration value="Learning"/>
+			<xs:enumeration value="Discarding"/>
+			<xs:enumeration value="Inactive"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpProtectionType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="LoopBack"/>
+			<xs:enumeration value="BpduRoot"/>
+			<xs:enumeration value="Root"/>
+			<xs:enumeration value="Bpdu"/>
+			<xs:enumeration value="Loop"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpRole">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Disabled"/>
+			<xs:enumeration value="Alternate"/>
+			<xs:enumeration value="Backup"/>
+			<xs:enumeration value="Root"/>
+			<xs:enumeration value="Designated"/>
+			<xs:enumeration value="Master"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stpRoot">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Secondary"/>
+			<xs:enumeration value="Normal"/>
+			<xs:enumeration value="Primary"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

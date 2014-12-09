@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.6
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="hostdefend_type.xsd"/>
+	<xs:element name="hostdefend" type="hostdefend_hostdefend_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>hostdefend</taskName>
+			</xs:appinfo>
+			<xs:documentation>主机防攻击</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="hostdefend_hostdefend_type">
+		<xs:annotation>
+			<xs:documentation>主机防攻击类型</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secmaglobal" type="hostdefend_secmaglobal_type"/>
+			<xs:element name="secmaslots" type="hostdefend_secmaslots_type"/>
+			<xs:element name="secmaslotcfgs" type="hostdefend_secmaslotcfgs_type"/>
+			<xs:element name="secmaintfs" type="hostdefend_secmaintfs_type"/>
+			<xs:element name="secmaintfcfgs" type="hostdefend_secmaintfcfgs_type"/>
+			<xs:element name="secgtsmstats" type="hostdefend_secgtsmstats_type"/>
+			<xs:element name="secFragCarStats" type="hostdefend_fragCarStats_type"/>
+			<xs:element name="secMaDefendStats" type="hostdefend_secMaDefendStats_type"/>
+			<xs:element name="secHostCaptPkts" type="hostdefend_secHostCaptPkts_type"/>
+			<xs:element name="secForwardCaptPkts" type="hostdefend_secForwardCaptPkts_type"/>
+			<xs:element name="secSetPriority8021ps" type="hostdefend_secSetPriority8021ps_type"/>		
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaglobals_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>全局管理业务平面防护策略列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secmaglobal" type="hostdefend_secmaglobal_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaglobal_type">
+		<xs:annotation>
+			<xs:documentation>全局管理业务平面防护策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secMAEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>全局管理平面防护策略使能</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMABgp" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许BGP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAFtp" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许FTP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMALdp" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许LDP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAOspf" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许OSPF协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMARip" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许RIP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMARsvp" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许RSVP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMASnmp" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许SNMP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMASsh" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许SSH协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMATlnt" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许TELNET协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMATftp" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许TFTP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAIsis" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许ISIS协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAPimSm" type="hostdefendMAAction">
+				<xs:annotation>
+					<xs:documentation>是否允许PIMSM协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaslots_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>板级管理业务平面防护策略列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secmaslot" type="hostdefend_secmaslot_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaslot_type">
+		<xs:annotation>
+			<xs:documentation>板级管理业务平面防护策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secMASlotPlcyID">
+				<xs:annotation>
+					<xs:documentation>管理平面防护SLOT策略ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="secMABgp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许BGP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAFtp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许FTP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMALdp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许LDP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAOspf" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许OSPF协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMARip" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许RIP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMARsvp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许RSVP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMASnmp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许SNMP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMASsh" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许SSH协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMATelnet" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许TELNET应协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMATftp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许TFTP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAIsis" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许ISIS协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAPimSm" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许PIMSM协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaslotcfgs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>应用板级管理业务平面防护策略列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secmaslotcfg" type="hostdefend_secmaslotcfg_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaslotcfg_type">
+		<xs:annotation>
+			<xs:documentation>应用板级管理业务平面防护策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secMASlotIdStr">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="secMASlotPlcyID">
+				<xs:annotation>
+					<xs:documentation>安全策略ID，LS唯一</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaintfs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>接口级管理业务平面防护策略列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secmaintf" type="hostdefend_secmaintf_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaintf_type">
+		<xs:annotation>
+			<xs:documentation>接口级管理业务平面防护策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secMAIntfPlcyID">
+				<xs:annotation>
+					<xs:documentation>管理平面防护接口策略ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="secMABgp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许BGP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAFtp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许FTP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMALdp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许LDP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAOspf" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许OSPF协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMARip" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许RIP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMARsvp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许RSVP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMASnmp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许SNMP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMASsh" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许SSH协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMATelnet" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许TELNET协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMATftp" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许TFTP协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAIsis" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许ISIS协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secMAPimSm" type="hostdefendMAAction" default="Default">
+				<xs:annotation>
+					<xs:documentation>是否允许PIMSM协议报文的上送</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaintfcfgs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>应用接口级管理业务平面防护策略列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secmaintfcfg" type="hostdefend_secmaintfcfg_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secmaintfcfg_type">
+		<xs:annotation>
+			<xs:documentation>应用接口级管理业务平面防护策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="secMAIntfPlcyID">
+				<xs:annotation>
+					<xs:documentation>安全策略ID，LS唯一</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secgtsmstats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>GTSM统计信息列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secgtsmstat" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="hostdefend_secgtsmstat_type"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secgtsmstat_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>GTSM统计信息</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secSlotId">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="secProtocol" type="hostdefendGTSMPROTOCOL">
+				<xs:annotation>
+					<xs:documentation>协议类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secTotalCount" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secDropCount" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>丢弃的报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secPassCount" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>通过的报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_fragCarStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>分片报文的CAR丢弃统计计数列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secFragCarStat" type="hostdefend_fragCarStat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_fragCarStat_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>分片报文的CAR丢弃统计计数</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secSlotId">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="secTotalPktNum" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>分片报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secDropPktNum" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>丢弃的报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="secPassPktNum" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>通过的报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secMaDefendStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>管理平面防护统计计数列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secMaDefendStat" type="hostdefend_secMaDefendStat_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secMaDefendStat_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>管理平面防护统计计数</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="slotId">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="protocolType" type="hostdefendMaDefendPROTOCOL">
+				<xs:annotation>
+					<xs:documentation>协议类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalPktNum" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="passPktNum" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>通过的报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dropPktNum" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>丢弃的报文数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secHostCaptPkts_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>主机抓包列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secHostCaptPkt" type="hostdefend_secHostCaptPkt_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secHostCaptPkt_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>主机抓包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="captureIndex">
+				<xs:annotation>
+					<xs:documentation>抓包索引,主机抓包和转发抓包共用索引值，最多只能抓8个(1~8)包</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="hostCaptPro">
+				<xs:annotation>
+					<xs:documentation>协议类型值,取值范围0~1659</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<valueReplace>
+							<item value="15">arp</item>
+							<item value="27">bfd</item>
+							<item value="5">bgp</item>
+							<item value="17">dhcp</item>
+							<item value="34">dns-client</item>
+							<item value="567">esmc</item>
+							<item value="30">ftp-client</item>
+							<item value="0">ftp-server</item>
+							<item value="21">hwtacacs</item>
+							<item value="12">icmp</item>
+							<item value="23">igmp</item>
+							<item value="10">isis</item>
+							<item value="18">lacp</item>
+							<item value="6">ldp</item>
+							<item value="22">lspping</item>
+							<item value="28">mplsoam</item>
+							<item value="13">msdp</item>
+							<item value="19">ntp</item>
+							<item value="8">ospf</item>
+							<item value="14">pim</item>
+							<item value="20">radius</item>
+							<item value="9">rip</item>
+							<item value="25">rrpp</item>
+							<item value="7">rsvp</item>
+							<item value="33">sftp-client</item>
+							<item value="11">sftp-server</item>
+							<item value="2">snmp</item>
+							<item value="32">ssh-client</item>
+							<item value="1">ssh-server</item>
+							<item value="31">telnet-client</item>
+							<item value="3">telnet-server</item>
+							<item value="4">tftp</item>
+							<item value="24">vgmp</item>
+							<item value="26">vrrp</item>
+							<item value="1659">all</item>
+						</valueReplace>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1659"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="hostCaptType" type="hostdefendCaptPhyType">
+				<xs:annotation>
+					<xs:documentation>抓包物理方式:依据接口抓包或者链路类型抓包</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="captLinkType" type="hostdefendCaptLinkType">
+				<xs:annotation>
+					<xs:documentation>linkType</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="peVlan">
+				<xs:annotation>
+					<xs:documentation>外层vlan值：INTEGER：1-4094 pvlan ID,default value is 0</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ceVlan">
+				<xs:annotation>
+					<xs:documentation>内层vlan值：INTEGER：1-4094 cvlan ID,default value is 0</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="captPktNum" default="10">
+				<xs:annotation>
+					<xs:documentation>抓包数量：INTEGER：1-1000 Packet number,default value is 10</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="captTimeOut" default="15">
+				<xs:annotation>
+					<xs:documentation>抓包超时时间：INTEGER：1-3600 Exploring time in seconds,default value is 15 seconds</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="3600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="captPktLenType" type="hostdefendPktLenType" default="specifyPacket">
+				<xs:annotation>
+					<xs:documentation>captPktLenType:total packet ,specify Packet</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="captPktLen">
+				<xs:annotation>
+					<xs:documentation>抓报文长度： Packet length in bytes</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="20"/>
+						<xs:maxInclusive value="16384"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="captAclType" type="hostdefendAclType">
+				<xs:annotation>
+					<xs:documentation>captAclType:ipv4 acl, ipv6 acl</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="captAcl" type="hostdefendCaptAcl">
+				<xs:annotation>
+					<xs:documentation>captAcl:aclName: a-z or A-Z; aclNumber:(2000-2999)Apply basic access-list,(3000-3999)Apply advance access-list,(4000-4099)Apply MAC access-list</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="captIpv6Acl" type="hostdefendCaptIpv6Acl">
+				<xs:annotation>
+					<xs:documentation>captIpv6Acl: aclName: a-z or A-Z; aclNumber:(2000-2999)Apply basic access-list,(3000-3999)Apply advance access-list</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="terminal" type="hostdefendDestType">
+				<xs:annotation>
+					<xs:documentation>抓包输出方式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fileName">
+				<xs:annotation>
+					<xs:documentation>抓包文件</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+						<xs:minLength value="5"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secForwardCaptPkts_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>转发抓包列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secForwardCaptPkt" type="hostdefend_secForwardCaptPkt_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secForwardCaptPkt_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>转发抓包</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="captureIndex">
+				<xs:annotation>
+					<xs:documentation>抓包索引,主机抓包和转发抓包共用索引值，最多只能抓8个(1~8)包</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="captDirection" type="hostdefendCaptDirection">
+				<xs:annotation>
+					<xs:documentation>bound type: in/out</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="peVlan">
+				<xs:annotation>
+					<xs:documentation>外层vlan值：INTEGER：1-4094 pvlan ID,default value is 0</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ceVlan">
+				<xs:annotation>
+					<xs:documentation>内层vlan值：INTEGER：1-4094 cvlan ID,default value is 0</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="captPktNum" default="10">
+				<xs:annotation>
+					<xs:documentation>抓包数量：INTEGER：1-1000 Packet number,default value is 10</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="captTimeOut" default="15">
+				<xs:annotation>
+					<xs:documentation>抓包超时时间：INTEGER：1-3600 Exploring time in seconds,default value is 15 seconds</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="3600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="captPktLenType" type="hostdefendPktLenType" default="specifyPacket">
+				<xs:annotation>
+					<xs:documentation>captPktLenType:total packet ,specify Packet</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="captPktLen" default="60">
+				<xs:annotation>
+					<xs:documentation>抓报文长度：INTEGER:20-64 Packet length in bytes, default value is 60 bytes</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="20"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="captAclType" type="hostdefendAclType">
+				<xs:annotation>
+					<xs:documentation>captAclType:ipv4 acl, ipv6 acl</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="captAcl" type="hostdefendforwardAcl">
+				<xs:annotation>
+					<xs:documentation>captAcl:aclName: a-z or A-Z; aclNumber:(10000-10999)Apply MPLS access-list,(2000-2999)Apply basic access-list,(3000-3999)Apply advance access-list,(4000-4099)Apply MAC access-list</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="captIpv6Acl" type="hostdefendCaptIpv6Acl">
+				<xs:annotation>
+					<xs:documentation>captIpv6Acl: aclName: a-z or A-Z; aclNumber:(2000-2999)Apply basic access-list,(3000-3999)Apply advance access-list</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileName">
+				<xs:annotation>
+					<xs:documentation>抓包文件</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secSetPriority8021ps_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>全局报文修改8021p列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="secSetPriority8021p" type="hostdefend_secSetPriority8021p_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="hostdefend_secSetPriority8021p_type">
+		<xs:annotation>
+			<xs:documentation>全局报文修改8021p列表</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="secPriority8021p">
+				<xs:annotation>
+					<xs:documentation>8021p值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Schema content Version: 1.0
+file format version 1.0
+This file contains the common datatype definitions.
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+ -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xsd:simpleType name="editOperationType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="merge"/>
+      <xsd:enumeration value="replace"/>
+      <xsd:enumeration value="create"/>
+      <xsd:enumeration value="delete"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="timeZone">
+    <xsd:annotation>
+      <xsd:documentation>timeZone is like +08:00</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="15"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="time_hhmm">
+    <xsd:annotation>
+      <xsd:documentation>time_hhmm is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="5"/>
+      <xsd:maxLength value="5"/>
+      <xsd:pattern value="((^([0-1][0-9]|2[0-3])):([0-5][0-9])$)"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="macAddress">
+    <xsd:annotation>
+      <xsd:documentation>
+A MAC address in standard notation
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipv4Address">
+    <xsd:annotation>
+      <xsd:documentation>
+An IPV4 address in dotted decimal notation 
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+      <xsd:pattern value="((([1-9]?[0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([1-9]?[0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]))">
+        <xsd:annotation>
+          <xsd:documentation>
+            An IPv4 address should be of the form 129.29.83.45. This
+            datatype restricts the value of each field between 0 
+            and 255, i.e. [0-255].[0-255].[0-255].[0-255]
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:pattern>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipv6Address">
+    <xsd:annotation>
+      <xsd:documentation>
+An IPV6 address in standard notation
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipv4PrefixLength">
+    <xsd:annotation>
+      <xsd:documentation>
+An IPv4 address prefix length. Must lie between 0 and 32 inclusive.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedInt">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="32"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipv6PrefixLength">
+    <xsd:annotation>
+      <xsd:documentation>
+An IPv6 address prefix length. Must lie between 0 and 128 inclusive.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedInt">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="128"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipv4AddressPrefix">
+    <xsd:annotation>
+      <xsd:documentation>now ipv4AddressPrefix is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipv6AddressPrefix">
+    <xsd:annotation>
+      <xsd:documentation>now ipv6AddressPrefix is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="block">
+    <xsd:annotation>
+      <xsd:documentation>now block is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="oid">
+    <xsd:annotation>
+      <xsd:documentation>now oid is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="data">
+    <xsd:annotation>
+      <xsd:documentation>now data is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="chassisPath">
+    <xsd:annotation>
+      <xsd:documentation>chassisPath is an unsignedInt</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedInt">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="127"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="slotPath">
+    <xsd:annotation>
+      <xsd:documentation>slotPath is like 1/1</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="127"/>
+      <xsd:pattern value="\d+/\d+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="cardPath">
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="127"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ifName">
+    <xsd:annotation>
+      <xsd:documentation>ifName is like ethernet1/1/1/1</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="63"/>
+    </xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="positionString">
+		<xsd:annotation>
+			<xsd:documentation>board position is like [1], serialPort position is like[1/1/1/1:2:3]</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="32"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="position">
+		<xsd:simpleContent>
+			<xsd:extension base="positionString">
+				<xsd:attribute name="chassis" type="xsd:unsignedShort" use="optional"/>
+				<xsd:attribute name="slot" type="xsd:unsignedShort" use="optional"/>
+				<xsd:attribute name="card" type="xsd:unsignedShort" use="optional"/>
+				<xsd:attribute name="port" type="xsd:unsignedShort" use="optional"/>
+				<xsd:attribute name="serialNo" type="xsd:unsignedInt" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>		
+	<xsd:simpleType name="password">
+		<xsd:annotation>
+			<xsd:documentation>now password is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="16"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="passwordExtend">
+    <xsd:annotation>
+      <xsd:documentation>now passwordExtend is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="oneInputPasswordExtend">
+    <xsd:annotation>
+      <xsd:documentation>now oneInputPasswordExtend is like string, only input once no need to confirm </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="mibString">
+    <xsd:annotation>
+      <xsd:documentation>now mibString is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="vrfName">
+    <xsd:annotation>
+      <xsd:documentation>now vrfName is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="31"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="keyChainName">
+    <xsd:annotation>
+      <xsd:documentation>now keyChainName is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="47"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipAddress">
+    <xsd:annotation>
+      <xsd:documentation>ipAddress support both IPV4 and IPV6</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipv4Mask">
+    <xsd:annotation>
+      <xsd:documentation>ipv4Mask support both mask and length format</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ipv6Mask">
+    <xsd:annotation>
+      <xsd:documentation>ipv6Mask support both mask and length format</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="0"/>
+      <xsd:maxLength value="255"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="timeTick">
+    <xsd:annotation>
+      <xsd:documentation>timeTick is like unsignedInt</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedInt"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="identifierString">
+    <xsd:annotation>
+      <xsd:documentation>now identifierString is like string, which is used for identifier with strict limitation</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([^\s?|&gt;]*)"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="descriptionString">
+    <xsd:annotation>
+      <xsd:documentation>now descriptionString is like string, which is used for description with little limitation</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([^?]*)"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="rowStatus">
+    <xsd:annotation>
+      <xsd:documentation>rowStatus is like string</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="active">
+        <xsd:annotation>
+          <xsd:documentation>active:</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="notInService">
+        <xsd:annotation>
+          <xsd:documentation>notInService:</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="notReady">
+        <xsd:annotation>
+          <xsd:documentation>notReady:</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="bits8">
+    <xsd:annotation>
+      <xsd:documentation>bits8 is like unsignedByte</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="bits16">
+    <xsd:annotation>
+      <xsd:documentation>bits16 is like unsignedShort</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedShort"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="bits32">
+    <xsd:annotation>
+      <xsd:documentation>bits32 is like unsignedInt</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedInt"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="bits64">
+    <xsd:annotation>
+      <xsd:documentation>bits64 is like unsignedLong</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedLong"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="percent">
+    <xsd:annotation>
+      <xsd:documentation>percent is like unsignedByte</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedByte">
+      <xsd:minInclusive value="0"/>
+      <xsd:maxInclusive value="100"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="VLAN_BITMAP">
+    <xsd:annotation>
+      <xsd:documentation>vlan bitmap</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="2049"/>
+      <xsd:maxLength value="2049"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="bitMap">
+    <xsd:annotation>
+      <xsd:documentation>bitMap</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="65535"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="bandWidth">
+    <xsd:annotation>
+      <xsd:documentation>Type of ifOperSpeed</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:unsignedLong"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="appType">
+    <xsd:annotation>
+      <xsd:documentation> 软件终端类型。</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="lct">
+        <xsd:annotation>
+          <xsd:documentation>LCT终端</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ems">
+        <xsd:annotation>
+          <xsd:documentation>EMS终端</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="cmd">
+        <xsd:annotation>
+          <xsd:documentation>CMD终端</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="unknown">
+        <xsd:annotation>
+          <xsd:documentation>未知终端</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="teTnlName">
+    <xsd:annotation>
+      <xsd:documentation>TE tunnel name</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="63"/>
+      <xsd:pattern value="^[^ ]*$"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="teTnlNameExt">
+    <xsd:simpleContent>
+      <xsd:extension base="teTnlName">
+        <xsd:attribute name="tunnelId" type="xsd:unsignedShort"/>
+        <xsd:attribute name="ingressLsrId" type="ipv4Address"/>
+        <xsd:attribute name="egressLsrId" type="ipv4Address"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,1170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by huawei (Shenzhen Huawei Technologies Software Co.,Ltd.) -->
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.6
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="y1731_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="y1731" type="y1731_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>y1731</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="y1731_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="globalAttribute" type="y1731_globalAttribute_type"/>
+			<xs:element name="mds" type="y1731_mds_type"/>
+			<xs:element name="testInstances" type="y1731_testInstances_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_globalAttribute_type">
+		<xs:annotation>
+			<xs:documentation>y1731 global configuration</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cfmVersion" type="cfmVersion" default="draft7">
+				<xs:annotation>
+					<xs:documentation>This object indicates the supported Y1731 version.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="globalEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>This object indicates whether Y1731 is enabled globally.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="macAddressModel" type="mpAddressModel" default="bridge">
+				<xs:annotation>
+					<xs:documentation>This object indicates the MP address model of the Y1731.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_mds_type">
+		<xs:sequence>
+			<xs:element name="md" type="y1731_md_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_md_type">
+		<xs:annotation>
+			<xs:documentation>md table</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="mdName">
+				<xs:annotation>
+					<xs:documentation>The name of the maintenance domain.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="43"/>
+						<xs:pattern value="^[^\?]*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mdLevel" default="0">
+				<xs:annotation>
+					<xs:documentation>The level of the maintenance domain.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:maxInclusive value="7"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mdFormat" type="mdFormat">
+				<xs:annotation>
+					<xs:documentation>The format of the maintenance domain's name.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mdFormatName">
+				<xs:annotation>
+					<xs:documentation>The name of the maintenance domain which will be formated.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="43"/>
+						<xs:pattern value="^[^\?]*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mas" type="y1731_mas_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_mas_type">
+		<xs:sequence>
+			<xs:element name="ma" type="y1731_ma_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_ma_type">
+		<xs:annotation>
+			<xs:documentation>ma table</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="maName">
+				<xs:annotation>
+					<xs:documentation>The name of the maintenance assoication.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="43"/>
+						<xs:pattern value="^[^\?]*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maMapType" type="mapType" default="no-bind">
+				<xs:annotation>
+					<xs:documentation>The type of the service that associated with the maintenance assoication.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maMapVsiName">
+				<xs:annotation>
+					<xs:documentation>The name of the VSI that associated with the maintenance assoication.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maMapL2vcId">
+				<xs:annotation>
+					<xs:documentation>The ID of the L2VC that associated with the maintenance assoication.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maMapL2vcType" type="l2vcType">
+				<xs:annotation>
+					<xs:documentation>The type of the L2VC that associated with the maintenance assoication.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maPktPriority" default="7">
+				<xs:annotation>
+					<xs:documentation>The priority of the packet which is sent in the MA</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:maxInclusive value="7"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maCcmInterval" type="ccmInterval" default="interval1s">
+				<xs:annotation>
+					<xs:documentation>The interval of CCM which is sent in the maintenance assoication.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maFormat" type="maFormat">
+				<xs:annotation>
+					<xs:documentation>The format of the maintenance assoication's name.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maFormatName">
+				<xs:annotation>
+					<xs:documentation>The name of the maintenance assoication which will be formated.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="43"/>
+						<xs:pattern value="^[^\?]*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="meps" type="y1731_meps_type"/>
+			<xs:element name="rmeps" type="y1731_rmeps_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_meps_type">
+		<xs:sequence>
+			<xs:element name="mep" type="y1731_mep_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_mep_type">
+		<xs:annotation>
+			<xs:documentation>mep table</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="mepId">
+				<xs:annotation>
+					<xs:documentation>The ID of the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="8191"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mepIfName">
+				<xs:annotation>
+					<xs:documentation>The interface which the MEP is bound to.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="mepPeVlan">
+				<xs:annotation>
+					<xs:documentation>The PE VLAN of the interface that the MEP is bound to.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mepCeVlan">
+				<xs:annotation>
+					<xs:documentation>The CE VLAN of the interface that the MEP is bound to.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mepDot1qVlan">
+				<xs:annotation>
+					<xs:documentation>The VLAN of the interface that the MEP is bound to.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mepDirection" type="mepDirection" default="inward">
+				<xs:annotation>
+					<xs:documentation>The direction of the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ccSendEnabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether CCM can be sent by the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mepMAC" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>The MAC of the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_rmeps_type">
+		<xs:sequence>
+			<xs:element name="rmep" type="y1731_rmep_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_rmep_type">
+		<xs:annotation>
+			<xs:documentation>rmep table</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rmepId">
+				<xs:annotation>
+					<xs:documentation>The ID of the RMEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="8191"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ccRecvEnabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether CCM can be received by the RMEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rmepMAC" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>The MAC of the RMEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_testInstances_type">
+		<xs:sequence>
+			<xs:element name="testInstance" type="y1731_testInstance_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_testInstance_type">
+		<xs:annotation>
+			<xs:documentation>test table</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="testId">
+				<xs:annotation>
+					<xs:documentation>The ID of the test instance.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mdName">
+				<xs:annotation>
+					<xs:documentation>The name of the maintenance domain.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="43"/>
+						<xs:pattern value="^[^\?]*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maName">
+				<xs:annotation>
+					<xs:documentation>The name of the maintenance assoication.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="43"/>
+						<xs:pattern value="^[^\?]*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mepId">
+				<xs:annotation>
+					<xs:documentation>The ID of the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="8191"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rmepId">
+				<xs:annotation>
+					<xs:documentation>The ID of remote mep.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:maxInclusive value="8191"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rmepMAC" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>The destination MAC of remote mep.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priority">
+				<xs:annotation>
+					<xs:documentation>The 802.1p priority of the single-ended loss-measurement packets.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:maxInclusive value="7"/>
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="peerIp" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>The IP address of the remote end.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vcId">
+				<xs:annotation>
+					<xs:documentation>The VC ID of the PW.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4294967295"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="oneWayDmSend" type="y1731_oneWayDmSend_type"/>
+			<xs:element name="oneWayDmRecv" type="y1731_oneWayDmRecv_type"/>
+			<xs:element name="twoWayDmSend" type="y1731_twoWayDmSend_type"/>
+			<xs:element name="twoWayDmRecv" type="y1731_twoWayDmRecv_type"/>
+			<xs:element name="singleLmSend" type="y1731_singleLmSend_type"/>
+			<xs:element name="singleLmRecv" type="y1731_singleLmRecv_type"/>
+			<xs:element name="dualLm" type="y1731_dualLm_type"/>
+			<xs:element name="oneWayDmSendResult" type="y1731_oneWayDmSendResult_type"/>
+			<xs:element name="twoWayDmResult" type="y1731_twoWayDmResult_type"/>
+			<xs:element name="singleLmResult" type="y1731_singleLmResult_type"/>
+			<xs:element name="oneWayDmDatas" type="y1731_oneWayDmDatas_type"/>
+			<xs:element name="dualLmDatas" type="y1731_dualLmDatas_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_oneWayDmSend_type">
+		<xs:annotation>
+			<xs:documentation>one-way delay measurement send </xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="interval" type="continueInterval2" default="interval1000ms">
+				<xs:annotation>
+					<xs:documentation>The interval of sending one-way delay measurement packets.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendEnabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether one way delay measurement can be sent by the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_oneWayDmRecv_type">
+		<xs:annotation>
+			<xs:documentation>one-way delay measurement receive</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="isContinue" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiveEnabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether one way delay measurement can be received by the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_twoWayDmSend_type">
+		<xs:annotation>
+			<xs:documentation>two-way delay measurement send </xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="interval" type="continueInterval1" default="interval30000ms">
+				<xs:annotation>
+					<xs:documentation>The interval of sending two-way delay measurement packets.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendEnabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether two way delay measurement can be sent by the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_twoWayDmRecv_type">
+		<xs:annotation>
+			<xs:documentation>twoe-way delay measurement receive</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="receiveEnabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether one way delay measurement can be received by the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_singleLmSend_type">
+		<xs:annotation>
+			<xs:documentation>single-ended loss-measurement send </xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="interval" type="continueInterval1" default="interval30000ms">
+				<xs:annotation>
+					<xs:documentation>The interval of sending single-ended loss-measurement packets.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendEnabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether single-ended loss measurement can be sent by the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_singleLmRecv_type">
+		<xs:annotation>
+			<xs:documentation>single-ended loss-measurement receive</xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="receiveEnabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether single-ended loss measurement can be received by the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_dualLm_type">
+		<xs:annotation>
+			<xs:documentation>dual-ended loss-measurement send </xs:documentation>
+			<xs:appinfo>
+				<access>readCreate</access>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="enabled" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether dual-ended loss measurement can be enable by the MEP.</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_oneWayDmResult_type">
+		<xs:annotation>
+			<xs:documentation>The result of one way delay measurement.</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice/>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_oneWayDmDatas_type">
+		<xs:sequence>
+			<xs:element name="oneWayDmData" type="y1731_oneWayDmData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_oneWayDmData_type">
+		<xs:annotation>
+			<xs:documentation>The data of one way delay measurement.</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorInfo" type="errorInfo">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="oneWayDelay">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="oneWayJitter">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_oneWayDmSendResult_type">
+		<xs:annotation>
+			<xs:documentation>The result of two way delay measurement.</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="measureMode" type="measureMode" default="on-demand">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether the measurement is an on-demand or a continue measurement.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="status" default="finished">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether the measurement is finished.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_twoWayDmResult_type">
+		<xs:annotation>
+			<xs:documentation>The result of two way delay measurement.</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="measureMode" type="measureMode" default="on-demand">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether the measurement is an on-demand or a continue measurement.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="status" default="finished">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether the measurement is finished.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="twoWayDmDatas" type="y1731_twoWayDmDatas_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_twoWayDmDatas_type">
+		<xs:sequence>
+			<xs:element name="twoWayDmData" type="y1731_twoWayDmData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_twoWayDmData_type">
+		<xs:annotation>
+			<xs:documentation>The data of two way delay measurement.</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorInfo" type="errorInfo">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="twoWayDelay">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="twoWayJitter">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_singleLmResult_type">
+		<xs:annotation>
+			<xs:documentation>The result of single ended loss measurement.</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="measureMode" type="measureMode" default="on-demand">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether the measurement is an on-demand or a continue measurement.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="status" default="finished">
+				<xs:annotation>
+					<xs:documentation>The flag indicates whether the measurement is finished.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="singleLmDatas" type="y1731_singleLmDatas_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_singleLmDatas_type">
+		<xs:sequence>
+			<xs:element name="singleLmData" type="y1731_singleLmData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_singleLmData_type">
+		<xs:annotation>
+			<xs:documentation>The data of single ended loss measurement.</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorInfo" type="errorInfo">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sinLosLCL">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sinLosLCLRat">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sinLosRMT">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sinLosRMTRat">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="y1731_dualLmDatas_type">
+		<xs:sequence>
+			<xs:element name="dualLmData" type="y1731_dualLmData_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="y1731_dualLmData_type">
+		<xs:annotation>
+			<xs:documentation>The result of dual ended loss measurement.</xs:documentation>
+			<xs:appinfo>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="errorInfo" type="errorInfo">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dulLosLCL">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dulLosLCLRat">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dulLosRMT">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dulLosRMTRat">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

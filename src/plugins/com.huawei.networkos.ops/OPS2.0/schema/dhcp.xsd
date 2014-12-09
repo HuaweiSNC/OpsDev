@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="dhcp_type.xsd"/>
+	<xs:include schemaLocation="dhcp_snooping.xsd"/>
+	<xs:include schemaLocation="dhcp_relay.xsd"/>
+	<xs:element name="dhcp" type="dhcp_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>dhcp</taskName>
+			</xs:appinfo>
+			<xs:documentation>dhcp</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="dhcp_type">
+		<xs:annotation>
+			<xs:documentation>dhcp 通用</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="common" type="dhcpCommon_type">
+				<xs:annotation>
+					<xs:documentation>DHCP通用信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="snooping" type="dhcpSnooping_type">
+				<xs:annotation>
+					<xs:documentation>DHCP Snooping信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="relay" type="dhcpRelay_type">
+				<xs:annotation>
+					<xs:documentation>DHCP Relay信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpCommon_type">
+		<xs:annotation>
+			<xs:documentation>dhcp 通用</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dhcpCommonCfg" type="dhcpCommonCfg_type">
+				<xs:annotation>
+					<xs:documentation>DHCP通用配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpDupOptChkCodes" type="dhcpDupOptChkCodes_type">
+				<xs:annotation>
+					<xs:documentation>进行重复性检查的选项编号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpOpt82Cfg" type="dhcpOpt82Cfg_type">
+				<xs:annotation>
+					<xs:documentation>DHCP Option82配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpCommonCfg_type">
+		<xs:annotation>
+			<xs:documentation>DHCP 基础配置</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dhcpEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>DHCP Enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpSpeedLimitAuto" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>DHCP Speed Limit Auto</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpDupOptChkCodes_type">
+		<xs:annotation>
+			<xs:documentation>DHCP选项重复性检查配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dhcpDupOptChkCode" type="dhcpDupOptChkCode_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dhcpDupOptChkCode_type">
+		<xs:annotation>
+			<xs:documentation>DHCP选项重复性检查配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="optionCode" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>选项编码</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82Cfg_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Option82配置</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dhcpSysOpt82Formats" type="dhcpSysOpt82Formats_type">
+				<xs:annotation>
+					<xs:documentation>DHCP Option82全局配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpOpt82VlanPortForms" type="dhcpOpt82VlanPortForms_type">
+				<xs:annotation>
+					<xs:documentation>DHCP VLAN Option82配置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpOpt82VendorSubOpts" type="dhcpOpt82VendorSubOpts_type">
+				<xs:annotation>
+					<xs:documentation>DHCP Option82 Sub9字段配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpIntfOpt82Formates" type="dhcpIntfOpt82Formates_type">
+				<xs:annotation>
+					<xs:documentation>DHCP 接口 Option 82配置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpOpt82Intfs" type="dhcpOpt82Intfs_type">
+				<xs:annotation>
+					<xs:documentation>DHCP 接口 Option 82插入强插配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpOpt82Vlans" type="dhcpOpt82Vlans_type">
+				<xs:annotation>
+					<xs:documentation>DHCP Vlan Option 82插入强插配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpOpt82VlanPorts" type="dhcpOpt82VlanPorts_type">
+				<xs:annotation>
+					<xs:documentation>DHCP Vlan Option 82带接口插入强插配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpSysOpt82Formats_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Option82全局配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dhcpSysOpt82Format" type="dhcpSysOpt82Format_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dhcpSysOpt82Format_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Option82全局配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sysOptType" type="dhcpOpt82SubOpt">
+				<xs:annotation>
+					<xs:documentation>Option Type</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<key>true</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysOptFormat" type="dhcpOpt82Format" default="default">
+				<xs:annotation>
+					<xs:documentation>Option Format</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysUserDefText">
+				<xs:annotation>
+					<xs:documentation>User-defined text</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<key>false</key>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpIntfOpt82Formates_type">
+		<xs:annotation>
+			<xs:documentation>DHCP 接口 Option 82配置信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dhcpIntfOpt82Formate" type="dhcpIntfOpt82Formate_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dhcpIntfOpt82Formate_type">
+		<xs:annotation>
+			<xs:documentation>DHCP 接口 Option 82配置信息</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface Name</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlanId" default="0">
+				<xs:annotation>
+					<xs:documentation>VLAN id</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optType" type="dhcpOpt82SubOpt">
+				<xs:annotation>
+					<xs:documentation>Option Type</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="optFormat" type="dhcpOpt82Format">
+				<xs:annotation>
+					<xs:documentation>Option Format</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userDefineText">
+				<xs:annotation>
+					<xs:documentation>User-defined text</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82VendorSubOpts_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Option82 Sub9字段配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dhcpOpt82VendorSubOpt" type="dhcpOpt82VendorSubOpt_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82VendorSubOpt_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Option82 Sub9字段配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="subOptNum">
+				<xs:annotation>
+					<xs:documentation>子选项编号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="subOptFormat" type="dhcpOpt82VendorSubOptFormat">
+				<xs:annotation>
+					<xs:documentation>子选项格式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userDefineText">
+				<xs:annotation>
+					<xs:documentation>User-defined text</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="511"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipNumber" default="0">
+				<xs:annotation>
+					<xs:documentation>需要设置的IP地址数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipAddress1" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>子选项为IP地址类型时对应的</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress2" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>子选项为IP地址类型时对应的</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress3" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>子选项为IP地址类型时对应的</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress4" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>子选项为IP地址类型时对应的</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress5" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>子选项为IP地址类型时对应的</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress6" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>子选项为IP地址类型时对应的</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress7" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>子选项为IP地址类型时对应的</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipAddress8" type="ipAddress" default="0.0.0.0">
+				<xs:annotation>
+					<xs:documentation>子选项为IP地址类型时对应的</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82Intfs_type">
+		<xs:annotation>
+			<xs:documentation>DHCP 接口option82插入强插配置</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dhcpOpt82Intf" type="dhcpOpt82Intf_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82Intf_type">
+		<xs:annotation>
+			<xs:documentation>DHCP 接口option82插入强插配置</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface Name</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="insertEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Option82 insert enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rebuildEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Option82 rebuild enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82Vlans_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Vlan Option82配置</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dhcpOpt82Vlan" type="dhcpOpt82Vlan_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82Vlan_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Vlan Option82配置</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vlanId">
+				<xs:annotation>
+					<xs:documentation>VlanId</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="insertEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Option82 insert enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rebuildEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Option82 rebuild enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82VlanPorts_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Vlan Option82带接口配置</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dhcpOpt82VlanPort" type="dhcpOpt82VlanPort_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82VlanPort_type">
+		<xs:annotation>
+			<xs:documentation>DHCP Vlan Option82配置</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface Name</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlanId">
+				<xs:annotation>
+					<xs:documentation>VlanId</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="insertEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Option82 insert enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rebuildEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Option82 rebuild enable</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82VlanPortForms_type">
+		<xs:annotation>
+			<xs:documentation>DHCP VLAN Option82配置信息</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="dhcpOpt82VlanPortForm" type="dhcpOpt82VlanPortForm_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dhcpOpt82VlanPortForm_type">
+		<xs:annotation>
+			<xs:documentation>DHCP VLAN Option82配置信息</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Interface Name</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlanId">
+				<xs:annotation>
+					<xs:documentation>VLAN id</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4094"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optFormat" type="dhcpOpt82Format">
+				<xs:annotation>
+					<xs:documentation>Option Format</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userDefineText">
+				<xs:annotation>
+					<xs:documentation>User-defined text</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>false</key>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

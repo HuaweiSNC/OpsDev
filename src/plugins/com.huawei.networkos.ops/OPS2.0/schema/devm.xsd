@@ -1,0 +1,6090 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by Wesley Zhang (Shenzhen Huawei Technologies Software Co.,Ltd.) -->
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.13
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.huawei.com/netconf/vrp" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="devm_type.xsd"/>
+	<xs:element name="devm" type="devm_devm_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>devm</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="devm_devm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="globalPara" type="devm_globalParas_type"/>
+			<xs:element name="phyEntitys" type="devm_phyEntitys_type"/>
+			<xs:element name="chassiss" type="devm_chassiss_type"/>
+			<xs:element name="containers" type="devm_containers_type"/>
+			<xs:element name="mpuBoards" type="devm_mpuBoards_type"/>
+			<xs:element name="lpuBoards" type="devm_lpuBoards_type"/>
+			<xs:element name="sfuBoards" type="devm_sfuBoards_type"/>
+			<xs:element name="flexibleCards" type="devm_flexibleCards_type"/>
+			<xs:element name="cfCards" type="devm_cfCards_type"/>
+			<xs:element name="ports" type="devm_ports_type"/>
+			<xs:element name="boardResStates" type="devm_boardResStates_type"/>
+			<xs:element name="cpuInfos" type="devm_cpuInfos_type"/>
+			<xs:element name="memoryInfos" type="devm_memoryInfos_type"/>
+			<xs:element name="entityClasss" type="devm_entityClasss_type"/>
+			<xs:element name="rUModuleInfos" type="devm_rUModuleInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_globalParas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="maxChassisNum">
+				<xs:annotation>
+					<xs:documentation>支持最大框数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="chassisNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前框数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chassisLastChange" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>最近一次机框增删或状态（运行态、主备态）变化的时间，为UTC时间的tick值。机框增删，任一框内的实体（单板、子卡、端口）变化（增删、状态变化）都更新该字段。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="crcEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Crc错误告警检测使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="symbolEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Symbol错误告警检测使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Input错误告警检测使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outputEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Output错误告警检测使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdhEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>Sdh错误告警检测使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bip8SdEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>BIP8-SD告警检测使能状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysTrapType" type="devmTrapType" default="base-trap">
+				<xs:annotation>
+					<xs:documentation>devmTrapType:base-trap or dc-trap or entity-trap</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysWorkMode" type="devmSysWorkType" default="unknown">
+				<xs:annotation>
+					<xs:documentation>工作模式，用于指示1:1还是1+1工作模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_phyEntitys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="phyEntity" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="devm_phyEntity_type"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_phyEntity_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="entClass" type="devmEntityClassType">
+				<xs:annotation>
+					<xs:documentation>实体类别，与位置和内部编号作为联合主键</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息，与实体类别和内部编号作为联合主键</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entSerialNo">
+				<xs:annotation>
+					<xs:documentation>实体内部编号，主要用来标识器件类顺序，与类别和位置作为联合主键</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引，因主机内部标识，不做为主键，但同时也是唯一标识</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chassisIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>框索引，用于按框过滤实体</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>单板索引，用于按单板过滤实体</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entName">
+				<xs:annotation>
+					<xs:documentation>名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entDescr">
+				<xs:annotation>
+					<xs:documentation>描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entAlias">
+				<xs:annotation>
+					<xs:documentation>别名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entVendorType" type="devmHardType">
+				<xs:annotation>
+					<xs:documentation>厂商类型（应该是chassisType/boardType/CardType/PortType的并集）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entContainedIn" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>父节点索引号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entParentRelPos" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>同层位置</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entHardwareRev">
+				<xs:annotation>
+					<xs:documentation>硬件版本描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entFirmwareRev">
+				<xs:annotation>
+					<xs:documentation>固件版本描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entSoftwareRev">
+				<xs:annotation>
+					<xs:documentation>软件版本描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entModelName">
+				<xs:annotation>
+					<xs:documentation>模块名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIsFRU" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>是否可更换单元</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entAdminState" type="devmEntityAdminState">
+				<xs:annotation>
+					<xs:documentation>管理状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entOperState" type="devmEntityOperState">
+				<xs:annotation>
+					<xs:documentation>运行状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<!-- 预部署板支持，C00暂时屏蔽
+			<xs:element name="entPresentState" type="devmEntityPresentState">
+				<xs:annotation>
+					<xs:documentation>在位状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+            -->
+			<xs:element name="entStandbyState" type="devmEntityStandbyState">
+				<xs:annotation>
+					<xs:documentation>主备状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entSystemOid">
+				<xs:annotation>
+					<xs:documentation>设备的OID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entLsName">
+				<xs:annotation>
+					<xs:documentation>设备所在的LS名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_boardResStates_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="boardResState" type="devm_boardResState_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_boardResState_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardPosition">
+				<xs:annotation>
+					<xs:documentation>位置</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardName">
+				<xs:annotation>
+					<xs:documentation>名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cpuUsage" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>CPU利用率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>%</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="memTotalSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>总内存大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="memUsedSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>已用内存</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="memoryUsage" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>内存利用率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>%</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_entityClasss_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="entityClass" type="devm_entityClass_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_entityClass_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="className" type="devmEntityClassType">
+				<xs:annotation>
+					<xs:documentation>设备类名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isResetable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>复位能力</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isSwitchoverable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>倒换能力</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_boardChanges_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="monitorBoardChange" type="devm_boardChange_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_boardChange_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="boardIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>单板索引，跟phyEntity中的entIndex一致</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statusLastChange" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>最近一次单板状态（运行态、主备态）变化的时间，为UTC时间的tick值；单板，包括其上的实体（子卡，端口）的状态变化都需要更新该字段</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entityLastChange" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>最近一次单板上实体变化的时间，为UTC时间的tick值；实体变化特指实体增删，比如子卡插拔导致的子卡实体增删，端口的增删</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_clockSources_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="clockSource" type="devm_clockSource_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_clockSource_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="clockSrcID" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>时钟源索引，由主机产生</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="priority" default="19">
+				<xs:annotation>
+					<xs:documentation>优先级，取值范围1~19，缺省值为19</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="19"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>描述信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sabit" type="devmClockSabitType" default="unknown">
+				<xs:annotation>
+					<xs:documentation>bits源的时隙所在的比特位（从BITS时钟源的2.048Mbit/s（E1）信号中提取ssm级别的时隙。缺省情况下，为sa4时隙）</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="forcessm" type="devmClockForceSsmType" default="on">
+				<xs:annotation>
+					<xs:documentation>强制SSM学习的开关（默认为on）</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ssmLevel" type="devmSsmlevel" default="unknown">
+				<xs:annotation>
+					<xs:documentation>如果forcessm状态为on，由用户强制配置ssm级别；如果状态为off，用户从线路板相应端口提取时钟源的ssm级别</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="state">
+				<xs:annotation>
+					<xs:documentation>时钟源状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bitsType" type="devmClkBitsType" default="2mbps">
+				<xs:annotation>
+					<xs:documentation>bits源时钟信号的类型，默认为2mbps</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bitsMap" type="devmClkBitsMap" default="bits0">
+				<xs:annotation>
+					<xs:documentation>bits 源的映射关系配置，默认1号源是bits0，2号源是bits1</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_chassiss_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="chassis" type="devm_chassis_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_chassis_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chassisType" type="devmChassisType">
+				<xs:annotation>
+					<xs:documentation>机框物理类型，取值与entVendorType相同</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceType" type="devmChassisSvcType">
+				<xs:annotation>
+					<xs:documentation>框业务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="slotNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>槽位数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>板数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fanNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>风扇个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="powerNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>电源个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>重启时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statusLastChange" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>最近一次单板（含风扇、电源、LCD）状态（运行态、主备态）变化的时间，为UTC时间的tick值，该框内任意一块单板及其上的实体状态有变化都需要更新该字段</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entityLastChange" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>最近一次单板（含风扇、电源、LCD）实体增删的时间，为UTC时间的tick值，该框内单板插拔、单板上的子卡插拔等导致的实体增删需要更新该字段</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="curChassisID">
+				<xs:annotation>
+					<xs:documentation>当前框ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextChassisID" default="1">
+				<xs:annotation>
+					<xs:documentation>下次启动框ID</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="curRunMode" type="devmProductType">
+				<xs:annotation>
+					<xs:documentation>当前产品形态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nextRunMode" type="devmProductType" default="unknown">
+				<xs:annotation>
+					<xs:documentation>下次产品形态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dustCleanCycle" default="90">
+				<xs:annotation>
+					<xs:documentation>防尘网除尘周期</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>天</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastCleanDate">
+				<xs:annotation>
+					<xs:documentation>上次除尘的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="upToLastClean" default="0">
+				<xs:annotation>
+					<xs:documentation>距离上次除尘的天数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="alarmExistDays" default="0">
+				<xs:annotation>
+					<xs:documentation>除尘报警存在的天数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="monitorBoardChanges" type="devm_boardChanges_type">
+				<xs:annotation>
+					<xs:documentation>监控板级的实体状态变化</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_containers_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="container" type="devm_container_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_container_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="containerType" type="devmContainerType">
+				<xs:annotation>
+					<xs:documentation>实体类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="equipedEntityType" type="devmHardType">
+				<xs:annotation>
+					<xs:documentation>硬件类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<!-- C00不交付；在C01中实现
+			<xs:element name="supportedEntityTypes" type="devm_supportedEntityTypes_type">
+				<xs:annotation>
+					<xs:documentation>容器支持的子实体类型列表</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+            -->
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_supportedEntityTypes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="supportedEntityType" type="devm_supportedEntityType_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_supportedEntityType_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="entityType" type="devmEntityClassType">
+				<xs:annotation>
+					<xs:documentation>实体类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_mpuBoards_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="mpuBoard" type="devm_mpuBoard_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_mpuBoard_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>实体类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>启动时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdramSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>sdram空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nvramSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>nvram空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flashSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>flash空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lsRole" type="devmLsRole">
+				<xs:annotation>
+					<xs:documentation>板的角色</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastResetTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>上次复位时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastResetReason">
+				<xs:annotation>
+					<xs:documentation>上次复位原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_lpuBoards_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lpuBoard" type="devm_lpuBoard_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_l3clocks_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="l3Clock" type="devm_l3Clock_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_lpuBoard_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>实体类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdramSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>sdram空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flashSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>flash空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>启动时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="npRDRAMSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>NP外挂的RDRAM存储容量（NP外挂RDRAM内存总和，包括上行和下行，与命令行中上行下行的和保持一致），单位为MB</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="npSRAMSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>NP外挂的SRAM存储容量（NP外挂SRAM内存总和，包括上行和下行，与命令行中上行下行的和保持一致），单位为MB</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serviceType" type="devmLpuServiceType">
+				<xs:annotation>
+					<xs:documentation>业务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nextServiceType" type="devmLpuServiceType">
+				<xs:annotation>
+					<xs:documentation>单板下一次启动的业务类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="picNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>子卡个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subSlotNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>子卡槽位个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clock8kPort">
+				<xs:annotation>
+					<xs:documentation>8K时钟（作为时钟源需要选择的端口的字符串位置）</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="curL3Clk" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前的三级时钟源（38.88M时钟，从主控板获取，需要区别是主用主控还是备用主控）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="l3Clocks" type="devm_l3clocks_type">
+				<xs:annotation>
+					<xs:documentation>三级时钟源（主控板上两路38.88M时钟源）</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_l3Clock_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="clockID">
+				<xs:annotation>
+					<xs:documentation>三级时钟索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="l3ClkState" type="devmClockSrcStatusType">
+				<xs:annotation>
+					<xs:documentation>三级时钟状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_clockBoards_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="clockBoard" type="devm_clockBoard_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_clockBoard_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>时钟板类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>启动时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sramState" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>sram状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="singleState388M" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>38.8M时钟状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lockRingState" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>锁向环状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lockRing88State" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>88M锁向环状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="oscState" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>osc状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="i2cBusState" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>总线状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="epldState" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>逻辑状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hdlcState" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>hdlc传输协议状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="e1AState" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>e1A状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="e1BState" type="devmRunState">
+				<xs:annotation>
+					<xs:documentation>e1B状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clock">
+				<xs:annotation>
+					<xs:documentation>时钟</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="currentWorkMode" type="devmWorkMode" default="auto">
+							<xs:annotation>
+								<xs:documentation>当前工作模式</xs:documentation>
+								<xs:appinfo>
+									<access>readWrite</access>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="currentSource" type="xs:unsignedInt" default="0">
+							<xs:annotation>
+								<xs:documentation>当前时钟源</xs:documentation>
+								<xs:appinfo>
+									<access>readWrite</access>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="clkOutSSM" type="devmSsmlevel">
+							<xs:annotation>
+								<xs:documentation>时钟SSM级别</xs:documentation>
+								<xs:appinfo>
+									<access>readOnly</access>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ssmControl" type="devmControlFlag" default="on">
+							<xs:annotation>
+								<xs:documentation>ssm选定标记</xs:documentation>
+								<xs:appinfo>
+									<access>readWrite</access>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="hardWorkState" type="devmRunState">
+							<xs:annotation>
+								<xs:documentation>时钟硬件工作状态</xs:documentation>
+								<xs:appinfo>
+									<access>readOnly</access>
+								</xs:appinfo>
+							</xs:annotation>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="clockSources" type="devm_clockSources_type">
+				<xs:annotation>
+					<xs:documentation>时钟</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_cmus_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cmu" type="devm_cmu_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_cmu_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmHardType">
+				<xs:annotation>
+					<xs:documentation>CMU类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmuSwitchs" type="devm_cmuSwitchs_type">
+				<xs:annotation>
+					<xs:documentation>CMU开关量信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmuRelays" type="devm_cmuRelays_type">
+				<xs:annotation>
+					<xs:documentation>CMU外界继电器信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmuAnalogs" type="devm_cmuAnalogs_type">
+				<xs:annotation>
+					<xs:documentation>CMU模拟量信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmuAlarms" type="devm_cmuAlarms_type">
+				<xs:annotation>
+					<xs:documentation>CMU设备级告警信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_cmuSwitchs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cmuSwitch" type="devm_cmuSwitch_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_cmuSwitch_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cmuSwitchID">
+				<xs:annotation>
+					<xs:documentation>CMU开关量ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuSwitchName" default="\0">
+				<xs:annotation>
+					<xs:documentation>CMU开关量名称</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuAlmMode" type="devmCmuAlmMode" default="undo">
+				<xs:annotation>
+					<xs:documentation>CMU告警模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmuSwitchFog" type="devmCmuSwitchFog" default="unknown">
+				<xs:annotation>
+					<xs:documentation>传感器类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_cmuRelays_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cmuRelay" type="devm_cmuRelay_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_cmuRelay_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cmuRelayID">
+				<xs:annotation>
+					<xs:documentation>CMU连接器ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuRelayName" default="\0">
+				<xs:annotation>
+					<xs:documentation>CMU连接器名称</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="24"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuRelayAlmMode" type="devmCmuAlmMode" default="undo">
+				<xs:annotation>
+					<xs:documentation>CMU告警模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_cmuAnalogs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cmuAnalog" type="devm_cmuAnalog_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_cmuAnalog_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cmuAnalogID">
+				<xs:annotation>
+					<xs:documentation>CMU模拟量ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuAnalogName" default="\0">
+				<xs:annotation>
+					<xs:documentation>CMU模拟量名称</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="23"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuAnalogType" type="devmAnalogType" default="unknown">
+				<xs:annotation>
+					<xs:documentation>传感器类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmuAnalogObject" type="devmAnalogObjectType" default="unknown">
+				<xs:annotation>
+					<xs:documentation>监控对象</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmuWorkLow" default="0">
+				<xs:annotation>
+					<xs:documentation>工作低门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="-99999999"/>
+						<xs:maxInclusive value="999999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuWorkHigh" default="0">
+				<xs:annotation>
+					<xs:documentation>工作高门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="-99999999"/>
+						<xs:maxInclusive value="999999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuWanted" default="0">
+				<xs:annotation>
+					<xs:documentation>工作期望值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="-99999999"/>
+						<xs:maxInclusive value="999999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuAlarmLow" default="0">
+				<xs:annotation>
+					<xs:documentation>告警低门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="-99999999"/>
+						<xs:maxInclusive value="999999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuAlarmHigh" default="0">
+				<xs:annotation>
+					<xs:documentation>告警高门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="-99999999"/>
+						<xs:maxInclusive value="999999999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_cmuAlarms_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cmuAlarm" type="devm_cmuAlarm_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_cmuAlarm_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="cmuAlarmID">
+				<xs:annotation>
+					<xs:documentation>CMU告警ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cmuAlarmLevel" type="devmCmuAlmMode" default="undo">
+				<xs:annotation>
+					<xs:documentation>CMU告警模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_fans_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="fan" type="devm_fan_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_fan_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>风扇类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="workMode" type="devmWorkMode" default="auto">
+				<xs:annotation>
+					<xs:documentation>风扇工作模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="speed" default="0">
+				<xs:annotation>
+					<xs:documentation>风扇转速</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<unit>转</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fanRate" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>风扇速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>R/min</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monitorCableState" type="devmCableState">
+				<xs:annotation>
+					<xs:documentation>监控状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_powerSupplys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="powerSupply" type="devm_powerSupply_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_powerSupply_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>电源类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="workMode" type="devmPowerWorkMode">
+				<xs:annotation>
+					<xs:documentation>电源工作模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monitorCableState" type="devmCableState">
+				<xs:annotation>
+					<xs:documentation>监控点状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_powerEnvironments_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="powerEnvironment" type="devm_powerEnvironment_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_powerEnvironment_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="pemIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>pem索引，跟phyEntity中的entIndex一致</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voltageValue">
+				<xs:annotation>
+					<xs:documentation>当前电压</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="electricalValue">
+				<xs:annotation>
+					<xs:documentation>当前电流</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="temperValue">
+				<xs:annotation>
+					<xs:documentation>当前温度</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_lcds_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lcd" type="devm_lcd_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_lcd_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>LCD类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_flexibleCards_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="flexibleCard" type="devm_flexibleCard_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_flexibleCard_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardType" type="devmSubCardType">
+				<xs:annotation>
+					<xs:documentation>卡类型。跟display device pic命令行保持一致</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardHardType" type="devmCardHardType">
+				<xs:annotation>
+					<xs:documentation>卡的硬件类型，可以唯一区分一类子卡</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>端口数目</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="initStatus" type="devmCardInitStatusType">
+				<xs:annotation>
+					<xs:documentation>初始化状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="picCard" type="devm_picCardGroup_type">
+				<xs:annotation>
+					<xs:documentation>PIC卡</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_ports_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="port" type="devm_port_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_port_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" default="1">
+				<xs:annotation>
+					<xs:documentation>端口在实体表中的索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="adminState" type="devmEntityAdminState">
+				<xs:annotation>
+					<xs:documentation>管理状态（可配置）</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portType" type="devmPortType">
+				<xs:annotation>
+					<xs:documentation>端口类型（Eth/Pos）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portHardType" type="devmPortHardType">
+				<xs:annotation>
+					<xs:documentation>端口硬件类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loopbackMode" type="devmLoopBackState">
+				<xs:annotation>
+					<xs:documentation>环回模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="portTxEnDelay" default="0">
+				<xs:annotation>
+					<xs:documentation>端口延迟发光</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="86400000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastUpTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>最新一次启动时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastDownTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>最新一次down时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mediumType" type="devmEthPortMediumType">
+				<xs:annotation>
+					<xs:documentation>传输介质类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="opticalIsEquipped" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>光模块是否在位</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="opticalInfo" type="devm_opticalInfo_type">
+				<xs:annotation>
+					<xs:documentation>光模块信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_picCardGroup_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="logicStatus" type="devmCardLogicStatusType">
+				<xs:annotation>
+					<xs:documentation>逻辑加载状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>启动时间（子卡注册时间）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_ethernetPort_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="flowctl" type="devmFlowCtlType">
+				<xs:annotation>
+					<xs:documentation>端口的流控方式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="negotiation" type="devmNegotiationType">
+				<xs:annotation>
+					<xs:documentation>自协商</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="speed" type="devmEthSpeedType">
+				<xs:annotation>
+					<xs:documentation>速率</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="duplex" type="devmDuplex">
+				<xs:annotation>
+					<xs:documentation>双工类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="downHoldTime" default="0">
+				<xs:annotation>
+					<xs:documentation>接口状态转为Down时系统的响应抑制时间</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="86400000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="upHoldTime" default="0">
+				<xs:annotation>
+					<xs:documentation>接口状态转为Up时系统的响应抑制时间</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="86400000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="transMode" type="devmPortLanWanModeType">
+				<xs:annotation>
+					<xs:documentation>端口LAN/WAN模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gfMediaType" type="devmGfMediaType">
+				<xs:annotation>
+					<xs:documentation>媒体类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="proMode" type="devmPortPromodeType">
+				<xs:annotation>
+					<xs:documentation>混杂模式（只有管理网口有此属性）</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ethWANAttr" type="devm_ethWANPort_type">
+				<xs:annotation>
+					<xs:documentation>EthWANPort端口</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_opticalInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="vendorName">
+				<xs:annotation>
+					<xs:documentation>光模块名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vendorPN">
+				<xs:annotation>
+					<xs:documentation>PN</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="transBW">
+				<xs:annotation>
+					<xs:documentation>BW</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optTransMode" type="devmTransMode">
+				<xs:annotation>
+					<xs:documentation>传输模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="opticalPlug" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>热拔插</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="opticalType" type="devmOpticalType">
+				<xs:annotation>
+					<xs:documentation>光模块类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="opticalFiberType" type="devmOpticalFiberType">
+				<xs:annotation>
+					<xs:documentation>光模块类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="waveLength">
+				<xs:annotation>
+					<xs:documentation>传输波长（单位为nm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="transDistance">
+				<xs:annotation>
+					<xs:documentation>传输距离</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="txPower">
+				<xs:annotation>
+					<xs:documentation>发送光功率（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxPower">
+				<xs:annotation>
+					<xs:documentation>接收光功率（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optRxHighWarn">
+				<xs:annotation>
+					<xs:documentation>接收光功率上限Warn阈值（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optRxLowWarn">
+				<xs:annotation>
+					<xs:documentation>接收光功率下限Warn阈值（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optTxHighWarn">
+				<xs:annotation>
+					<xs:documentation>发送光功率上限Warn阈值（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optTxLowWarn">
+				<xs:annotation>
+					<xs:documentation>发送光功率下限Warn阈值（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optRxHighAlarm">
+				<xs:annotation>
+					<xs:documentation>接收光功率上限Alarm阈值（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optRxLowAlarm">
+				<xs:annotation>
+					<xs:documentation>接收光功率下限Alarm阈值（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optTxHighAlarm">
+				<xs:annotation>
+					<xs:documentation>发送光功率上限Alarm阈值（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="optTxLowAlarm">
+				<xs:annotation>
+					<xs:documentation>发送光功率下限Alarm阈值（单位为dbm）</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_ethWANPort_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="frameFormat" type="devmFrameFormatType">
+				<xs:annotation>
+					<xs:documentation>配置sdh/sonet</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="j0Mode" type="devmWANSdhFlagModeType">
+				<xs:annotation>
+					<xs:documentation>j0模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="j0Value">
+				<xs:annotation>
+					<xs:documentation>j0模式对应的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="j0Trace" default="NA">
+				<xs:annotation>
+					<xs:documentation>j0描述</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="j1Mode" type="devmWANSdhFlagModeType">
+				<xs:annotation>
+					<xs:documentation>j1模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="j1Value">
+				<xs:annotation>
+					<xs:documentation>j1模式对应的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="j1Trace" default="NA">
+				<xs:annotation>
+					<xs:documentation>j1描述</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="c2">
+				<xs:annotation>
+					<xs:documentation>C2</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="clock" type="devmSdhClockType">
+				<xs:annotation>
+					<xs:documentation>端口的主从时钟</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scramble" type="devmScrambleType">
+				<xs:annotation>
+					<xs:documentation> 端口是否加扰</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxj0Mode" type="devmSdhFlagModeType">
+				<xs:annotation>
+					<xs:documentation>rxj0模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxj0Value">
+				<xs:annotation>
+					<xs:documentation>rxj0模式对应的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxj0Trace">
+				<xs:annotation>
+					<xs:documentation>rxj0描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxj1Mode" type="devmSdhFlagModeType">
+				<xs:annotation>
+					<xs:documentation>rxj1模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxj1Value">
+				<xs:annotation>
+					<xs:documentation>rxj1模式对应的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxj1Trace">
+				<xs:annotation>
+					<xs:documentation>rxj1描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxc2">
+				<xs:annotation>
+					<xs:documentation>rxC2</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_e1t1Ports_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="e1t1" type="devmcposE1T1Type" maxOccurs="63"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devmChannelSetsType">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="channel-set" type="devmChannelSetType" minOccurs="0" maxOccurs="30"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_cposPort_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="clock" type="devmcposclockmodeType" default="master">
+				<xs:annotation>
+					<xs:documentation>时钟模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mappingMode" type="devmcposMapModeType" default="h-mode">
+				<xs:annotation>
+					<xs:documentation>映射模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loopback" type="devmcposLoopbackType" default="local">
+				<xs:annotation>
+					<xs:documentation>环回模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frameFormat" type="devmcposFrameFormatType" default="sdh">
+				<xs:annotation>
+					<xs:documentation>帧类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="multiplex" type="devmcposMultiplexType" default="au-3">
+				<xs:annotation>
+					<xs:documentation>AUG的复用模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="j0Mode" type="devmcposFrameFormatType">
+				<xs:annotation>
+					<xs:documentation>j0模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="j0Value" default="NetEngine">
+				<xs:annotation>
+					<xs:documentation>再生段跟踪字节的值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="j1Value" default="NetEngine">
+				<xs:annotation>
+					<xs:documentation>通道跟踪字节</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="c2Value" default="2">
+				<xs:annotation>
+					<xs:documentation>信号标记字节</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="e1t1s" type="devm_e1t1Ports_type">
+				<xs:annotation>
+					<xs:documentation>CPOS端口通道化成63路E1</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devmcposE1T1Type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="e1t1-Number">
+				<xs:annotation>
+					<xs:documentation>E1T1通道号(1-63)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="workMode" type="devmE1T1WorkModeType">
+				<xs:annotation>
+					<xs:documentation>配置非成帧模式/通道化模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clock" type="devmCposE1ClockModeType" default="master">
+				<xs:annotation>
+					<xs:documentation>E1T1时钟模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frameformat" type="devmCposE1FrameFormatType" default="no-crc4">
+				<xs:annotation>
+					<xs:documentation>通道帧格式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loopback" type="devmCposE1LoopbackType" default="local">
+				<xs:annotation>
+					<xs:documentation>环回模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="channel-sets" type="devmChannelSetsType">
+				<xs:annotation>
+					<xs:documentation>每路E1都有32个Channel-set属性</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devmChannelSetType">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="set-Number">
+				<xs:annotation>
+					<xs:documentation>时隙号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<key>true</key>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="30"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ts0" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>捆绑0号时隙</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="timeslot-list" type="devmTimeslotListType">
+				<xs:annotation>
+					<xs:documentation>指定捆绑时隙可以指定单个时隙和时隙范围。“,”分隔多个时隙，“-”表示时隙范围</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_posPort_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="frameFormat" type="devmFrameFormatType">
+				<xs:annotation>
+					<xs:documentation>配置sdh/sonet</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scramble" type="devmScrambleType">
+				<xs:annotation>
+					<xs:documentation> 端口是否加扰</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clock" type="devmSdhClockType">
+				<xs:annotation>
+					<xs:documentation>端口的主从时钟</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="j0Mode" type="devmSdhFlagModeType">
+				<xs:annotation>
+					<xs:documentation>j0模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="j0Value">
+				<xs:annotation>
+					<xs:documentation>j0模式对应的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="j0Trace" default="NA">
+				<xs:annotation>
+					<xs:documentation>j0描述</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="j1Mode" type="devmSdhFlagModeType">
+				<xs:annotation>
+					<xs:documentation>j1模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="j1Value">
+				<xs:annotation>
+					<xs:documentation>j1模式对应的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="j1Trace" default="NA">
+				<xs:annotation>
+					<xs:documentation>j1描述</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="crc" type="devmSdhCRCType">
+				<xs:annotation>
+					<xs:documentation>端口的CRC模式,可配置为32和64字节模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="c2">
+				<xs:annotation>
+					<xs:documentation>C2</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxj0Mode" type="devmSdhFlagModeType">
+				<xs:annotation>
+					<xs:documentation>rxj0模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxj0Value">
+				<xs:annotation>
+					<xs:documentation>rxj0模式对应的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxj0Trace">
+				<xs:annotation>
+					<xs:documentation>rxj0描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxj1Mode" type="devmSdhFlagModeType">
+				<xs:annotation>
+					<xs:documentation>rxj1模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rxj1Value">
+				<xs:annotation>
+					<xs:documentation>rxj1模式对应的字节数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="127"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxj1Trace">
+				<xs:annotation>
+					<xs:documentation>rxj1描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxc2">
+				<xs:annotation>
+					<xs:documentation>rxC2</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_e1t1Port_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="workMode" type="devmE1T1WorkModeType">
+				<xs:annotation>
+					<xs:documentation>配置成帧/非成帧模式,默认成帧模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frameFormat" type="devmE1CRCType">
+				<xs:annotation>
+					<xs:documentation>帧类型</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clock" type="devmE1ClockType">
+				<xs:annotation>
+					<xs:documentation>端口的主从时钟</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="code" type="devmE1CodeType">
+				<xs:annotation>
+					<xs:documentation>CE1接口的线路编解码格式hdb3/ami</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loopback" type="devmE1LoopbackType" default="local">
+				<xs:annotation>
+					<xs:documentation>环回模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="channel-sets" type="devmChannelSetsType">
+				<xs:annotation>
+					<xs:documentation>每路E1都有32个Channel-set属性</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_otnPort_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="crc">
+				<xs:annotation>
+					<xs:documentation>端口的CRC模式,不可配置</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxotutti">
+				<xs:annotation>
+					<xs:documentation> 端口接收到的otutti</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxodutti">
+				<xs:annotation>
+					<xs:documentation> 端口接收到的odutti</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxtcm1tti">
+				<xs:annotation>
+					<xs:documentation> 端口接收到的tcm1tt</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxtcm2tti">
+				<xs:annotation>
+					<xs:documentation> 端口接收到的tcm2tti</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxtcm3tti">
+				<xs:annotation>
+					<xs:documentation> 端口接收到的tcm3tti</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxtcm4tti">
+				<xs:annotation>
+					<xs:documentation> 端口接收到的tcm4tti</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxtcm5tti">
+				<xs:annotation>
+					<xs:documentation> 端口接收到的tcm5tti</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rxtcm6tti">
+				<xs:annotation>
+					<xs:documentation> 端口接收到的tcm6tti</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fecMode" type="devmOtnFecModeType">
+				<xs:annotation>
+					<xs:documentation>fec模式</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdThreshold">
+				<xs:annotation>
+					<xs:documentation>表示光发送单元信号衰减告警门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sfThreshold">
+				<xs:annotation>
+					<xs:documentation>表示光发送单元信号失效告警门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="otuttiSent" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口发送otutti配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="oduttiSent" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口发送odutti配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti1Sent" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口发送tcmtti1配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti2Sent" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口发送tcmtti2配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti3Sent" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口发送tcmtti3配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti4Sent" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口发送tcmtti4配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti5Sent" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口发送tcmtti5配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti6Sent" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口发送tcmtti6配置</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="otuttiExpt" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口期望的otutti值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="oduttiExpt" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口期望的odutti值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti1Expt" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口期望的tcmtti1值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti2Expt" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口期望的tcmtti2值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti3Expt" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口期望的tcmtti3值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti4Expt" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口期望的tcmtti4值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti5Expt" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口期望的tcmtti5值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tcmtti6Expt" default="NA">
+				<xs:annotation>
+					<xs:documentation>端口期望的tcmtti6值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_cpuInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cpuInfo" type="devm_cpuInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_cpuInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="systemCpuUsage" default="0">
+				<xs:annotation>
+					<xs:documentation>系统CPU使用率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ovloadThreshold" default="0">
+				<xs:annotation>
+					<xs:documentation>过载门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unovloadThreshold" default="0">
+				<xs:annotation>
+					<xs:documentation>去过载门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_ecuBoards_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ecuBoard" type="devm_ecuBoard_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_ecuBoard_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>单板类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdramSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>sdram空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flashSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>flash空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>启动时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ofcCardNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>光子卡个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subSlotNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>光子卡槽位个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_icuBoards_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="icuBoard" type="devm_icuBoard_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_icuBoard_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>单板类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdramSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>sdram空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flashSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>flash空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>启动时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_memoryInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="memoryInfo" type="devm_memoryInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_memoryInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="osMemoryTotal" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>系统内存总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="osMemoryUse" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>系统内存已用数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="osMemoryFree" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>系统内存剩余数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="osMemoryUsage" default="0">
+				<xs:annotation>
+					<xs:documentation>系统内存使用百分比</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="doMemoryTotal" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>vrp内存总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="doMemoryUse" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>vrp内存已用数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="doMemoryFree" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>vrp内存剩余数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="doMemoryUsage" default="0">
+				<xs:annotation>
+					<xs:documentation>vrp内存使用百分比</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="simpleMemoryTotal" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>simple内存总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="simpleMemoryUse" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>simple内存已用数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="simpleMemoryFree" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>simple内存剩余数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="simpleMemoryUsage" default="0">
+				<xs:annotation>
+					<xs:documentation>simple内存使用百分比</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ovloadThreshold" default="0">
+				<xs:annotation>
+					<xs:documentation>过载门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="unovloadThreshold" default="0">
+				<xs:annotation>
+					<xs:documentation>去过载门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_temperatureInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="temperatureInfo" type="devm_temperatureInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_temperatureInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pcbName">
+				<xs:annotation>
+					<xs:documentation>单板类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="i2c" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>i2c总线号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="address">
+				<xs:annotation>
+					<xs:documentation>传感器地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="channel" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>传感器通道号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="state" type="devmTempVoltStateType">
+				<xs:annotation>
+					<xs:documentation>传感器状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currentTemperature" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>当前温度信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="minorAlmThreshold" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>温度下限值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="majorAlmThreshold" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>温度上限值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fatalAlmThreshold" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>温度极限值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_voltageInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="voltageInfo" type="devm_voltageInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_voltageInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pcbName">
+				<xs:annotation>
+					<xs:documentation>单板类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="i2c" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>i2c总线号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="address">
+				<xs:annotation>
+					<xs:documentation>传感器地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="channel" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>电压传感器状态</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="state" type="devmTempVoltStateType">
+				<xs:annotation>
+					<xs:documentation>电压传感器状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="currentVoltage">
+				<xs:annotation>
+					<xs:documentation>当前电压值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="requiredVoltage">
+				<xs:annotation>
+					<xs:documentation>所需基础电压</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lowThreshold">
+				<xs:annotation>
+					<xs:documentation>电压下限</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="highThreshold">
+				<xs:annotation>
+					<xs:documentation>电压上限</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_sfuBoards_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sfuBoard" type="devm_sfuBoard_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_sfuBoard_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boardType" type="devmBoardType">
+				<xs:annotation>
+					<xs:documentation>网板类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdramSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>SDRAM存储容量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flashSize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>网板上flash空间大小</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="upTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>启动时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_cfCards_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cfCard" type="devm_cfCard_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_cfCard_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entSerialNo">
+				<xs:annotation>
+					<xs:documentation>实体内部编号，主要用来标识器件类顺序，与位置作为联合主键</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardType" type="devmSubCardType">
+				<xs:annotation>
+					<xs:documentation>卡类型，取值与HUAWEI-TC-MIB保持一致</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="memorySize" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>存储容量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="memoryUsed" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>已用空间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>M Bytes</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="memoryUsage" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>可用空间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unit>%</unit>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_innerLinks_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="innerLink" type="devm_innerLink_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_innerLink_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="linkIndex">
+				<xs:annotation>
+					<xs:documentation>链路索引</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="linkName">
+				<xs:annotation>
+					<xs:documentation>链路名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="linkType" type="devmInnerlinkType">
+				<xs:annotation>
+					<xs:documentation>链路类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="leftChassisPosition">
+				<xs:annotation>
+					<xs:documentation>链路左端框位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="leftChassisType" type="devmChassisSvcType">
+				<xs:annotation>
+					<xs:documentation>链路左端框类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rightChassisPosition">
+				<xs:annotation>
+					<xs:documentation>端口右端的框位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rightChassisType" type="devmChassisSvcType">
+				<xs:annotation>
+					<xs:documentation>端口右端的框类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="operState" type="devmInnerLinkOperStateType">
+				<xs:annotation>
+					<xs:documentation>运行状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alarmState" type="devmInnerLinkAlarmType">
+				<xs:annotation>
+					<xs:documentation>告警状态，取值从HUAWEI-INNER-LINK-MIB继承而来</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phyInnerLinks" type="devm_phyInnerLinks_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_rUModuleInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="entClass" type="devmEntityClassType">
+				<xs:annotation>
+					<xs:documentation>实体类别，与位置和内部编号作为联合主键</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息，与实体类别和内部编号作为联合主键</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entSerialNo">
+				<xs:annotation>
+					<xs:documentation>实体内部编号，主要用来标识器件类顺序，与类别和位置作为联合主键</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引，因主机内部标识，不做为主键，但同时也是唯一标识</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entBomId">
+				<xs:annotation>
+					<xs:documentation>The identity of the Bill of Material about this replaceable unit which coded by vendor. This node is mapping to 'ITEM' in the information file.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entSerialNum">
+				<xs:annotation>
+					<xs:documentation>条形码</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entBomEnDesc">
+				<xs:annotation>
+					<xs:documentation>The English description of the Bill of Material about this replaceable unit.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entBomLocalDesc">
+				<xs:annotation>
+					<xs:documentation>The local description of the Bill of Material about this replaceable unit.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entMfgName">
+				<xs:annotation>
+					<xs:documentation>制造商名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entManufacturedDate">
+				<xs:annotation>
+					<xs:documentation>生产日期</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entManufactureCode">
+				<xs:annotation>
+					<xs:documentation>The code of the place where this physical entity is Manufactured.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entBoardType">
+				<xs:annotation>
+					<xs:documentation>The type code for entity.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entAssetID">
+				<xs:annotation>
+					<xs:documentation>资产ID</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entCLEICode">
+				<xs:annotation>
+					<xs:documentation>The string code of CLEI which was granted by America.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entUpdateLog">
+				<xs:annotation>
+					<xs:documentation>The maintenance log of this replaceable unit.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entArchivesInfoVersion">
+				<xs:annotation>
+					<xs:documentation>The Version of Archives Information.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entOpenBomId">
+				<xs:annotation>
+					<xs:documentation>The BomId for distribution. It is different from hwEntityBomId.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIssueNum">
+				<xs:annotation>
+					<xs:documentation>The issue number for hardware change.</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_rUModuleInfos_type">
+		<xs:sequence>
+			<xs:element name="rUModuleInfo" type="devm_rUModuleInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_phyInnerLink_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="phyInnerLinkName">
+				<xs:annotation>
+					<xs:documentation>物理链路名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="leftPortName">
+				<xs:annotation>
+					<xs:documentation>物理链路左端口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rightPortName">
+				<xs:annotation>
+					<xs:documentation>物理链路右端口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="phyOperStatus" type="devmEntityOperState">
+				<xs:annotation>
+					<xs:documentation>运行状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="repairId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>修复建议码</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="repairDescr">
+				<xs:annotation>
+					<xs:documentation>修复建议码对应的英文描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="checkPoints" type="devm_phyInnerLink_checkPoints_type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_phyInnerLinks_type">
+		<xs:sequence>
+			<xs:element name="phyInnerLink" type="devm_phyInnerLink_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_phyInnerLink_checkPoint_type">
+		<xs:annotation>
+			<xs:documentation>框间链路故障检测点</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index">
+				<xs:annotation>
+					<xs:documentation>检测点序号。</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entityName">
+				<xs:annotation>
+					<xs:documentation>检测点名称。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entityClass" type="devmEntityClassType">
+				<xs:annotation>
+					<xs:documentation>检测点类型。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="devmEntityOperState">
+				<xs:annotation>
+					<xs:documentation>检测状态。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reasonId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>检测点故障原因码。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reasonDescr">
+				<xs:annotation>
+					<xs:documentation>修复建议码对应的英文描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="repairId" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>检测点修复建议码。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="repairDescr">
+				<xs:annotation>
+					<xs:documentation>修复建议码对应的英文描述</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_phyInnerLink_checkPoints_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>框间链路故障检测点列表</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="checkPoint" type="devm_phyInnerLink_checkPoint_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_portAlarmInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="crcEnabledDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Crc错误告警联动接口物理down状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="crcErrorHighThreshold" default="1000">
+				<xs:annotation>
+					<xs:documentation>Crc错误告警高门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="crcErrorLowThreshold" default="100">
+				<xs:annotation>
+					<xs:documentation>Crc错误告警低门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="crcErrorInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>Crc错误告警时间阀值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="inputEnabledDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Input错误告警联动接口物理down状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputErrorHighThreshold" default="1000">
+				<xs:annotation>
+					<xs:documentation>Input错误告警高门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="inputErrorLowThreshold" default="100">
+				<xs:annotation>
+					<xs:documentation>Input错误告警低门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="inputErrorInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>Input错误告警时间阀值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outputEnabledDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Output错误告警联动接口物理down状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outputErrorHighThreshold" default="1000">
+				<xs:annotation>
+					<xs:documentation>Output错误告警高门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outputErrorLowThreshold" default="100">
+				<xs:annotation>
+					<xs:documentation>Output错误告警低门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outputErrorInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>Output错误告警时间阀值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ethPortAlarmInfo" type="devm_ethPortAlarmInfo_type">
+				<xs:annotation>
+					<xs:documentation>以太端口错误告警信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdhPortAlarmInfo" type="devm_sdhPortAlarmInfo_type">
+				<xs:annotation>
+					<xs:documentation>SDH端口错误告警信息</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_ethPortAlarmInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="symbolEnabledDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Symbol错误告警联动接口物理down状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="symbolErrorHighThreshold" default="1000">
+				<xs:annotation>
+					<xs:documentation>Symbol错误告警高门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="symbolErrorLowThreshold" default="100">
+				<xs:annotation>
+					<xs:documentation>Symbol错误告警低门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="symbolErrorInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>Symbol错误告警时间阀值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bip8SdEnabledDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>BIP8-SD告警联动接口物理down状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bip8SdErrorHighThreshold" default="6">
+				<xs:annotation>
+					<xs:documentation>BIP8-SD告警门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>10的幂次方</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="6"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_sdhPortAlarmInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sdhEnabledDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>Sdh错误告警联动接口物理down状态</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sdhErrorHighThreshold" default="1000">
+				<xs:annotation>
+					<xs:documentation>Sdh错误告警高门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sdhErrorLowThreshold" default="100">
+				<xs:annotation>
+					<xs:documentation>Sdh错误告警低门限</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>个错包</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sdhErrorInterval" default="10">
+				<xs:annotation>
+					<xs:documentation>Sdh错误告警时间阀值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_hardwareInfos_type">
+		<xs:sequence>
+			<xs:element name="hardwareInfo" type="devm_hardwareInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_hardwareInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="hardwareName" type="devmHardType">
+				<xs:annotation>
+					<xs:documentation>兼容性设备的硬件类型名，例如CR56LPUE</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hardwareType" type="devmEntityClassType">
+				<xs:annotation>
+					<xs:documentation>兼容性设备的设备类型名，例如单板、子卡</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_transAlarmInfo_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dampSuppress" default="2000">
+				<xs:annotation>
+					<xs:documentation>告警抑制门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="2"/>
+						<xs:maxInclusive value="19999"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dampReuse" default="750">
+				<xs:annotation>
+					<xs:documentation>告警重用门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="19998"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dampCeiling" default="6000">
+				<xs:annotation>
+					<xs:documentation>告警最高门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1001"/>
+						<xs:maxInclusive value="20000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dampDecayOk" default="1000">
+				<xs:annotation>
+					<xs:documentation>告警消除时的半衰期</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>毫秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="500"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dampDecayNg" default="1000">
+				<xs:annotation>
+					<xs:documentation>告警产生时的半衰期</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>毫秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="500"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="holdoffTimer" default="50">
+				<xs:annotation>
+					<xs:documentation>端口状态变为Down的告警信息过滤时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>毫秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="20"/>
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="holdupTimer" default="200">
+				<xs:annotation>
+					<xs:documentation>端口状态变为Up的告警信息过滤时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>毫秒</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="200"/>
+						<xs:maxInclusive value="300000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="thresholdB3tca" default="6">
+				<xs:annotation>
+					<xs:documentation>B3超越门限值告警指示的门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>10e-n</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="thresholdB1tca" default="6">
+				<xs:annotation>
+					<xs:documentation>B1超越门限值告警指示的门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>10e-n</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="thresholdB2tca" default="6">
+				<xs:annotation>
+					<xs:documentation>B2超越门限值告警指示的门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>10e-n</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="thresholdSdbere" default="6">
+				<xs:annotation>
+					<xs:documentation>信号损耗门限告警指示的门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>10e-n</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="thresholdSfbere" default="3">
+				<xs:annotation>
+					<xs:documentation>信号失效门限告警指示的门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+						<unit>10e-n</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="9"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="almLastresettime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>最近一次执行命令reset transmission-alarm statistic的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filterFunction" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>过滤功能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dampingFunction" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>抑制功能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transAlarmIfDowns" type="devm_transAlarmIfDowns_type">
+				<xs:annotation>
+					<xs:documentation>传输告警</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="devm_transAlarmIfDowns_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="transAlarmIfDown" type="devm_transAlarmIfDown_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_transAlarmIfDown_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="alarmType" type="devm_transAlarmType_type">
+				<xs:annotation>
+					<xs:documentation>告警类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>此告警是否可以使接口的物理层状态变为Down</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alarmStatus" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>告警状态,Up/Down</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alarmToLog" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>此告警是否产生日志信息</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsInFiltering" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>此告警是否正在被过滤</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsInSuppressing" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>此告警是否正在被抑制</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IsInAging" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>此告警是否正在老化</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flappingCount">
+				<xs:annotation>
+					<xs:documentation>振荡次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="suppressingCount">
+				<xs:annotation>
+					<xs:documentation>振荡次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="figureOfMerit">
+				<xs:annotation>
+					<xs:documentation>告警的惩罚值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="slotVeIfMacType">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="l2VeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>MAC address of L2VE interface</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accessVeMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>MAC address of L3VE interface</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_areaEnergyInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="areaEnergyInfo" type="devm_areaEnergyInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_areaEnergyInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="chassisPos">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="areaID" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>电源分区</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="areaRatedPower">
+				<xs:annotation>
+					<xs:documentation>额定功耗</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="areaUsedPower">
+				<xs:annotation>
+					<xs:documentation>已用功耗</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="areaLeftPower">
+				<xs:annotation>
+					<xs:documentation>剩余功耗</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="brdEnergyInfos" type="devm_brdEnergyInfos_type">
+				<xs:annotation>
+					<xs:documentation>单板功耗</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="devm_brdEnergyInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="brdEnergyInfo" type="devm_brdEnergyInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="devm_brdEnergyInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="entIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pcbName">
+				<xs:annotation>
+					<xs:documentation>单板类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="voltageValue">
+				<xs:annotation>
+					<xs:documentation>当前电压</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="electricalValue">
+				<xs:annotation>
+					<xs:documentation>当前电流</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="currentPower">
+				<xs:annotation>
+					<xs:documentation>当前功耗</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ratedPower">
+				<xs:annotation>
+					<xs:documentation>额定功耗</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="powerThreshold">
+				<xs:annotation>
+					<xs:documentation>功耗阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="efficiency">
+				<xs:annotation>
+					<xs:documentation>电源模块效率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

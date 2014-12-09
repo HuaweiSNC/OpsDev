@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.2
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.huawei.com/netconf/vrp" xmlns="http://www.huawei.com/netconf/vrp" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+	<xs:simpleType name="isiscommLevelType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="level_1">
+				<xs:annotation>
+					<xs:documentation>level-1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="level_2">
+				<xs:annotation>
+					<xs:documentation>level-2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="level_1_2">
+				<xs:annotation>
+					<xs:documentation>level-1-2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="isiscommLevelTypeWithZero">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="no_set">
+				<xs:annotation>
+					<xs:documentation>no-set:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="level_1">
+				<xs:annotation>
+					<xs:documentation>level-1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="level_2">
+				<xs:annotation>
+					<xs:documentation>level-2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="level_1_2">
+				<xs:annotation>
+					<xs:documentation>level-1-2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+    <xs:simpleType name="isiscommAuthCmdType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="area" >
+                <xs:annotation>
+                    <xs:documentation>area:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="domain" >
+                <xs:annotation>
+                    <xs:documentation>domain:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>	
+    <xs:simpleType name="isiscommBfdStateType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="unknown" >
+                <xs:annotation>
+                    <xs:documentation>unknown:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="down" >
+                <xs:annotation>
+                    <xs:documentation>down:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="up" >
+                <xs:annotation>
+                    <xs:documentation>up:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>			
+        </xs:restriction>
+    </xs:simpleType>	
+    <xs:simpleType name="isiscommBfdConfigType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="disable" >
+                <xs:annotation>
+                    <xs:documentation>disable:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="enable" >
+                <xs:annotation>
+                    <xs:documentation>enable:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>			
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommAuthType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="simple" >
+                <xs:annotation>
+                    <xs:documentation>simple:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="md5" >
+                <xs:annotation>
+                    <xs:documentation>md5:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="keychain" >
+                <xs:annotation>
+                    <xs:documentation>keychain:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="hmac_sha256" >
+                <xs:annotation>
+                    <xs:documentation>hmac-sha256:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsServiceType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="ip" >
+                <xs:annotation>
+                    <xs:documentation>ip:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="osi" >
+                <xs:annotation>
+                    <xs:documentation>osi:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommLspFragMode" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="mode_1" >
+                <xs:annotation>
+                    <xs:documentation>mode-1:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="mode_2" >
+                <xs:annotation>
+                    <xs:documentation>mode-2:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommCostStyle" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="narrow" >
+                <xs:annotation>
+                    <xs:documentation>narrow:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="wide" >
+                <xs:annotation>
+                    <xs:documentation>wide:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="transition" >
+                <xs:annotation>
+                    <xs:documentation>transition:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ntransition" >
+                <xs:annotation>
+                    <xs:documentation>ntransition:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="wtransition" >
+                <xs:annotation>
+                    <xs:documentation>wtransition:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsImportCostT" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="external" >
+                <xs:annotation>
+                    <xs:documentation>external:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="internal" >
+                <xs:annotation>
+                    <xs:documentation>internal:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsAfType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="afIpv4" >
+                <xs:annotation>
+                    <xs:documentation>afIpv4:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="afIpv6" >
+                <xs:annotation>
+                    <xs:documentation>afIpv6:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+	<xs:simpleType name="isiscommBaseTopoType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="standard" >
+                <xs:annotation>
+                    <xs:documentation>standard:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="compatible" >
+                <xs:annotation>
+                    <xs:documentation>compatible:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipv6" >
+                <xs:annotation>
+                    <xs:documentation>ipv6:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="cmpt_ipv6spf" >
+                <xs:annotation>
+                    <xs:documentation>cmpt-ipv6spf:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="invalid" >
+                <xs:annotation>
+                    <xs:documentation>invalid:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommWaitType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="wait_for_bgp" >
+                <xs:annotation>
+                    <xs:documentation>wait_for_bgp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="start_from_nbr" >
+                <xs:annotation>
+                    <xs:documentation>start_from_nbr:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="no_wait" >
+                <xs:annotation>
+                    <xs:documentation>no_wait:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommPadType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="normal" >
+                <xs:annotation>
+                    <xs:documentation>normal:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="padding" >
+                <xs:annotation>
+                    <xs:documentation>padding:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="small" >
+                <xs:annotation>
+                    <xs:documentation>small:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommP2pNegotiation" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="2_way" >
+                <xs:annotation>
+                    <xs:documentation>2-way:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3_way" >
+                <xs:annotation>
+                    <xs:documentation>3-way:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3_wayonly" >
+                <xs:annotation>
+                    <xs:documentation>3-wayonly:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommMetricType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="relative" >
+                <xs:annotation>
+                    <xs:documentation>relative:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="absloate" >
+                <xs:annotation>
+                    <xs:documentation>absloate:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommNSRStatu" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="Realtime_backup" >
+                <xs:annotation>
+                    <xs:documentation>Realtime_backup:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="smoothing" >
+                <xs:annotation>
+                    <xs:documentation>smoothing:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="batch_backup" >
+                <xs:annotation>
+                    <xs:documentation>batch_backup:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommBackupStatu" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="presentt" >
+                <xs:annotation>
+                    <xs:documentation>presentt:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="absent" >
+                <xs:annotation>
+                    <xs:documentation>absent:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommGRStatu" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="Starting" >
+                <xs:annotation>
+                    <xs:documentation>Starting:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Restarting" >
+                <xs:annotation>
+                    <xs:documentation>Restarting:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RestartComplete" >
+                <xs:annotation>
+                    <xs:documentation>RestartComplete:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="InvalidStatus" >
+                <xs:annotation>
+                    <xs:documentation>InvalidStatus:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommSPFType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="ISPF" >
+                <xs:annotation>
+                    <xs:documentation>ISPF:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FullSPF" >
+                <xs:annotation>
+                    <xs:documentation>FullSPF:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommHostNameType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="STATIC" >
+                <xs:annotation>
+                    <xs:documentation>STATIC:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DYNAMIC" >
+                <xs:annotation>
+                    <xs:documentation>DYNAMIC:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsRouteType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="Learnt" >
+                <xs:annotation>
+                    <xs:documentation>Learnt:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Direct" >
+                <xs:annotation>
+                    <xs:documentation>Direct:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Attached" >
+                <xs:annotation>
+                    <xs:documentation>Attached:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Summary_Block" >
+                <xs:annotation>
+                    <xs:documentation>Summary_Block:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Import" >
+                <xs:annotation>
+                    <xs:documentation>Import:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommAdjStatus" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="Init" >
+                <xs:annotation>
+                    <xs:documentation>Init:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="UP" >
+                <xs:annotation>
+                    <xs:documentation>UP:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommLdpSyncState" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="noConfig" >
+                <xs:annotation>
+                    <xs:documentation>noConfig:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="enable" >
+                <xs:annotation>
+                    <xs:documentation>enable:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+			<xs:enumeration value="block" >
+                <xs:annotation>
+                    <xs:documentation>block:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommNlpType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="IPV4" >
+                <xs:annotation>
+                    <xs:documentation>IPV4:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="IPV6" >
+                <xs:annotation>
+                    <xs:documentation>IPV6:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommAdjProtocolType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="IPV4" >
+                <xs:annotation>
+                    <xs:documentation>IPV4:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="IPV6" >
+                <xs:annotation>
+                    <xs:documentation>IPV6:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommLinkType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="MULACC" >
+                <xs:annotation>
+                    <xs:documentation>MULACC:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="P2P" >
+                <xs:annotation>
+                    <xs:documentation>P2P:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommTunnelType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="FA" >
+                <xs:annotation>
+                    <xs:documentation>FA:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="AA" >
+                <xs:annotation>
+                    <xs:documentation>AA:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommNodeFlagType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="T" >
+                <xs:annotation>
+                    <xs:documentation>T:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="R" >
+                <xs:annotation>
+                    <xs:documentation>R:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="O" >
+                <xs:annotation>
+                    <xs:documentation>O:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="D" >
+                <xs:annotation>
+                    <xs:documentation>D:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommThreeWayOnly" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="only" >
+                <xs:annotation>
+                    <xs:documentation>only:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsEnableMtSpf" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="enable_mt_spf" >
+                <xs:annotation>
+                    <xs:documentation>enable-mt-spf:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommRelaxSpfLimit" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="relax_spf_limit" >
+                <xs:annotation>
+                    <xs:documentation>relax-spf-limit:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsImportProtT" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="direct" >
+                <xs:annotation>
+                    <xs:documentation>direct:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ospf" >
+                <xs:annotation>
+                    <xs:documentation>ospf:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="isis" >
+                <xs:annotation>
+                    <xs:documentation>isis:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="static" >
+                <xs:annotation>
+                    <xs:documentation>static:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="rip" >
+                <xs:annotation>
+                    <xs:documentation>rip:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="bgp" >
+                <xs:annotation>
+                    <xs:documentation>bgp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+			<xs:enumeration value="ospfv3" >
+                <xs:annotation>
+                    <xs:documentation>ospfv3:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+			<xs:enumeration value="ripng" >
+                <xs:annotation>
+                    <xs:documentation>ripng:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+			<xs:enumeration value="all" >
+                <xs:annotation>
+                    <xs:documentation>all:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommLspLengthType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="originate" >
+                <xs:annotation>
+                    <xs:documentation>originate:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="receive" >
+                <xs:annotation>
+                    <xs:documentation>receive:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsOverLoadType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="no_set" >
+                <xs:annotation>
+                    <xs:documentation>no_set:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="on_startup" >
+                <xs:annotation>
+                    <xs:documentation>on_startup:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="maunal" >
+                <xs:annotation>
+                    <xs:documentation>maunal:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsPolicyType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="noType" >
+                <xs:annotation>
+                    <xs:documentation>noType:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="aclNumOrName" >
+                <xs:annotation>
+                    <xs:documentation>aclNumOrName:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipPrefix" >
+                <xs:annotation>
+                    <xs:documentation>ipPrefix:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="routePolicy" >
+                <xs:annotation>
+                    <xs:documentation>routePolicy:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>		
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsBfdSessType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="noSession" >
+                <xs:annotation>
+                    <xs:documentation>noSession:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="all" >
+                <xs:annotation>
+                    <xs:documentation>all:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="peer" >
+                <xs:annotation>
+                    <xs:documentation>peer:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsBfdState" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="unknow" >
+                <xs:annotation>
+                    <xs:documentation>unknow:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="disable" >
+                <xs:annotation>
+                    <xs:documentation>disable:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="enable" >
+                <xs:annotation>
+                    <xs:documentation>enable:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsBfdDiag" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="noDiagInfo" >
+                <xs:annotation>
+                    <xs:documentation>noDiagInfo:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="adminDown" >
+                <xs:annotation>
+                    <xs:documentation>adminDown:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="glbBfdDisEn" >
+                <xs:annotation>
+                    <xs:documentation>glbBfdDisEn:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="bfdSessMax" >
+                <xs:annotation>
+                    <xs:documentation>bfdSessMax:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="noPackRecv" >
+                <xs:annotation>
+                    <xs:documentation>noPackRecv:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="nbrDown" >
+                <xs:annotation>
+                    <xs:documentation>nbrDown:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="adminDownEvent" >
+                <xs:annotation>
+                    <xs:documentation>adminDownEvent:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommYesNo" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="NO" >
+                <xs:annotation>
+                    <xs:documentation>NO:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="YES" >
+                <xs:annotation>
+                    <xs:documentation>YES:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommCircType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="IS_ETH" >
+                <xs:annotation>
+                    <xs:documentation>IS_ETH:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="IS_P2P" >
+                <xs:annotation>
+                    <xs:documentation>IS_P2P:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="IS_NBMA" >
+                <xs:annotation>
+                    <xs:documentation>IS_NBMA:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommLevelTypeShow" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="Level_None" >
+                <xs:annotation>
+                    <xs:documentation>Level-None:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Level_1" >
+                <xs:annotation>
+                    <xs:documentation>Level-1:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Level_2" >
+                <xs:annotation>
+                    <xs:documentation>Level-2:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Level_12" >
+                <xs:annotation>
+                    <xs:documentation>Level-12:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsUpDown" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="Down" >
+                <xs:annotation>
+                    <xs:documentation>Down:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Up" >
+                <xs:annotation>
+                    <xs:documentation>Up:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsdefaultMode" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="always" >
+                <xs:annotation>
+                    <xs:documentation>always:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="matchDefault" >
+                <xs:annotation>
+                    <xs:documentation>matchDefault:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="matchAny" >
+                <xs:annotation>
+                    <xs:documentation>matchAny:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsNmDbgSwth" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="adj" >
+                <xs:annotation>
+                    <xs:documentation>adj:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="circ" >
+                <xs:annotation>
+                    <xs:documentation>circ:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="all" >
+                <xs:annotation>
+                    <xs:documentation>all:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsProtocolId" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="isis" >
+                <xs:annotation>
+                    <xs:documentation>isis:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsLsdbDbgSwth" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="circ" >
+                <xs:annotation>
+                    <xs:documentation>circ:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="updt" >
+                <xs:annotation>
+                    <xs:documentation>updt:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="lsp" >
+                <xs:annotation>
+                    <xs:documentation>lsp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="snp" >
+                <xs:annotation>
+                    <xs:documentation>snp:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="all" >
+                <xs:annotation>
+                    <xs:documentation>all:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsSpfDbgSwth" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="spf" >
+                <xs:annotation>
+                    <xs:documentation>spf:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="all" >
+                <xs:annotation>
+                    <xs:documentation>all:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsCrmDbgSwth" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="prc" >
+                <xs:annotation>
+                    <xs:documentation>prc:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="impt" >
+                <xs:annotation>
+                    <xs:documentation>impt:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="all" >
+                <xs:annotation>
+                    <xs:documentation>all:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsDbgType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="instance" >
+                <xs:annotation>
+                    <xs:documentation>instance:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ifindex" >
+                <xs:annotation>
+                    <xs:documentation>ifindex:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommMeshGroupState" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="inactive" >
+                <xs:annotation>
+                    <xs:documentation>inactive:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="blocked" >
+                <xs:annotation>
+                    <xs:documentation>blocked:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="set" >
+                <xs:annotation>
+                    <xs:documentation>set:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommAuthUsageType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="usage_default" >
+                <xs:annotation>
+                    <xs:documentation>usage-default:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="authentication_avoid" >
+                <xs:annotation>
+                    <xs:documentation>authentication-avoid:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="send_only" >
+                <xs:annotation>
+                    <xs:documentation>send-only:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="all_send_only" >
+                <xs:annotation>
+                    <xs:documentation>all-send-only:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommIsHostType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="STATIC" >
+                <xs:annotation>
+                    <xs:documentation>STATIC:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="DYNAMIC" >
+                <xs:annotation>
+                    <xs:documentation>DYNAMIC:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommPreferenceType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="noType" >
+                <xs:annotation>
+                    <xs:documentation>noType:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="routePolicy" >
+                <xs:annotation>
+                    <xs:documentation>routePolicy:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommFrrPolicyType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="noType" >
+                <xs:annotation>
+                    <xs:documentation>noType:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="routePolicy" >
+                <xs:annotation>
+                    <xs:documentation>routePolicy:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommFilterType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="aclNumOrName" >
+                <xs:annotation>
+                    <xs:documentation>aclNumOrName:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ipPrefix" >
+                <xs:annotation>
+                    <xs:documentation>ipPrefix:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="routePolicy" >
+                <xs:annotation>
+                    <xs:documentation>routePolicy:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>		
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="isiscommbfdEnableType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="NoConfig" >
+                <xs:annotation>
+                    <xs:documentation>NoConfig:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Enable" >
+                <xs:annotation>
+                    <xs:documentation>Enable:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Block" >
+                <xs:annotation>
+                    <xs:documentation>Block:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Static" >
+                <xs:annotation>
+                    <xs:documentation>Static:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>			
+        </xs:restriction>
+    </xs:simpleType>
+	<xs:simpleType name="isiscommRoutePriorityFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="tag">
+				<xs:annotation>
+					<xs:documentation>tag:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ipPrefix">
+				<xs:annotation>
+					<xs:documentation>ipPrefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="isiscommRoutePriorityType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="medium">
+				<xs:annotation>
+					<xs:documentation>medium:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="high">
+				<xs:annotation>
+					<xs:documentation>high:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="critical">
+				<xs:annotation>
+					<xs:documentation>critical:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

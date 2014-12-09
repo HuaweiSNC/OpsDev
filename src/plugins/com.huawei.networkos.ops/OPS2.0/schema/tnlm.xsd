@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.huawei.com/netconf/vrp" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="tnlm_type.xsd"/>
+	<xs:element name="tnlm" type="tnlm_tnlm_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>tnlm</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="tnlm_tnlm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tunnelPolicys" type="tnlm_tunnelPolicys_type"/>
+			<xs:element name="tunnelInfos" type="tnlm_tunnelInfos_type"/>
+			<xs:element name="tnlStatisticss" type="tnlm_tnlStatisticss_type"/>
+			<xs:element name="tunnelProtocols" type="tnlm_tunnelProtocols_type"/>
+			<xs:element name="subTnlPolicys" type="subTnlPolicysType"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tunnelPolicys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tunnelPolicy" type="tnlm_tunnelPolicy_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tunnelPolicy_type">
+		<xs:annotation>
+			<xs:documentation>隧道策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tnlPolicyName">
+				<xs:annotation>
+					<xs:documentation>隧道策略名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="tnlm_tunnelPolicy_tnlPolicyName_type">
+							<xs:attribute name="tnlPolicyID" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="tnlPolicyType" type="tnlmbaseTnlPolicyType" default="invalid">
+				<xs:annotation>
+					<xs:documentation>隧道策略类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="loadBalanceNum" default="1">
+				<xs:annotation>
+					<xs:documentation>负载分担数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tnlTypeSeq" type="tnlmbaseTypeSeq" default="lsp">
+				<xs:annotation>
+					<xs:documentation>隧道类型序列</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tpNexthops" type="tnlm_tpNexthops_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="tnlm_tunnelPolicy_tnlPolicyName_type">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="39"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="tnlm_tpNexthops_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpNexthop" type="tnlm_tpNexthop_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tpNexthop_type">
+		<xs:annotation>
+			<xs:documentation>隧道策略下一跳信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nexthopIPaddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>配置规则对应的下一跳</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="downSwitch" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>绑定控制标识</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ignoreDestCheck" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>目的地址一致性检查标识</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tpTunnels" type="tnlm_tpTunnels_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tpTunnels_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpTunnel" type="tnlm_tpTunnel_type" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tpTunnel_type">
+		<xs:annotation>
+			<xs:documentation>隧道策略规则</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tunnelName">
+				<xs:annotation>
+					<xs:documentation>隧道名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tunnelInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tunnelInfo" type="tnlm_tunnelInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tunnelInfo_type">
+		<xs:annotation>
+			<xs:documentation>隧道基本信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tunnelID">
+				<xs:annotation>
+					<xs:documentation>隧道ID</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="36"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tunnelName">
+				<xs:annotation>
+					<xs:documentation>隧道名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tunnelType" type="tnlmbaseTnlType">
+				<xs:annotation>
+					<xs:documentation>隧道类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destination" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>隧道目的地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tunnelStatus" type="tnlmbaseTnlStatus">
+				<xs:annotation>
+					<xs:documentation>隧道状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tunnelCost" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>隧道Cost</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tnlStatisticss_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tnlStatistics" type="tnlm_tnlStatistics_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tnlStatistics_type">
+		<xs:annotation>
+			<xs:documentation>隧道统计信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tunnelType" type="tnlmbaseTnlType">
+				<xs:annotation>
+					<xs:documentation>隧道类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tunnelNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>隧道数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tunnelProtocols_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tunnelProtocol" type="tnlm_tunnelProtocol_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="tnlm_tunnelProtocol_type">
+		<xs:annotation>
+			<xs:documentation>虚接口绑定</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名字</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="tunnelType" type="tnlmbaseTnlType">
+				<xs:annotation>
+					<xs:documentation>隧道类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="subTnlPolicyType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tnlPolicyName">
+				<xs:annotation>
+					<xs:documentation>隧道策略名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="tnlm_tunnelPolicy_tnlPolicyName_type"/>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="tnlPolicyExist" type="tnlPolicyExist">
+				<xs:annotation>
+					<xs:documentation>隧道策略是否存在</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tpSubCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>策略被引用次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="subTnlPolicysType">
+		<xs:sequence>
+			<xs:element name="subTnlPolicy" type="subTnlPolicyType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

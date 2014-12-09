@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.3
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ndFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="false">
+				<xs:annotation>
+					<xs:documentation>false</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="true">
+				<xs:annotation>
+					<xs:documentation>true</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="aFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="on">
+				<xs:annotation>
+					<xs:documentation>on</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="off">
+				<xs:annotation>
+					<xs:documentation>off</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="oFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="on">
+				<xs:annotation>
+					<xs:documentation>on</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="off">
+				<xs:annotation>
+					<xs:documentation>off</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ndNgbState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INCMP">
+				<xs:annotation>
+					<xs:documentation>incmp:邻居不可达</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="REACH">
+				<xs:annotation>
+					<xs:documentation>reach:邻居可达</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="STALE">
+				<xs:annotation>
+					<xs:documentation>stale:邻居是否可达未知。此时除非有发送到邻居的报文，否则不对邻居是否可达进行探测</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="DELAY">
+				<xs:annotation>
+					<xs:documentation>delay:已向邻居发送报文，如果在指定时间内没有收到响应，则进入PROBE状态。</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PROBE">
+				<xs:annotation>
+					<xs:documentation>probe:已向邻居发送邻居请求报文，探测邻居是否可达。在规定时间内收到回复，则进入REACH状态；没有收到回复，则进入INCMP状态</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

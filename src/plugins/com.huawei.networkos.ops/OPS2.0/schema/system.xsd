@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST T0.1.4L20090309 for Schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="system_type.xsd"/>
+	<xs:element name="system" type="system_system_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>system</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="system_system_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="systemInfo" type="system_systemInfo_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="system_systemInfo_type">
+		<xs:annotation>
+			<xs:documentation>system infomation of entity .</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="sysName" default="VRPV8">
+				<xs:annotation>
+					<xs:documentation>System Name</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="246"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysContact" default="Huawei Technologies Co.; Ltd">
+				<xs:annotation>
+					<xs:documentation>System contact infomation</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysLocation" default="Beijing, P.R.C">
+				<xs:annotation>
+					<xs:documentation>System location infomation</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysDesc">
+				<xs:annotation>
+					<xs:documentation>A textual description of the entity</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysObjectId">
+				<xs:annotation>
+					<xs:documentation>The vendor's authoritative identification of the network management subsystem contained in the entity</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysGmtTime" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The GMT time (in second) of the device</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysUpTime" type="timeTick">
+				<xs:annotation>
+					<xs:documentation>The time (in hundredths of a second) since the network management portion of the system was last re-initialized</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sysService" type="bits8">
+				<xs:annotation>
+					<xs:documentation>A value which indicates the set of services that this entity primarily offers</xs:documentation>
+					<xs:appinfo>
+						<bits maskLen="7">
+							<bit position="0">物理层</bit>
+							<bit position="1">数据链路层</bit>
+							<bit position="2">网络层</bit>
+							<bit position="3">传输层</bit>
+							<bit position="4">会话层</bit>
+							<bit position="5">表示层</bit>
+							<bit position="6">应用层</bit>
+						</bits>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="platformName">
+				<xs:annotation>
+					<xs:documentation>The name of a platform. For example: Huawei Versatile Routing Platform Software</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="platformVer">
+				<xs:annotation>
+					<xs:documentation>The version of a platform. for example:VRP (R) Software,Version 8.10</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="productName">
+				<xs:annotation>
+					<xs:documentation>The name of a product. For example: Quidway NetEngine 5000E</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="productVer">
+				<xs:annotation>
+					<xs:documentation>The version of a product. The format is VxxRxxCxxSPC/SPHxxx. For example:V800R002C01SPC001</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="patchVer">
+				<xs:annotation>
+					<xs:documentation>The version of the latest patch. The format is CPxxx/HPxxx. For example:CP001</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="esn">
+				<xs:annotation>
+					<xs:documentation>The product esn number</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="511"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mac">
+				<xs:annotation>
+					<xs:documentation>The system MAC address</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lsRole" type="systemLsRoleType">
+				<xs:annotation>
+					<xs:documentation>The role of current LS</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="authenFlag" default="false">
+				<xs:annotation>
+					<xs:documentation>无认证穿梭的开关，表示从LR0到LRn是否需要认证（V8R3不支持该特性，都是免认证穿梭，为默认值为false）</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:boolean"/>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

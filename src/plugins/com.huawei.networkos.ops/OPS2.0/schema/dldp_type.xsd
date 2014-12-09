@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.huawei.com/netconf/vrp" xml:lang="en" xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:appinfo>
+      <formatVersion>1.0</formatVersion>
+      <contentVersion>1.0</contentVersion>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:simpleType name="dldpAuthMode">
+    <xs:annotation>
+      <xs:documentation />
+      <xs:appinfo />
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="dldpAuthNone">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpAuthSimple">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpAuthMD5">
+        <xs:annotation />
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dldpDownMode">
+    <xs:annotation>
+      <xs:documentation />
+      <xs:appinfo />
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="dldpAutoDown">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpManualDown">
+        <xs:annotation />
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dldpIfLinkStatus">
+    <xs:annotation>
+      <xs:documentation />
+      <xs:appinfo />
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="linkDown">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="linkUp">
+        <xs:annotation />
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dldpNegStatus">
+    <xs:annotation>
+      <xs:documentation />
+      <xs:appinfo />
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="dldpUnknown">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpOneway">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpTwoway">
+        <xs:annotation />
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dldpStatus">
+    <xs:annotation>
+      <xs:documentation />
+      <xs:appinfo />
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="dldpInit">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpInactive">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpActive">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpAdvertisement">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpProbe">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpDisable">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpDelayDown">
+        <xs:annotation />
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dldpWorkMode">
+    <xs:annotation>
+      <xs:documentation />
+      <xs:appinfo />
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="dldpNormal">
+        <xs:annotation />
+      </xs:enumeration>
+      <xs:enumeration value="dldpEnhance">
+        <xs:annotation />
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

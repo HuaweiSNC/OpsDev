@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.4
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:simpleType name="snmpSnmpPrivacyE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="noPriv">
+                <xs:annotation>
+                    <xs:documentation>noPriv: No Privacy</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="des56">
+                <xs:annotation>
+                    <xs:documentation>des56: DES56 algorithm</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3des168">
+                <xs:annotation>
+                    <xs:documentation>3des168: 3DES168 algorithm</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="aes128">
+                <xs:annotation>
+                    <xs:documentation>aes128: AES128 algorithm</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="aes192">
+                <xs:annotation>
+                    <xs:documentation>aes192: AES192 algorithm</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="aes256">
+                <xs:annotation>
+                    <xs:documentation>aes256: AES256 algorithm</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>            
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpVersionE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="none">
+                <xs:annotation>
+                    <xs:documentation>none: None</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="v1">
+                <xs:annotation>
+                    <xs:documentation>v1: SNMPv1</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="v2c">
+                <xs:annotation>
+                    <xs:documentation>v2c: SNMPv2c</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="v1v2c">
+                <xs:annotation>
+                    <xs:documentation>v1v2c: SNMPv1 and SNMPv2c</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="v3">
+                <xs:annotation>
+                    <xs:documentation>v3: SNMPv3</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="v1v3">
+                <xs:annotation>
+                    <xs:documentation>v1v3: SNMPv1 and SNMPv3</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="v2cv3">
+                <xs:annotation>
+                    <xs:documentation>v2cv3: SNMPv2c and SNMPv1</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="all">
+                <xs:annotation>
+                    <xs:documentation>all: SNMPv1, SNMPv2c and SNMPv3</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpNotifyE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="trap">
+                <xs:annotation>
+                    <xs:documentation>trap: Trap</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="inform">
+                <xs:annotation>
+                    <xs:documentation>inform: Inform</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpSecLvlE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="noAuthNoPriv">
+                <xs:annotation>
+                    <xs:documentation>noAuthNoPriv: No authentication no privacy</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="authentication">
+                <xs:annotation>
+                    <xs:documentation>authentication: Authentication no privacy</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="privacy">
+                <xs:annotation>
+                    <xs:documentation>privacy: Authentication and privacy</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpFilterE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="included">
+                <xs:annotation>
+                    <xs:documentation>included: Included</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="excluded">
+                <xs:annotation>
+                    <xs:documentation>excluded: Excluded</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpAccessE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="read">
+                <xs:annotation>
+                    <xs:documentation>read: Read access</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="write">
+                <xs:annotation>
+                    <xs:documentation>write: Write access</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpAuthenmodeE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="noAuth">
+                <xs:annotation>
+                    <xs:documentation>noAuth: No authentication</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="md5">
+                <xs:annotation>
+                    <xs:documentation>md5: MD5 algorithm</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="sha">
+                <xs:annotation>
+                    <xs:documentation>sha: SHA algorithm</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpDomainE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="snmpUDPDomain">
+                <xs:annotation>
+                    <xs:documentation>snmpUDPDomain: UDP domain</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpSecmodelE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SNMPv1">
+                <xs:annotation>
+                    <xs:documentation>SNMPv1: SNMPv1</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SNMPv2c">
+                <xs:annotation>
+                    <xs:documentation>SNMPv2c: SNMPv2c</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="USM">
+                <xs:annotation>
+                    <xs:documentation>USM: USM</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="snmpSnmpTgtVerE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="v1">
+                <xs:annotation>
+                    <xs:documentation>SNMPv1: SNMPv1</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="v2c">
+                <xs:annotation>
+                    <xs:documentation>SNMPv2c: SNMPv2c</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="v3">
+                <xs:annotation>
+                    <xs:documentation>USM: USM</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <!--<xs:simpleType name="snmpSnmpProxyTypeE">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="read">
+                <xs:annotation>
+                    <xs:documentation>Proxy rule for read message type</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="write">
+                <xs:annotation>
+                    <xs:documentation>Proxy rule for write message type</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="trap">
+                <xs:annotation>
+                    <xs:documentation>Proxy rule for trap message type</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="inform">
+                <xs:annotation>
+                    <xs:documentation>Proxy rule for inform message type</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>-->
+</xs:schema>

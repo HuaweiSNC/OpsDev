@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.9 L20090424pm for schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<!-- type for svc -->
+	<xs:simpleType name="svcServiceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="firewall">
+				<xs:annotation>
+					<xs:documentation>firewall service</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="webcache">
+				<xs:annotation>
+					<xs:documentation>webcache service</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="general-vas">
+				<xs:annotation>
+					<xs:documentation>general vas service</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="svcServiceIdType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="mac">
+				<xs:annotation>
+					<xs:documentation>firewall service</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vlan">
+				<xs:annotation>
+					<xs:documentation>webcache service</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="svcServiceModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="l2">
+				<xs:annotation>
+					<xs:documentation>Layer 2 forwarding mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="l3">
+				<xs:annotation>
+					<xs:documentation>Layer 3 forwarding mode</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="svcServiceNodeForwardType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="oneway">
+				<xs:annotation>
+					<xs:documentation>Forward up and down streams with same direction</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="twoway">
+				<xs:annotation>
+					<xs:documentation>Forward up and down streams with opposite direction</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

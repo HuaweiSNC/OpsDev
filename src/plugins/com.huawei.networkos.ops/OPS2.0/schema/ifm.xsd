@@ -1,0 +1,1170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.7L20090407 for Schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="ifm_type.xsd"/>
+	<xs:include schemaLocation="ifm_pppbase.xsd"/>
+	<xs:include schemaLocation="ifm_hdlc.xsd"/>
+	<xs:include schemaLocation="ifm_flowalarm.xsd"/>
+	<xs:element name="ifm" type="ifm_type"/>
+	<xs:complexType name="ifm_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="globalConfig" type="globalConfig_type"/>
+			<xs:element name="autoRecoveryTimes" type="ifm_ifmcomm_autoRecoveryTimes_type"/>
+			<xs:element name="interfaces" type="ifm_ifmcomm_interfaceInfos_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifm_ifmcomm_interfaceInfos_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="interface" type="ifm_ifmcomm_interfaceInfo_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ifm_ifmcomm_interfaceInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ifIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接口索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifPhyType" type="ifmcommPhyType">
+				<xs:annotation>
+					<xs:documentation>接口类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifPosition">
+				<xs:annotation>
+					<xs:documentation>位置信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifParentIfName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>主接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifNumber">
+				<xs:annotation>
+					<xs:documentation>接口号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="63"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifDescr">
+				<xs:annotation>
+					<xs:documentation>接口描述</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="242"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifTrunkIfName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>Trunk接口名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isL2SwitchPort" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否二层交换端口</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifAdminStatus" type="ifmcommAdminStaType" default="up">
+				<xs:annotation>
+					<xs:documentation>接口管理状态</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifLinkProtocol" type="ifmcommLinkProtocol">
+				<xs:annotation>
+					<xs:documentation>链路协议</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifRouterType" type="ifmcommRouterType">
+				<xs:annotation>
+					<xs:documentation>接口路由属性</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifDf" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>接口不分片标记</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifTrapEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>接口trap使能标志</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifStatiEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>逻辑接口统计使能标志</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifMtu" default="1500">
+				<xs:annotation>
+					<xs:documentation>最大传输单元</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="50000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifMac" type="macAddress">
+				<xs:annotation>
+					<xs:documentation>接口MAC地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifStatItvl">
+				<xs:annotation>
+					<xs:documentation>接口下统计时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vrfName">
+				<xs:annotation>
+					<xs:documentation>VPN实例名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="vrfName">
+							<xs:attribute name="vrfId" type="xs:string"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="vsName">
+				<xs:annotation>
+					<xs:documentation>VS名</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifServiceType" type="ifmcommServiceType">
+				<xs:annotation>
+					<xs:documentation>成员口类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifmAm4" type="ifmAm4_type"/>
+			<xs:element name="ifmAm6" type="ifmAm6_type"/>
+			<xs:element name="ifControlFlap" type="ifControlFlap_type"/>
+			<xs:element name="ifDynamicInfo" type="ifDynamicInfo_type"/>
+			<xs:element name="ifStatistics" type="ifStatistics_type"/>
+			<xs:element name="ifClearedStat" type="ifClearedStat_type"/>
+			<xs:element name="ppp" type="ifm_pppbase_pppConfig_type"/>
+			<xs:element name="hdlc" type="hdlc_chdlc_oper_hdlcConfig_type"/>
+			<xs:element name="ifErrorDown" type="ifErrorDownInfo_type"/>
+			<xs:element name="ifTrapThreshold" type="ifTrapThreshold_type"/>
+			<xs:element name="ifIpStatiCfg" type="ifIpStatisticsConfig_type">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<owner>product</owner>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="veGroup" type="veGroupConfig_type">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<owner>product</owner>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="flowAlarm" type="alarm_type">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<owner>product</owner>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifStatistics_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="receiveByte" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口上接收到的字节总数，包括成帧的字符</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendByte" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口发送的字节总数，包括成帧字符</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receivePacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口上接收到的报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口上发送的报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rcvUniPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口上接收到的单播报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rcvMutiPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接收的组播报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rcvBroadPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接收的广播报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendUniPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>发送的单播报文总数，包括被丢弃的报文或没有送出的报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendMutiPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>发送的组播报文总数，包括被丢弃的报文或没有送出的报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendBroadPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>发送的广播报文总数，包括被丢弃的报文或没有送出的报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ifClearedStat_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifOperStatItvl" default="300">
+				<xs:annotation>
+					<xs:documentation>接口当前的流量统计时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="inByteRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>间隔时间内接收字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inPacketRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>间隔时间内接收报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inUseRate">
+				<xs:annotation>
+					<xs:documentation>间隔时间内接收方向的带宽利用率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outByteRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>间隔时间内发送字节速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outPacketRate" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>间隔时间内发送报文速率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outUseRate">
+				<xs:annotation>
+					<xs:documentation>间隔时间内发送方向的带宽利用率</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="receiveByte" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口上接收到的字节总数，包括成帧的字符</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendByte" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口发送的字节总数，包括成帧字符</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receivePacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口上接收到的报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口上发送的报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rcvUniPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接口上接收到的单播报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rcvMutiPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接收的组播报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rcvBroadPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>接收的广播报文总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendUniPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>发送的单播报文总数，包括被丢弃的报文或没有送出的报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendMutiPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>发送的组播报文总数，包括被丢弃的报文或没有送出的报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sendBroadPacket" type="xs:unsignedLong">
+				<xs:annotation>
+					<xs:documentation>发送的广播报文总数，包括被丢弃的报文或没有送出的报文</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ifDynamicInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifOperStatus" type="ifmcommIfStatus">
+				<xs:annotation>
+					<xs:documentation>接口抽象状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifPhyStatus" type="ifmcommIfStatus">
+				<xs:annotation>
+					<xs:documentation>接口物理状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifLinkStatus" type="ifmcommIfStatus">
+				<xs:annotation>
+					<xs:documentation>接口链路状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifOpertMTU" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>接口抽象MTU</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifOperSpeed" type="bandWidth">
+				<xs:annotation>
+					<xs:documentation>接口抽象带宽</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifV4State" type="ifmcommIfStatus">
+				<xs:annotation>
+					<xs:documentation>接口协议状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifV6State" type="ifmcommIfStatus">
+				<xs:annotation>
+					<xs:documentation>接口IPv6协议状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifCtrlFlapDamp" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>接口状态抑制</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ifmAm4_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrCfgType" type="ifmam4CfgType" default="config">
+				<xs:annotation>
+					<xs:documentation>地址配置类型</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="am4CfgAddrs" type="am4CfgAddrs_type"/>
+			<xs:element name="unNumIfName">
+				<xs:annotation>
+					<xs:documentation>被借用的接口的索引</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="am4CfgAddrs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="am4CfgAddr" type="am4CfgAddr_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="am4CfgAddr_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifIpAddr" type="ipv4Address">
+				<xs:annotation>
+					<xs:documentation>IP地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subnetMask" type="ipv4Mask">
+				<xs:annotation>
+					<xs:documentation>IP地址掩码</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addrType" type="ifmam4IpAddrType" default="main">
+				<xs:annotation>
+					<xs:documentation>地址类型，区分主从地址,1是主地址，2是从地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="am6CfgAddrs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="am6CfgAddr" type="am6CfgAddr_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="am6CfgAddr_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifIp6Addr" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>IPv6地址</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addrPrefixLen">
+				<xs:annotation>
+					<xs:documentation>前缀长度</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="addrType6" type="ifmam6IpAddr6Type" default="global">
+				<xs:annotation>
+					<xs:documentation>地址类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifIDGenType" type="ifmam6IDGenType">
+				<xs:annotation>
+					<xs:documentation>地址类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifmAm6_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="enableFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>使能IPv6标识</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifMtu6" default="1500">
+				<xs:annotation>
+					<xs:documentation>IPv6最大传输单元</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="50000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="autoLinkLocal" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>配置autoLinkLocal标志</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="am6CfgAddrs" type="am6CfgAddrs_type"/>
+			<xs:element name="am6CgaInfos" type="am6Cgas_type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ifControlFlap_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifCtrlFlapEnbl" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>接口状态抑制使能标志</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifSuppress" default="2000">
+				<xs:annotation>
+					<xs:documentation>接口抑制门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<unit>second</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="20000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifReuse" default="750">
+				<xs:annotation>
+					<xs:documentation>接口重用门限值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<unit>second</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="20000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifCeiling" default="6000">
+				<xs:annotation>
+					<xs:documentation>接口抑制惩罚值的最大值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<unit>second</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1001"/>
+						<xs:maxInclusive value="20000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifDecayOk" default="54">
+				<xs:annotation>
+					<xs:documentation>当接口Up时，惩罚值衰减到1/2所用时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<unit>second</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="900"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ifDecayNg" default="54">
+				<xs:annotation>
+					<xs:documentation>当接口Down时，惩罚值衰减到1/2所用时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<unit>second</unit>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="900"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ifErrorDownInfo_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="errorDownCause" type="ifmcommErrorDownType">
+				<xs:annotation>
+					<xs:documentation>Error down原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recoveryTime" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>配置接口状态恢复为Up的延迟时间，单位是秒。如果没有配置自动恢复时间，需要手动通过undo shutdown端口恢复，恢复时间显示为“--”。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remainderTime" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前时间距离接口状态恢复为Up的剩余时间，单位是秒。如果没有配置自动恢复时间，需要手动通过undo shutdown端口恢复，剩余时间显示为“--”。</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="globalConfig_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="globalStatItvl" default="300">
+				<xs:annotation>
+					<xs:documentation>全局流量统计时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="10"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="sysAttriControlMtu" type="xs:unsignedInt" default="1450">
+				<xs:annotation>
+					<xs:documentation>控制平面MTU</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ifm_ifmcomm_autoRecoveryTimes_type">
+		<xs:annotation>
+			<xs:documentation>接口由于错误事件而被Shutdown</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="autoRecoveryTime" type="ifm_ifmcomm_autoRecoveryTime_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ifm_ifmcomm_autoRecoveryTime_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="errorDownType" type="ifmcommErrorDownType">
+				<xs:annotation>
+					<xs:documentation>ErrorDown类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="timeValue">
+				<xs:annotation>
+					<xs:documentation>接口状态自动恢复为Up的延迟时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="30"/>
+						<xs:maxInclusive value="86400"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="veGroupConfig_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="veIfType" type="veInterfaceType">
+				<xs:annotation>
+					<xs:documentation>veIfType</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="veGroupId">
+				<xs:annotation>
+					<xs:documentation>veGroupId</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="8192"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="am6Cgas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="am6CgaInfo" type="am6Cga_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="am6Cga_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rsaKeyLabel">
+				<xs:annotation>
+					<xs:documentation>RSA密钥对名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="35"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="secLevel" default="0">
+				<xs:annotation>
+					<xs:documentation>安全级别</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="modifier" type="ipv6Address">
+				<xs:annotation>
+					<xs:documentation>修正值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="ifTrapThreshold_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="inputRisingRate" default="100">
+				<xs:annotation>
+					<xs:documentation>入方向带宽利用率的阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="inputResumeRate" default="100">
+				<xs:annotation>
+					<xs:documentation>恢复告警的入方向带宽利用率阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outputRisingRate" default="100">
+				<xs:annotation>
+					<xs:documentation>出方向带宽利用率的阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outputResumeRate" default="100">
+				<xs:annotation>
+					<xs:documentation>恢复告警的出方向带宽利用率阈值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ifIpStatisticsConfig_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifIpStatiEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation> ifIpStatiEnable config </xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifIpStatiMode" type="ifIpStatiModeType">
+				<xs:annotation>
+					<xs:documentation> ifIpStatiMode config </xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

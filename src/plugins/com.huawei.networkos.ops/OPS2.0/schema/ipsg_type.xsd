@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ifIpsgCheckItemType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IP"/>
+			<xs:enumeration value="MAC"/>
+			<xs:enumeration value="IP | MAC"/>
+			<xs:enumeration value="VLAN"/>
+			<xs:enumeration value="IP | VLAN"/>
+			<xs:enumeration value="MAC | VLAN"/>
+			<xs:enumeration value="IP | MAC | VLAN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vlanIpsgCheckItemType">
+		<xs:annotation>
+			<xs:documentation/>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IP"/>
+			<xs:enumeration value="MAC"/>
+			<xs:enumeration value="IP | MAC"/>
+			<xs:enumeration value="Interface"/>
+			<xs:enumeration value="Interface | IP"/>
+			<xs:enumeration value="Interface | MAC"/>
+			<xs:enumeration value="Interface | IP | MAC"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

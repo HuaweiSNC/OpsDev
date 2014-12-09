@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:complexType name="dhcpCommon_type">
+		<xs:annotation>
+			<xs:documentation>dhcp 通用</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dhcpCommonCfg" type="dhcpCommonCfg_type">
+				<xs:annotation>
+					<xs:documentation>DHCP通用配置</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhcpDuplicateOptionCheckCode" type="dhcpDuplicateOptionCheckCode_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpCommonCfg_type">
+		<xs:annotation>
+			<xs:documentation>DHCP 基础配置</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="dhcpEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>DHCP Enable</xs:documentation>
+					<xs:appinfo>
+						<access>readWrite</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="dhcpDuplicateOptionCheckCode_type">
+		<xs:annotation>
+			<xs:documentation>DHCP选项重复性检查配置</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="optionCode" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>选项编码</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

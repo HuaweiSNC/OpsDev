@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="l2mc_type.xsd"/>
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="l2mc" type="l2mc_action_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>l2mc</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="l2mc_action_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="l2McResetStatis" type="l2mc_l2McResetStatis_type"/>
+			<xs:element name="l2McResetAllVsiStatis" type="l2mc_l2McResetAllVsiStatis_type"/>
+			<xs:element name="l2McResetVsiStatis" type="l2mc_l2McResetVsiStatis_type"/>
+			<xs:element name="l2mcResetALLVsiGroup" type="l2mc_l2mcResetALLVsiGroup_type"/>
+			<xs:element name="l2mcResetVsiGroup" type="l2mc_l2mcResetVsiGroup_type"/>
+			<xs:element name="l2McResetAllVlanStatis" type="l2mc_l2McResetAllVlanStatis_type"/>
+			<xs:element name="l2McResetVlanStatis" type="l2mc_l2McResetVlanStatis_type"/>
+			<xs:element name="l2mcResetALLVlanGroup" type="l2mc_l2mcResetALLVlanGroup_type"/>
+			<xs:element name="l2mcResetVlanGroup" type="l2mc_l2mcResetVlanGroup_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McResetStatis_type">
+		<xs:annotation>
+			<xs:documentation>清除系统统计信息和所有VLAN内的统计信息</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo/>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McResetAllVsiStatis_type">
+		<xs:annotation>
+			<xs:documentation>清除所有Vsi内统计计数</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McResetVsiStatis_type">
+		<xs:annotation>
+			<xs:documentation>清除指定Vsi内的统计计数</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType,vsiNameId:string</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType,vsiNameId:string</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiNameId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2mcResetALLVsiGroup_type">
+		<xs:annotation>
+			<xs:documentation>清除所有Vsi内的动态组信息</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2mcResetVsiGroup_type">
+		<xs:annotation>
+			<xs:documentation>清除指定Vsi内的动态组信息</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType,vsiNameId:string</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType,vsiNameId:string</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiNameId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McResetAllVlanStatis_type">
+		<xs:annotation>
+			<xs:documentation>清除所有Vlan内统计计数</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2McResetVlanStatis_type">
+		<xs:annotation>
+			<xs:documentation>清除指定Vlan内的统计计数</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType,vlanId:unsignedInt</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType,vlanId:unsignedInt</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlanId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2mcResetALLVlanGroup_type">
+		<xs:annotation>
+			<xs:documentation>清除所有Vlan内的动态组信息</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="l2mc_l2mcResetVlanGroup_type">
+		<xs:annotation>
+			<xs:documentation>清除指定Vlan内的动态组信息</xs:documentation>
+			<xs:appinfo>
+				<affection>reset</affection>
+				<inputObject>addrFamily:l2mcAfType,vlanId:unsignedInt</inputObject>
+				<operType>replace</operType>
+				<outPutObject>addrFamily:l2mcAfType,vlanId:unsignedInt</outPutObject>
+				<status>current</status>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="addrFamily" type="l2mcAfType">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vlanId">
+				<xs:annotation>
+					<xs:documentation/>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:maxInclusive value="4094"/>
+						<xs:minInclusive value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

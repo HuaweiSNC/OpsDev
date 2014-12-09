@@ -1,0 +1,1617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST0.5.5
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="bfd_type.xsd"/>
+	<xs:element name="bfd" type="bfd_bfd_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>bfd</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="bfd_bfd_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="bfdSchGlobal" type="bfd_bfdSchGlobal_type"/>
+			<xs:element name="bfdStat" type="bfd_bfdStat_type"/>
+			<xs:element name="bfdCfgSessions" type="bfd_bfdCfgSessions_type"/>
+			<xs:element name="bfdAllSessions" type="bfd_bfdAllSessions_type"/>
+			<xs:element name="bindInterfaces" type="bfd_bindInterfaces_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdSchGlobal_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>BFD组件全局配置信息</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="bfdEnable" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>BFD组件使能标志</xs:documentation>
+					<xs:appinfo>
+						<!--<key>true</key>-->
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="delayUpTimer">
+				<xs:annotation>
+					<xs:documentation>延迟UP的时间</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="mplsPassive" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否配置mpls passive</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pingInterval" default="60">
+				<xs:annotation>
+					<xs:documentation>发送LSP Ping报文的时间间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="30"/>
+						<xs:maxInclusive value="600"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="processMode" type="bfdDeployMode">
+				<xs:annotation>
+					<xs:documentation>BFD部署方式:集中式,分布式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="procCentralSlt">
+				<xs:annotation>
+					<xs:documentation>主集中处理板槽位号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="1"/>
+						<xs:pattern value="(^\w{0,3}\d{0,2}(\/\d{1,2}){0,1}$)"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="procCentralSlt2">
+				<xs:annotation>
+					<xs:documentation>主集中处理板2槽位号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="1"/>
+						<xs:pattern value="(^\w{0,3}\d{0,2}(\/\d{1,2}){0,1}$)"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="defaultIp">
+				<xs:annotation>
+					<xs:documentation>默认组播IPv4地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:maxLength value="11"/>
+						<xs:minLength value="11"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tosExp" default="7">
+				<xs:annotation>
+					<xs:documentation>动态BFD会话报文优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdCfgSessions_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bfdCfgSession" type="bfd_bfdCfgSession_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdCfgSession_type">
+		<xs:annotation>
+			<xs:documentation>BFD会话配置信息(VIST中的值maxoccurs项为PAF规格)</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sessName">
+				<xs:annotation>
+					<xs:documentation>会话名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+						<xs:minLength value="1"/>
+						<xs:pattern value="(^[^\s?]*$)"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="createType" type="bfdCreateType" default="SESS_STATIC">
+				<xs:annotation>
+					<xs:documentation>BFD会话创建方式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localDiscr">
+				<xs:annotation>
+					<xs:documentation>本地标识符</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="16384"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remoteDiscr">
+				<xs:annotation>
+					<xs:documentation>远端标识符</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="linkType" type="bfdLinkType" default="IP">
+				<xs:annotation>
+					<xs:documentation>BFD检测的链路类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="addrType" type="bfdSmpBfdCap" default="IPV4">
+				<xs:annotation>
+					<xs:documentation>IP地址类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destAddr">
+				<xs:annotation>
+					<xs:documentation>目的IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipAddress">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="srcAddr">
+				<xs:annotation>
+					<xs:documentation>源IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipAddress">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextHop">
+				<xs:annotation>
+					<xs:documentation>下一跳IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipAddress">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outIfName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>出接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrfName" type="vrfName">
+				<xs:annotation>
+					<xs:documentation>BFD所属VRF实例名</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tunnelName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>绑定mpls隧道名称</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="teBackup" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>TE-LSP链路主备标记-0为主链路1为备链路</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="remotePeer">
+				<xs:annotation>
+					<xs:documentation>pw/vsi remote IP</xs:documentation>
+					<xs:appinfo>
+						<supportFilter>false</supportFilter>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipAddress">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="autoCalc" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>自动计算ttl</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pwTtl">
+				<xs:annotation>
+					<xs:documentation>配置TTL,用于穿越SPE节点的PW,区分会话中的TTL</xs:documentation>
+					<xs:appinfo>
+						<supportFilter>false</supportFilter>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedShort">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pwSecondary" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>PW主备标示</xs:documentation>
+					<xs:appinfo>
+						<supportFilter>false</supportFilter>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiName">
+				<xs:annotation>
+					<xs:documentation>vsi name</xs:documentation>
+					<xs:appinfo>
+						<supportFilter>false</supportFilter>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="peerIp">
+				<xs:annotation>
+					<xs:documentation>Bfd for pw, bfd远端检测ip</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipAddress">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vcId">
+				<xs:annotation>
+					<xs:documentation>会话使用默认组播地址used default ip</xs:documentation>
+					<xs:appinfo>
+						<supportFilter>false</supportFilter>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="minTxInt">
+				<xs:annotation>
+					<xs:documentation>最小发送报文的间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="minRxInt">
+				<xs:annotation>
+					<xs:documentation>最小接收报文的间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="detectMulti" default="3">
+				<xs:annotation>
+					<xs:documentation>检测倍数</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="3"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="wtrTimerInt">
+				<xs:annotation>
+					<xs:documentation>wtr定时器超时间隔(1-60min)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tosExp" default="7">
+				<xs:annotation>
+					<xs:documentation>报文优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="adminDown" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>管理Down</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>会话描述信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="51"/>
+						<xs:minLength value="1"/>
+						<xs:pattern value="(^[^?]+(\s)*[^\s]+(\s)*$)"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="processPst" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>设置Process PST标记(FEI 微码检测到Down之后是否改PST表)</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pis" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>process-interface-status接口联动</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pisSubIf" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>pis子接口联动</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="useDefaultIp" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>会话使用默认组播地址used default ip</xs:documentation>
+					<xs:appinfo>
+						<supportFilter>false</supportFilter>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="procSlotId">
+				<xs:annotation>
+					<xs:documentation>强制选板槽位号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdSessRunning" type="bfd_bfdSessRunning_type"/>
+			<xs:element name="bfdSessStat" type="bfd_bfdSessStat_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdSessRunnings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdSessRunning_type">
+		<xs:annotation>
+			<xs:documentation>BFD会话运行信息(只读)</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sessState" type="bfdSmpBfdState">
+				<xs:annotation>
+					<xs:documentation>会话状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="udpDstPort">
+				<xs:annotation>
+					<xs:documentation>UDP目的端口号</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="detectMode" type="bfdSmpDetectMode">
+				<xs:annotation>
+					<xs:documentation>检测模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="reDemandMode" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>远端使能demand模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="actTxInt">
+				<xs:annotation>
+					<xs:documentation>实际会话发包间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="actRxInt">
+				<xs:annotation>
+					<xs:documentation>实际会话收包间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="actMulti">
+				<xs:annotation>
+					<xs:documentation>实际检测倍数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="detectTime">
+				<xs:annotation>
+					<xs:documentation>检测时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ttl">
+				<xs:annotation>
+					<xs:documentation>会话的TTL</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="txTmrID">
+				<xs:annotation>
+					<xs:documentation>发包定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="detectTmrID">
+				<xs:annotation>
+					<xs:documentation>检测定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="initTmrID">
+				<xs:annotation>
+					<xs:documentation>Init超时定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="wtrTmrID">
+				<xs:annotation>
+					<xs:documentation>WTR定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notUpReason" type="bfdbaseNotUpReason">
+				<xs:annotation>
+					<xs:documentation>会话没有Up原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="aclNum">
+				<xs:annotation>
+					<xs:documentation>ACL数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="localDiag" type="bfdSmpBfdDiag">
+				<xs:annotation>
+					<xs:documentation>本地上一次down的原因</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="echoTxTmrID">
+				<xs:annotation>
+					<xs:documentation>会话echo发送定时器</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdSessStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdSessStat_type">
+		<xs:annotation>
+			<xs:documentation>BFD会话统计信息(只读)</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="createTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>会话创建时间</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="downCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>会话down的次数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lspPingCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>发送的lsp ping报文个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdStats_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdStat_type">
+		<xs:annotation>
+			<xs:documentation>BFD运行配置及统计信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="hafStaEnum" type="bfdSmpHafState">
+				<xs:annotation>
+					<xs:documentation>HA的状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ipSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>ip会话的总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ldpLspSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>LDPLSP会话的总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sLspSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>静态Lsp会话数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="teLspSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>TELsp会话总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>所有会话总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SessUpNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>统计会话Up的个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SessDownNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>统计会话Down的个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="staticSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>静态会话总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dynSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>动态会话总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="autoSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>静态自协商会话总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="passiveSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>被动会话总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="teTunnelSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>TE_TUNNEL会话个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="usedDiscrNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>当前使用会话标识符个数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pwSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>pw会话总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vsiPwSessNum" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>vsi pw会话总数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdAllSessions_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bfdAllSession" type="bfd_bfdAllSession_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="bfd_bfdAllSession_type">
+		<xs:annotation>
+			<xs:documentation>从主机查询到的BFD会话配置信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sessName">
+				<xs:annotation>
+					<xs:documentation>会话名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="createType" type="bfdSmpCreateType">
+				<xs:annotation>
+					<xs:documentation>会话创建方式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sessType" type="bfdSmpSessType">
+				<xs:annotation>
+					<xs:documentation>会话类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="localDiscr">
+				<xs:annotation>
+					<xs:documentation>本地标识符</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="32768"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remoteDiscr" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>远端标识符</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linkType" type="bfdSmpLinkType">
+				<xs:annotation>
+					<xs:documentation>绑定链路类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="destAddr">
+				<xs:annotation>
+					<xs:documentation>目的IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="srcAddr">
+				<xs:annotation>
+					<xs:documentation>源IP地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nextHop">
+				<xs:annotation>
+					<xs:documentation>IP或LDP LSP下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="outIfName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>出接口名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vrfName" type="vrfName">
+				<xs:annotation>
+					<xs:documentation>VRF名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tunnelName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>绑定mpls隧道名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="teBackup">
+				<xs:annotation>
+					<xs:documentation>TE-LSP链路主备标记-0为主链路1为备链路</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="0"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="minTxInt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>最小发送报文的间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="minRxInt" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>最小接收报文的间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="detectMulti" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>检测倍数</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="demandEnable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>查询模式使能</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="wtrTimerInt">
+				<xs:annotation>
+					<xs:documentation>wtr定时器超时间隔</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tosExp" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>报文优先级</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shutdown" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>管理admin Down</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:documentation>会话描述信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="51"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="configPst">
+				<xs:annotation>
+					<xs:documentation>配置PST信息</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="processPst">
+				<xs:annotation>
+					<xs:documentation>FEI/微码检测到Down之后是否改PST表</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pis">
+				<xs:annotation>
+					<xs:documentation>process-interface-status接口联动</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="15"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bindApps">
+				<xs:annotation>
+					<xs:documentation>绑定BFD会话的应用PID字符串</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="fsmBoardStr">
+				<xs:annotation>
+					<xs:documentation>BFD选板Id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pwTtlMode">
+				<xs:annotation>
+					<xs:documentation>BFD TTL 模式</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pwTtl">
+				<xs:annotation>
+					<xs:documentation>PW TTL</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="node">
+				<xs:annotation>
+					<xs:documentation>Node</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="encapType">
+				<xs:annotation>
+					<xs:documentation>封装类型</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="trackInterface">
+				<xs:annotation>
+					<xs:documentation>Track Interface</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="localVcLabel">
+				<xs:annotation>
+					<xs:documentation>本地VC标签</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remoteVcLabel">
+				<xs:annotation>
+					<xs:documentation>远端VC标签</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="swapVcLabel">
+				<xs:annotation>
+					<xs:documentation>交换VC标签</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lspToken">
+				<xs:annotation>
+					<xs:documentation>LSP Token</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vsiName">
+				<xs:annotation>
+					<xs:documentation>Vsi名称</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vsiPeerAddr">
+				<xs:annotation>
+					<xs:documentation>Vsi Pw Peer Ip Address:</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="vcId">
+				<xs:annotation>
+					<xs:documentation>Vc Id</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="remotePeer">
+				<xs:annotation>
+					<xs:documentation>Remote Peer</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="16"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="pwSecondary">
+				<xs:annotation>
+					<xs:documentation>备PW</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bfdSessRunning" type="bfd_bfdSessRunning_type"/>
+			<xs:element name="bfdSessStat" type="bfd_bfdSessStat_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="bfd_bindInterfaces_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="bindInterface" type="bfd_bindInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="bfd_bindInterface_type">
+		<xs:annotation>
+			<xs:documentation>BFD会话绑定接口信息</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName" type="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readOnly</access>
+						<supportFilter>true</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sessCount" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>会话数量</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ifOperStatus" type="bfdSmpOperState">
+				<xs:annotation>
+					<xs:documentation>接口操作状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<supportFilter>false</supportFilter>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

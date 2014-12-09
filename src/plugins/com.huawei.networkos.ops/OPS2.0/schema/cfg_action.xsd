@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.6smk1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="cfg_type.xsd"/>
+	<xs:element name="cfg" type="cfg_action_cfg_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>cfg</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="cfg_action_cfg_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="setStartup" type="cfg_action_setStartup_type"/>
+			<xs:element name="clearStartup" type="xs:boolean"/>
+			<xs:element name="rollbackByCommitId" type="cfg_action_rollbackByCommitId_type"/>
+			<xs:element name="rollbackByLastNum" type="cfg_action_rollbackByLastNum_type"/>
+			<xs:element name="delCheckPointByOldestNum" type="cfg_action_delCheckPointByOldestNum_type"/>
+			<xs:element name="specifySlotSetStartup" type="cfg_action_specifySlotSetStartup_type"/>
+			<xs:element name="resetUserLabelByCommitId" type="cfg_action_resetUserLabelByCommitId_type"/>
+			<xs:element name="setUserLabelByCommitId" type="cfg_action_setUserLabelByCommitId_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_action_setStartup_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>设置下次启动文件</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="fileName">
+				<xs:annotation>
+					<xs:documentation>配置文件名</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_action_rollbackByCommitId_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="commitId">
+				<xs:annotation>
+					<xs:documentation>配置回退点ID</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_action_rollbackByLastNum_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:choice maxOccurs="50">
+			<xs:element name="checkPointNum">
+				<xs:annotation>
+					<xs:documentation>配置回退点个数</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_action_delCheckPointByOldestNum_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:choice maxOccurs="50">
+			<xs:element name="checkPointNum">
+				<xs:annotation>
+					<xs:documentation>配置回退点个数</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_action_specifySlotSetStartup_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation>指定slot设置下次启动文件</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="fileName">
+				<xs:annotation>
+					<xs:documentation>配置文件名</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="5"/>
+						<xs:maxLength value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="position">
+				<xs:annotation>
+					<xs:documentation>槽位号</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_action_resetUserLabelByCommitId_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="commitId">
+				<xs:annotation>
+					<xs:documentation>配置回退点ID</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>				
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="cfg_action_setUserLabelByCommitId_type">
+		<xs:annotation>
+			<xs:appinfo/>
+			<xs:documentation/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="commitId">
+				<xs:annotation>
+					<xs:documentation>配置回退点ID</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="userLabel">
+				<xs:annotation>
+					<xs:documentation>配置回退点标签</xs:documentation>
+					<xs:appinfo>
+						<access>writeOnly</access>
+						<key>false</key>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="20"/>
+						<xs:pattern value="^.*[^\s]+.*$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

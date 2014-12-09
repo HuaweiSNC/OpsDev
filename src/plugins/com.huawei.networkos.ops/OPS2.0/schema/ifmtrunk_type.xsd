@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.23
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.huawei.com/netconf/vrp" xmlns="http://www.huawei.com/netconf/vrp" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:simpleType name="ifmtrunkTrunkType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="EthTrunk" >
+                <xs:annotation>
+                    <xs:documentation>EthTrunk:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="IPTrunk" >
+                <xs:annotation>
+                    <xs:documentation>IPTrunk:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ifmtrunkTrunkHashType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="IP" >
+                <xs:annotation>
+                    <xs:documentation>IP:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MAC" >
+                <xs:annotation>
+                    <xs:documentation>MAC:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PacketAll" >
+                <xs:annotation>
+                    <xs:documentation>PacketAll:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+			<xs:enumeration value="Enhanced">
+				<xs:annotation>
+					<xs:documentation>Enhanced:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Desip">
+				<xs:annotation>
+					<xs:documentation>Desip:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Desmac">
+				<xs:annotation>
+					<xs:documentation>Desmac:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sourceip">
+				<xs:annotation>
+					<xs:documentation>Sourceip:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Sourcemac">
+				<xs:annotation>
+					<xs:documentation>Sourcemac:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NoExistType">
+				<xs:annotation>
+					<xs:documentation>NoExistType:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmtrunkTrunkMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Manual">
+				<xs:annotation>
+					<xs:documentation>Manual:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Dynamic">
+				<xs:annotation>
+					<xs:documentation>Dynamic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Static">
+				<xs:annotation>
+					<xs:documentation>Static:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Backup">
+				<xs:annotation>
+					<xs:documentation>Backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NoExistMode">
+				<xs:annotation>
+					<xs:documentation>NoExistMode:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmtrunkMemberState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Up">
+				<xs:annotation>
+					<xs:documentation>Up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Down">
+				<xs:annotation>
+					<xs:documentation>Down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifmtrunkMemberSelectedState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Selected">
+				<xs:annotation>
+					<xs:documentation>Selected:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="UnSelected">
+				<xs:annotation>
+					<xs:documentation>UnSelected:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+    <xs:simpleType name="ifmcommIfPhyType" >
+        <xs:restriction base="xs:string" >
+            <xs:enumeration value="Ethernet" >
+                <xs:annotation>
+                    <xs:documentation>Ethernet:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="fe" >
+                <xs:annotation>
+                    <xs:documentation>fe:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="GigabitEthernet" >
+                <xs:annotation>
+                    <xs:documentation>GigabitEthernet:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="reserve" >
+                <xs:annotation>
+                    <xs:documentation>reserve:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Eth_trunk" >
+                <xs:annotation>
+                    <xs:documentation>Eth-trunk:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Ip_trunk" >
+                <xs:annotation>
+                    <xs:documentation>Ip-trunk:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Virtual_Ethernet" >
+                <xs:annotation>
+                    <xs:documentation>Virtual-Ethernet:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="RPR" >
+                <xs:annotation>
+                    <xs:documentation>RPR:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Serial" >
+                <xs:annotation>
+                    <xs:documentation>Serial:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Pos" >
+                <xs:annotation>
+                    <xs:documentation>Pos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Cpos" >
+                <xs:annotation>
+                    <xs:documentation>Cpos:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="ATM" >
+                <xs:annotation>
+                    <xs:documentation>ATM:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Aux" >
+                <xs:annotation>
+                    <xs:documentation>Aux:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="GRE" >
+                <xs:annotation>
+                    <xs:documentation>GRE:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Tunnel" >
+                <xs:annotation>
+                    <xs:documentation>Tunnel:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Vlanif" >
+                <xs:annotation>
+                    <xs:documentation>Vlanif:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="subif" >
+                <xs:annotation>
+                    <xs:documentation>subif:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="inLoopback" >
+                <xs:annotation>
+                    <xs:documentation>inLoopback:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Null" >
+                <xs:annotation>
+                    <xs:documentation>Null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Loopback" >
+                <xs:annotation>
+                    <xs:documentation>Loopback:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="lacpRcvTmOutType">
+        <xs:restriction base="xs:string">
+	    <xs:minLength value="1"/>
+	    <xs:maxLength value="31"/>
+            <xs:enumeration value="Slow">
+                <xs:annotation>
+                    <xs:documentation>Slow:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Fast">
+                <xs:annotation>
+                    <xs:documentation>Fast:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="lacpSelectStd">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Speed">
+                <xs:annotation>
+                    <xs:documentation>Speed:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Prority">
+                <xs:annotation>
+                    <xs:documentation>Prority:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="lacpPortType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Null">
+                <xs:annotation>
+                    <xs:documentation>Null:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="10M">
+                <xs:annotation>
+                    <xs:documentation>10M:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="100M">
+                <xs:annotation>
+                    <xs:documentation>100M:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1GE">
+                <xs:annotation>
+                    <xs:documentation>1GE:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="10GE">
+                <xs:annotation>
+                    <xs:documentation>10GE:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="100GE">
+                <xs:annotation>
+                    <xs:documentation>100GE:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1TE">
+                <xs:annotation>
+                    <xs:documentation>1TE:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="10TE">
+                <xs:annotation>
+                    <xs:documentation>10TE:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="100TE">
+                <xs:annotation>
+                    <xs:documentation>100TE:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1000TE">
+                <xs:annotation>
+                    <xs:documentation>1000TE:</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>    
+</xs:schema>

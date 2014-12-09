@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.7
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="timerange_type.xsd"/>
+	<xs:element name="timerange" type="timerange_timeRange_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>trng</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="timerange_timeRange_type">
+		<xs:choice minOccurs="0" maxOccurs="256">
+			<xs:element name="timeRangeInstances" type="timerange_timeRangeInstances_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="timerange_absoluteRanges_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="absoluteRange" type="timerange_absoluteRange_type" minOccurs="0" maxOccurs="12"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="timerange_absoluteRange_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="startTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>开始时间</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>结束时间</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="timerange_timeRangeInstances_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="timeRangeInstance" type="timerange_timeRangeInstance_type" minOccurs="0" maxOccurs="256"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="timerange_timeRangeInstance_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="timeRangeName">
+				<xs:annotation>
+					<xs:documentation>time-range的实例名称</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="timerange_trngInstance_timeRangeName_type">
+							<xs:attribute name="trngID" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="activeStatus" type="rowStatus">
+				<xs:annotation>
+					<xs:documentation>激活状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="absoluteRanges" type="timerange_absoluteRanges_type"/>
+			<xs:element name="periodRanges" type="timerange_periodRanges_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:simpleType name="timerange_trngInstance_timeRangeName_type">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="32"/>
+			<xs:pattern value="(^[a-zA-Z]([^\s]*$))"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="timerange_periodRanges_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="periodRange" type="timerange_periodRange_type" minOccurs="0" maxOccurs="32"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="timerange_periodRange_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="dayOfWeek" type="bits8">
+				<xs:annotation>
+					<xs:documentation>一周的第几天</xs:documentation>
+					<xs:appinfo>
+						<bits maskLen="7">
+							<bit position="0">Sun</bit>
+							<bit position="1">Mon</bit>
+							<bit position="2">Tue</bit>
+							<bit position="3">Wed</bit>
+							<bit position="4">Tur</bit>
+							<bit position="5">Fri</bit>
+							<bit position="6">Sat</bit>
+						</bits>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startTime" type="time_hhmm">
+				<xs:annotation>
+					<xs:documentation>开始时间</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endTime" type="time_hhmm">
+				<xs:annotation>
+					<xs:documentation>结束时间</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+</xs:schema>

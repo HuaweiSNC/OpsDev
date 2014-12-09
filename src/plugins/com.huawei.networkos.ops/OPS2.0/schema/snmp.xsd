@@ -1,0 +1,1982 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.4
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:include schemaLocation="pub_attribute.xsd"/>
+    <xs:include schemaLocation="pub_type.xsd"/>
+    <xs:include schemaLocation="snmp_type.xsd"/>
+    <xs:element name="snmp" type="snmp_snmp_type">
+        <xs:annotation>
+            <xs:appinfo>
+                <taskName>snmp</taskName>
+            </xs:appinfo>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="snmp_snmp_type">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="agentCfg" type="snmp_agentCfg_type"/>
+            <xs:element name="engine" type="snmp_engine_type"/>
+            <xs:element name="systemCfg" type="snmp_systemCfg_type"/>
+            <xs:element name="notificationCfg" type="snmp_notificationLogCfg_type"/>
+            <xs:element name="mibViews" type="snmp_mibViews_type"/>
+            <xs:element name="communitys" type="snmp_communitys_type"/>
+            <xs:element name="snmpv3Groups" type="snmp_snmpv3Groups_type"/>
+            <xs:element name="usmUsers" type="snmp_usmUsers_type"/>
+            <xs:element name="targetHosts" type="snmp_targetHosts_type"/>
+            <xs:element name="notifyFltrPrs" type="snmp_notifyFltrPrs_type"/>
+            <xs:element name="snmpStats" type="snmp_snmpStats_type"/>
+            <xs:element name="usmStats" type="snmp_usmStats_type"/>
+            <xs:element name="mpdStats" type="snmp_mpdStats_type"/>
+            <xs:element name="notificationStats" type="snmp_notificationLogStats_type"/>
+            <xs:element name="targetStats" type="snmp_targetStats_type"/>
+            <!--<xs:element name="proxy" type="snmp_proxy_type"/>-->
+        </xs:choice>
+        <xs:attributeGroup ref="versionAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_agentCfg_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure SNMP Agent parameters</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="agentEnable" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>To enable or disable SNMP agent</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_engine_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure SNMP engine parameters</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="version" type="snmpSnmpVersionE" default="v3">
+                <xs:annotation>
+                    <xs:documentation>SNMP versions</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="engineID">
+                <xs:annotation>
+                    <xs:documentation>SNMP Agent's engine ID</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="64"/>
+                        <xs:minLength value="10"/>
+                        <xs:pattern value="(([0-9a-fA-F])*)"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="engineMaxMessageSize" default="12000">
+                <xs:annotation>
+                    <xs:documentation>SNMP engine maximum message size</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="484"/>
+                        <xs:maxInclusive value="17940"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_systemCfg_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure SNMP parameters</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="trapSourceInterfaceName" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Trap source interface</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="informTimeout" default="15">
+                <xs:annotation>
+                    <xs:documentation>Timeout period of SNMP inform packets (in seconds)</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1800"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="informResendTimes" default="3">
+                <xs:annotation>
+                    <xs:documentation>Retransmission times of SNMP inform packets</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="informPendNumber" default="39">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP inform packets that are waiting for the inform ack from the NMS</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="2048"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="snmpPacketPriority" default="6">
+                <xs:annotation>
+                    <xs:documentation>Packet priority of SNMP response packets</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="7"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="trapPacketPriority" default="6">
+                <xs:annotation>
+                    <xs:documentation>Packet priority of SNMP trap packets</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="7"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_notificationLogCfg_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure SNMP notification log parameters</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="notificationLogEnable" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>To enable or disable notification logging feature</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="notificationGlobalAgeOut" default="24">
+                <xs:annotation>
+                    <xs:documentation>The notification aging time in hours</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="36"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="notificationGlobalLimit" default="500">
+                <xs:annotation>
+                    <xs:documentation>Maximum number of notification entries to be stored</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="15000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_targetHosts_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="targetHost" type="snmp_targetHost_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_targetHost_type">
+        <xs:annotation>
+            <xs:documentation>To configure target host for traps and informs</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="nmsName">
+                <xs:annotation>
+                    <xs:documentation>Unique name to identify target host entry</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="domain" type="snmpSnmpDomainE" default="snmpUDPDomain">
+                <xs:annotation>
+                    <xs:documentation>Transport domain</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address">
+                <xs:annotation>
+                    <xs:documentation>Target host IP address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="ipAddress">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="targetInformTimeout">
+                <xs:annotation>
+                    <xs:documentation>Timeout period of SNMP inform packets (in seconds) for the target</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1800"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="targetInformResendTimes">
+                <xs:annotation>
+                    <xs:documentation>Maximum number of time to re-transmit the SNMP inform packet if acknowledgement is not received from the target</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="notifyType" type="snmpSnmpNotifyE" default="trap">
+                <xs:annotation>
+                    <xs:documentation>Trap or inform</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vpnInstanceName" type="vrfName">
+                <xs:annotation>
+                    <xs:documentation>To configure VPN instance</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="portNumber" default="162">
+                <xs:annotation>
+                    <xs:documentation>To configure UDP port number</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="65535"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="securityModel" type="snmpSnmpTgtVerE" default="v1">
+                <xs:annotation>
+                    <xs:documentation>SNMP security model</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="securityName">
+                <xs:annotation>
+                    <xs:documentation>Security name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="passwordExtend">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="securityLevel" type="snmpSnmpSecLvlE" default="noAuthNoPriv">
+                <xs:annotation>
+                    <xs:documentation>SNMP security level</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="private-netmanager" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>To enable or disable Private VB's for target Host</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ext-vb" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>To enable or disable the extended VB's for target Host</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        <xs:element name="notifyFltrPrName">
+            <xs:annotation>
+                <xs:documentation>Notify filter profile name</xs:documentation>
+                <xs:appinfo>
+                    <access>readCreate</access>
+                    <allowNull>true</allowNull>
+                </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="32"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:element>
+            <xs:element name="retriesNum" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of retries made in sending inform</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="pendingNum" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of informs which are waiting for acknowledgement</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="sentNum" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of packets sent</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="droppedNum" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of packets dropped while sending</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="failedNum" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of informs failed to receive acknowledgement</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="confirmedNum" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of informs received acknowledgement</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="interface-name" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Set the source interface of trap packet</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_communitys_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="community" type="snmp_community_type" minOccurs="0" maxOccurs="25"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_community_type">
+        <xs:annotation>
+            <xs:documentation>To configure SNMP communtiy for SNMPv1 and SNMPv2</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="communityName">
+                <xs:annotation>
+                    <xs:documentation>Unique name to identify the community</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+					<xs:restriction base="passwordExtend">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="accessRight" type="snmpSnmpAccessE">
+                <xs:annotation>
+                    <xs:documentation>Access right (read / write)</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="mibViewName">
+                <xs:annotation>
+                    <xs:documentation>Mib view name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="aclNumber">
+                <xs:annotation>
+                    <xs:documentation>ACL</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_usmUsers_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="usmUser" type="snmp_usmUser_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_usmUser_type">
+        <xs:annotation>
+            <xs:documentation>To configure USM users for SNMPv3</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="userName">
+                <xs:annotation>
+                    <xs:documentation>Unique name to identify the USM user</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <unique>true</unique>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="groupName">
+                <xs:annotation>
+                    <xs:documentation>Name of the group where user belongs to</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="authProtocol" type="snmpSnmpAuthenmodeE" default="noAuth">
+                <xs:annotation>
+                    <xs:documentation>Authentication protocol</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="authKey">
+                <xs:annotation>
+                    <xs:documentation>Authentication key</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="8"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="privProtocol" type="snmpSnmpPrivacyE" default="noPriv">
+                <xs:annotation>
+                    <xs:documentation>Privacy protocol</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="privKey">
+                <xs:annotation>
+                    <xs:documentation>Privacy key</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="8"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="aclNumber">
+                <xs:annotation>
+                    <xs:documentation>ACL</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_snmpv3Groups_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="snmpv3Group" type="snmp_snmpv3Group_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_snmpv3Group_type">
+        <xs:annotation>
+            <xs:documentation>To configure SNMPv3 groups</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="groupName">
+                <xs:annotation>
+                    <xs:documentation>Unique name to identify the SNMPv3 group</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="securityLevel" type="snmpSnmpSecLvlE">
+                <xs:annotation>
+                    <xs:documentation>Security level indicating whether to use authentication and encryption</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="readViewName" default="ViewDefault">
+                <xs:annotation>
+                    <xs:documentation>Mib view name for read access</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="writeViewName">
+                <xs:annotation>
+                    <xs:documentation>Mib view name for write access</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="notifyViewName">
+                <xs:annotation>
+                    <xs:documentation>Mib view name for notification</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="aclNumber">
+                <xs:annotation>
+                    <xs:documentation>ACL</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_mibViews_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="mibView" type="snmp_mibView_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_mibView_type">
+        <xs:annotation>
+            <xs:documentation>To configure MIB views</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="viewName">
+                <xs:annotation>
+                    <xs:documentation>Name to identify MIB view</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="subtree">
+                <xs:annotation>
+                    <xs:documentation>Subtree</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="type" type="snmpSnmpFilterE" default="included">
+                <xs:annotation>
+                    <xs:documentation>Filter (include / exclude)</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_notifyFltrPrs_type">
+        <xs:annotation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="notifyFltrPr" type="snmp_notifyFltrPr_type" minOccurs="0" maxOccurs="20"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_notifyFltrPr_type">
+        <xs:annotation>
+            <xs:documentation>To configure nofity filter profiles</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="profileName">
+                <xs:annotation>
+                    <xs:documentation>Name to identify notify filter profile</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="subtree">
+                <xs:annotation>
+                    <xs:documentation>Subtree name of MIB object for trap/notification</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="type" type="snmpSnmpFilterE" default="included">
+                <xs:annotation>
+                    <xs:documentation>Filter type (included / excluded)</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_snmpStats_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Global SNMP statistics</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="inPkts">
+                <xs:annotation>
+                    <xs:documentation>Number of messages delivered to the SNMP entity from the transport service</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outPkts">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Messages which were passed from the SNMP protocol entity to the transport service</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inBadVersions">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Messages which were delivered to the SNMP protocol entity and were for an unsupported SNMP version</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inBadCommuintyNames">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Messages delivered to the SNMP protocol entity which used a SNMP community name not known to said entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inBadCommunityUsesr">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Messages delivered to the SNMP protocol entity which represented an SNMP operation which was not allowed by the SNMP community named in the message</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inASNParseErrs">
+                <xs:annotation>
+                    <xs:documentation>Number of ASN.1 or BER errors encountered by the SNMP protocol entity when decoding received SNMP messages</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inTooBigs">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP PDUs which were delivered to the SNMP protocol entity and for which the value of the error-status field is
+ `tooBig'</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inNoSuchNames">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP PDUs which were delivered to the SNMP protocol entity and for which the value of the error-status field is  `noSuchName'</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inBadValues">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP PDUs which were delivered to the SNMP protocol entity and for which the value of the error-status field is `badValue'</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inReadOnlys">
+                <xs:annotation>
+                    <xs:documentation>Number valid SNMP PDUs which were delivered to the SNMP protocol entity and for hich the value of the error-status field is 'readOnly'.  It should be noted that it is a protocol error to generate an SNMP PDU which contains the value `readOnly' in the error-status field, as such this object is provided as a means of detecting incorrect implementations of the SNMP</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inGenErrs">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP PDUs which were delivered to the SNMP protocol entity and for which the value of the error-status field is `genErr'</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inTotalReqVars">
+                <xs:annotation>
+                    <xs:documentation>Number of MIB objects which have been retrieved successfully by the SNMP protocol entity as the result of receiving valid SNMP Get-Request and Get-Next PDUs</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inTotalSetVars">
+                <xs:annotation>
+                    <xs:documentation>Number of MIB objects which have been altered successfully by the SNMP protocol entity as the result of receiving valid SNMP Set-Request PDUs</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inGetRequests">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Get-Request PDUs which have been accepted and processed by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inGetNexts">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Get-Next PDUs which have been accepted and processed by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inSetRequests">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Set-Request PDUs which have been accepted and processed by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inGetResponses">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Get-Response PDUs which have been accepted and processed by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inTraps">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Trap PDUs which have been accepted and processed by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outTooBigs">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP PDUs which were generated by the SNMP protocol entity and for which the value of the error-status field is `tooBig.'</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outNoSuchNames">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP PDUs which were generated by the SNMP protocol entity and for which the value of the error-status is `noSuchName'</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outBadValues">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP PDUs which were generated by the SNMP protocol entity and for which the value of the error-status field is `badValue'.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outGenErrs">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP PDUs which were generated by the SNMP protocol entity and for which the value of the error-status field is `genErr'.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outGetRequests">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Get-Request PDUs which have been generated by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outGetNexts">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Get-Next PDUs which have  been generated by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outSetRequests">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Set-Request PDUs which have been generated by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outGetResponses">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Get-Response PDUs which have been generated by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outTraps">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Trap PDUs which have been generated by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="silentDrops">
+                <xs:annotation>
+                    <xs:documentation>Total number of GetRequest-PDUs, GetNextRequest-PDUs, GetBulkRequest-PDUs, SetRequest-PDUs, and InformRequest-PDUs delivered to the SNMP entity which were silently dropped because the size of a reply containing an alternate Response-PDU with an empty variable-bindings field was greater than either a local constraint or the maximum message size associated with the originator of the request</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inGetBulks">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Get-Bulk PDUs which have been accepted and processed by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="outGetBulks">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP GetBulk-Request PDUs which have been generated by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="inInforms">
+                <xs:annotation>
+                    <xs:documentation>Number of SNMP Inform PDUs which have been accepted and processed by the SNMP protocol entity</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!--<xs:element name="inProxyPkts">
+                <xs:annotation>
+                    <xs:documentation>Total number of messages delivered to SNMP proxy</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="proxyDrops">
+                <xs:annotation>
+                    <xs:documentation>Number of GetRequest-PDUs, GetNextRequest-PDUs, GetBulkRequest-PDUs, SetRequest-PDUs, and InformRequest-PDUs delivered to the SNMP entity which were silently dropped because the transmission of the (possibly translated) message to a proxy target failed in a manner (other than a time-out) such that no Response-PDU could be returned</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>-->
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_usmStats_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Statistics for the User-based Security Model</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="unknownUserName">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because they referenced a user that was not known to the SNMP engine.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="2147483647"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="wrongDigests">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because they didn't contain the expected digest value</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="2147483647"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="unsupportSecLevels">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because they requested a securityLevel that was unknown to the SNMP engine or otherwise unavailable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="2147483647"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="notInTmWindows">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because they appeared outside of the authoritative SNMP engine's window</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="2147483647"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="unknownEngineIDs">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because they referenced a engineID that was not known to the SNMP engine</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="2147483647"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="decryptionErrorss">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because they could not be decrypted</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="2147483647"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_mpdStats_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Message Processing and Dispatching related parameters</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="unknownSecModel" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because they referenced a securityModel that was not known to or supported by the SNMP engine</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="invalidMsgs" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because there were invalid or inconsistent components in the SNMP message</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="unknownPDUHandl" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because the PDU contained in the packet could not be passed to an application responsible for handling the pduType, e.g. no SNMP application had registered for the proper combination of the contextEngineID and the pduType</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_targetStats_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Statistics related to remote targets</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="unAvailContexts" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because the context contained in the mesage was unavailable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="unknownContexts" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Number of packets received by the SNMP engine which were dropped because the context contained in the mesage was unknown</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_notificationLogStats_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>Statistics related to notification log</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="totalNotificationsLogged" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>The number of Notifications put into the nlmLogTable.  This counts a Notification once for each log entry, so a Notification put into multiple logs is counted multiple times.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="totalNotificationsBumped" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>The number of log entries discarded to make room for a new entry due to lack of resources or the value of nlmConfigGlobalEntryLimit or nlmConfigLogEntryLimit.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="totalLogEntries" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>The total number of entries present in the nlmLogTable</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <!--<xs:complexType name="snmp_proxyCfg_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure SNMP proxy parameters</xs:documentation>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="proxyEnable" type="xs:boolean" default="false" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>To enable or disable SNMP proxy</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxy_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure SNMP proxy rule tables</xs:documentation>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="communitys" type="snmp_proxyCommunitys_type"/>
+            <xs:element name="usmUsers" type="snmp_proxyUsmUsers_type"/>
+            <xs:element name="targetHosts" type="snmp_proxyTargets_type"/>
+            <xs:element name="rules" type="snmp_proxyTables_type"/>
+        </xs:choice>
+        <xs:attributeGroup ref="versionAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxyTables_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure SNMP proxy rules </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="rule" type="snmp_proxyTable_type" minOccurs="0" maxOccurs="20"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxyTable_type">
+        <xs:annotation>
+            <xs:documentation>To configure SNMP proxy table</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice>
+            <xs:element name="proxyName" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Unique identifier associated with this snmpProxyEntry</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <unique>true</unique>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="type" type="snmpSnmpProxyTypeE" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>The type of message that may be forwarded using the translation parameters defined by this entry.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="remoteEngineID" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>The contextEngineID contained in messages that may be forwarded using the translation parameters defined by this entry</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="64"/>
+                        <xs:minLength value="10"/>
+                        <xs:pattern value="(([0-9a-fA-F])*)"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="targetHostName">
+                <xs:annotation>
+                    <xs:documentation>This entry is used to determine the targetHost entry to use for forwarding received messages.</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="securityName">
+                <xs:annotation>
+                    <xs:documentation>Security name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="securityModel" type="snmpSnmpTgtVerE">
+                <xs:annotation>
+                    <xs:documentation>SNMP security model</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="securityLevel" type="snmpSnmpSecLvlE" default="noAuthNoPriv">
+                <xs:annotation>
+                    <xs:documentation>SNMP security level</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxyCommunitys_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure community users for SNMP V1 and V2 proxy</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="community" type="snmp_proxyCommunity_type" minOccurs="0" maxOccurs="20"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxyCommunity_type">
+        <xs:annotation>
+            <xs:documentation>To configure Community users for SNMPv1 and v2 proxy</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="communityName">
+                <xs:annotation>
+                    <xs:documentation>Unique name to identify the community user</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <unique>true</unique>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="remoteEngineID" nillable="false">
+                <xs:annotation>
+                    <xs:documentation>Community's remote engine ID</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="64"/>
+                        <xs:minLength value="10"/>
+                        <xs:pattern value="(([0-9a-fA-F])*)"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="acl">
+                <xs:annotation>
+                    <xs:documentation>ACL</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxyUsmUsers_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure USM users for SNMPv3 proxy</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="usmUser" type="snmp_proxyUsmUser_type" minOccurs="0" maxOccurs="20"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxyUsmUser_type">
+        <xs:annotation>
+            <xs:documentation>To configure USM users for SNMPv3 proxy</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="userName">
+                <xs:annotation>
+                    <xs:documentation>Unique name to identify the USM user</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="remoteEngineID">
+                <xs:annotation>
+                    <xs:documentation>Targets's remote engine ID</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="64"/>
+                        <xs:minLength value="10"/>
+                        <xs:pattern value="(([0-9a-fA-F])*)"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="authProtocol" type="snmpSnmpAuthenmodeE" default="noAuth">
+                <xs:annotation>
+                    <xs:documentation>Authentication protocol</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="authKey">
+                <xs:annotation>
+                    <xs:documentation>Authentication key</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="8"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="privProtocol" type="snmpSnmpPrivacyE" default="noPriv">
+                <xs:annotation>
+                    <xs:documentation>Privacy protocol</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="privKey">
+                <xs:annotation>
+                    <xs:documentation>Privacy key</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="8"/>
+                        <xs:maxLength value="255"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="acl">
+                <xs:annotation>
+                    <xs:documentation>ACL</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxyTargets_type">
+        <xs:annotation>
+            <xs:appinfo/>
+            <xs:documentation>To configure SNMP target host group for proxy</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="targetHost" type="snmp_proxyTarget_type" minOccurs="0" maxOccurs="20"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="snmp_proxyTarget_type">
+        <xs:annotation>
+            <xs:documentation>To configure proxy target hosts</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="20">
+            <xs:element name="targetName">
+                <xs:annotation>
+                    <xs:documentation>Unique name to identify target host entry</xs:documentation>
+                    <xs:appinfo>
+                        <key>true</key>
+                        <access>readCreate</access>
+                        <unique>true</unique>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="domain" type="snmpSnmpDomainE" default="snmpUDPDomain">
+                <xs:annotation>
+                    <xs:documentation>Transport domain</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="address">
+                <xs:annotation>
+                    <xs:documentation>Target host IP address</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="ipAddress">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="timeout" default="15">
+                <xs:annotation>
+                    <xs:documentation>Timeout period of SNMP packets (in seconds) for the target</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="1800"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="vpnInstanceName" type="vrfName">
+                <xs:annotation>
+                    <xs:documentation>To configure VPN instance</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="portNumber">
+                <xs:annotation>
+                    <xs:documentation>To configure UDP port number</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="65535"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="securityModel" type="snmpSnmpTgtVerE">
+                <xs:annotation>
+                    <xs:documentation>SNMP security model</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="securityName">
+                <xs:annotation>
+                    <xs:documentation>Security name</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="securityLevel" type="snmpSnmpSecLvlE" default="noAuthNoPriv">
+                <xs:annotation>
+                    <xs:documentation>SNMP security level</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="interface-name" type="ifName">
+                <xs:annotation>
+                    <xs:documentation>Set the source interface of trap packet</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                        <allowNull>true</allowNull>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>-->
+</xs:schema>

@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.9 L20090424pm for schema
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+    <xs:annotation>
+        <xs:appinfo>
+            <formatVersion>1.0</formatVersion>
+            <contentVersion>1.0</contentVersion>
+        </xs:appinfo>
+    </xs:annotation>
+    <xs:include schemaLocation="pub_attribute.xsd"/>
+    <xs:include schemaLocation="pub_type.xsd"/>
+    <xs:include schemaLocation="mpls_comm_type.xsd"/>
+    <xs:complexType name="mpls_common_type">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="mplsCommonCfg" type="mpls_mplsCommonCfg_type">
+                <xs:annotation>
+                    <xs:documentation>MPLS通用配置</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ospfTEs" type="ospfTEs_type">
+                <xs:annotation>
+                    <xs:documentation>OSPF TE能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="isisTEs" type="isisTEs_type">
+                <xs:annotation>
+                    <xs:documentation>ISIS TE能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="mplsInterfaces" type="mplsInterfaces_type">
+                <xs:annotation>
+                    <xs:documentation>MPLS接口信息</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="mplsLspStatistics" type="mplsLspStatistics_type">
+                <xs:annotation>
+                    <xs:documentation>MPLS LSP统计信息</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="crossConnects" type="crossConnects_type">
+                <xs:annotation>
+                    <xs:documentation>MPLS 交叉信息</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="versionAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="mpls_mplsCommonCfg_type">
+        <xs:annotation>
+            <xs:documentation>MPLS公用配置</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="mplsLsrID" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>LSRID</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="mplsEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>使能MPLS</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="teEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>使能MPLS TE能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="rsvpTeEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>使能MPLS RSVP TE 能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ldpEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>使能MPLS LDP能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="nullLableType" type="labelAdvertise" default="implicit_null">
+                <xs:annotation>
+                    <xs:documentation>空标签分配方式</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <!-- xs:element name="crossConnects" type="crossConnects_type">
+				<xs:annotation>
+					<xs:documentation>MPLS 交叉信息</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element -->
+            <xs:element name="teTtlMode" type="mplsTtlModeType" default="uniform">
+                <xs:annotation>
+                    <xs:documentation>设置TE TTL模式</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ldpTtlMode" type="mplsTtlModeType" default="uniform">
+                <xs:annotation>
+                    <xs:documentation>设置LDP TTL模式</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="mplsInterfaces_type">
+        <xs:annotation>
+            <xs:documentation>MPLS接口配置</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="mplsInterface" type="mplsInterface_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="mplsInterface_type">
+        <xs:annotation>
+            <xs:documentation>MPLS接口配置</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="interfaceName">
+                <xs:annotation>
+                    <xs:documentation>接口名</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="ifName">
+                            <xs:attribute name="ifindex" type="xs:unsignedInt"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <!-- xs:element name="mplsEnable" type="xs:boolean" default="true">
+				<xs:annotation>
+					<xs:documentation>使能接口的MPLS能力</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element -->
+            <xs:element name="mtuValue">
+                <xs:annotation>
+                    <xs:documentation>mtu值</xs:documentation>
+                    <xs:appinfo>
+                        <allowNull>true</allowNull>
+                        <access>readCreate</access>
+                        <unit>second</unit>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="50000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="ldpEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>使能接口的MPLS LDP能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="mplsTEEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>使能接口的MPLS TE能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="rsvpTEEnable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>使能接口的MPLS RSVP TE能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="mplsLspStatistics_type">
+        <xs:annotation>
+            <xs:documentation>MPLS LSP统计信息</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="mplsLspStatistic" type="mplsLspStatistic_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="mplsLspStatistic_type">
+        <xs:annotation>
+            <xs:documentation>MPLS LSP统计信息</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="lspType" type="mplsLspType">
+                <xs:annotation>
+                    <xs:documentation>LSP类型</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                        <mandatory>true</mandatory>
+                        <unique>true</unique>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ingressLsp" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Ingress LSP数最</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="egressLsp" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Egress LSP数量</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="transitLsp" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Transit LSP数量</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="totalLsp" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>Total LSP数量</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="crossConnects_type">
+        <xs:annotation>
+            <xs:documentation>LSP 交叉</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="crossConnect" type="crossConnect_type" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="crossConnect_type">
+        <xs:annotation>
+            <xs:documentation>LSP 交叉</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="xcIndex" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>交叉索引</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <!--xs:element name="xcOutLableState">
+				<xs:annotation>
+					<xs:documentation>出标签状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="256"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element-->
+            <xs:element name="xcOutIfName">
+                <xs:annotation>
+                    <xs:documentation>出接口名</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="ifName">
+                            <xs:attribute name="ifindex" type="xs:unsignedInt"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="xcOutLabel" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>出标签</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="xcNextHop" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>下一跳</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="xcInIfName">
+                <xs:annotation>
+                    <xs:documentation>入接口名</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="ifName">
+                            <xs:attribute name="ifindex" type="xs:unsignedInt"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <!--xs:element name="xcInLabelState" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>入标签状态</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element -->
+            <xs:element name="xcInLabel" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>入标签</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="xcOutgoingTunnelID" type="xs:unsignedInt">
+                <xs:annotation>
+                    <xs:documentation>bgp隧道id</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+			<xs:element name="insegmentIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>insegment索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outsegmentIndex" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>outsegment索引</xs:documentation>
+					<xs:appinfo>
+						<access>readOnly</access>
+						<key>true</key>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="ospfTEs_type">
+        <xs:annotation>
+            <xs:documentation>OSPF TE配置</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ospfTE" type="ospfTE_type" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>OSPF 进程的TE能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ospfTE_type">
+        <xs:annotation>
+            <xs:documentation>OSPF TE配置</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="processID">
+                <xs:annotation>
+                    <xs:documentation>OSPF 进程号</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="area" type="ipv4Address">
+                <xs:annotation>
+                    <xs:documentation>区域号</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="enable" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>使能TE</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="trafficAdjust" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>流量调节能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="stdComplying" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>RFC-compliance</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+    <xs:complexType name="isisTEs_type">
+        <xs:annotation>
+            <xs:documentation>ISIS TE配置</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="isisTE" type="isisTE_type" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>ISIS进程的TE能力</xs:documentation>
+                    <xs:appinfo>
+                        <access>readCreate</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="isisTE_type">
+        <xs:annotation>
+            <xs:documentation>ISIS TE配置</xs:documentation>
+            <xs:appinfo/>
+        </xs:annotation>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="processID">
+                <xs:annotation>
+                    <xs:documentation>ISIS 进程号</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="4294967295"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="level">
+                <xs:annotation>
+                    <xs:documentation>ISIS级别</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                        <key>true</key>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:unsignedInt">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="enable" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>使能TE</xs:documentation>
+                    <xs:appinfo>
+                        <access>readWrite</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="costStyle" type="TeIsCostStyle">
+                <xs:annotation>
+                    <xs:documentation>路由器的开销类型</xs:documentation>
+                    <xs:appinfo>
+                        <access>readOnly</access>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:element>
+        </xs:choice>
+        <xs:attributeGroup ref="objectAttributeGroup"/>
+    </xs:complexType>
+</xs:schema>

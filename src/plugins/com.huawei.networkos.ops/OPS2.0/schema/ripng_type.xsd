@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.19 SP1
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:simpleType name="ripngRipDefRoute">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="only">
+				<xs:annotation>
+					<xs:documentation>only:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="always">
+				<xs:annotation>
+					<xs:documentation>always:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngDefRtType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="matchdefault">
+				<xs:annotation>
+					<xs:documentation>matchdefault:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="always">
+				<xs:annotation>
+					<xs:documentation>always:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="policy">
+				<xs:annotation>
+					<xs:documentation>policy:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngRipRoute">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="learnt">
+				<xs:annotation>
+					<xs:documentation>learnt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="advdb">
+				<xs:annotation>
+					<xs:documentation>advdb:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngAUTH">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="simple">
+				<xs:annotation>
+					<xs:documentation>simple:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="huawei">
+				<xs:annotation>
+					<xs:documentation>huawei:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="keychain">
+				<xs:annotation>
+					<xs:documentation>keychain:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="md5_keyid">
+				<xs:annotation>
+					<xs:documentation>md5_keyid:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngProtoType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="direct_id">
+				<xs:annotation>
+					<xs:documentation>direct_id:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="isis_id">
+				<xs:annotation>
+					<xs:documentation>isis_id:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="static_id">
+				<xs:annotation>
+					<xs:documentation>static_id:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp_id">
+				<xs:annotation>
+					<xs:documentation>bgp_id:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ospfv3_id">
+				<xs:annotation>
+					<xs:documentation>ospfv3_id:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ripng_id">
+				<xs:annotation>
+					<xs:documentation>ripng_id:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngPolicyType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="import">
+				<xs:annotation>
+					<xs:documentation>import:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="export">
+				<xs:annotation>
+					<xs:documentation>export:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngRipFlagType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="age">
+				<xs:annotation>
+					<xs:documentation>age:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="garbage">
+				<xs:annotation>
+					<xs:documentation>garbage:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="holddown">
+				<xs:annotation>
+					<xs:documentation>holddown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngFilterType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="acl">
+				<xs:annotation>
+					<xs:documentation>acl:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip_prefix">
+				<xs:annotation>
+					<xs:documentation>ip_prefix:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngRipVersion">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="v1">
+				<xs:annotation>
+					<xs:documentation>v1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="v2">
+				<xs:annotation>
+					<xs:documentation>v2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="v2_comp">
+				<xs:annotation>
+					<xs:documentation>v2_comp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="none">
+				<xs:annotation>
+					<xs:documentation>none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngLvlType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="process">
+				<xs:annotation>
+					<xs:documentation>process:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="interface">
+				<xs:annotation>
+					<xs:documentation>interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngEnableFlag">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngRouteType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="learnt">
+				<xs:annotation>
+					<xs:documentation>learnt:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="imported">
+				<xs:annotation>
+					<xs:documentation>imported:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="classful summ">
+				<xs:annotation>
+					<xs:documentation>classful summ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ripng-interface">
+				<xs:annotation>
+					<xs:documentation>ripng-interface:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ifsumm">
+				<xs:annotation>
+					<xs:documentation>ifsumm:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="default route originate">
+				<xs:annotation>
+					<xs:documentation>default route originate:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngDebugType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="general">
+				<xs:annotation>
+					<xs:documentation>general:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="packet">
+				<xs:annotation>
+					<xs:documentation>packet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="route">
+				<xs:annotation>
+					<xs:documentation>route:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>all:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="miscellaneous">
+				<xs:annotation>
+					<xs:documentation>miscellaneous:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngDebugRte">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="error">
+				<xs:annotation>
+					<xs:documentation>error:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="backup">
+				<xs:annotation>
+					<xs:documentation>backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>all:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngDebugGen">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="error">
+				<xs:annotation>
+					<xs:documentation>error:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="events">
+				<xs:annotation>
+					<xs:documentation>events:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="backup">
+				<xs:annotation>
+					<xs:documentation>backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="jobs">
+				<xs:annotation>
+					<xs:documentation>jobs:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>all:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngDebugPkt">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="send">
+				<xs:annotation>
+					<xs:documentation>send:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="receive">
+				<xs:annotation>
+					<xs:documentation>receive:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="all">
+				<xs:annotation>
+					<xs:documentation>all:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngResetType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="statistics">
+				<xs:annotation>
+					<xs:documentation>statistics:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ripngVersionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="rip_version_1">
+				<xs:annotation>
+					<xs:documentation>rip_version_1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rip_version_2">
+				<xs:annotation>
+					<xs:documentation>rip_version_2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rip_version_2_comp">
+				<xs:annotation>
+					<xs:documentation>rip_version_2_comp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rip_version_none">
+				<xs:annotation>
+					<xs:documentation>rip_version_none:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="rip_version_default">
+				<xs:annotation>
+					<xs:documentation>rip_version_default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

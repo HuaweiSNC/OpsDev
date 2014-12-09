@@ -1,0 +1,1116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.1.18
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:simpleType name="l2vpnInstanceName">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="31"/>
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnSignalType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ldp">
+				<xs:annotation>
+					<xs:documentation>ldp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp">
+				<xs:annotation>
+					<xs:documentation>bgp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnVplsEncapType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ethernet">
+				<xs:annotation>
+					<xs:documentation>ethernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vlan">
+				<xs:annotation>
+					<xs:documentation>vlan:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnMacLearnStyle">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="qualify">
+				<xs:annotation>
+					<xs:documentation>qualify:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unqualify">
+				<xs:annotation>
+					<xs:documentation>unqualify:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnPwRoleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="primary">
+				<xs:annotation>
+					<xs:documentation>primary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="backup">
+				<xs:annotation>
+					<xs:documentation>backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bypass">
+				<xs:annotation>
+					<xs:documentation>bypass:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multiHopOneSidePrimary">
+				<xs:annotation>
+					<xs:documentation>multiHopOneSidePrimary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multiHopOtherSidePrimary">
+				<xs:annotation>
+					<xs:documentation>multiHopOtherSidePrimary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multiHopOtherSideBackup">
+				<xs:annotation>
+					<xs:documentation>multiHopOtherSideBackup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="admin">
+				<xs:annotation>
+					<xs:documentation>admin:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnPwTemplateName">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="19"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnPwName">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="15"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnInstanceState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="adminDown">
+				<xs:annotation>
+					<xs:documentation>adminDown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnAcState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="plugOut">
+				<xs:annotation>
+					<xs:documentation>plugOut:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="notifyDown">
+				<xs:annotation>
+					<xs:documentation>notifyDown:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="downNotify">
+				<xs:annotation>
+					<xs:documentation>downNotify:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnPwState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="backup">
+				<xs:annotation>
+					<xs:documentation>backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnForwardState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="notForwarding">
+				<xs:annotation>
+					<xs:documentation>notForwarding:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="forwarding">
+				<xs:annotation>
+					<xs:documentation>forwarding:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnLdpSignalMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pwe3">
+				<xs:annotation>
+					<xs:documentation>pwe3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="martini">
+				<xs:annotation>
+					<xs:documentation>martini:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnControlWord">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnEthernetEncapMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="raw">
+				<xs:annotation>
+					<xs:documentation>raw:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tagged">
+				<xs:annotation>
+					<xs:documentation>tagged:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnInstanceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="vpwsLocalccc">
+				<xs:annotation>
+					<xs:documentation>vpwsLocalccc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vpwsRemoteccc">
+				<xs:annotation>
+					<xs:documentation>vpwsRemoteccc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vpwsSvc">
+				<xs:annotation>
+					<xs:documentation>vpwsSvc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vpwsLdp">
+				<xs:annotation>
+					<xs:documentation>vpwsLdp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vpwsSwitch">
+				<xs:annotation>
+					<xs:documentation>vpwsSwitch:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vpls">
+				<xs:annotation>
+					<xs:documentation>vpls:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnSwitchType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="svc2svc">
+				<xs:annotation>
+					<xs:documentation>svc2svc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ldp2svc">
+				<xs:annotation>
+					<xs:documentation>ldp2svc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ldp2ldp">
+				<xs:annotation>
+					<xs:documentation>ldp2ldp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="upe">
+				<xs:annotation>
+					<xs:documentation>upe:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnEncapsulateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="fr">
+				<xs:annotation>
+					<xs:documentation>fr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="atm-aal5-sdu">
+				<xs:annotation>
+					<xs:documentation>atm-aal5-sdu:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="atm-trans-cell">
+				<xs:annotation>
+					<xs:documentation>atm-trans-cell:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="vlan">
+				<xs:annotation>
+					<xs:documentation>vlan:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ethernet">
+				<xs:annotation>
+					<xs:documentation>ethernet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="hdlc">
+				<xs:annotation>
+					<xs:documentation>hdlc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ppp">
+				<xs:annotation>
+					<xs:documentation>ppp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cem">
+				<xs:annotation>
+					<xs:documentation>cem:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="atm-nto1-vcc">
+				<xs:annotation>
+					<xs:documentation>atm-nto1-vcc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="atm-nto1-vpc">
+				<xs:annotation>
+					<xs:documentation>atm-nto1-vpc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ip-layer2">
+				<xs:annotation>
+					<xs:documentation>ip-layer2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="atm-1to1-vcc">
+				<xs:annotation>
+					<xs:documentation>atm-1to1-vcc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="atm-1to1-vpc">
+				<xs:annotation>
+					<xs:documentation>atm-1to1-vpc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="atm-aal5-pdu">
+				<xs:annotation>
+					<xs:documentation>atm-aal5-pdu:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="fr-port-mode">
+				<xs:annotation>
+					<xs:documentation>fr-port-mode:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>		
+			<xs:enumeration value="cesop">
+				<xs:annotation>
+					<xs:documentation>cesop:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>				
+			<xs:enumeration value="satop-e1">
+				<xs:annotation>
+					<xs:documentation>satop-e1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="satop-t1">
+				<xs:annotation>
+					<xs:documentation>satop-t1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+			<xs:enumeration value="satop-e3">
+				<xs:annotation>
+					<xs:documentation>satop-e3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="satop-t3">
+				<xs:annotation>
+					<xs:documentation>satop-t3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>	
+			<xs:enumeration value="cesopsn-basic">
+				<xs:annotation>
+					<xs:documentation>cesopsn-basic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>		
+			<xs:enumeration value="tdmoip_aal1">
+				<xs:annotation>
+					<xs:documentation>tdmoip_aal1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>			
+			<xs:enumeration value="cesopsn_tdm">
+				<xs:annotation>
+					<xs:documentation>cesopsn_tdm:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tdmoip_aal2">
+				<xs:annotation>
+					<xs:documentation>tdmoip_aal2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>	
+			<xs:enumeration value="fr_dlci">
+				<xs:annotation>
+					<xs:documentation>fr_dlci:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>				
+			<xs:enumeration value="ip-interworking">
+				<xs:annotation>
+					<xs:documentation>ip-interworking:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnBackupMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="primary">
+				<xs:annotation>
+					<xs:documentation>primary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="secondary">
+				<xs:annotation>
+					<xs:documentation>secondary:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnAvailableMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="available">
+				<xs:annotation>
+					<xs:documentation>available:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unavailable">
+				<xs:annotation>
+					<xs:documentation>unavailable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnTnlType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid:空隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ldp">
+				<xs:annotation>
+					<xs:documentation>ldp:ldp类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp">
+				<xs:annotation>
+					<xs:documentation>bgp:bgp类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="te">
+				<xs:annotation>
+					<xs:documentation>te:te类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="static_lsp">
+				<xs:annotation>
+					<xs:documentation>static-lsp:static-lsp类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="gre">
+				<xs:annotation>
+					<xs:documentation>gre:gre类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="uni">
+				<xs:annotation>
+					<xs:documentation>uni:uni类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="tnl_group">
+				<xs:annotation>
+					<xs:documentation>tnl-group:隧道组</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sub_te">
+				<xs:annotation>
+					<xs:documentation>sub-te:子隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="sub_group">
+				<xs:annotation>
+					<xs:documentation>sub-group:子隧道隧道组</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6over4">
+				<xs:annotation>
+					<xs:documentation>6over4:手动方式的IPv4承载IPv6隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="6to4">
+				<xs:annotation>
+					<xs:documentation>6to4:自动方式的IPv4承载IPv6隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="bgp_local_ifnet">
+				<xs:annotation>
+					<xs:documentation>bgp_local_ifnet类型的隧道，用于OptionB场景</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ldp6">
+				<xs:annotation>
+					<xs:documentation>ldp6:ldp类型的隧道</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnMacType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="static">
+				<xs:annotation>
+					<xs:documentation>static:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dynamic">
+				<xs:annotation>
+					<xs:documentation>dynamic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="broadcast">
+				<xs:annotation>
+					<xs:documentation>broadcast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnPipeMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pipe">
+				<xs:annotation>
+					<xs:documentation>pipe:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="shortPipe">
+				<xs:annotation>
+					<xs:documentation>shortPipe:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="uniform">
+				<xs:annotation>
+					<xs:documentation>uniform:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnDsName">
+		<xs:annotation>
+			<xs:documentation>now qosDsName is like string</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnServiceClass">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="be">
+				<xs:annotation>
+					<xs:documentation>be:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af1">
+				<xs:annotation>
+					<xs:documentation>af1:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af2">
+				<xs:annotation>
+					<xs:documentation>af2:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af3">
+				<xs:annotation>
+					<xs:documentation>af3:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="af4">
+				<xs:annotation>
+					<xs:documentation>af4:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ef">
+				<xs:annotation>
+					<xs:documentation>ef:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cs6">
+				<xs:annotation>
+					<xs:documentation>cs6:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cs7">
+				<xs:annotation>
+					<xs:documentation>cs7:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnColor">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="green">
+				<xs:annotation>
+					<xs:documentation>green:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="yellow">
+				<xs:annotation>
+					<xs:documentation>yellow:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="red">
+				<xs:annotation>
+					<xs:documentation>red:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnPwApsOperType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="revertive">
+				<xs:annotation>
+					<xs:documentation>revertive:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="non-revertive">
+				<xs:annotation>
+					<xs:documentation>non-revertive:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnPwApsRole">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PW APS">
+				<xs:annotation>
+					<xs:documentation>PW APS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E-PW APS master">
+				<xs:annotation>
+					<xs:documentation>E-PW APS master:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="E-PW APS slave">
+				<xs:annotation>
+					<xs:documentation>E-PW APS slave:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnPwApsPsType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="force">
+				<xs:annotation>
+					<xs:documentation>force:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="manual">
+				<xs:annotation>
+					<xs:documentation>manual:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lock">
+				<xs:annotation>
+					<xs:documentation>lock:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="clear">
+				<xs:annotation>
+					<xs:documentation>clear:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnOamMappingType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="auto">
+				<xs:annotation>
+					<xs:documentation>auto:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lag">
+				<xs:annotation>
+					<xs:documentation>lag:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3ah">
+				<xs:annotation>
+					<xs:documentation>3ah:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnRerouteMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="delay">
+				<xs:annotation>
+					<xs:documentation>delay:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="immediately">
+				<xs:annotation>
+					<xs:documentation>immediately:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="never">
+				<xs:annotation>
+					<xs:documentation>never:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="l2vpnCCMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="cw">
+				<xs:annotation>
+					<xs:documentation>cw:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="alert">
+				<xs:annotation>
+					<xs:documentation>alert:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OamNotifyMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="detect">
+				<xs:annotation>
+					<xs:documentation>detect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="notify">
+				<xs:annotation>
+					<xs:documentation>notify:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OamPacketType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="detect">
+				<xs:annotation>
+					<xs:documentation>detect:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="notify">
+				<xs:annotation>
+					<xs:documentation>notify:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TrackPwType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="admin-vc">
+				<xs:annotation>
+					<xs:documentation>admin-vc:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="admin-vrrp">
+				<xs:annotation>
+					<xs:documentation>admin-vrrp:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="cfm">
+				<xs:annotation>
+					<xs:documentation>cfm:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PwRedundancyMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="frr">
+				<xs:annotation>
+					<xs:documentation>frr:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="masterSlave">
+				<xs:annotation>
+					<xs:documentation>masterSlave:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="independent">
+				<xs:annotation>
+					<xs:documentation>independent:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVplsVsimemDiscType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="auto">
+				<xs:annotation>
+					<xs:documentation>auto:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="static">
+				<xs:annotation>
+					<xs:documentation>static:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnLoadBalanceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="packet">
+				<xs:annotation>
+					<xs:documentation>packet:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="stream">
+				<xs:annotation>
+					<xs:documentation>stream:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnStreamReceiveType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="single">
+				<xs:annotation>
+					<xs:documentation>single:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dual">
+				<xs:annotation>
+					<xs:documentation>dual:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnPwPerfomance">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVplsUnknowframeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unicast">
+				<xs:annotation>
+					<xs:documentation>unicast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multicast ">
+				<xs:annotation>
+					<xs:documentation>multicast :</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVplsUnknowframeAct">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="broadcast">
+				<xs:annotation>
+					<xs:documentation>broadcast:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="drop">
+				<xs:annotation>
+					<xs:documentation>drop:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="local-handle">
+				<xs:annotation>
+					<xs:documentation>local-handle:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="drop-learn">
+				<xs:annotation>
+					<xs:documentation>drop-learn:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVplsPwSuppressType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=" broadcast-suppression">
+				<xs:annotation>
+					<xs:documentation>broadcast-suppression:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="multicast-suppression">
+				<xs:annotation>
+					<xs:documentation>multicast-suppression:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="unknown-unicast-suppression">
+				<xs:annotation>
+					<xs:documentation>unknown-unicast-suppression:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVplsLdpPeerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="static">
+				<xs:annotation>
+					<xs:documentation>static:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="dynamic">
+				<xs:annotation>
+					<xs:documentation>dynamic:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVplsPwType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="label">
+				<xs:annotation>
+					<xs:documentation>label:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="QinQ">
+				<xs:annotation>
+					<xs:documentation>QinQ:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MEHVPLS">
+				<xs:annotation>
+					<xs:documentation>MEHVPLS:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVplsTraffStatEnableType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default">
+				<xs:annotation>
+					<xs:documentation>default:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVplsLdpPwStateCode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="forward">
+				<xs:annotation>
+					<xs:documentation>forward:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="not forward">
+				<xs:annotation>
+					<xs:documentation>not forward:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="standby">
+				<xs:annotation>
+					<xs:documentation>standby:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ac fault">
+				<xs:annotation>
+					<xs:documentation>ac fault:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="psn fault">
+				<xs:annotation>
+					<xs:documentation>psn fault:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVpwsVrrpState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Initialize">
+				<xs:annotation>
+					<xs:documentation>Initialize:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Backup">
+				<xs:annotation>
+					<xs:documentation>Backup:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Master">
+				<xs:annotation>
+					<xs:documentation>Master:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L2vpnVpwsBfdState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="invalid">
+				<xs:annotation>
+					<xs:documentation>invalid State:0:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="down">
+				<xs:annotation>
+					<xs:documentation>down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="up">
+				<xs:annotation>
+					<xs:documentation>up:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="admin down">
+				<xs:annotation>
+					<xs:documentation>admin down:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+		<xs:simpleType name="L2vpnShowBoolType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="false">
+				<xs:annotation>
+					<xs:documentation>false:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="true">
+				<xs:annotation>
+					<xs:documentation>true:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vplsPwLdpSignalMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="pwLdpSignal">
+				<xs:annotation>
+					<xs:documentation>pwLdpSignal:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ifLinkProtocolTranState">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="enable">
+				<xs:annotation>
+					<xs:documentation>enable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="disable">
+				<xs:annotation>
+					<xs:documentation>disable:</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

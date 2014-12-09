@@ -1,0 +1,3137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Schema content Version: 1.0
+file format version: 1.0
+VIST version: VIST 0.2.4
+Copyright (c) 2008-2010 by HUAWEI TECHNOLOGIES.
+All rights reserved.
+-->
+<xs:schema xmlns="http://www.huawei.com/netconf/vrp" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/netconf/vrp" elementFormDefault="qualified" attributeFormDefault="unqualified" xml:lang="en">
+	<xs:annotation>
+		<xs:appinfo>
+			<formatVersion>1.0</formatVersion>
+			<contentVersion>1.0</contentVersion>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:include schemaLocation="pub_attribute.xsd"/>
+	<xs:include schemaLocation="pub_type.xsd"/>
+	<xs:include schemaLocation="rtp_type.xsd"/>
+	<xs:element name="rtp" type="rtp_rtp_type">
+		<xs:annotation>
+			<xs:appinfo>
+				<taskName>rtp</taskName>
+			</xs:appinfo>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="rtp_rtp_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="asPathFilters" type="rtp_asPathFilters_type"/>
+			<xs:element name="communityFilters" type="rtp_communityFilters_type"/>
+			<xs:element name="extendCommunityFilters" type="rtp_extendCommunityFilters_type"/>
+			<xs:element name="rdFilters" type="rtp_rdFilters_type"/>
+			<xs:element name="prefixFilters" type="rtp_prefixFilters_type"/>
+			<xs:element name="ipv6PrefixFilters" type="rtp_ipv6PrefixFilters_type"/>
+			<xs:element name="routePolicys" type="rtp_routePolicys_type"/>
+			<xs:element name="tunnelSelectors" type="rtp_tunnelSelectors_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="versionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_asPathFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="asPathFilter" type="rtp_asPathFilter_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_asPathFilter_type">
+		<xs:annotation>
+			<xs:documentation>As Path过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index">
+				<xs:annotation>
+					<xs:documentation>As Path过滤器索引值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="51"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="asPathFilterNodes" type="rtp_asPathFilterNodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_asPathFilterNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="asPathFilterNode" type="rtp_asPathFilterNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_asPathFilterNode_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regular">
+				<xs:annotation>
+					<xs:documentation>正则表达式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+			<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_communityFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="communityFilter" type="rtp_communityFilter_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_communityFilter_type">
+		<xs:annotation>
+			<xs:documentation>团体属性过滤器</xs:documentation>
+			<xs:appinfo>
+				<autoDeleteChildren>true</autoDeleteChildren>
+			</xs:appinfo>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="communityFilterType" type="rtpCmntyFilterType">
+				<xs:annotation>
+					<xs:documentation>团体过滤器类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmntyNameOrNum">
+				<xs:annotation>
+					<xs:documentation>基本团体属性过滤器名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="51"/>
+						<xs:minLength value="1"/>
+						<xs:pattern value="^((0*[1-9][0-9]?)|(0*1[0-9][0-9])|([^?\s0-9][^?\s]{0,50})|([\d][^?\s]*[^?\s0-9][^?\s]*))$"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="basicCommunityNodes" type="rtp_basicCommunityNodes_type"/>
+			<xs:element name="advancedCommunityNodes" type="rtp_advancedCommunityNodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_extendCommunityFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="extendCommunityFilter" type="rtp_extendCommunityFilter_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_extendCommunityFilter_type">
+		<xs:annotation>
+			<xs:documentation>扩展团体属性过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index">
+				<xs:annotation>
+					<xs:documentation>扩展团体属性过滤器的索引值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="199"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="extendCommunityFilterNodes" type="rtp_extendCommunityFilterNodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_extendCommunityFilterNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="extendCommunityFilterNode" type="rtp_extendCommunityFilterNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_extendCommunityFilterNode_type">
+		<xs:annotation>
+			<xs:documentation>扩展团体属性过滤器节点</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stringValue1">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue2">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue3">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue4">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue5">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue6">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue7">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue8">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue9">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue10">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue11">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue12">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue13">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue14">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue15">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue16">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_rdFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rdFilter" type="rtp_rdFilter_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_rdFilter_type">
+		<xs:annotation>
+			<xs:documentation>route-target属性过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="index">
+				<xs:annotation>
+					<xs:documentation>RD过滤器的索引值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="199"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="rdFilterNodes" type="rtp_rdFilterNodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_rdFilterNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rdFilterNode" type="rtp_rdFilterNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_rdFilterNode_type">
+		<xs:annotation>
+			<xs:documentation>route-target属性过滤器节点</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rdStrings" type="rtp_rdStrings_type">
+				<xs:annotation>
+					<xs:documentation>RD string values</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_prefixFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="prefixFilter" type="rtp_prefixFilter_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_prefixFilter_type">
+		<xs:annotation>
+			<xs:documentation>前缀过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="name">
+				<xs:annotation>
+					<xs:documentation>前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="permitCnt" default="0">
+				<xs:annotation>
+					<xs:documentation>通过匹配的路由数</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="denyCnt" default="0">
+				<xs:annotation>
+					<xs:documentation>没有通过匹配的路由数</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="prefixFilterNodes" type="rtp_prefixFilterNodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_prefixFilterNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="prefixFilterNode" type="rtp_prefixFilterNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_prefixFilterNode_type">
+		<xs:annotation>
+			<xs:documentation>前缀过滤器节点</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="address">
+				<xs:annotation>
+					<xs:documentation>前缀ip地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maskLength">
+				<xs:annotation>
+					<xs:documentation>前缀掩码</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="greaterEqual">
+				<xs:annotation>
+					<xs:documentation>前缀列表的一个配置项，标识掩码的范围</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lessEqual">
+				<xs:annotation>
+					<xs:documentation>前缀列表的一个配置项，标识掩码的范围</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_ipv6PrefixFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ipv6PrefixFilter" type="rtp_ipv6PrefixFilter_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_ipv6PrefixFilter_type">
+		<xs:annotation>
+			<xs:documentation>ipv6前缀过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="name">
+				<xs:annotation>
+					<xs:documentation>ipv6前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="permitCnt" default="0">
+				<xs:annotation>
+					<xs:documentation>通过匹配的路由数</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="denyCnt" default="0">
+				<xs:annotation>
+					<xs:documentation>没有通过匹配的路由数</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readOnly</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipv6PrefixFilterNodes" type="rtp_ipv6PrefixFilterNodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_ipv6PrefixFilterNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="ipv6PrefixFilterNode" type="rtp_ipv6PrefixFilterNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_ipv6PrefixFilterNode_type">
+		<xs:annotation>
+			<xs:documentation>ipv6前缀过滤器节点</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="address">
+				<xs:annotation>
+					<xs:documentation>ipv6前缀地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv6Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maskLength">
+				<xs:annotation>
+					<xs:documentation>前缀掩码</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="greaterEqual">
+				<xs:annotation>
+					<xs:documentation>前缀列表的一个配置项，标识掩码的范围</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lessEqual">
+				<xs:annotation>
+					<xs:documentation>前缀列表的一个配置项，标识掩码的范围</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<allowNull>true</allowNull>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedByte">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="128"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_routePolicys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="routePolicy" type="rtp_routePolicy_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_routePolicy_type">
+		<xs:annotation>
+			<xs:documentation>路由策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="name">
+				<xs:annotation>
+					<xs:documentation>策略名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routePolicyNodes" type="rtp_routePolicyNodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_routePolicyNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="routePolicyNode" type="rtp_routePolicyNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_routePolicyNode_type">
+		<xs:annotation>
+			<xs:documentation>路由策略节点</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description">
+				<xs:annotation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+					</xs:appinfo>
+					<xs:documentation>Description.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchCondition" type="rtp_matchCondition_type"/>
+			<xs:element name="applyAction" type="rtp_applyAction_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_tunnelSelectors_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tunnelSelector" type="rtp_tunnelSelector_type" minOccurs="0" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_tunnelSelector_type">
+		<xs:annotation>
+			<xs:documentation>隧道选择器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="name">
+				<xs:annotation>
+					<xs:documentation>策略名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="40"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tunnelSelectorNodes" type="rtp_tunnelSelectorNodes_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_tunnelSelectorNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tunnelSelectorNode" type="rtp_tunnelSelectorNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_tunnelSelectorNode_type">
+		<xs:annotation>
+			<xs:documentation>隧道选择器节点</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="matchCondition" type="rtp_ts_matchCondition_type"/>
+			<xs:element name="applyAction" type="rtp_ts_applyAction_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchAsPathFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchAsPathFilter" type="rtp_matchAsPathFilter_type" minOccurs="0" maxOccurs="32"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchAsPathFilter_type">
+		<xs:annotation>
+			<xs:documentation>匹配AS路径属性过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="asPathIndex">
+				<xs:annotation>
+					<xs:documentation>AS路径过滤器的索引</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="51"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchCommunityFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchCommunityFilter" type="rtp_matchCommunityFilter_type" minOccurs="0" maxOccurs="32"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchCommunityFilter_type">
+		<xs:annotation>
+			<xs:documentation>匹配团体属性过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="wholeMatch" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>是否配置Whole-Match选项</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmntyNameOrNum">
+				<xs:annotation>
+					<xs:documentation>团体属性名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="51"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchExtcommunityFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchExtcommunityFilter" type="rtp_matchExtcommunityFilter_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchExtcommunityFilter_type">
+		<xs:annotation>
+			<xs:documentation>匹配扩展团体属性过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="extCmntyIndex">
+				<xs:annotation>
+					<xs:documentation>扩展团体属性过滤器的索引</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="199"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRdFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchRdFilter" type="rtp_matchRdFilter_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRdFilter_type">
+		<xs:annotation>
+			<xs:documentation>匹配rd属性过滤器</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="rdIndex">
+				<xs:annotation>
+					<xs:documentation>RD属性过滤器的索引</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="199"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchCosts_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchCost" type="rtp_matchCost_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchCost_type">
+		<xs:annotation>
+			<xs:documentation>匹配开销值</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="costValue" default="0">
+				<xs:annotation>
+					<xs:documentation>路由开销值</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRouteTypes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchRouteType" type="rtp_matchRouteType_type" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRouteType_type">
+		<xs:annotation>
+			<xs:documentation>匹配路由协议类型</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routeType" type="rtpMchRtType">
+				<xs:annotation>
+					<xs:documentation>路由协议类型</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchTags_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchTag" type="rtp_matchTag_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchTag_type">
+		<xs:annotation>
+			<xs:documentation>匹配路由tag值</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tagValue" default="0">
+				<xs:annotation>
+					<xs:documentation>路由tag值</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchMplsLabels_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchMplsLabel" type="rtp_matchMplsLabel_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchMplsLabel_type">
+		<xs:annotation>
+			<xs:documentation>匹配MPLS标签</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="mplsLabel" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>mplsLabel</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCosts_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyCost" type="rtp_applyCost_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCost_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的开销值</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="applyChoice" type="rtpApplyCostChoice">
+				<xs:annotation>
+					<xs:documentation>路由开销的设置类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="costValue" default="0">
+				<xs:annotation>
+					<xs:documentation>路由的开销值</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyTags_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyTag" type="rtp_applyTag_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyTag_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的tag值</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tagValue">
+				<xs:annotation>
+					<xs:documentation>路由的tag值</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyMplsLabels_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyMplsLabel" type="rtp_applyMplsLabel_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyMplsLabel_type">
+		<xs:annotation>
+			<xs:documentation>设置MPLS标签</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="mplsLabel" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>mplsLabel</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyAsPaths_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyAsPath" type="rtp_applyAsPath_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyAsPath_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的As路径号</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="asPathStrings" type="rtp_applyAsPathStrings_type">
+				<xs:annotation>
+					<xs:documentation>AS路径属性值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="operationType" type="rtpAdditiveChoice" default="replace">
+				<xs:annotation>
+					<xs:documentation>operationType</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCommunityFilterDeletes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyCommunityFilterDelete" type="rtp_applyCommunityFilterDelete_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCommunityFilterDelete_type">
+		<xs:annotation>
+			<xs:documentation>设置要删除的路由团体属性</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="communityNameOrNum">
+				<xs:annotation>
+					<xs:documentation>团体属性过滤器名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="51"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCommunitys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyCommunity" type="rtp_applyCommunity_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCommunity_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的团体属性</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="operationType" type="rtpAdditiveChoice" default="replace">
+				<xs:annotation>
+					<xs:documentation>no-advertise</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="applyCmntyStrings" type="rtp_applyCommunityStrings_type"/>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCostTypes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyCostType" type="rtp_applyCostType_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCostType_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的度量类型</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="costType" type="rtpCostType">
+				<xs:annotation>
+					<xs:documentation>路由开销类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyLocalPreferences_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyLocalPreference" type="rtp_applyLocalPreference_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyLocalPreference_type">
+		<xs:annotation>
+			<xs:documentation>设置BGP路由的本地优先级</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="localPreference">
+				<xs:annotation>
+					<xs:documentation>路由本地优先级</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyTnlPolicys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyTnlPolicy" type="rtp_applyTnlPolicy_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyTnlPolicy_type">
+		<xs:annotation>
+			<xs:documentation>设置隧道策略</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="tnlPolicyName">
+				<xs:annotation>
+					<xs:documentation>隧道策略名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="39"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyPreferences_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyPreference" type="rtp_applyPreference_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyPreference_type">
+		<xs:annotation>
+			<xs:documentation>设置协议的优先级</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="preference">
+				<xs:annotation>
+					<xs:documentation>协议优先级</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyTrafficIndexs_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyTrafficIndex" type="rtp_applyTrafficIndex_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyTrafficIndex_type">
+		<xs:annotation>
+			<xs:documentation>设置BGP的流量统计索引</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="trafficIndex">
+				<xs:annotation>
+					<xs:documentation>流量统计索引</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="64"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyPreferredValues_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyPreferredValue" type="rtp_applyPreferredValue_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyPreferredValue_type">
+		<xs:annotation>
+			<xs:documentation>设置BGP路由的权重值</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="preferredValue">
+				<xs:annotation>
+					<xs:documentation>BGP权重值</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="65535"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyNextHops_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyNextHop" type="rtp_applyNextHop_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyNextHop_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的下一跳地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nextHop">
+				<xs:annotation>
+					<xs:documentation>路由下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv4Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isPeerAddress" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>设置为对等体地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyIpv6NextHops_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyIpv6NextHop" type="rtp_applyIpv6NextHop_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyIpv6NextHop_type">
+		<xs:annotation>
+			<xs:documentation>设置ipv6路由的下一跳地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipv6NextHop">
+				<xs:annotation>
+					<xs:documentation>ipv6路由下一跳地址</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="ipv6Address">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isPeerAddress" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>设置为对等体地址</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyRouteTypes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyRouteType" type="rtp_applyRouteType_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyRouteType_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的引入去向</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="routeType" type="rtpRouteType">
+				<xs:annotation>
+					<xs:documentation>路由引入的类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyExtendCommunitys_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyExtendCommunity" type="rtp_applyExtendCommunity_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyExtendCommunity_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的扩展团体属性</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="applyExtCmntyStrings" type="rtp_applyExtCommunityStrings_type">
+				<xs:annotation>
+					<xs:documentation>扩展团体属性值</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="additiveFlag" type="xs:boolean" default="false">
+				<xs:annotation>
+					<xs:documentation>追加标志位</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyOrigins_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyOrigin" type="rtp_applyOrigin_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyOrigin_type">
+		<xs:annotation>
+			<xs:documentation>设置BGP路由来源</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="originType" type="rtpOriginType">
+				<xs:annotation>
+					<xs:documentation>源路由类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="asStrOrNum">
+				<xs:annotation>
+					<xs:documentation>字符串形式的as号</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="11"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyQosParas_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyQosPara" type="rtp_applyQosPara_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyQosPara_type">
+		<xs:annotation>
+			<xs:documentation>设置Qos相关参数</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="QosType" type="rtpApplyQosChoice">
+				<xs:annotation>
+					<xs:documentation>Qos参数类型</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qosLocalID">
+				<xs:annotation>
+					<xs:documentation>QoS ID值</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="32"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ipPrecedence">
+				<xs:annotation>
+					<xs:documentation>QoS ip优先级</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="behaviorName">
+				<xs:annotation>
+					<xs:documentation>QoS流行为</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchDestPrefixFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchDestPrefixFilter" type="rtp_matchDestPrefixFilter_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchDestPrefixFilter_type">
+		<xs:annotation>
+			<xs:documentation>按前缀过滤器匹配路由的目的地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="prefixName">
+				<xs:annotation>
+					<xs:documentation>前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchDestPrefix6Filters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchDestPrefix6Filter" type="rtp_matchDestPrefix6Filter_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchDestPrefix6Filter_type">
+		<xs:annotation>
+			<xs:documentation>按前缀过滤器匹配ipv6路由的目的地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipv6PrefixName">
+				<xs:annotation>
+					<xs:documentation>ipv6前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRtSrcPrefixFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchRtSrcPrefixFilter" type="rtp_matchRtSrcPrefixFilter_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRtSrcPrefixFilter_type">
+		<xs:annotation>
+			<xs:documentation>按前缀过滤器匹配路由的邻居地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="prefixName">
+				<xs:annotation>
+					<xs:documentation>前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRtSrcPrefix6Filters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchRtSrcPrefix6Filter" type="rtp_matchRtSrcPrefix6Filter_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRtSrcPrefix6Filter_type">
+		<xs:annotation>
+			<xs:documentation>按前缀过滤器匹配ipv6路由的邻居地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipv6PrefixName">
+				<xs:annotation>
+					<xs:documentation>ipv6前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchNextHopPrefixFilters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchNextHopPrefixFilter" type="rtp_matchNextHopPrefixFilter_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchNextHopPrefixFilter_type">
+		<xs:annotation>
+			<xs:documentation>按前缀过滤器匹配路由的下一跳地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="prefixName">
+				<xs:annotation>
+					<xs:documentation>前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchIPv4NextHops_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchIPv4NextHop" type="rtp_matchIPv4NextHop_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchIPv4NextHop_type">
+		<xs:annotation>
+			<xs:documentation>匹配路由的下一跳地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="matchType" type="rtpTnlSelMchType">
+				<xs:annotation>
+					<xs:documentation>匹配规则类型</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prefixName">
+				<xs:annotation>
+					<xs:documentation>前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="aclNameOrNum">
+				<xs:annotation>
+					<xs:documentation>ACL的名字</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchIPv6NextHops_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchIPv6NextHop" type="rtp_matchIPv6NextHop_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchIPv6NextHop_type">
+		<xs:annotation>
+			<xs:documentation>匹配ipv6路由的下一跳地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipv6PrefixName">
+				<xs:annotation>
+					<xs:documentation>ipv6前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchNextHopPrefix6Filters_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchNextHopPrefix6Filter" type="rtp_matchNextHopPrefix6Filter_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchNextHopPrefix6Filter_type">
+		<xs:annotation>
+			<xs:documentation>按前缀过滤器匹配ipv6路由的下一跳地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ipv6PrefixName">
+				<xs:annotation>
+					<xs:documentation>ipv6前缀列表名</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="169"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchDestinationAcls_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchDestinationAcl" type="rtp_matchDestinationAcl_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchDestinationAcl_type">
+		<xs:annotation>
+			<xs:documentation>按ACL规则匹配路由的目的地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="aclNameOrNum">
+				<xs:annotation>
+					<xs:documentation>ACL的名字</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRouteSourceAcls_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchRouteSourceAcl" type="rtp_matchRouteSourceAcl_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchRouteSourceAcl_type">
+		<xs:annotation>
+			<xs:documentation>按ACL规则匹配路由的邻居地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="aclNameOrNum">
+				<xs:annotation>
+					<xs:documentation>ACL的名字</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchInterfaces_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchInterface" type="rtp_matchInterface_type" minOccurs="0" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchInterface_type">
+		<xs:annotation>
+			<xs:documentation>按接口名字的匹配</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ifName">
+				<xs:annotation>
+					<xs:documentation>接口名</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="ifName">
+							<xs:attribute name="ifIndex" type="xs:unsignedInt"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchNexthopAcls_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="matchNexthopAcl" type="rtp_matchNexthopAcl_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchNexthopAcl_type">
+		<xs:annotation>
+			<xs:documentation>按ACL规则匹配路由的下一跳地址</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="aclNameOrNum">
+				<xs:annotation>
+					<xs:documentation>ACL的名字</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyDampenings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyDampening" type="rtp_applyDampening_type" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyDampening_type">
+		<xs:annotation>
+			<xs:documentation>设置路由的dampening值</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="halfLifeValue" default="15">
+				<xs:annotation>
+					<xs:documentation>路由的半衰期，单位为分钟，取值范围为1～45。缺省值为15</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="45"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="reuseValue" default="750">
+				<xs:annotation>
+					<xs:documentation>路由解除抑制状态的阈值。当惩罚降低到该值以下，路由就被再使用，取值范围为1～20000。缺省值为750。</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="20000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="suppressValue" default="2000">
+				<xs:annotation>
+					<xs:documentation>路由进入抑制状态的阈值。当惩罚超过该极限时，路由受到抑制，取值范围为1～20000，所配置的值必须大于reuse的值。缺省值为2000</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="20000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ceilingValue" default="16000">
+				<xs:annotation>
+					<xs:documentation>惩罚上限值，取值范围为1001～20000，实际配置的值必须大于suppress。缺省值为16000</xs:documentation>
+					<xs:appinfo>
+						<mandatory>true</mandatory>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1001"/>
+						<xs:maxInclusive value="20000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_rdStrings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="rdString" type="rtp_rdString_type" maxOccurs="10"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_rdString_type">
+		<xs:annotation>
+			<xs:documentation>route-target string value</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="stringValue">
+				<xs:annotation>
+					<xs:documentation>RD String Value</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_communityStrings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="rtp_communityString_type">
+		<xs:annotation>
+			<xs:documentation>community string value</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyAsPathStrings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="asPathString" type="rtp_applyAsPathString_type" maxOccurs="10"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyAsPathString_type">
+		<xs:annotation>
+			<xs:documentation>apply as path string value</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="sequenceNumber">
+				<xs:annotation>
+					<xs:documentation>sequence Number</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="10"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="11"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCommunityStrings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyCmntyString" type="rtp_applyCommunityString_type" maxOccurs="32"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyCommunityString_type">
+		<xs:annotation>
+			<xs:documentation>apply community string value</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="stringValue">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyExtCommunityStrings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="applyExtCmntyString" type="rtp_applyExtCommunityString_type" maxOccurs="16"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyExtCommunityString_type">
+		<xs:annotation>
+			<xs:documentation>apply extcommunity string value</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="stringValue">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+						<unique>true</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="21"/>
+						<xs:minLength value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_extCommunityStrings_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="rtp_extCommunityString_type">
+		<xs:annotation>
+			<xs:documentation>extcommunity string value</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_advancedCommunityNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="advancedCommunityNode" type="rtp_advancedCommunityNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_advancedCommunityNode_type">
+		<xs:annotation>
+			<xs:documentation>the advanced community filter node</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regular">
+				<xs:annotation>
+					<xs:documentation>正则表达式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="255"/>
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_basicCommunityNodes_type">
+		<xs:annotation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="basicCommunityNode" type="rtp_basicCommunityNode_type" maxOccurs="65535"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rtp_basicCommunityNode_type">
+		<xs:annotation>
+			<xs:documentation>the basic community filter node</xs:documentation>
+			<xs:appinfo/>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="nodeSequence">
+				<xs:annotation>
+					<xs:documentation>节点序列号</xs:documentation>
+					<xs:appinfo>
+						<key>true</key>
+						<access>readCreate</access>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="4294967295"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="matchMode" type="rtpMatchMode">
+				<xs:annotation>
+					<xs:documentation>匹配模式</xs:documentation>
+					<xs:appinfo>
+						<access>readCreate</access>
+						<mandatory>true</mandatory>
+					</xs:appinfo>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stringValue1">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue2">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue3">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue4">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue5">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue6">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue7">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue8">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue9">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue10">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue11">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue12">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue13">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue14">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue15">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue16">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue17">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue18">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue19">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stringValue20">
+				<xs:annotation>
+					<xs:documentation>string Value</xs:documentation>
+					<xs:appinfo>
+						<key>false</key>
+						<access>readCreate</access>
+						<mandatory>false</mandatory>
+						<unique>false</unique>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="19"/>
+						<xs:minLength value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+		<xs:attributeGroup ref="objectAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="rtp_matchCondition_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="matchCosts" type="rtp_matchCosts_type"/>
+			<xs:element name="matchInterfaces" type="rtp_matchInterfaces_type"/>
+			<xs:element name="matchRouteTypes" type="rtp_matchRouteTypes_type"/>
+			<xs:element name="matchTags" type="rtp_matchTags_type"/>
+			<xs:element name="matchMplsLabels" type="rtp_matchMplsLabels_type"/>
+			<xs:element name="matchDestinationAcls" type="rtp_matchDestinationAcls_type"/>
+			<xs:element name="matchDestPrefixFilters" type="rtp_matchDestPrefixFilters_type"/>
+			<xs:element name="matchDestPrefix6Filters" type="rtp_matchDestPrefix6Filters_type"/>
+			<xs:element name="matchNextHopPrefixFilters" type="rtp_matchNextHopPrefixFilters_type"/>
+			<xs:element name="matchNexthopAcls" type="rtp_matchNexthopAcls_type"/>
+			<xs:element name="matchNextHopPrefix6Filters" type="rtp_matchNextHopPrefix6Filters_type"/>
+			<xs:element name="matchRouteSourceAcls" type="rtp_matchRouteSourceAcls_type"/>
+			<xs:element name="matchRtSrcPrefixFilters" type="rtp_matchRtSrcPrefixFilters_type"/>
+			<xs:element name="matchRtSrcPrefix6Filters" type="rtp_matchRtSrcPrefix6Filters_type"/>
+			<xs:element name="matchCommunityFilters" type="rtp_matchCommunityFilters_type"/>
+			<xs:element name="matchExtcommunityFilters" type="rtp_matchExtcommunityFilters_type"/>
+			<xs:element name="matchRdFilters" type="rtp_matchRdFilters_type"/>
+			<xs:element name="matchAsPathFilters" type="rtp_matchAsPathFilters_type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="rtp_applyAction_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="applyAsPaths" type="rtp_applyAsPaths_type"/>
+			<xs:element name="applyNextHops" type="rtp_applyNextHops_type"/>
+			<xs:element name="applyLocalPreferences" type="rtp_applyLocalPreferences_type"/>
+			<xs:element name="applyCosts" type="rtp_applyCosts_type"/>
+			<xs:element name="applyIpv6NextHops" type="rtp_applyIpv6NextHops_type"/>
+			<xs:element name="applyCostTypes" type="rtp_applyCostTypes_type"/>
+			<xs:element name="applyOrigins" type="rtp_applyOrigins_type"/>
+			<xs:element name="applyCommunitys" type="rtp_applyCommunitys_type"/>
+			<xs:element name="applyTags" type="rtp_applyTags_type"/>
+			<xs:element name="applyMplsLabels" type="rtp_applyMplsLabels_type"/>
+			<xs:element name="applyPreferences" type="rtp_applyPreferences_type"/>
+			<xs:element name="applyExtendCommunitys" type="rtp_applyExtendCommunitys_type"/>
+			<xs:element name="applyCommunityFilterDeletes" type="rtp_applyCommunityFilterDeletes_type"/>
+			<xs:element name="applyDampenings" type="rtp_applyDampenings_type"/>
+			<xs:element name="applyRouteTypes" type="rtp_applyRouteTypes_type"/>
+			<xs:element name="applyPreferredValues" type="rtp_applyPreferredValues_type"/>
+			<xs:element name="applyQosParas" type="rtp_applyQosParas_type"/>
+			<xs:element name="applyTrafficIndexs" type="rtp_applyTrafficIndexs_type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="rtp_ts_matchCondition_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="matchIPv4NextHops" type="rtp_matchIPv4NextHops_type"/>
+			<xs:element name="matchIPv6NextHops" type="rtp_matchIPv6NextHops_type"/>
+			<xs:element name="matchRdFilters" type="rtp_matchRdFilters_type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="rtp_ts_applyAction_type">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="applyTnlPolicys" type="rtp_applyTnlPolicys_type"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>
